@@ -17,7 +17,7 @@ OpenTable is a web application inspired by OpenTable. This web application is bu
 
 * [View Wireframes](https://github.com/zhuo-ch/OpenTable/tree/master/docs/wireframes)
 * //link to react components
-* //link to api endpoints
+* [API Endpoints](https://github.com/zhuo-ch/OpenTable/tree/master/docs/api-endpoints.md)
 * [DB Schema](https://github.com/zhuo-ch/OpenTable/tree/master/docs/schema.md)
 * [Sample State](https://github.com/zhuo-ch/OpenTable/blob/master/docs/sample-state.md)
 
