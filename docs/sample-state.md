@@ -1,4 +1,4 @@
-{
+```{
   currentUser: {
     id: userId,
     username: first name,
@@ -49,4 +49,4 @@
   favorites: {
     restaurant: restaurant_id,
   }
-}
+}```

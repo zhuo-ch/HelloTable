@@ -19,6 +19,6 @@ OpenTable is a web application inspired by OpenTable. This web application is bu
 * //link to react components
 * //link to api endpoints
 * [DB Schema](https://github.com/zhuo-ch/OpenTable/tree/master/docs/schema.md)
-* // link to sample state
+* [Sample State](https://github.com/zhuo-ch/OpenTable/blob/master/docs/sample-state.md)
 
 <h2>Implementation Timeline</h2>
