@@ -1,7 +1,7 @@
 <h2>OpenTable</h2>
 
 * //pending Heroku link
-* //pending Trello link
+* [Trello](https://trello.com/b/ONOhYsX9/opentable)
 
 <h2>Minimum Viable Product</h2>
 
