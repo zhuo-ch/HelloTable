@@ -1,9 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router';
+import SessionForm from './session_form';
 
-const App = () => (
+const App = ({children}) => (
   <div>
-    <h1>Hello World</h1>
+    {children}
   </div>
 );
 
