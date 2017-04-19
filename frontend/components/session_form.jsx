@@ -10,10 +10,17 @@ class SessionForm extends React.Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
+  componentWillReceiveProps(nextProps) {
+    debugger
+    if (this.props.location.pathname !== nextProps.location.pathname) {
+      this.props.receiveErrors([]);
+    }
+  }
+
   handleSubmit(e) {
    e.preventDefault();
    const user = Object.assign({}, this.state);
-   this.props.processForm(user).then(() => hashHistory.push('/'));
+   this.props.processForm(user);
  }
 
   handleChange(e) {
@@ -22,24 +29,38 @@ class SessionForm extends React.Component {
     this.setState({[action]: e.currentTarget.value});
   }
 
+  renderErrors() {
+    return (
+      <ul>
+        {
+          this.props.errors.map((error) => (
+            <li>{error}</li>
+          ))
+        }
+      </ul>
+    );
+  }
+
   render() {
+
     let username;
     let welcome;
     let buttonText;
-      if (this.props.location.pathname === '/signup') {
+      if (this.props.formType === 'signup') {
         welcome = (<h3>Sign Up</h3>);
-        buttonText = "Sign Up"
+        buttonText = "Sign Up";
         username = (
         <label>User Name
           <input
             type="text"
             onChange={this.handleChange}
             className="username"/>
-        </label>)
+        </label>);
       } else {
         welcome = (<h3>Log In</h3>);
         buttonText = "Log In";
       }
+
     return (
       <form>
         { username }
@@ -57,9 +78,10 @@ class SessionForm extends React.Component {
             onChange={this.handleChange}
             className="password"/>
         </label>
+          {this.renderErrors()}
         <input type="submit" onClick={this.handleSubmit} value={buttonText}/>
       </form>
-    )
+    );
   }
 }
 

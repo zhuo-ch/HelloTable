@@ -7,10 +7,11 @@ const SessionReducer = (store = {}, action) => {
     case RECEIVE_CURRENT_USER:
       return merge({}, store, action.session);
     case RECEIVE_ERRORS:
-      return ;
+    const errors = action.errors;
+      return merge({}, store, {errors});
     default:
       return store;
   }
-}
+};
 
 export default SessionReducer;
