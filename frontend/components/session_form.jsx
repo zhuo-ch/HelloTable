@@ -1,6 +1,5 @@
 import React from 'react';
-import { withRouter, hashHistory } from 'react-router';
-import { assign } from 'lodash';
+import { Link } from 'react-router';
 
 class SessionForm extends React.Component {
   constructor(props) {
@@ -11,7 +10,6 @@ class SessionForm extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-
     if (this.props.location.pathname !== nextProps.location.pathname) {
       this.props.receiveErrors({base:""});
     }
@@ -20,7 +18,7 @@ class SessionForm extends React.Component {
   handleSubmit(e) {
    e.preventDefault();
    const user = Object.assign({}, this.state);
-   this.props.processForm(user);
+   this.props.processForm(user).then(() => this.props.router.push('/'));
  }
 
   handleChange(e) {
@@ -36,7 +34,7 @@ class SessionForm extends React.Component {
   }
 
   render() {
-
+    
     let username;
     let welcome;
     let buttonText;
@@ -48,7 +46,8 @@ class SessionForm extends React.Component {
           <input
             type="text"
             onChange={this.handleChange}
-            className="username"/>
+            className="username"
+            placeholder="Username"/>
         </label>);
       } else {
         welcome = (<h3>Log In</h3>);
@@ -63,14 +62,16 @@ class SessionForm extends React.Component {
             type="text"
               value={this.state.email}
               onChange={this.handleChange}
-              className="email"/>
+              className="email"
+              placeholder="Email Address"/>
         </label>
         <label>Password
           <input
             type="password"
             value={this.state.password}
             onChange={this.handleChange}
-            className="password"/>
+            className="password"
+            placeholder="Password"/>
         </label>
           {this.renderErrors()}
         <input type="submit" onClick={this.handleSubmit} value={buttonText}/>

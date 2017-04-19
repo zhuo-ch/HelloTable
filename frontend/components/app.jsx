@@ -6,8 +6,9 @@ import sessionFormContainer from './session_form_container';
 const App = ({children}) => (
   <div>
     <h2>Hello world</h2>
+    
     {children}
-  
+
   </div>
 );
 

@@ -2,6 +2,7 @@ import * as SessionApiUtil from '../util/session_api_util';
 
 export const RECEIVE_CURRENT_USER = 'RECEIVE_CURRENT_USER';
 export const RECEIVE_ERRORS = 'RECEIVE_ERRORS';
+export const LOGOUT = 'logOut';
 
 export const login = (user) => dispatch => {
 
@@ -37,3 +38,7 @@ export const receiveErrors = (errors) => {
     errors
   });
 };
+
+const logOut = () => ({
+  type: LOGOUT
+})
