@@ -23,20 +23,32 @@ class SessionForm extends React.Component {
   }
 
   render() {
-    return (
-      <form>
+    let username;
+    let welcome;
+    let buttonText;
+      if (this.props.location.pathname === '/signup') {
+        welcome = (<h3>Sign Up</h3>);
+        buttonText = "Sign Up"
+        username = (
         <label>User Name
           <input
             type="text"
             onChange={this.handleChange}
             className="username"/>
-        </label>
+        </label>)
+      } else {
+        welcome = (<h3>Log In</h3>);
+        buttonText = "Log In";
+      }
+    return (
+      <form>
+        { username }
         <label>Email Address
           <input
             type="text"
-            value={this.state.email}
-            onChange={this.handleChange}
-            className="email"/>
+              value={this.state.email}
+              onChange={this.handleChange}
+              className="email"/>
         </label>
         <label>Password
           <input
@@ -45,7 +57,7 @@ class SessionForm extends React.Component {
             onChange={this.handleChange}
             className="password"/>
         </label>
-        <input type="submit" onClick={this.handleSubmit}/>
+        <input type="submit" onClick={this.handleSubmit} value={buttonText}/>
       </form>
     )
   }
