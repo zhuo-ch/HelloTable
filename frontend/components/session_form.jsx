@@ -11,9 +11,9 @@ class SessionForm extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    debugger
+
     if (this.props.location.pathname !== nextProps.location.pathname) {
-      this.props.receiveErrors([]);
+      this.props.receiveErrors({base:""});
     }
   }
 
@@ -31,13 +31,7 @@ class SessionForm extends React.Component {
 
   renderErrors() {
     return (
-      <ul>
-        {
-          this.props.errors.map((error) => (
-            <li>{error}</li>
-          ))
-        }
-      </ul>
+      <h5>{this.props.errors.base}</h5>
     );
   }
 

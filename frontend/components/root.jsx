@@ -6,7 +6,7 @@ import sessionFormContainer from './session_form_container';
 import configureStore from '../store/store';
 
 const Root = () => {
-  let preloadedState = {session: {errors: []}};
+  let preloadedState = {session: {errors: {base: ""}}};
     if (window.currentUser) {
       preloadedState = { session: { currentUser: window.currentUser }};
     }

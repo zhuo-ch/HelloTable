@@ -5,13 +5,13 @@ import configureStore from './store/store';
 
 
 document.addEventListener('DOMContentLoaded', () => {
-  let preloadedState = {};
-    if (window.currentUser) {
-      preloadedState = { session: { currentUser: window.currentUser } };
-    }
-
-  const store = configureStore(preloadedState);
+  // let preloadedState;
+  //   if (window.currentUser) {
+  //     preloadedState = { session: { currentUser: window.currentUser } };
+  //   }
+  //
+  // const store = configureStore(preloadedState);
   const root = document.getElementById('root');
   //
-  ReactDOM.render(<Root store={store} />, root);
+  ReactDOM.render(<Root />, root);
 });
