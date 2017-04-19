@@ -34,13 +34,17 @@ class SessionForm extends React.Component {
   }
 
   render() {
-    
+
     let username;
     let welcome;
     let buttonText;
+    let linkText;
+    let link;
       if (this.props.formType === 'signup') {
         welcome = (<h3>Sign Up</h3>);
         buttonText = "Sign Up";
+        linkText = "Log In";
+        link = "login"
         username = (
         <label>User Name
           <input
@@ -52,30 +56,36 @@ class SessionForm extends React.Component {
       } else {
         welcome = (<h3>Log In</h3>);
         buttonText = "Log In";
+        linkText = "Sign Up";
+        link = "/signup"
       }
 
     return (
-      <form>
-        { username }
-        <label>Email Address
-          <input
-            type="text"
-              value={this.state.email}
+      <div className="login-form">
+        <h3>{welcome}</h3>
+        <form>
+          { username }
+          <label>Email Address
+            <input
+              type="text"
+                value={this.state.email}
+                onChange={this.handleChange}
+                className="email"
+                placeholder="Email Address"/>
+          </label>
+          <label>Password
+            <input
+              type="password"
+              value={this.state.password}
               onChange={this.handleChange}
-              className="email"
-              placeholder="Email Address"/>
-        </label>
-        <label>Password
-          <input
-            type="password"
-            value={this.state.password}
-            onChange={this.handleChange}
-            className="password"
-            placeholder="Password"/>
-        </label>
-          {this.renderErrors()}
-        <input type="submit" onClick={this.handleSubmit} value={buttonText}/>
-      </form>
+              className="password"
+              placeholder="Password"/>
+          </label>
+            {this.renderErrors()}
+          <input type="submit" onClick={this.handleSubmit} value={buttonText}/>
+        </form>
+        <Link to={link}>{linkText}</Link>
+      </div>
     );
   }
 }

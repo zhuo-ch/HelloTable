@@ -7,11 +7,9 @@ import { merge } from 'lodash';
 
 document.addEventListener('DOMContentLoaded', () => {
   let store;
-  // let preloadedState = {session: {errors: {base: ""}}};
-  debugger
     if (window.currentUser) {
       const preloadedState = { session: { currentUser: window.currentUser, errors: {base:""}}};
-      store = configureStore();
+      store = configureStore(preloadedState);
     } else {
       store = configureStore({session:{errors:{base:""}}});
     }
