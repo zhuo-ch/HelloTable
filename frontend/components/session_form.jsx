@@ -8,12 +8,23 @@ class SessionForm extends React.Component {
     this.state = {username: "", email: "", password: ""};
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.handleGuest = this.handleGuest.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
     if (this.props.location.pathname !== nextProps.location.pathname) {
       this.props.receiveErrors({base:""});
     }
+  }
+
+  handleGuest() {
+    const user = {user: {
+      username: 'Guest',
+      email: 'guest@guest-email.com',
+      password: 'password'
+    }};
+
+    this.props.login(user).then(() => this.props.router.push('/'));
   }
 
   handleSubmit(e) {
