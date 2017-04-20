@@ -73,7 +73,6 @@ class SessionForm extends React.Component {
 
     return (
       <div className="form-page">
-        <Navbar formType={this.props.formType}/>
         <section className="login-form">
           <div className="welcome">
           {welcome}

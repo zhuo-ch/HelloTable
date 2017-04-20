@@ -4,6 +4,8 @@ import { Router, Route, IndexRoute, hashHistory } from 'react-router';
 import NavbarContainer from './navbar';
 import sessionFormContainer from './session_form_container';
 import configureStore from '../store/store';
+import App from './app'
+import restaurantContainer from './restaurant_show';
 
 const Root = ({store}) => {
 
@@ -17,9 +19,11 @@ const Root = ({store}) => {
   return(
     <Provider store={store}>
       <Router history={hashHistory}>
-        <Route path='/' component={NavbarContainer} />
-        <Route path='/login' component={sessionFormContainer} onEnter={handleEnter}/>
-        <Route path='/signup' component={sessionFormContainer} onEnter={handleEnter}/>
+        <Route path='/' component={App} >
+          <Route path='/login' component={sessionFormContainer} onEnter={handleEnter}/>
+          <Route path='/signup' component={sessionFormContainer} onEnter={handleEnter}/>
+          <Route path='/restaurant/:restaurantId' component={restaurantContainer} />
+        </Route>
       </Router>
     </Provider>
   );

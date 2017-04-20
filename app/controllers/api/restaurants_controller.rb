@@ -21,7 +21,7 @@ class Api::RestaurantsController < ApplicationController
   def update
     @restaurant = Restaurant.find(params[:id])
 
-    if @restaurant.update_attributes(restaurant_params)
+    if @restaurant.update(restaurant_params)
       render 'api/restaurants/show'
     else
       render json: @restaurant.errors.full_messages, status: 422

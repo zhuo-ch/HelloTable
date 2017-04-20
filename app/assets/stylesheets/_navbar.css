@@ -27,7 +27,7 @@
   justify-content: flex-start;
 }
 
-.welcome {
+.nav-welcome {
   display: flex;
   justify-content: space-around;
   align-items: center;
