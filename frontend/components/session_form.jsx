@@ -62,7 +62,7 @@ class SessionForm extends React.Component {
 
     return (
       <div className="login-form">
-        <h3>{welcome}</h3>
+        {welcome}
         <form>
           { username }
           <label>Email Address

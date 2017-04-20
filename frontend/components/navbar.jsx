@@ -3,51 +3,58 @@ import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import { logout } from '../actions/session_actions';
 
-const Navbar = (state) => {
-  let rightBar;
-  let inForm = ((state.location.pathname === '/signup') || (state.location.pathname === '/login')) ? false : true;
-
-  function handleLogIn() {
-    state.router.push('/login');
+class Navbar extends React.Component {
+  constructor(props) {
+    super(props)
+    this.handleLogOut = this.handleLogOut.bind(this);
   }
 
-  function handleSignUp() {
-    state.router.push('/signup');
-  }
+  rightBar() {
+    let rightBar;
+    let inForm = ((this.props.location.pathname === '/signup') || (this.props.location.pathname === '/login')) ? false : true;
 
-  function handleLogOut() {
-    state.logout().then(() => {
-      debugger
-      state.router.push('/login');
+    if (inForm) {
+      if (this.props.currentUser) {
+        rightBar = (
+          <section className="nav-right">
+          <h4>Welcome back {this.props.currentUser.username}</h4>
+          <button onClick={this.handleLogOut}>Log out</button>
+          </section>
+        );
+      } else {
+        rightBar = (
+          <section className="nav-right">
+          <Link to='/login'>Log In</Link>
+          <Link to='/signup'>Sign Up</Link>
+          </section>
+        );
+      }
     }
-  );
+
+    return rightBar;
   }
 
-  if (inForm) {
-    if (state.currentUser) {
-      rightBar = (
-        <section className="nav-right">
-          <h4>Welcome back {state.currentUser.username}</h4>
-          <button onClick={handleLogOut}>Log out</button>
-        </section>
-      );
-    } else {
-      rightBar = (
-        <section className="nav-right">
-          <button onClick={handleLogIn}>Log In</button>
-          <button onClick={handleSignUp}>Sign Up</button>
-        </section>
-      );
-    }
+  handleLogOut() {
+    this.props.logout().then(() => {
+      this.props.router.push('/login');
+    })
   }
 
-  return (
-    <div className="navbar">
-      <h2>Hello world</h2>
-      {rightBar}
-      {state.children}
-    </div>
-  );
+  render () {
+    return (
+      <div className='navbar'>
+        <section className='navlogo'>
+          <Link to='/'>
+            <h2>Hello world</h2>
+          </Link>
+        </section>
+        <section className='rightbar'>
+          {this.rightBar()}
+        </section>
+        {this.props.children}
+      </div>
+    );
+  }
 };
 
 const mapStateToProps = state => {
