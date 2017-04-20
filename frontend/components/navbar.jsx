@@ -17,15 +17,21 @@ class Navbar extends React.Component {
       if (this.props.currentUser) {
         bar = (
           <section className="nav-right">
-          <h4>Welcome back {this.props.currentUser.username}</h4>
-          <button onClick={this.handleLogOut}>Log out</button>
+            <section className='welcome'>
+              <h4>Hi, {this.props.currentUser.username}!</h4>
+              <button onClick={this.handleLogOut}>Log out</button>
+            </section>
           </section>
         );
       } else {
         bar = (
-          <section className="nav-right">
-          <Link to='/login'>Log In</Link>
-          <Link to='/signup'>Sign Up</Link>
+          <section className="right-bar">
+            <section className='nav-link'>
+              <Link to='/login'>Log In</Link>
+            </section>
+            <section className='nav-link'>
+              <Link to='/signup'>Sign Up</Link>
+            </section>
           </section>
         );
       }
@@ -40,18 +46,22 @@ class Navbar extends React.Component {
     })
   }
 
+
   render () {
     return (
       <div className='navbar'>
-        <section className='navlogo'>
-          <Link to='/'>
-            <h2>Hello world</h2>
-          </Link>
+        <section className='nav-left'>
+          <section className='nav-logo'>
+            <Link to='/'>
+              <h2>Hello world</h2>
+            </Link>
+          </section>
         </section>
-        <section className='rightbar'>
+        <section className='nav-mid'>
+        </section>
+        <section className='nav-right'>
           {this.rightBar()}
         </section>
-        {this.props.children}
       </div>
     );
   }

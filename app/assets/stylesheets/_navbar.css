@@ -1,20 +1,64 @@
 .navbar {
-  background: grey;
-  opacity: 50%;
-
   display: flex;
-  justify-content: space-between;
+  border-bottom: 1px solid gainsboro;
 }
 
-.navbarlogo {
-  background-color: green;
-  opacity: 50%;
-
-
+.nav-left {
+  color: black;
+  flex: 2;
+  display: flex;
+  justify-content: flex-end;
 }
 
-.rightbar {
-  background-color: blue;
-  opacity: 50%;
+.nav-logo {
+  display: inline-block;
+  border-right: 1px solid gainsboro;
+  padding: 5px;
+  margin: 5px;
+}
 
+.nav-mid {
+  flex: 5;
+}
+
+.nav-right {
+  flex: 3;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.welcome {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 70%;
+  color: #D41010;
+  padding: 5px;
+  margin: 5px;
+  padding-left: 15px;
+  border-left: 1px solid gainsboro;
+}
+
+.right-bar {
+  width: 70%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 5px;
+  border-left: 1px solid gainsboro;
+}
+
+.nav-link {
+  display: inline-block;
+  padding: 3px;
+  height: 25px;
+  flex: 1;
+  margin: 12px;
+  text-align: center;
+  border-radius: 3px;
+  color: white;
+  font-size: 18px;
+  background: #F13737;
+  border: 1px solid #A70303;
+  vertical-align: text-bottom;
 }

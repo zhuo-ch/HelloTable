@@ -17,7 +17,7 @@
   text-align: center;
 }
 
-h2 {
+.welcome {
   text-align: center;
   color: #D41010;
 }
@@ -82,12 +82,13 @@ button:hover {
   transition-duration: .5s;
 }
 
-a {
+.switch-link {
+  display: inline-block;
   margin-bottom: 5px;
   color: blue;
 }
 
-a:hover {
+.switch-link:hover {
   font-weight: 600;
   cursor: pointer;
   text-decoration: underline;

@@ -75,7 +75,9 @@ class SessionForm extends React.Component {
       <div className="form-page">
         <Navbar formType={this.props.formType}/>
         <section className="login-form">
+          <div className="welcome">
           {welcome}
+          </div>
           <form>
             { username }
               <input
@@ -94,7 +96,9 @@ class SessionForm extends React.Component {
             <input type="submit" onClick={this.handleSubmit} value={buttonText} className="button"/>
           </form>
           <button onClick={this.handleGuest}>Guest Login</button>
-          <Link to={link}>{linkText}</Link>
+          <div className='switch-link'>
+            <Link to={link}>{linkText}</Link>
+          </div>
         </section>
       </div>
     );
