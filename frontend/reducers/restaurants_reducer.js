@@ -18,7 +18,9 @@ const RestaurantsReducer = (state = _nullRestaurants, action) => {
       return action.restaurants;
     case RECEIVE_RESTAURANT:
     const restaurant = action.restaurant
-      return merge({}, state, restaurant );
+    debugger
+    const newState = merge({}, state, { restaurant });
+    return newState;
     case RECEIVE_DESTROY:
       return _nullRestaurants;
     default:

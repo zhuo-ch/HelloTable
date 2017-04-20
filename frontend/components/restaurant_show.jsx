@@ -60,10 +60,11 @@ class RestaurantShow extends React.Component {
 
 const mapStateToProps = (state, {params}) => {
   const restaurantId = parseInt(params.restaurantId);
+  // const restaurant = state.restaurants[restaurantId] ? state.restaurants[restaurantId] : state.restaurants.restaurant
   debugger
   return ({
     restaurantId,
-    restaurant: state.restaurants.restaurant[restaurantId],
+    restaurant: state.restaurants.restaurant,
   });
 };
 
