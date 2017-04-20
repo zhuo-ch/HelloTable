@@ -6,8 +6,11 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-a = User.create(username: 'zhuo', email: 'aasdf', password: 'password')
-a = User.create(username: 'jason', email: 'adsfsdf', password: 'password')
-a = User.create(username: 'royce', email: 'sdfsef', password: 'password')
-a = User.create(username: 'jeff', email: 'aasdfsdfs', password: 'password')
-a = User.create(username: 'corey', email: 'asdff', password: 'password')
+
+
+a = User.create(username: 'Guest', email: 'guest@guest-email.com', password: 'password')
+b = User.create(username: 'zhuo', email: 'aasdf', password: 'password')
+c = User.create(username: 'jason', email: 'adsfsdf', password: 'password')
+d = User.create(username: 'royce', email: 'sdfsef', password: 'password')
+e = User.create(username: 'jeff', email: 'aasdfsdfs', password: 'password')
+f = User.create(username: 'corey', email: 'asdff', password: 'password')

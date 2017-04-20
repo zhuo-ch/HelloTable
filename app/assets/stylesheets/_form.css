@@ -1,0 +1,94 @@
+.form-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin:0 auto;
+}
+
+
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin:0 auto;
+  margin-top: 50px;
+  width: 30%;
+  text-align: center;
+}
+
+h2 {
+  text-align: center;
+  color: #D41010;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  margin-top: 10px 0px;
+  padding: 10px;
+  border-top: 1px solid #A70303
+}
+
+/*label {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 10px;
+}*/
+
+input {
+  display: flex;
+  width: 90%;
+  height: 35px;
+  align-self: center;
+  margin: 10px 0px;
+  border-radius: 3px;
+  border:1px solid black;
+}
+
+.button {
+  display: block;
+  width: 40%;
+  color: white;
+  font-size: 18px;
+  background: #F13737;
+  border: 1px solid #A70303;
+}
+
+.button:hover {
+  background: #A70303;
+  cursor: pointer;
+  transition-duration: .5s;
+}
+
+button {
+  display: block;
+  margin: 0 auto;
+  margin-bottom: 10px;
+  height: 35px;
+  width: 38%;
+  border-radius: 3px;
+  color: white;
+  font-size: 18px;
+  background: #F13737;
+  border: 1px solid #A70303;
+}
+
+button:hover {
+  background: #A70303;
+  cursor: pointer;
+  transition-duration: .5s;
+}
+
+a {
+  margin-bottom: 5px;
+  color: blue;
+}
+
+a:hover {
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: underline;
+}

@@ -12,4 +12,7 @@
  *
  *= require_tree .
  *= require_self
+ *= _css_reset
+ *= _navbar.css
+ *= _form.css
  */

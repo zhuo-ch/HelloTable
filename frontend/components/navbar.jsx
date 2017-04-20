@@ -10,19 +10,19 @@ class Navbar extends React.Component {
   }
 
   rightBar() {
-    let rightBar;
-    let inForm = ((this.props.location.pathname === '/signup') || (this.props.location.pathname === '/login')) ? false : true;
+    let bar;
+    let inForm = ((this.props.formType === 'signup') || (this.props.formType === 'login')) ? false : true;
 
     if (inForm) {
       if (this.props.currentUser) {
-        rightBar = (
+        bar = (
           <section className="nav-right">
           <h4>Welcome back {this.props.currentUser.username}</h4>
           <button onClick={this.handleLogOut}>Log out</button>
           </section>
         );
       } else {
-        rightBar = (
+        bar = (
           <section className="nav-right">
           <Link to='/login'>Log In</Link>
           <Link to='/signup'>Sign Up</Link>
@@ -31,7 +31,7 @@ class Navbar extends React.Component {
       }
     }
 
-    return rightBar;
+    return bar;
   }
 
   handleLogOut() {

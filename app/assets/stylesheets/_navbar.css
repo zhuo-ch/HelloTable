@@ -1,0 +1,20 @@
+.navbar {
+  background: grey;
+  opacity: 50%;
+
+  display: flex;
+  justify-content: space-between;
+}
+
+.navbarlogo {
+  background-color: green;
+  opacity: 50%;
+
+
+}
+
+.rightbar {
+  background-color: blue;
+  opacity: 50%;
+
+}
