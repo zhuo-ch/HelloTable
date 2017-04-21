@@ -1,3 +1,121 @@
 // Place all the styles related to the api/restaurants controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.restaurant-view {
+  background: whitesmoke;
+  display: flex;
+  flex-direction: column;
+}
+
+.restaurant-splash {
+  background: green;
+  justify-content: flex-start;
+  height: 30%;
+}
+
+.restaurant-splash-img {
+  background: blue;
+
+  position: relative;
+  float: left;
+  width: 20%;
+  padding: 10px;
+  padding-left: 40px;
+  align-items: baseline;
+}
+
+.res-img {
+  display: inline-block;
+  position: absolute;
+  height: 150px;
+  width: 150px;
+  left: 30px;
+}
+
+.splash-details {
+  background: red;
+
+  float: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 40%;
+  padding: 5px;
+}
+
+.splash-name {
+  background: yellow;
+
+  display: block;
+  width: 80%;
+  height: 20px;
+}
+
+.splash-ratings {
+  background: grey;
+
+  flex: 1;
+  display: inline-block;
+  height: 15px;
+}
+
+.splash-info {
+  background: white;
+
+  display: flex;
+  justify-content: space-around;
+}
+
+.restaurant-body {
+  display: flex;
+}
+
+.restaurant-left {
+  display: flex;
+  flex-direction: column;
+  flex: 2;
+  margin: 15px;
+}
+
+.restaurant-left article {
+  width: 100%;
+  text-align: center;
+  color: lightslategray;
+}
+
+.restaurant-left article:hover {
+  color: #A70303;
+  cursor: pointer;
+}
+
+.restaurant-mid {
+  background: white;
+
+  display: flex;
+  flex-direction: column;
+  flex: 7;
+  margin-top: 30px;
+  border-radius: 4px;
+  border-bottom: 1px solid lightgray;
+}
+
+.restaurant-about {
+  flex: 11;
+  padding: 10px;
+}
+
+.restaurant-map {
+  flex: 9;
+}
+
+.restaurant-right {
+  background: white;
+  display: flex;
+  flex-direction: column;
+  flex: 3;
+  padding: 0px 20px;
+  margin: 30px 20px 0px 30px;
+  border-radius: 4px;
+  border-bottom: 1px solid lightgray;
+}

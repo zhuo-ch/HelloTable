@@ -24,6 +24,9 @@ a {
   text-decoration: none;
 }
 
+body {
+  background: whitesmoke;
+}
 .group:after {
   content: "";
   display: block;

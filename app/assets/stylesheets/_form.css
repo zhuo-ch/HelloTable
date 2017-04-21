@@ -31,13 +31,6 @@ form {
   border-top: 1px solid #A70303
 }
 
-/*label {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 10px;
-}*/
-
 input {
   display: flex;
   width: 90%;

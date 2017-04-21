@@ -41,7 +41,7 @@ class Navbar extends React.Component {
   }
 
   handleLogOut() {
-    debugger
+    
     this.props.logout().then(() => {
       this.props.router.push('/login');
     })

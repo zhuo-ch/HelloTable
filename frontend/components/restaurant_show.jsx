@@ -9,17 +9,19 @@ class RestaurantShow extends React.Component {
   }
 
   componentWillMount() {
-    debugger
+
     this.props.fetchRestaurant(this.props.restaurantId);
   }
 
   render() {
-    debugger
+
     return (
       <div className='restaurant-view'>
-        <section className='restaurant-splash'>
+        <section className='restaurant-splash group'>
           <div className='restaurant-splash-img'>
-
+            <div className='res-img'>
+            <h4>Image</h4>
+            </div>
           </div>
 
           <div className='splash-details'>
@@ -34,25 +36,55 @@ class RestaurantShow extends React.Component {
           </div>
         </section>
 
-        <section className='restaurant-left'>
-          <h3>About</h3>
-          <h3>Photos</h3>
-          <h3>Reviews</h3>
-        </section>
+        <div className='restaurant-body'>
+          <section className='restaurant-left'>
+            <article className='bold'>
+              <h3>Reservation</h3>
+            </article>
+            <article>
+              <h3>About</h3>
+            </article>
+            <article>
+              <h3>Photos</h3>
+            </article>
+            <article>
+              <h3>Reviews</h3>
+            </article>
+          </section>
 
-        <section className='restaurant-mid'>
-          <article className='restaurant-about'>
-            <h3>About</h3>
-            {this.props.restaurant.description}
-          </article>
-        </section>
+          <section className='restaurant-mid'>
+            <article className='restaurant-about'>
+              <h3>About {this.props.restaurant.restaurant_name}</h3>
+              {this.props.restaurant.description}
+            </article>
+            <article className='restaurant-map'>
 
-        <section className='restaurant-right'>
-          {this.props.restaurant.hours}
-          {this.props.restaurant.restaurant_number}
-          {this.props.restaurant.cuisine}
-          {this.props.restaurant.site}
-        </section>
+            </article>
+          </section>
+
+          <section className='restaurant-right'>
+            <article>
+              <h4>Cuisine:</h4>
+              {this.props.restaurant.cuisine}
+            </article>
+            <article>
+              <h4>Hours of Operation:</h4>
+              {this.props.restaurant.hours}
+            </article>
+            <article>
+              <h4>Phone Number:</h4>
+              {this.props.restaurant.restaurant_number}
+            </article>
+            <article>
+              <h4>Address:</h4>
+              {this.props.restaurant.location}
+            </article>
+            <article>
+              <h4>Website:</h4>
+              {this.props.restaurant.site}
+            </article>
+          </section>
+        </div>
       </div>
     )
   }
@@ -61,7 +93,7 @@ class RestaurantShow extends React.Component {
 const mapStateToProps = (state, {params}) => {
   const restaurantId = parseInt(params.restaurantId);
   // const restaurant = state.restaurants[restaurantId] ? state.restaurants[restaurantId] : state.restaurants.restaurant
-  debugger
+
   return ({
     restaurantId,
     restaurant: state.restaurants.restaurant,
