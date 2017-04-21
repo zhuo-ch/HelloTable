@@ -11,7 +11,7 @@
 }
 
 .nav-logo {
-  display: inline-block;
+  display: block;
   border-right: 1px solid gainsboro;
   padding: 5px;
   margin: 5px;
@@ -31,7 +31,7 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
-  width: 70%;
+  width: 80%;
   color: #D41010;
   padding: 5px;
   margin: 5px;

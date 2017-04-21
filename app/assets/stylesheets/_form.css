@@ -57,22 +57,16 @@ input {
 }
 
 button {
-  display: block;
+  display: inline-block;
   margin: 0 auto;
   margin-bottom: 10px;
   height: 35px;
-  width: 38%;
+  width: 35%;
   border-radius: 3px;
   color: white;
   font-size: 18px;
   background: #F13737;
   border: 1px solid #A70303;
-}
-
-button:hover {
-  background: #A70303;
-  cursor: pointer;
-  transition-duration: .5s;
 }
 
 .switch-link {

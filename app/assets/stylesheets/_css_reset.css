@@ -27,8 +27,13 @@ a {
 body {
   background: whitesmoke;
 }
+
 .group:after {
   content: "";
   display: block;
   clear: both;
+}
+
+.errors {
+  color: red;
 }

@@ -14,6 +14,8 @@ c = User.create(username: 'jason', email: 'adsfsdf', password: 'password')
 d = User.create(username: 'royce', email: 'sdfsef', password: 'password')
 e = User.create(username: 'jeff', email: 'aasdfsdfs', password: 'password')
 f = User.create(username: 'corey', email: 'asdff', password: 'password')
+m = User.create(username: 'wing', email: 'wing@gmail', password: 'password')
+
 
 g = Restaurant.create(owner_id: 1, restaurant_name: "Fig and Olive",
   restaurant_number: "2123456789", cuisine: "Meso", description: "Nice restaurant", hours: "long", site: "some_url", location: "meatpacking")

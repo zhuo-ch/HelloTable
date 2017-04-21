@@ -17,21 +17,21 @@ class Navbar extends React.Component {
       if (this.props.currentUser) {
         bar = (
           <section className="nav-right">
-            <section className='welcome'>
+            <section className='nav-welcome'>
               <h4>Hi, {this.props.currentUser.username}!</h4>
-              <button onClick={this.handleLogOut}>Log out</button>
+              <button onClick={this.handleLogOut} className='nav-logout'>Log out</button>
             </section>
           </section>
         );
       } else {
         bar = (
           <section className="right-bar">
-            <section className='nav-link'>
-              <Link to='/login'>Log In</Link>
-            </section>
-            <section className='nav-link'>
-              <Link to='/signup'>Sign Up</Link>
-            </section>
+            <Link to='/login' className='nav-link button'>
+              Log In
+            </Link>
+            <Link to='/signup' className='nav-link button'>
+              Sign Up
+            </Link>
           </section>
         );
       }
@@ -41,12 +41,18 @@ class Navbar extends React.Component {
   }
 
   handleLogOut() {
-    
+
     this.props.logout().then(() => {
       this.props.router.push('/login');
     })
   }
 
+  // <blockquote class="imgur-embed-pub" lang="en" data-id="a/ki01V">
+  // <a href="//imgur.com/ki01V"></a>
+  // </blockquote>
+  // <script async src="//s.imgur.com/min/embed.js" charset="utf-8">
+  // </script>
+  // <img src='http://i.imgur.com/Uucd7If.png' />
 
   render () {
     return (
@@ -54,7 +60,7 @@ class Navbar extends React.Component {
         <section className='nav-left'>
           <section className='nav-logo'>
             <Link to='/'>
-              <h2>Hello world</h2>
+              <h2>Hello World</h2>
             </Link>
           </section>
         </section>

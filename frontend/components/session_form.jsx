@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router';
-import Navbar from './navbar';
 
 class SessionForm extends React.Component {
   constructor(props) {
@@ -17,7 +16,8 @@ class SessionForm extends React.Component {
     }
   }
 
-  handleGuest() {
+  handleGuest(e) {
+    e.preventDefault();
     const user = {user: {
       username: 'Guest',
       email: 'guest@guest-email.com',
@@ -91,10 +91,12 @@ class SessionForm extends React.Component {
                 onChange={this.handleChange}
                 className="password"
                 placeholder="Password"/>
-              {this.renderErrors()}
+              <section className='errors'>
+                {this.renderErrors()}
+              </section>
             <input type="submit" onClick={this.handleSubmit} value={buttonText} className="button"/>
+            <button onClick={this.handleGuest} className='button'>Guest Login</button>
           </form>
-          <button onClick={this.handleGuest}>Guest Login</button>
           <div className='switch-link'>
             <Link to={link}>{linkText}</Link>
           </div>

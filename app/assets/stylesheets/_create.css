@@ -1,0 +1,27 @@
+.restaurant-create {
+  display: flex;
+  width: 60%;
+  margin: 0 auto;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  color: #F13737;
+}
+
+.restaurant-create article {
+  width: 40%;
+  /*border-bottom: 1px solid #A70303;*/
+}
+
+.restaurant-create form {
+  width: 80%;
+}
+
+.restaurant-create input {
+  width:70%;
+  text-align: center;
+}
+
+.restaurant-create .button {
+  width: 30%;
+}

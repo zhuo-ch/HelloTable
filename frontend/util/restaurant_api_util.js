@@ -8,7 +8,8 @@ export const fetchAllRestaurants = () => {
 export const createRestaurant = (restaurant) => {
   return $.ajax({
     method: 'POST',
-    url: 'api/restaurants'
+    url: 'api/restaurants',
+    data: {restaurant},
   })
 }
 
