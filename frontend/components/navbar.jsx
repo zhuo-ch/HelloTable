@@ -19,7 +19,7 @@ class Navbar extends React.Component {
           <section className="nav-right">
             <section className='nav-welcome'>
               <h4>Hi, {this.props.currentUser.username}!</h4>
-              <button onClick={this.handleLogOut} className='nav-logout'>Log out</button>
+              <button onClick={this.handleLogOut} className='button'>Log out</button>
             </section>
           </section>
         );
