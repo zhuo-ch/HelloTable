@@ -2,19 +2,34 @@ import React from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import { fetchRestaurant } from '../actions/restaurant_actions';
+import RestaurantMap from './restaurant_map';
 
 class RestaurantShow extends React.Component {
   constructor(props) {
     super(props)
+    // this.state = {map: <div></div>};
   }
 
   componentWillMount() {
-
     this.props.fetchRestaurant(this.props.restaurantId);
   }
 
-  render() {
+  componentWillUpdate(prevProps, nextState) {
+    // debugger
+    // if (nextState.map != this.state.map) {
+    //   this.setState({
+    //     map: (
+            // <RestaurantMap
+            //   restaurants={this.props.restaurant}
+            //   restaurantId={this.props.restaurant.id}
+            //   singleRestaurant="true"
+            //   fetchRestaurant={fetchRestaurant} />
+    //     )})
+    // }
+    // debugger
+  }
 
+  render() {
     return (
       <div className='restaurant-view'>
         <section className='restaurant-splash group'>
@@ -58,7 +73,11 @@ class RestaurantShow extends React.Component {
               {this.props.restaurant.description}
             </article>
             <article className='restaurant-map'>
-
+              <RestaurantMap
+                restaurants={this.props.restaurant}
+                restaurantId={this.props.restaurant.id}
+                singleRestaurant="true"
+                fetchRestaurant={fetchRestaurant} />
             </article>
           </section>
 

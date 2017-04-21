@@ -10,7 +10,9 @@ class CreateRestaurant extends React.Component {
                       description: '',
                       hours: '',
                       cuisine: '',
-                      location: '',
+                      street_address: '',
+                      city: '',
+                      state: '',
                       site: '',
                       owner_id: this.props.currentUser.id,
                     }
@@ -53,9 +55,15 @@ class CreateRestaurant extends React.Component {
           <input type='text' className='restaurant_number'
             onChange={this.handleChange}
             placeholder='Contact Phone Number'></input>
-          <input type='text' className='location'
+          <input type='text' className='street_address'
             onChange={this.handleChange}
-            placeholder='Address'></input>
+            placeholder='Street Address'></input>
+          <input type='text' className='city'
+            onChange={this.handleChange}
+            placeholder='City'></input>
+          <input type='text' className='state'
+            onChange={this.handleChange}
+            placeholder='State'></input>
           <input type='text' className='site'
             onChange={this.handleChange}
             placeholder='Website'></input>

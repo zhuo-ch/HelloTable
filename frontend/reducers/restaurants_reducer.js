@@ -3,6 +3,7 @@ import { RECEIVE_ALL_RESTAURANTS, RECEIVE_RESTAURANT, RECEIVE_DESTROY} from '../
 
 const _nullRestaurants = Object.freeze({
    restaurant: {
+    
     restaurant_name: "",
     restaurant_number: "",
     cuisine: "",
