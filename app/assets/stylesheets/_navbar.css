@@ -1,6 +1,7 @@
 .navbar {
   display: flex;
   border-bottom: 1px solid gainsboro;
+  background: white;
 }
 
 .nav-left {
@@ -11,10 +12,24 @@
 }
 
 .nav-logo {
-  display: block;
-  border-right: 1px solid gainsboro;
-  padding: 5px;
+  display: flex;
+  align-items: center;
   margin: 5px;
+    border-right: 1px solid gainsboro;
+}
+
+.logo-name {
+  padding: 20px 15px 0px 5px;
+}
+
+.nav-logo article {
+  width: 60px;
+  height: 60px;
+  margin: 10px 5px;
+}
+
+.nav-logo img {
+  width: 100%;
 }
 
 .nav-mid {

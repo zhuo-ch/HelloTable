@@ -52,7 +52,7 @@ class Navbar extends React.Component {
   // </blockquote>
   // <script async src="//s.imgur.com/min/embed.js" charset="utf-8">
   // </script>
-  // <img src='http://i.imgur.com/Uucd7If.png' />
+  // <h2>Hello World</h2>
 
   render () {
     return (
@@ -60,7 +60,12 @@ class Navbar extends React.Component {
         <section className='nav-left'>
           <section className='nav-logo'>
             <Link to='/'>
-              <h2>Hello World</h2>
+              <article>
+                <img src='http://i.imgur.com/3ztfVmN.png' />
+              </article>
+            </Link>
+            <Link to='/' className='logo-name'>
+              <h2>Hello Table</h2>
             </Link>
           </section>
         </section>
