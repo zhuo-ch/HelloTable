@@ -50,9 +50,9 @@ l = Restaurant.create(owner_id: 5, restaurant_name: "Great Wall",
 
 
 # cities
-n = City.create(city_name: "New York", main_photo: "http://i.imgur.com/NPca7Aa.jpg")
-o = City.create(city_name: "Boston", main_photo: "http://i.imgur.com/C7OpmFI.jpg")
-q = City.create(city_name: "Los Angeles", main_photo: "http://i.imgur.com/8Y95lng.jpg")
-r = City.create(city_name: "Seattle", main_photo: "http://i.imgur.com/wu9t5Jd.jpg")
-s = City.create(city_name: "Chicago", main_photo: "http://i.imgur.com/srEbd9g.jpg")
-t = City.create(city_name: "Miami", main_photo: "http://i.imgur.com/s1tH3vl.jpg")
+n = City.create(city_name: "New York", image: File.new("app/assets/images/nyc.jpg"))
+o = City.create(city_name: "Boston", image: File.new("app/assets/images/boston.jpg"))
+q = City.create(city_name: "Los Angeles", image: File.new("app/assets/images/la.jpg"))
+r = City.create(city_name: "Seattle", image: File.new("app/assets/images/seattle.jpg"))
+s = City.create(city_name: "Chicago", image: File.new("app/assets/images/chicago.jpg"))
+t = City.create(city_name: "Miami", image: File.new("app/assets/images/miami.jpg"))

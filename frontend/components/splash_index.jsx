@@ -13,30 +13,49 @@ class SplashIndex extends React.Component {
   }
 
   render () {
-    const cities = Object.keys(this.props.cities).map((id) => {
-      <li>
-        <Link className='splash-img'>
-          <img src={this.props.cities[id].main_photo}/>
-        </Link>
-      </li>
+    const cities = [];
+
+    Object.keys(this.props.cities).slice(0,6).forEach((id) => {
+      cities.push(
+        <li className='splash-img' key={id}>
+          <Link to={`cities/${id}`} >
+            <img src={ this.props.cities[id].image_url } alt={this.props.cities[id].city_name}/>
+            <h2>{ this.props.cities[id].city_name }</h2>
+          </Link>
+        </li>
+      )
     })
-    debugger
+
+    const citiesNames = Object.keys(this.props.cities).map((id) => {
+      return (
+        <li className='splash-city-name' key={id}>
+          <Link to={`cities/${id}`} >
+            <h4>{ this.props.cities[id].city_name }</h4>
+          </Link>
+        </li>
+      )
+    });
+
     return (
       <div className='featured-areas-splash'>
-        <section>
-          <h2>Featured Cities</h2>
-        </section>
-        <section>
-          <ul>
-            {
-
-            }
+          <h2 className='splash-header'>Featured Cities</h2>
+          <ul className='splash-images'>
+            { cities }
           </ul>
-        </section>
+          <ul className='splash-city-names'>
+            { citiesNames }
+          </ul>
       </div>
     )
   }
 }
+
+// <section className='images-top'>
+//   { cities.slice(0,3) }
+// </section>
+// <section className='images-bottom'>
+//   { cities.slice(3,6) }
+// </section>
 
 const mapStateToProps = (state, ownProps) => {
   return ({

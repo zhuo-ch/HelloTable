@@ -1,1 +1,3 @@
-json.extract! @city, :city_name, :main_photo
+json.id @city.id
+json.city_name @city.city_name
+json.image_url asset_path(@city.image.url)
