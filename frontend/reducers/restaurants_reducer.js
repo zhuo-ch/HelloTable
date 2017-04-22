@@ -2,14 +2,20 @@ import { merge } from 'lodash';
 import { RECEIVE_ALL_RESTAURANTS, RECEIVE_RESTAURANT, RECEIVE_DESTROY} from '../actions/restaurant_actions';
 
 const _nullRestaurants = Object.freeze({
-   restaurant: {
-    
+  restaurant: {
+    id: "",
     restaurant_name: "",
     restaurant_number: "",
+    hours: "",
     cuisine: "",
-    location: "",
+    street_address: "",
+    city: "",
+    state: "",
     description: "",
     site: "",
+    owner_id: "",
+    lat: "",
+    lng: "",
   }
 });
 

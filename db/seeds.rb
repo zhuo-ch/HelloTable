@@ -7,7 +7,7 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 
-
+#users
 a = User.create(username: 'Guest', email: 'guest@guest-email.com', password: 'password')
 b = User.create(username: 'zhuo', email: 'aasdf', password: 'password')
 c = User.create(username: 'jason', email: 'adsfsdf', password: 'password')
@@ -17,6 +17,7 @@ f = User.create(username: 'corey', email: 'asdff', password: 'password')
 m = User.create(username: 'wing', email: 'wing@gmail', password: 'password')
 
 
+# restaurants
 g = Restaurant.create(owner_id: 1, restaurant_name: "Fig and Olive",
   restaurant_number: "2123456789", cuisine: "Meso",
   description: "Nice restaurant", hours: "long",
@@ -46,3 +47,12 @@ l = Restaurant.create(owner_id: 5, restaurant_name: "Great Wall",
   restaurant_number: "2123456768", cuisine: "Chinese",
   description: "Neatest restaurant", hours: "long",
   site: "some_url", street_address: "244 Madison Avenue", city: "New York", state: "NY")
+
+
+# cities
+n = City.create(city_name: "New York", main_photo: "http://i.imgur.com/NPca7Aa.jpg")
+o = City.create(city_name: "Boston", main_photo: "http://i.imgur.com/C7OpmFI.jpg")
+q = City.create(city_name: "Los Angeles", main_photo: "http://i.imgur.com/8Y95lng.jpg")
+r = City.create(city_name: "Seattle", main_photo: "http://i.imgur.com/wu9t5Jd.jpg")
+s = City.create(city_name: "Chicago", main_photo: "http://i.imgur.com/srEbd9g.jpg")
+t = City.create(city_name: "Miami", main_photo: "http://i.imgur.com/s1tH3vl.jpg")
