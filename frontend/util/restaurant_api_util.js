@@ -9,6 +9,9 @@ export const createRestaurant = (restaurant) => {
   return $.ajax({
     method: 'POST',
     url: 'api/restaurants',
+    dataType: 'json',
+    contentType: false,
+    processData: false,
     data: {restaurant},
   })
 }

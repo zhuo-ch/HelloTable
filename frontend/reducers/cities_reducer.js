@@ -2,7 +2,7 @@ import { merge } from 'lodash';
 import { RECEIVE_ALL_CITIES, RECEIVE_CITY } from '../actions/city_actions';
 
 const _nullCities = {
-  1: {
+  city: {
     city_name: "",
     main_photo: "",
   }

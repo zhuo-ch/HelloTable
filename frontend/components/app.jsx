@@ -4,14 +4,12 @@ import { connect } from 'react-redux';
 import Navbar from './navbar';
 import SplashIndex from './splash_index'
 
-const App = ({children}) => {
-
+const App = (props) => {
   return (
     <div className='main-app'>
       <Navbar />
-      <SplashIndex />
       <Link to='/restaurant/4'>Restaurant 4</Link>
-      { children }
+      { props.children }
     </div>
   )
 }

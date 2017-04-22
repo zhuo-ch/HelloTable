@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router';
+import { Link, Router, Route, hashHistory } from 'react-router';
 import { connect } from 'react-redux';
 import { logout } from '../actions/session_actions';
 
@@ -41,18 +41,8 @@ class Navbar extends React.Component {
   }
 
   handleLogOut() {
-
-    this.props.logout().then(() => {
-      this.props.router.push('/login');
-    })
+    this.props.logout()
   }
-
-  // <blockquote class="imgur-embed-pub" lang="en" data-id="a/ki01V">
-  // <a href="//imgur.com/ki01V"></a>
-  // </blockquote>
-  // <script async src="//s.imgur.com/min/embed.js" charset="utf-8">
-  // </script>
-  // <h2>Hello World</h2>
 
   render () {
     return (

@@ -16,10 +16,29 @@ class CreateRestaurant extends React.Component {
                       site: '',
                       lat: '',
                       lng: '',
+                      imageFiles: [],
+                      imageUrls: [],
                       owner_id: this.props.currentUser.id,
                     }
   this.handleChange = this.handleChange.bind(this);
   this.handleSubmit = this.handleSubmit.bind(this);
+  this.handleFile = this.handleFile.bind(this);
+  }
+
+  handleFile(e) {
+    const file = e.currentTarget.files[0];
+    const fileReader = new FileReader();
+    fileReader.onloadend = () => {
+      const imageFiles = this.state.imageFiles.slice();
+      imageFiles.push(file);
+      const imageUrls = this.state.imageUrls.slice();
+      imageUrls.push(fileReader.result);
+      this.setState({ imageFiles, imageUrls})
+    }
+
+    if (file) {
+      fileReader.readAsDataURL(file);
+    }
   }
 
   handleChange(e) {
@@ -69,6 +88,23 @@ class CreateRestaurant extends React.Component {
           <input type='text' className='site'
             onChange={this.handleChange}
             placeholder='Website'></input>
+          <ul>
+            {
+              this.state.imageUrls.map((image, idx) => {
+                return (
+                  <li key={idx} className='upload-img'>
+                    <img src={image} />
+                  </li>
+                )
+              })
+            }
+          </ul>
+          <input type='file' onChange={this.handleFile}></input>
+          <input type='file' onChange={this.handleFile}></input>
+          <input type='file' onChange={this.handleFile}></input>
+          <input type='file' onChange={this.handleFile}></input>
+          <input type='file' onChange={this.handleFile}></input>
+          <input type='file' onChange={this.handleFile}></input>
           <input type='submit'
             onClick={this.handleSubmit}
             className="button"

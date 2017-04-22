@@ -50,13 +50,6 @@ class SplashIndex extends React.Component {
   }
 }
 
-// <section className='images-top'>
-//   { cities.slice(0,3) }
-// </section>
-// <section className='images-bottom'>
-//   { cities.slice(3,6) }
-// </section>
-
 const mapStateToProps = (state, ownProps) => {
   return ({
     cities: state.cities,

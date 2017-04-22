@@ -95,7 +95,7 @@ class SessionForm extends React.Component {
                 {this.renderErrors()}
               </section>
             <input type="submit" onClick={this.handleSubmit} value={buttonText} className="button"/>
-            <button onClick={this.handleGuest} className='button'>Guest Login</button>
+            <button onClick={this.handleGuest} className='button'>Demo</button>
           </form>
           <div className='switch-link'>
             <Link to={link}>{linkText}</Link>
