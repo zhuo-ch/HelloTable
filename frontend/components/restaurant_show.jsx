@@ -28,6 +28,11 @@ class RestaurantShow extends React.Component {
     // }
     // debugger
   }
+  // <RestaurantMap
+  //   restaurants={this.props.restaurant}
+  //   restaurantId={this.props.restaurant.id}
+  //   singleRestaurant="true"
+  //   fetchRestaurant={fetchRestaurant} />
 
   render() {
     return (
@@ -73,11 +78,6 @@ class RestaurantShow extends React.Component {
               {this.props.restaurant.description}
             </article>
             <article className='restaurant-map'>
-              <RestaurantMap
-                restaurants={this.props.restaurant}
-                restaurantId={this.props.restaurant.id}
-                singleRestaurant="true"
-                fetchRestaurant={fetchRestaurant} />
             </article>
           </section>
 

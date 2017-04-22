@@ -4,8 +4,8 @@ export const RECEIVE_ALL_RESTAURANTS = 'RECEIVE_ALL_RESTAURANTS';
 export const RECEIVE_RESTAURANT = 'RECEIVE_RESTAURANT';
 export const RECEIVE_DESTROY = 'RECEIVE_DESTROY';
 
-export const fetchAllRestaurants = () => dispatch => {
-  return RestaurantAPIUtil.fetchAllRestaurants()
+export const fetchAllRestaurants = (cityId) => dispatch => {
+  return RestaurantAPIUtil.fetchAllRestaurants(cityId)
     .then((restaurants) => dispatch(receiveAllRestaurants(restaurants)));
 }
 

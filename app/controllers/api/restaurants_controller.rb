@@ -1,7 +1,8 @@
 class Api::RestaurantsController < ApplicationController
 
   def index
-    @restaurants = Restaurant.all.where("city = ?", "New York")
+    @restaurants = Restaurant.all.where("city = ?", City.find(params[:cityId]).city_name)
+    debugger
   end
 
   def create

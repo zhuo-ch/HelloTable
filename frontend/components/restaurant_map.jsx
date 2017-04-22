@@ -18,7 +18,6 @@ let _mapOptions = {
 class RestaurantMap extends React.Component {
 
   componentDidMount() {
-    debugger
     const map = this.refs.map;
     this.map = new google.maps.Map(map, _mapOptions);
     this.MarkerManager = new MarkerManager(this.map, this._handleMarkerClick.bind(this));

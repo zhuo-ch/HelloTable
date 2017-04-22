@@ -8,6 +8,7 @@ import App from './app'
 import restaurantContainer from './restaurant_show';
 import restaurantCreate from './restaurant_create';
 import SplashIndex from './splash_index';
+import RestaurantIndex from './restaurant_index';
 
 const Root = ({store}) => {
 
@@ -27,6 +28,7 @@ const Root = ({store}) => {
           <Route path='/signup' component={sessionFormContainer} onEnter={handleEnter}/>
           <Route path='/restaurant/:restaurantId' component={restaurantContainer} />
           <Route path='/create' component={restaurantCreate} />
+          <Route path='/city/:cityId' component={RestaurantIndex} />
         </Route>
       </Router>
     </Provider>
