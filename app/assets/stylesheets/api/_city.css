@@ -1,0 +1,19 @@
+.restaurants-index {
+  background: blue;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.restaurants-index-splash {
+  width: 100%;
+}
+
+.restaurants-index-splash img {
+  width: 100%;
+}
+
+.restaurant-snippets {
+  width: 80%;
+  margin: 0 auto;
+}

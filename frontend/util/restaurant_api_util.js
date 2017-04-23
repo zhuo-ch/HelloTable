@@ -14,7 +14,7 @@ export const createRestaurant = (restaurant) => {
     dataType: 'json',
     contentType: false,
     processData: false,
-    data: {restaurant},
+    data: restaurant,
   })
 }
 

@@ -49,8 +49,22 @@ class CreateRestaurant extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    const restaurant = this.state;
-    this.props.createRestaurant(restaurant)
+    let formData = new FormData();
+    formData.append('restaurant[restaurant_name]', this.state.restaurant_name);
+    formData.append('restaurant[restaurant_number]', this.state.restaurant_number);
+    formData.append('restaurant[description]', this.state.description);
+    formData.append('restaurant[hours]', this.state.hours);
+    formData.append('restaurant[cuisine]', this.state.cuisine);
+    formData.append('restaurant[street_address]', this.state.street_address);
+    formData.append('restaurant[city]', this.state.city);
+    formData.append('restaurant[state]', this.state.state);
+    formData.append('restaurant[site]', this.state.site);
+    formData.append('restaurant[owner_id]', this.state.owner_id);
+    this.state.imageFiles.forEach((data, idx) => {
+      formData.append('restaurant[imageFiles][]', data);
+    })
+
+    this.props.createRestaurant(formData)
       .then((newRestaurant) => this.props.router.push(`/restaurant/${newRestaurant.id}`));
   }
 
@@ -88,23 +102,18 @@ class CreateRestaurant extends React.Component {
           <input type='text' className='site'
             onChange={this.handleChange}
             placeholder='Website'></input>
-          <ul>
+          <input type='file' onChange={this.handleFile}></input>
+          <ul className='upload-images'>
             {
               this.state.imageUrls.map((image, idx) => {
                 return (
-                  <li key={idx} className='upload-img'>
+                  <li key={idx} className='upload-image'>
                     <img src={image} />
                   </li>
                 )
               })
             }
           </ul>
-          <input type='file' onChange={this.handleFile}></input>
-          <input type='file' onChange={this.handleFile}></input>
-          <input type='file' onChange={this.handleFile}></input>
-          <input type='file' onChange={this.handleFile}></input>
-          <input type='file' onChange={this.handleFile}></input>
-          <input type='file' onChange={this.handleFile}></input>
           <input type='submit'
             onClick={this.handleSubmit}
             className="button"

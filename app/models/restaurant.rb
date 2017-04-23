@@ -6,4 +6,6 @@ class Restaurant < ActiveRecord::Base
     class_name: "User",
     foreign_key: :owner_id,
     primary_key: :id
+
+  has_many :photos, dependent: :destroy, inverse_of: :restaurant
 end

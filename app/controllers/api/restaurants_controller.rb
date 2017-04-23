@@ -2,14 +2,19 @@ class Api::RestaurantsController < ApplicationController
 
   def index
     @restaurants = Restaurant.all.where("city = ?", City.find(params[:cityId]).city_name)
-    debugger
   end
 
   def create
     @restaurant = Restaurant.new(restaurant_params)
 
     if @restaurant.save!
-      render 'api/restaurants/show'
+      if params[:restaurant][:imageFiles]
+        params[:restaurant][:imageFiles].each do |image|
+            @restaurant.photos.create(image: image)
+        end
+      end
+
+      redirect_to api_restaurant_url(@restaurant.id)
     else
       render json: @restaurant.errors.full_messages, status: 422
     end
@@ -17,6 +22,7 @@ class Api::RestaurantsController < ApplicationController
 
   def show
     @restaurant = Restaurant.find(params[:id])
+    render 'api/restaurants/show'
   end
 
   def update
@@ -37,6 +43,7 @@ class Api::RestaurantsController < ApplicationController
   private
   def restaurant_params
     params.require(:restaurant).permit(:owner_id, :restaurant_name,
-      :restaurant_number, :cuisine, :description, :hours, :site, :location)
+      :restaurant_number, :cuisine, :description, :hours, :site, :city,
+      :state, :street_address)
   end
 end

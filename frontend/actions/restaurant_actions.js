@@ -1,3 +1,4 @@
+import { hashHistory } from 'react-router';
 import * as RestaurantAPIUtil from '../util/restaurant_api_util';
 
 export const RECEIVE_ALL_RESTAURANTS = 'RECEIVE_ALL_RESTAURANTS';

@@ -1,0 +1,33 @@
+.snippet-section {
+  background: white;
+  display: flex;
+  border-bottom: 1px solid grey;
+  padding: 0px 10px 0px 10px;
+}
+
+.snippet-photo {
+  background: green;
+  border-radius: 5px;
+  flex: 3;
+  margin: 15px 10px;
+}
+
+.snippet-info {
+  background: blue;
+  display: flex;
+  flex-direction: column;
+  flex: 6;
+  margin: 15px 10px;
+}
+
+.snippet-price {
+  background: red;
+  flex: 1;
+  margin: 15px 10px;
+}
+
+.snippet-review {
+  background: orange;
+  flex: 6;
+  margin: 15px 10px;
+}
