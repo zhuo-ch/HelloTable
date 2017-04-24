@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { fetchAllCities } from '../actions/city_actions';
 import { Link } from 'react-router';
 
-class SplashIndex extends React.Component {
+class CityIndex extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -60,4 +60,4 @@ const mapDispatchToProps = dispatch => ({
   fetchAllCities: () => dispatch(fetchAllCities()),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(SplashIndex);
+export default connect(mapStateToProps, mapDispatchToProps)(CityIndex);

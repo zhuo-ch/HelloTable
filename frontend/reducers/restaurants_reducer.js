@@ -1,5 +1,9 @@
 import { merge } from 'lodash';
-import { RECEIVE_ALL_RESTAURANTS, RECEIVE_RESTAURANT, RECEIVE_DESTROY} from '../actions/restaurant_actions';
+import { RECEIVE_ALL_RESTAURANTS,
+  RECEIVE_RESTAURANT,
+  RECEIVE_DESTROY,
+  RECEIVE_SEARCH
+} from '../actions/restaurant_actions';
 
 const _nullRestaurants = Object.freeze({
   restaurant: {
@@ -18,6 +22,7 @@ const _nullRestaurants = Object.freeze({
     images: [],
     lat: "",
     lng: "",
+    city_id: "",
   }
 });
 
@@ -31,6 +36,8 @@ const RestaurantsReducer = (state = _nullRestaurants, action) => {
       return newState;
     case RECEIVE_DESTROY:
       return _nullRestaurants;
+    case RECEIVE_SEARCH:
+      return action.restaurants;
     default:
       return _nullRestaurants;
   }

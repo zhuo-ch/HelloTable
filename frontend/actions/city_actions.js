@@ -8,9 +8,11 @@ export const fetchAllCities = () => dispatch => {
     .then((cities) => dispatch(receiveAllCities(cities)));
 }
 
-export const fetchCity = cityid => dispatch => {
-  return CityAPIUtil.fetchCity()
-    .then((city) => dispatch(receiveCity(city)));
+export const fetchCity = cityId => dispatch => {
+  return CityAPIUtil.fetchCity(cityId)
+    .then((city) => {
+      dispatch(receiveCity(city))
+    });
 }
 
 const receiveAllCities = cities => ({

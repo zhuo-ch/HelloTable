@@ -4,8 +4,10 @@ import * as RestaurantAPIUtil from '../util/restaurant_api_util';
 export const RECEIVE_ALL_RESTAURANTS = 'RECEIVE_ALL_RESTAURANTS';
 export const RECEIVE_RESTAURANT = 'RECEIVE_RESTAURANT';
 export const RECEIVE_DESTROY = 'RECEIVE_DESTROY';
+export const RECEIVE_SEARCH = 'RECEIVE_SEARCH';
 
 export const fetchAllRestaurants = (cityId) => dispatch => {
+  debugger
   return RestaurantAPIUtil.fetchAllRestaurants(cityId)
     .then((restaurants) => {
       return dispatch(receiveAllRestaurants(restaurants));
@@ -15,12 +17,21 @@ export const fetchAllRestaurants = (cityId) => dispatch => {
 
 export const createRestaurant = (restaurant) => dispatch => {
   return RestaurantAPIUtil.createRestaurant(restaurant)
-    .then((newRestaurant) => dispatch(receiveRestaurant(newRestaurant)));
+    .then((newRestaurant) => dispatch(receiveRestaurant(newRestaurant)))
+    .then((newRestaurant) => {
+      hashHistory.push(`/restaurant/${newRestaurant.restaurant.id}`)
+    });
 }
 
 export const fetchRestaurant = (id) => dispatch => {
+  debugger
   return RestaurantAPIUtil.fetchRestaurant(id)
     .then((restaurant) => dispatch(receiveRestaurant(restaurant)));
+}
+
+export const searchRestaurants = (query) => dispatch => {
+  return RestaurantAPIUtil.searchRestaurants(query)
+    .then((restaurants) => dispatch(receiveSearch(restaurants)));
 }
 
 export const updateRestaurant = (restaurant) => dispatch => {
@@ -32,6 +43,11 @@ export const deleteRestaurant = (id) => dispatch => {
   return RestaurantAPIUtil.deleteRestaurant(id)
     .then(() => dispatch(recieveDelete()));
 }
+
+const receiveSearch = (restaurants) => dispatch => ({
+    type: RECEIVE_SEARCH,
+    restaurants,
+})
 
 const receiveAllRestaurants = (restaurants) => ({
   type: RECEIVE_ALL_RESTAURANTS,

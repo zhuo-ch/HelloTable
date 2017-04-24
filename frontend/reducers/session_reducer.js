@@ -3,7 +3,7 @@ import { RECEIVE_CURRENT_USER, RECEIVE_ERRORS, LOGOUT } from '../actions/session
 
 const _nullUser = Object.freeze({
   currentUser: null,
-  errors: {base:""}
+  errors: {base: []}
 });
 
 const SessionReducer = (state = _nullUser, action) => {

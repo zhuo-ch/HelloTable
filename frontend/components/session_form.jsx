@@ -12,7 +12,7 @@ class SessionForm extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (this.props.location.pathname !== nextProps.location.pathname) {
-      this.props.receiveErrors({base:""});
+      this.props.receiveErrors({base:[]});
     }
   }
 
@@ -40,8 +40,10 @@ class SessionForm extends React.Component {
   }
 
   renderErrors() {
+    const errors = this.props.errors.base.join('. ');
+
     return (
-      <h5>{this.props.errors.base}</h5>
+      <h5>{ errors }</h5>
     );
   }
 

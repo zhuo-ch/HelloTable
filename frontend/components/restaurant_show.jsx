@@ -36,13 +36,14 @@ class RestaurantShow extends React.Component {
   //   fetchRestaurant={fetchRestaurant} />
 
   render() {
-    const imgStyle = {backgroundImage: `url("${this.props.restaurant.images[0]}")`}
+    // const imgStyle = {backgroundImage: `url("${this.props.restaurant.images[0]}")`}
+    // <article className='res-img' style={ imgStyle }>
+    // </article>
     return (
       <div className='restaurant-view'>
         <section className='restaurant-splash'>
           <div className='restaurant-splash-img'>
-            <article className='res-img' style={ imgStyle }>
-            </article>
+            <img src={this.props.restaurant.images[0]}/>
           </div>
 
           <div className='splash-details'>
@@ -53,7 +54,7 @@ class RestaurantShow extends React.Component {
             <section className='splash-info'>
               <section className='info-details'>
                 <h5 className='splash-cuisine'>{this.props.restaurant.cuisine}</h5>
-                <h5 className='splash-location'>{this.props.restaurant.city}, {this.props.restaurant.state}</h5>
+                <h5 className='splash-location'>{this.props.restaurant.city_name}, {this.props.restaurant.state}</h5>
               </section>
               <section className="likes">
 
@@ -124,7 +125,7 @@ class RestaurantShow extends React.Component {
               <h4>Address:</h4>
               { this.props.restaurant.street_address }
               {
-                this.props.restaurant.city + ', '
+                this.props.restaurant.city_name + ', '
                 + this.props.restaurant.state + ' '
                 + this.props.restaurant.zip
               }
@@ -141,8 +142,7 @@ class RestaurantShow extends React.Component {
 }
 
 const mapStateToProps = (state, {params}) => {
-  const restaurantId = parseInt(params.restaurantId);
-  // const restaurant = state.restaurants[restaurantId] ? state.restaurants[restaurantId] : state.restaurants.restaurant
+  let restaurantId = parseInt(params.restaurantId);
 
   return ({
     restaurantId,

@@ -8,10 +8,10 @@ import { merge } from 'lodash';
 document.addEventListener('DOMContentLoaded', () => {
   let store;
     if (window.currentUser) {
-      const preloadedState = { session: { currentUser: window.currentUser, errors: {base:""}}};
+      const preloadedState = { session: { currentUser: window.currentUser, errors: {base:[]}}};
       store = configureStore(preloadedState);
     } else {
-      store = configureStore({session:{errors:{base:""}}});
+      store = configureStore({session:{errors:{base:[]}}});
     }
 
   const root = document.getElementById('root');

@@ -11,7 +11,7 @@ class CreateRestaurant extends React.Component {
                       hours: '',
                       cuisine: '',
                       street_address: '',
-                      city: '',
+                      city_name: '',
                       state: '',
                       site: '',
                       lat: '',
@@ -56,16 +56,15 @@ class CreateRestaurant extends React.Component {
     formData.append('restaurant[hours]', this.state.hours);
     formData.append('restaurant[cuisine]', this.state.cuisine);
     formData.append('restaurant[street_address]', this.state.street_address);
-    formData.append('restaurant[city]', this.state.city);
+    // formData.append('restaurant[city_name]', this.state.city_name);
     formData.append('restaurant[state]', this.state.state);
     formData.append('restaurant[site]', this.state.site);
     formData.append('restaurant[owner_id]', this.state.owner_id);
     this.state.imageFiles.forEach((data, idx) => {
-      formData.append('restaurant[imageFiles][]', data);
+      formData.append('imageFiles[]', data);
     })
 
-    this.props.createRestaurant(formData)
-      .then((newRestaurant) => this.props.router.push(`/restaurant/${newRestaurant.id}`));
+    this.props.createRestaurant(formData);
   }
 
   render() {
@@ -93,7 +92,7 @@ class CreateRestaurant extends React.Component {
           <input type='text' className='street_address'
             onChange={this.handleChange}
             placeholder='Street Address'></input>
-          <input type='text' className='city'
+          <input type='text' className='city_name'
             onChange={this.handleChange}
             placeholder='City'></input>
           <input type='text' className='state'

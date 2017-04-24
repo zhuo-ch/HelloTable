@@ -1,5 +1,7 @@
 class Restaurant < ActiveRecord::Base
-  validates :owner_id, :restaurant_name, :description, :street_address, :city, :state, :restaurant_number, presence: true
+  # validates :owner_id, :restaurant_name, :description, :street_address, :state, :restaurant_number, presence: true
+
+  belongs_to :city
 
   belongs_to :owner,
     class_name: "User",

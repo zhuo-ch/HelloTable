@@ -7,8 +7,8 @@ import configureStore from '../store/store';
 import App from './app'
 import restaurantContainer from './restaurant_show';
 import restaurantCreate from './restaurant_create';
-import SplashIndex from './splash_index';
-import RestaurantIndex from './restaurant_index';
+import CityIndex from './city_index';
+import CityShow from './city_show';
 
 const Root = ({store}) => {
 
@@ -18,17 +18,17 @@ const Root = ({store}) => {
       replace("/");
     }
   }
-  
+
   return(
     <Provider store={store}>
       <Router history={hashHistory}>
         <Route path='/' component={App} >
-          <IndexRoute component={SplashIndex} />
+          <IndexRoute component={CityIndex} />
           <Route path='/login' component={sessionFormContainer} onEnter={handleEnter}/>
           <Route path='/signup' component={sessionFormContainer} onEnter={handleEnter}/>
           <Route path='/restaurant/:restaurantId' component={restaurantContainer} />
           <Route path='/create' component={restaurantCreate} />
-          <Route path='/cities/:cityId' component={RestaurantIndex} />
+          <Route path='/cities/:cityId' component={CityShow} />
         </Route>
       </Router>
     </Provider>

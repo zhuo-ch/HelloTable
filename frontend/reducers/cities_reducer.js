@@ -5,6 +5,7 @@ const _nullCities = {
   city: {
     city_name: "",
     main_photo: "",
+    restaurants: [],
   }
 }
 
@@ -14,7 +15,9 @@ const CitiesReducer = (state = _nullCities, action) => {
     case RECEIVE_ALL_CITIES:
       return merge({}, state, action.cities);
     case RECEIVE_CITY:
-      return merge({}, state, action.city);
+      const restaurants = action.city.restaurants
+      const city = merge({}, action.city, {restaurants})
+      return merge({}, state, {city});
     default:
       return _nullCities;
   }
