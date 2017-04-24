@@ -21,7 +21,6 @@ class RestaurantIndex extends React.Component {
     return (
       <div className='restaurants-index'>
         <section className='restaurants-index-splash'>
-          <image src='https://images.pexels.com/photos/370984/pexels-photo-370984.jpeg?h=350&auto=compress&cs=tinysrgb'></image>
         </section>
         <section className='restaurant-snippets'>
           { Snippets }

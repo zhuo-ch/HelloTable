@@ -3,68 +3,96 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 .restaurant-view {
-  background: whitesmoke;
   display: flex;
   flex-direction: column;
 }
 
 .restaurant-splash {
-  background: green;
+  display: flex;
   justify-content: flex-start;
-  height: 30%;
+  height: 230px;
 }
 
 .restaurant-splash-img {
-  background: blue;
-
-  position: relative;
-  float: left;
-  width: 20%;
+  background: -webkit-linear-gradient(right, #222, #666);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  flex: 1;
   padding: 10px;
-  padding-left: 40px;
-  align-items: baseline;
+  padding-left: 60px;
 }
 
 .res-img {
-  display: inline-block;
-  position: absolute;
-  height: 150px;
-  width: 150px;
-  left: 30px;
+  background-size: cover;
+  overflow: hidden;
+  width: 90%;
+  padding-top: 90%;
+  border-radius: 5px;
 }
 
 .splash-details {
-  background: red;
-
-  float: left;
+  background: -webkit-linear-gradient(left, #222, #666);
+  flex: 6;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   width: 40%;
   padding: 5px;
 }
 
 .splash-name {
-  background: yellow;
+  position: relative;
+  flex: 7;
+  margin: 5px;
+  color: white;
+  font-size: 40px;
+}
 
-  display: block;
-  width: 80%;
-  height: 20px;
+.splash-name h1 {
+  position: absolute;
+  bottom: 0px;
+  left: 5px;
+  display: inline-block;
+  margin: 0 auto;
 }
 
 .splash-ratings {
-  background: grey;
-
-  flex: 1;
+  flex: 3;
   display: inline-block;
   height: 15px;
+  margin: 5px;
+  color: silver;
 }
 
 .splash-info {
-  background: white;
-
   display: flex;
-  justify-content: space-around;
+  flex: 2;
+  justify-content: space-between;
+  margin: 5px;
+  padding-left: 5px;
+  color: silver;
+}
+
+.info-details {
+  display: flex;
+  flex: 5;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.splash-cuisine {
+  padding-right: 15px;
+  border-right: 1px solid gray;
+  text-align: center;
+}
+
+.splash-location {
+  padding: 0px 15px;
+  text-align: center;
+}
+
+.likes {
+  flex: 3;
 }
 
 .restaurant-body {
@@ -90,23 +118,50 @@
 }
 
 .restaurant-mid {
-  background: white;
-
   display: flex;
   flex-direction: column;
   flex: 7;
   margin-top: 30px;
-  border-radius: 4px;
   border-bottom: 1px solid lightgray;
 }
 
 .restaurant-about {
-  flex: 11;
-  padding: 10px;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid gray;
+  border-radius: 7px;
 }
 
+.about-text {
+  display: flex;
+  flex-direction: column;
+  flex: 11;
+}
+
+.about-header {
+  padding: 10px 20px 15px 20px;
+  margin: 20px 0px;
+  border-bottom: 1px solid lightgray;
+}
+
+.about-header h2 {
+  margin: 0;
+}
+
+.about-description {
+  padding: 0 20px;
+  line-height: 30px;
+}
 .restaurant-map {
   flex: 9;
+}
+
+.show-photos {
+  background: white;
+  margin: 20px 0px;
+  border-bottom: 1px solid gray;
+  border-radius: 7px;
 }
 
 .restaurant-right {
@@ -116,6 +171,14 @@
   flex: 3;
   padding: 0px 20px;
   margin: 30px 20px 0px 30px;
-  border-radius: 4px;
+  font-weight: 100;
+  color: #707070;
+  border-radius: 7px;
   border-bottom: 1px solid lightgray;
+}
+
+.restaurant-right h4{
+  color: black;
+  margin: 12px 0px;
+  font-weight: bold;
 }

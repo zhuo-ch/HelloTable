@@ -8,7 +8,6 @@ const App = (props) => {
   return (
     <div className='main-app'>
       <Navbar />
-      <Link to='/restaurant/4'>Restaurant 4</Link>
       { props.children }
     </div>
   )

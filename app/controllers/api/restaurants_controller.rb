@@ -1,7 +1,7 @@
 class Api::RestaurantsController < ApplicationController
 
   def index
-    @restaurants = Restaurant.all.where("city = ?", City.find(params[:cityId]).city_name)
+    @restaurants = Restaurant.where("state = ?", City.find(params[:cityId]).state)
   end
 
   def create
@@ -44,6 +44,6 @@ class Api::RestaurantsController < ApplicationController
   def restaurant_params
     params.require(:restaurant).permit(:owner_id, :restaurant_name,
       :restaurant_number, :cuisine, :description, :hours, :site, :city,
-      :state, :street_address)
+      :state, :street_address, :zip)
   end
 end

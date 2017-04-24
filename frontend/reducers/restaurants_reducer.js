@@ -11,9 +11,11 @@ const _nullRestaurants = Object.freeze({
     street_address: "",
     city: "",
     state: "",
+    zip: "",
     description: "",
     site: "",
     owner_id: "",
+    images: [],
     lat: "",
     lng: "",
   }

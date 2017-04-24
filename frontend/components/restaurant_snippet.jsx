@@ -2,16 +2,21 @@ import React from 'react';
 import { Link } from 'react-router';
 
 const RestaurantSnippet = ({restaurant}) => {
-  
+  const imgStyle = {backgroundImage: `url("${restaurant.image}")`}
   return (
     <section className='snippet-section'>
-      <article className='snippet-photo'>
-        <h3>Photo</h3>
-      </article>
+      <Link to={`restaurant/${restaurant.id}`} className='snippet-photo'>
+        <article className='snippet-img' style={ imgStyle }>
+        </article>
+      </Link>
       <article className='snippet-info'>
-        <h4>{restaurant.restaurant_name}</h4>
+        <h4>
+          <Link to={`restaurant/${restaurant.id}`}>
+            {restaurant.restaurant_name}
+          </Link>
+        </h4>
         <h4>Ratings</h4>
-        <h4>{restaurant.cuisine} | City</h4>
+        <h4 className="detail-fade">{restaurant.cuisine} | {restaurant.city}, {restaurant.state}</h4>
       </article>
       <article className='snippet-price'>
         <h4>Dollar Signs</h4>

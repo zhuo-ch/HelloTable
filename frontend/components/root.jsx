@@ -18,7 +18,7 @@ const Root = ({store}) => {
       replace("/");
     }
   }
-
+  
   return(
     <Provider store={store}>
       <Router history={hashHistory}>
@@ -28,7 +28,7 @@ const Root = ({store}) => {
           <Route path='/signup' component={sessionFormContainer} onEnter={handleEnter}/>
           <Route path='/restaurant/:restaurantId' component={restaurantContainer} />
           <Route path='/create' component={restaurantCreate} />
-          <Route path='/city/:cityId' component={RestaurantIndex} />
+          <Route path='/cities/:cityId' component={RestaurantIndex} />
         </Route>
       </Router>
     </Provider>

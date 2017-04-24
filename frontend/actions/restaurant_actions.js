@@ -7,7 +7,10 @@ export const RECEIVE_DESTROY = 'RECEIVE_DESTROY';
 
 export const fetchAllRestaurants = (cityId) => dispatch => {
   return RestaurantAPIUtil.fetchAllRestaurants(cityId)
-    .then((restaurants) => dispatch(receiveAllRestaurants(restaurants)));
+    .then((restaurants) => {
+      return dispatch(receiveAllRestaurants(restaurants));
+    }
+    );
 }
 
 export const createRestaurant = (restaurant) => dispatch => {
