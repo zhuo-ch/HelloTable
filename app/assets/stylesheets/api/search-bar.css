@@ -1,0 +1,63 @@
+.search-bar {
+  display: flex;
+  flex-direction: column;
+  background: white;
+  padding: 10px 30px 30px 20px;
+  border-bottom: 1px solid gainsboro;
+}
+
+.search-bar h1 {
+
+}
+
+.search-bar button {
+  margin-top: 10px;
+  width: 100%;
+}
+.search-fields {
+  display: flex;
+  width: 80%;
+  align-self: center;
+}
+
+.num-seats {
+  align-items: center;
+  flex: 2;
+}
+
+.seats-form select {
+  width: 95%;
+  height: 37px;
+  margin-top: 10px;
+  align-self: center;
+  vertical-align: middle;
+  -moz-appearance: none;
+  -webkit-appearance:none;
+}
+
+.search-field {
+  flex: 6;
+  display: flex;
+}
+
+.search-field input {
+  width: 95%;
+  align-self: center;
+}
+
+.date {
+  flex: 2;
+}
+
+.date input {
+  width: 95%;
+  align-self: center;
+}
+
+.search-button {
+  flex: 1;
+}
+
+.search-form {
+  display: flex;
+}

@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { fetchAllCities } from '../../actions/city_actions';
 import { Link } from 'react-router';
+import SearchBar from '../search/search_bar';
 
 class CityIndex extends React.Component {
   constructor(props) {
@@ -37,7 +38,9 @@ class CityIndex extends React.Component {
     });
 
     return (
-      <div className='featured-areas-splash'>
+      <div>
+        <SearchBar />
+        <div className='featured-areas-splash'>
           <h2 className='splash-header'>Featured Cities</h2>
           <ul className='splash-images'>
             { cities }
@@ -45,6 +48,7 @@ class CityIndex extends React.Component {
           <ul className='splash-city-names'>
             { citiesNames }
           </ul>
+        </div>
       </div>
     )
   }

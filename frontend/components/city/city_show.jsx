@@ -3,7 +3,7 @@ import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import { fetchCity } from '../../actions/city_actions';
 import RestaurantSnippet from './restaurant_snippet';
-
+import SearchBar from '../search/search_bar'
 class CityShow extends React.Component {
   constructor(props) {
     super(props)
@@ -21,6 +21,7 @@ class CityShow extends React.Component {
     return (
       <div className='restaurants-index'>
         <section className='restaurants-index-splash'>
+          <SearchBar />
         </section>
         <section className='restaurant-snippets'>
           { Snippets }

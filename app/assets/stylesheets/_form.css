@@ -22,7 +22,7 @@
   color: #D41010;
 }
 
-form {
+.login-form form {
   display: flex;
   flex-direction: column;
   text-align: center;

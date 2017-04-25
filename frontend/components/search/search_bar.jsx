@@ -44,21 +44,44 @@ class SearchBar extends React.Component {
                onClick={this.handleClick}
                id={id}>{restaurant.restaurant_name} {restaurant.city_name} {restaurant.state}</li>);
            }));
+    let seats = [];
+
+    for (let i = 1; i < 11; i++) {
+     seats.push(<option key={i} value={i}>{i} Seats</option>)
+    }
 
     return (
-      <div className='search-form'>
-        <form>
-          <input
-            type='text'
-            name='query'
-            placeholder='Search For a Table'
-            onChange={this.handleChange}
-            value={this.state.searchTerm}></input>
-          <input type='submit' value='Search'></input>
-        </form>
-        <ul className={ toggle }>
-          { results }
-        </ul>
+      <div className='search-bar'>
+        <h1>Say goodbye to headache and say hello table!</h1>
+        <div className='search-fields'>
+          <section className='num-seats'>
+            <form className='seats-form'>
+              <select name='seats'>
+                { seats }
+              </select>
+            </form>
+          </section>
+          <section className='date'>
+            <input type='date'></input>
+          </section>
+          <section className='time'>
+
+          </section>
+          <section className='search-field'>
+            <input
+              type='search'
+              name='query'
+              placeholder='Search For a Table'
+              onChange={this.handleChange}
+              value={this.state.searchTerm}></input>
+            <ul className={ toggle }>
+              { results }
+            </ul>
+          </section>
+          <section className='search-button'>
+            <button>Search</button>
+          </section>
+        </div>
       </div>
     )
   }
