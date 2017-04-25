@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
-import { fetchRestaurant } from '../actions/restaurant_actions';
+import { fetchRestaurant } from '../../actions/restaurant_actions';
 import RestaurantMap from './restaurant_map';
 import PhotoSection from './photo_section';
 

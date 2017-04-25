@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { fetchAllCities } from '../actions/city_actions';
+import { fetchAllCities } from '../../actions/city_actions';
 import { Link } from 'react-router';
 
 class CityIndex extends React.Component {

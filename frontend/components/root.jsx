@@ -2,13 +2,13 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import { Router, Route, IndexRoute, hashHistory } from 'react-router';
 import NavbarContainer from './navbar';
-import sessionFormContainer from './session_form_container';
+import sessionFormContainer from './session/session_form_container';
 import configureStore from '../store/store';
 import App from './app'
-import restaurantContainer from './restaurant_show';
-import restaurantCreate from './restaurant_create';
-import CityIndex from './city_index';
-import CityShow from './city_show';
+import restaurantContainer from './restaurant/restaurant_show';
+import restaurantCreate from './restaurant/restaurant_create';
+import CityIndex from './city/city_index';
+import CityShow from './city/city_show';
 
 const Root = ({store}) => {
 

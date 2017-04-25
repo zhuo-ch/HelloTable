@@ -1,7 +1,7 @@
 import React from 'react';
 import { withRouter } from 'react-router';
 import ReactDOM from 'react-dom';
-import MarkerManager from '../util/marker_manager';
+import MarkerManager from '../../util/marker_manager';
 
 const _getCoordsObj = latLng => {
   return ({

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
-import TimeBar from './time_bar';
-import SearchBar from './search_bar';
+import TimeBar from './search/time_bar';
+import SearchBar from './search/search_bar';
 
 const ReservationBar = ({ restaurants, restaurantId }) => {
   let seats = [];

@@ -1,8 +1,7 @@
 import React from 'react';
 import { Link, hashHistory } from 'react-router';
 import { connect } from 'react-redux';
-import * as RestaurantAPIUtil from '../util/restaurant_api_util';
-import { searchRestaurants } from '../actions/restaurant_actions';
+import { searchRestaurants } from '../../actions/restaurant_actions';
 
 class SearchBar extends React.Component {
   constructor(props) {
@@ -39,9 +38,13 @@ class SearchBar extends React.Component {
     const toggle = (this.state.searching ? 'search-list' : 'no-search');
     const results = (
            Object.keys(this.props.restaurants).map((id) => {
-             return (<li key={id} onClick={this.handleClick} id={id}>{this.props.restaurants[id].restaurant_name}</li>);
+             const restaurant = this.props.restaurants[id]
+
+             return (<li key={id}
+               onClick={this.handleClick}
+               id={id}>{restaurant.restaurant_name} {restaurant.city_name} {restaurant.state}</li>);
            }));
-    debugger
+
     return (
       <div className='search-form'>
         <form>

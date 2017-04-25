@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
-import { fetchCity } from '../actions/city_actions';
+import { fetchCity } from '../../actions/city_actions';
 import RestaurantSnippet from './restaurant_snippet';
 
 class CityShow extends React.Component {

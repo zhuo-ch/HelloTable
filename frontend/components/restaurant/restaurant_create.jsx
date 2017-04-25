@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { createRestaurant } from '../actions/restaurant_actions';
+import { createRestaurant } from '../../actions/restaurant_actions';
 
 class CreateRestaurant extends React.Component {
   constructor(props) {
