@@ -11,9 +11,13 @@
 
 .snippet-img {
   width: 100%;
-  height: 100%;
-  background-size: cover;
   border-radius: 5px;
+}
+
+.snippet-img img {
+  width: 100%;
+  border-radius: 7px;
+  vertical-align: middle;
 }
 
 .snippet-info {

@@ -10,54 +10,134 @@
 
 }
 
-.search-bar button {
-  margin-top: 10px;
+.seats-form {
+  display: flex;
+  justify-content: center;
+  border-top: 1px solid gainsboro;
+  border-bottom: 1px solid gainsboro;
+  border-radius: 7px;
+  width: 100%;
+  /*background: -webkit-linear-gradient(left, white, #F13737);*/
+}
+
+.search-bar ul li {
+  margin: 0;
   width: 100%;
 }
+
+.seats-form section {
+  margin:0;
+}
+
+.seats-form .input, .seats-form .bar-time {
+  border: none;
+  padding: 10px 20px;
+  margin: 0;
+  background: white;
+  font-size: 14px;
+  border-radius: 0px;
+  border-right: 1px solid gainsboro;
+}
+
 .search-fields {
   display: flex;
   width: 80%;
   align-self: center;
 }
 
-.num-seats {
-  align-items: center;
-  flex: 2;
+.search-fields section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
+
 .seats-form select {
-  width: 95%;
-  height: 37px;
-  margin-top: 10px;
+  height: 100%;
   align-self: center;
   vertical-align: middle;
   -moz-appearance: none;
   -webkit-appearance:none;
 }
 
-.search-field {
-  flex: 6;
-  display: flex;
+.seats-form select option {
+  background: white;
+  border-radius: 0px;
 }
 
-.search-field input {
-  width: 95%;
-  align-self: center;
-}
-
-.date {
+.seats-form .bar-seats {
+  border-radius: 7px;
+  border-left: 1px solid gainsboro;
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+  overflow: hidden;
+  align-items: center;
   flex: 2;
 }
 
-.date input {
-  width: 95%;
-  align-self: center;
+.bar-date {
+  flex: 2;
 }
 
-.search-button {
-  flex: 1;
+.bar-time {
+  flex: 2;
 }
 
-.search-form {
+.search-field {
+  position: relative;
+  flex: 6;
+}
+
+.search-list {
+  position: absolute;
   display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 90%;
+  max-height: 300px;
+  top: 56px;
+  left: -1px;
+  z-index: 9;
+  overflow: scroll;
+  font-size: 14px;
+  padding-left: 5px;
+  color: gray;
+  background: white;
+  border-left: 1px solid gainsboro;
+}
+
+.search-field li:hover {
+  background: gainsboro;
+}
+
+.no-search ul {
+  display: none;
+  background: white;
+}
+
+.bar-submit {
+  flex: 2;
+  text-align: center;
+  color: white;
+  border-radius: 7px;
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
+  font-size: 18px;
+  background: #F13737;
+}
+
+input[type=date]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    display: none;
+}
+
+input[type=date]::-webkit-calendar-picker-indicator {
+    -webkit-appearance: none;
+    color: gray;
+}
+
+.bar-submit:hover {
+  background: #A70303;
+  cursor: pointer;
+  transition-duration: .5s;
 }

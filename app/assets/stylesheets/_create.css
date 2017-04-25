@@ -14,12 +14,15 @@
 }
 
 .restaurant-create form {
+  display: flex;
+  flex-direction: column;
   width: 80%;
 }
 
 .restaurant-create input {
   width:70%;
   text-align: center;
+  align-items: center;
 }
 
 .restaurant-create .button {

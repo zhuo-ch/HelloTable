@@ -2,33 +2,35 @@ import React from 'react';
 import { Link } from 'react-router';
 
 const TimeBar = () => {
-  const date = new Date();
-  let hour = date.getHours();
-  let minute = date.getMinutes();
+  const currentTime = new Date();
+  let startTime = 12;
+  let endTime = 24;
+  let minutes = (currentTime.getMinutes() < 30) ? 0 : 30
+  let slots = new Array();
 
-  if (date.getMinutes() < 30) {
-    minute = 30;
-  } else {
-    hour += 1;
+  function formatMinutes(minute) {
+    if (minute === 0) {
+      return '0' + minute.toString();
+    } else {
+      return minute.toString();
+    }
   }
 
-  let slots = [];
-
-  for (hour; hour < 24 ;) {
-    let min = '00'
-
+  function formatHour(hour) {
     if (hour > 12) {
-      if (minute === 0) {
-        slots.push(`${hour}`)
-      }
-      slots.push(`${hour%12}:${minute}`);
+      return (hour%12).toString();
     } else {
-      slots.push(`${hour}:${minute}`);
+      return hour.toString();
     }
-    minute += 30;
-    if (minute === 60) {
-      minute = 0;
-      hour += 1;
+  }
+
+  while (startTime < endTime) {
+    slots.push(formatHour(startTime)+":"+formatMinutes(minutes))
+    minutes += 30;
+
+    if (minutes === 60) {
+      minutes = 0;
+      startTime += 1;
     }
   }
 
@@ -39,9 +41,9 @@ const TimeBar = () => {
   debugger
 
   return (
-    <div className='time-bar'>
+    <input type='select' className='time-bar'>
       {slots}
-    </div>
+    </input>
   )
 }
 

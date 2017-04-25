@@ -63,7 +63,7 @@ class SessionForm extends React.Component {
           <input
             type="text"
             onChange={this.handleChange}
-            className="username"
+            className="username input"
             placeholder="Username"/>
           );
       } else {
@@ -85,18 +85,18 @@ class SessionForm extends React.Component {
                 type="text"
                   value={this.state.email}
                   onChange={this.handleChange}
-                  className="email"
+                  className="email input"
                   placeholder="Email Address"/>
               <input
                 type="password"
                 value={this.state.password}
                 onChange={this.handleChange}
-                className="password"
+                className="password input"
                 placeholder="Password"/>
               <section className='errors'>
                 {this.renderErrors()}
               </section>
-            <input type="submit" onClick={this.handleSubmit} value={buttonText} className="button"/>
+            <input type="submit" onClick={this.handleSubmit} value={buttonText} className="input button"/>
             <button onClick={this.handleGuest} className='button'>Demo</button>
           </form>
           <div className='switch-link'>

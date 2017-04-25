@@ -31,7 +31,7 @@
   border-top: 1px solid #A70303
 }
 
-input {
+.input {
   display: flex;
   width: 90%;
   height: 35px;
@@ -39,6 +39,8 @@ input {
   margin: 10px 0px;
   border-radius: 3px;
   border:1px solid black;
+  -moz-appearance: none;
+  -webkit-appearance:none;
 }
 
 .button {

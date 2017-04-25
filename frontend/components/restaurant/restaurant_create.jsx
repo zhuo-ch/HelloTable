@@ -74,34 +74,36 @@ class CreateRestaurant extends React.Component {
           <h2>Add Your Restaurant!</h2>
         </article>
         <form>
-          <input type='text' className='restaurant_name'
+          <input type='text' className='restaurant_name input'
             onChange={this.handleChange}
             placeholder='Name of Your Restaurant'></input>
-          <input type='text' className='description'
+          <input type='text' className='description input'
             onChange={this.handleChange}
             placeholder='Restaurant Description'></input>
-          <input type='text' className='hours'
+          <input type='text' className='hours input'
             onChange={this.handleChange}
             placeholder='Restaurant Hours'></input>
-          <input type='text' className='cuisine'
+          <input type='text' className='cuisine input'
             onChange={this.handleChange}
             placeholder='Type of Cuisine'></input>
-          <input type='text' className='restaurant_number'
+          <input type='text' className='restaurant_number input'
             onChange={this.handleChange}
             placeholder='Contact Phone Number'></input>
-          <input type='text' className='street_address'
+          <input type='text' className='street_address input'
             onChange={this.handleChange}
             placeholder='Street Address'></input>
-          <input type='text' className='city_name'
+          <input type='text' className='city_name input'
             onChange={this.handleChange}
             placeholder='City'></input>
-          <input type='text' className='state'
+          <input type='text' className='state input'
             onChange={this.handleChange}
             placeholder='State'></input>
-          <input type='text' className='site'
+          <input type='text' className='site input'
             onChange={this.handleChange}
             placeholder='Website'></input>
-          <input type='file' onChange={this.handleFile}></input>
+          <input type='file'
+            onChange={this.handleFile}
+            className='input'></input>
           <ul className='upload-images'>
             {
               this.state.imageUrls.map((image, idx) => {
@@ -115,7 +117,7 @@ class CreateRestaurant extends React.Component {
           </ul>
           <input type='submit'
             onClick={this.handleSubmit}
-            className="button"
+            className="button input"
             value='Add Restaurant!'></input>
         </form>
       </section>
