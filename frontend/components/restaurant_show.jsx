@@ -36,9 +36,6 @@ class RestaurantShow extends React.Component {
   //   fetchRestaurant={fetchRestaurant} />
 
   render() {
-    // const imgStyle = {backgroundImage: `url("${this.props.restaurant.images[0]}")`}
-    // <article className='res-img' style={ imgStyle }>
-    // </article>
     return (
       <div className='restaurant-view'>
         <section className='restaurant-splash'>

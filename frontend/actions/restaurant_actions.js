@@ -7,7 +7,6 @@ export const RECEIVE_DESTROY = 'RECEIVE_DESTROY';
 export const RECEIVE_SEARCH = 'RECEIVE_SEARCH';
 
 export const fetchAllRestaurants = (cityId) => dispatch => {
-  debugger
   return RestaurantAPIUtil.fetchAllRestaurants(cityId)
     .then((restaurants) => {
       return dispatch(receiveAllRestaurants(restaurants));
@@ -24,12 +23,11 @@ export const createRestaurant = (restaurant) => dispatch => {
 }
 
 export const fetchRestaurant = (id) => dispatch => {
-  debugger
   return RestaurantAPIUtil.fetchRestaurant(id)
     .then((restaurant) => dispatch(receiveRestaurant(restaurant)));
 }
 
-export const searchRestaurants = (query) => dispatch => {
+export const searchRestaurants = (query, callback) => dispatch => {
   return RestaurantAPIUtil.searchRestaurants(query)
     .then((restaurants) => dispatch(receiveSearch(restaurants)));
 }
@@ -44,7 +42,7 @@ export const deleteRestaurant = (id) => dispatch => {
     .then(() => dispatch(recieveDelete()));
 }
 
-const receiveSearch = (restaurants) => dispatch => ({
+const receiveSearch = (restaurants) => ({
     type: RECEIVE_SEARCH,
     restaurants,
 })

@@ -30,11 +30,11 @@ class Api::RestaurantsController < ApplicationController
 
   def search
     if params[:query].present?
-      @restaurants = Restaurant.where("restaurant_name ~ ?", params[:query])
+      @restaurants = Restaurant.where("lower(restaurant_name) ~ ?", params[:query].downcase)
     else
       @restaurants = Restaurant.none
     end
-
+    
     render 'api/restaurants/search'
   end
 
