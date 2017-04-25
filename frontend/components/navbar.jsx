@@ -44,6 +44,8 @@ class Navbar extends React.Component {
     this.props.logout()
   }
 
+  // 'http://i.imgur.com/3ztfVmN.png'
+
   render () {
     return (
       <div className='navbar'>
@@ -51,7 +53,7 @@ class Navbar extends React.Component {
           <section className='nav-logo'>
             <Link to='/'>
               <article>
-                <img src='http://i.imgur.com/3ztfVmN.png' />
+                <img src='http://i.imgur.com/vRLREds.png' />
               </article>
             </Link>
             <Link to='/' className='logo-name'>

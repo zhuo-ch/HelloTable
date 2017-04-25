@@ -28,6 +28,7 @@ export const fetchRestaurant = (id) => dispatch => {
 }
 
 export const searchRestaurants = (query, callback) => dispatch => {
+  debugger
   return RestaurantAPIUtil.searchRestaurants(query)
     .then((restaurants) => dispatch(receiveSearch(restaurants)));
 }

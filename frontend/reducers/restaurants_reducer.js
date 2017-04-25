@@ -39,7 +39,7 @@ const RestaurantsReducer = (state = _nullRestaurants, action) => {
     case RECEIVE_SEARCH:
       return action.restaurants;
     default:
-      return _nullRestaurants;
+      return state;
   }
 }
 

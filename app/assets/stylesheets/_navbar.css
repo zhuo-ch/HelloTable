@@ -2,6 +2,7 @@
   display: flex;
   border-bottom: 1px solid gainsboro;
   background: white;
+  max-height: 60px;
 }
 
 .nav-left {
@@ -19,7 +20,7 @@
 }
 
 .logo-name {
-  padding: 20px 15px 0px 5px;
+  padding-right: 10px;
 }
 
 .nav-logo article {

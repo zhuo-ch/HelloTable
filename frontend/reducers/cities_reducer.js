@@ -19,7 +19,7 @@ const CitiesReducer = (state = _nullCities, action) => {
       const city = merge({}, action.city, {restaurants})
       return merge({}, state, {city});
     default:
-      return _nullCities;
+      return state;
   }
 }
 

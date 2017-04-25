@@ -133,13 +133,13 @@ class SearchBar extends React.Component {
     const toggle = (this.state.searching ? 'search-list' : 'no-search');
     const defaultDate = this.formatDate();
     const head = this.props.header ? this.props.header : "";
-
+  
     return (
       <div className='search-bar'>
         <h1>{ head }</h1>
         <div className='search-fields'>
           <form className='seats-form'>
-            <select name='seats' className='input bar-seats'>
+            <select name='seats' className='input bar-seats' defaultValue='2 People'>
               { this.seats() }
             </select>
             <input type='date'
@@ -168,9 +168,12 @@ class SearchBar extends React.Component {
   }
 }
 
-const mapStateToProps = ({restaurants}) => ({
-  restaurants
-})
+const mapStateToProps = (state, ownProps) => {
+  return ({
+    restaurants: state.restaurants,
+    header: ownProps.header,
+  })
+}
 
 const mapDispatchToProps = dispatch => {
   return ({

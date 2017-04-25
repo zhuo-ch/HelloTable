@@ -1,4 +1,6 @@
 .search-bar {
+  width: 80%;
+  border-radius: 7px;
   display: flex;
   flex-direction: column;
   background: white;
@@ -8,6 +10,12 @@
 
 .search-bar h1 {
 
+}
+
+.search-fields {
+  display: flex;
+  width: 100%;
+  align-self: center;
 }
 
 .seats-form {
@@ -39,11 +47,6 @@
   border-right: 1px solid gainsboro;
 }
 
-.search-fields {
-  display: flex;
-  width: 80%;
-  align-self: center;
-}
 
 .search-fields section {
   display: flex;
@@ -84,6 +87,7 @@
 }
 
 .search-field {
+  margin: 0px;
   position: relative;
   flex: 6;
 }
@@ -97,7 +101,6 @@
   max-height: 300px;
   top: 56px;
   left: -1px;
-  z-index: 9;
   overflow: scroll;
   font-size: 14px;
   padding-left: 5px;
@@ -110,9 +113,12 @@
   background: gainsboro;
 }
 
+.search-field input {
+  margin: 0px;
+}
+
 .no-search ul {
   display: none;
-  background: white;
 }
 
 .bar-submit {

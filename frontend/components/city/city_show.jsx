@@ -15,7 +15,6 @@ class CityShow extends React.Component {
   }
 
   render() {
-    debugger
     const Snippets = this.props.city.restaurants.map((restaurant) => {
       return (<RestaurantSnippet restaurant={restaurant} key={restaurant.id}/>);
     })

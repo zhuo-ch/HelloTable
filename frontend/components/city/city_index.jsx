@@ -38,8 +38,10 @@ class CityIndex extends React.Component {
     });
 
     return (
-      <div>
-        <SearchBar />
+      <div className='city-index-splash'>
+        <section className='restaurants-index-splash'>
+          <SearchBar header={'Say goodbye hassle, and say hello table'}/>
+        </section>
         <div className='featured-areas-splash'>
           <h2 className='splash-header'>Featured Cities</h2>
           <ul className='splash-images'>

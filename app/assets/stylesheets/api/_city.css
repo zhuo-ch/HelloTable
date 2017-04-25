@@ -7,8 +7,13 @@
 .restaurants-index-splash {
   width: 100%;
   background-size: cover;
-  height: 500px;
-  background-image: url("https://images.pexels.com/photos/370984/pexels-photo-370984.jpeg?h=350&auto=compress&cs=tinysrgb");
+  height: 350px;
+  background-image: url('http://i.imgur.com/R8tZf6W.jpg');
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  padding-bottom: 30px;
 }
 
 .restaurant-snippets {
@@ -18,4 +23,23 @@
   padding-bottom: 15px;
   border-bottom: 1px solid grey;
   border-radius: 7px;
+}
+
+.restaurants-index .search-bar {
+  background: transparent;
+  border:none;
+}
+
+.restaurants-index .seats-form {
+  border: none;
+}
+
+.city-index-splash .search-bar {
+  position: absolute;
+  top: 70%;
+}
+
+.city-index-splash .restaurants-index-splash {
+  position: relative;
+  background-image: url('https://images.pexels.com/photos/370984/pexels-photo-370984.jpeg?h=350&auto=compress&cs=tinysrgb');
 }
