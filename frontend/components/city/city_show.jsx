@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { fetchCity } from '../../actions/city_actions';
 import RestaurantSnippet from './restaurant_snippet';
 import SearchBar from '../search/search_bar'
+
 class CityShow extends React.Component {
   constructor(props) {
     super(props)
@@ -14,7 +15,8 @@ class CityShow extends React.Component {
   }
 
   render() {
-    const Snippets = this.props.restaurants.map((restaurant) => {
+    debugger
+    const Snippets = this.props.city.restaurants.map((restaurant) => {
       return (<RestaurantSnippet restaurant={restaurant} key={restaurant.id}/>);
     })
 

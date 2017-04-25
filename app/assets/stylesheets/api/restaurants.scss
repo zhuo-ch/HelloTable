@@ -21,6 +21,19 @@
   flex: 1;
   padding: 10px;
   padding-left: 60px;
+  justify-content: flex-end;
+}
+
+.splash-img-holder {
+  width: 85%;
+  position: relative;
+}
+
+.splash-img-holder img {
+  width: 100%;
+  position: absolute;
+  bottom: -20px;
+  border-radius: 7px;
 }
 
 .res-img {

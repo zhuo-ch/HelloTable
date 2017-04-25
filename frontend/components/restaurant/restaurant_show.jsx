@@ -40,7 +40,9 @@ class RestaurantShow extends React.Component {
       <div className='restaurant-view'>
         <section className='restaurant-splash'>
           <div className='restaurant-splash-img'>
-            <img src={this.props.restaurant.images[0]}/>
+            <section className='splash-img-holder'>
+              <img src={this.props.restaurant.images[0]}/>
+            </section>
           </div>
 
           <div className='splash-details'>
