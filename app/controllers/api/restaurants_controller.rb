@@ -1,7 +1,13 @@
 class Api::RestaurantsController < ApplicationController
 
   def index
-    @restaurants = Restaurant.where("state = ?", City.find(params[:cityId]).state)
+    if params[:cityId]
+      @restaurants = Restaurant.where("state = ?", City.find(params[:cityId]).state)
+    elsif params[:query]
+      @restaurants = Restaurant.where("restaurant_name ~ ?", params[:query]);
+    else
+      render json: ['No results found'], status: 422
+    end
   end
 
   def create
@@ -34,7 +40,7 @@ class Api::RestaurantsController < ApplicationController
     else
       @restaurants = Restaurant.none
     end
-    
+
     render 'api/restaurants/search'
   end
 

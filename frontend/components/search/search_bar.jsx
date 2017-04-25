@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, hashHistory } from 'react-router';
 import { connect } from 'react-redux';
-import { searchRestaurants } from '../../actions/restaurant_actions';
+import { searchRestaurants, findRestaurants } from '../../actions/search_actions';
 
 
 class SearchBar extends React.Component {
@@ -133,7 +133,7 @@ class SearchBar extends React.Component {
     const toggle = (this.state.searching ? 'search-list' : 'no-search');
     const defaultDate = this.formatDate();
     const head = this.props.header ? this.props.header : "";
-  
+
     return (
       <div className='search-bar'>
         <h1>{ head }</h1>
