@@ -53,7 +53,7 @@ class Navbar extends React.Component {
           <section className='nav-logo'>
             <Link to='/'>
               <article>
-                <img src='http://i.imgur.com/vRLREds.png' />
+                <img src='/images/red-wine.png' />
               </article>
             </Link>
             <Link to='/' className='logo-name'>

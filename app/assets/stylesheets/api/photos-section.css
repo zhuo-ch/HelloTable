@@ -1,3 +1,7 @@
 .section-img {
   height: 80%;
 }
+
+.section-img img {
+  height: 100%;
+}

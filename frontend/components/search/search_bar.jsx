@@ -2,6 +2,7 @@ import React from 'react';
 import { Link, hashHistory } from 'react-router';
 import { connect } from 'react-redux';
 import { searchRestaurants, findRestaurants } from '../../actions/search_actions';
+import FontAwesome from 'react-fontawesome';
 
 
 class SearchBar extends React.Component {
@@ -17,6 +18,10 @@ class SearchBar extends React.Component {
     this.timeBar = this.timeBar.bind(this);
     this.seats = this.seats.bind(this);
     this.results = this.results.bind(this);
+  }
+
+  componentWillMount() {
+    this.setState({searching: false, searchTerm: ""})
   }
 
   timeBar() {
@@ -84,6 +89,56 @@ class SearchBar extends React.Component {
     );
   }
 
+  seats() {
+    let seats = [];
+
+    for (let i = 1; i < 11; i++) {
+      if (i === 1) {
+        seats.push(<option key={i} value={i}>{i} Patron</option>)
+      } else if (i === 2) {
+        seats.push(<option key={i} value={i} selected>{i} Patrons</option>)
+      } else {
+        seats.push(<option key={i} value={i}>{i} Patrons</option>)
+      }
+    }
+
+    return seats;
+  }
+
+  results() {
+    if (this.props.restaurants.restaurant) {
+      return "";
+    }
+
+    const cities = this.props.restaurants.cities.map((city) => {
+      return (<li key={city.id}
+        onClick={this.handleClick}
+        id={city.id}>
+        {city.city_name} {city.state}
+      </li>);
+    });
+    const restaurants = this.props.restaurants.restaurants.map((res) => {
+      return (<li key={res.id}
+        onClick={this.handleClick}
+        id={res.id}>
+        {res.restaurant_name} {res.city_name} {res.state}
+      </li>);
+    });
+
+    return (
+      <ul className='search-list'>
+        <li>Cities</li>
+        { cities }
+        <li>Restaurants</li>
+        { restaurants }
+      </ul>
+    );
+  }
+
+  handleSubmit(e) {
+
+  }
+
   handleClick(e) {
     e.preventDefault();
     this.setState({searching: false, searchTerm: e.currentTarget.innerText})
@@ -103,43 +158,21 @@ class SearchBar extends React.Component {
     this.setState({searchTerm: val});
   }
 
-  seats() {
-    let seats = [];
-
-    for (let i = 1; i < 11; i++) {
-      if (i === 2) {
-        seats.push(<option key={i} value={i} selected>{i} People</option>)
-      } else {
-        seats.push(<option key={i} value={i}>{i} Seats</option>)
-      }
-    }
-
-    return seats;
-  }
-
-  results() {
-    return (Object.keys(this.props.restaurants).map((id) => {
-      const restaurant = this.props.restaurants[id]
-
-      return (<li key={id}
-        onClick={this.handleClick}
-        id={id}>
-        {restaurant.restaurant_name} {restaurant.city_name} {restaurant.state}
-      </li>);
-    }));
-  }
 
   render() {
     const toggle = (this.state.searching ? 'search-list' : 'no-search');
     const defaultDate = this.formatDate();
     const head = this.props.header ? this.props.header : "";
+    const resultList = this.results();
+    const cities = resultList[0];
+    const restaurants = resultList[1];
 
     return (
       <div className='search-bar'>
         <h1>{ head }</h1>
         <div className='search-fields'>
           <form className='seats-form'>
-            <select name='seats' className='input bar-seats' defaultValue='2 People'>
+            <select name='seats' className='input bar-seats'>
               { this.seats() }
             </select>
             <input type='date'
@@ -149,18 +182,21 @@ class SearchBar extends React.Component {
               ></input>
             { this.timeBar() }
             <section className='search-field'>
-              <input
-                type='search'
-                name='query'
-                placeholder='Search Restaurants'
-                className='input'
-                onChange={this.handleChange}
-                value={this.state.searchTerm}></input>
-              <ul className={ toggle }>
+              <article className='search-box-container'>
+                <input
+                  type='search'
+                  name='query'
+                  placeholder='Search Restaurants'
+                  className='input'
+                  onChange={this.handleChange}
+                  value={this.state.searchTerm}></input>
                 { this.results() }
-              </ul>
+              </article>
             </section>
-          <input type='submit' className='bar-submit' value='Search'></input>
+          <input type='submit'
+            className='bar-submit'
+            value='Search'
+            onSubmit={ this.handleSubmit }></input>
         </form>
       </div>
     </div>

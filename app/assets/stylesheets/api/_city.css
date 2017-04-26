@@ -8,7 +8,8 @@
   width: 100%;
   background-size: cover;
   height: 350px;
-  background-image: url('http://i.imgur.com/R8tZf6W.jpg');
+  background-image: url('/images/spl1.jpg');
+  background-position: center;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -41,5 +42,5 @@
 
 .city-index-splash .restaurants-index-splash {
   position: relative;
-  background-image: url('https://images.pexels.com/photos/370984/pexels-photo-370984.jpeg?h=350&auto=compress&cs=tinysrgb');
+  background-image: url('/spl3.jpg');
 }

@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { fetchRestaurant } from '../../actions/restaurant_actions';
 import RestaurantMap from './restaurant_map';
 import PhotoSection from './photo_section';
+import FontAwesome from 'react-fontawesome';
 
 class RestaurantShow extends React.Component {
   constructor(props) {
@@ -99,11 +100,11 @@ class RestaurantShow extends React.Component {
 
           <section className='restaurant-right'>
             <article>
-              <h4>Cuisine:</h4>
+              <h4><FontAwesome className="fa fa-bell-o icon" />Cuisine:</h4>
               {this.props.restaurant.cuisine}
             </article>
             <article>
-              <h4>Hours of Operation:</h4>
+              <h4><FontAwesome className="fa fa-clock-o icon" />Hours of Operation:</h4>
               <ul>
                 {
                   this.props.restaurant.hours.split(',').map((day, idx) => {
@@ -113,7 +114,7 @@ class RestaurantShow extends React.Component {
               </ul>
             </article>
             <article>
-              <h4>Phone Number:</h4>
+              <h4><FontAwesome className="fa fa-mobile icon" />Phone Number:</h4>
               {
                 '(' + this.props.restaurant.restaurant_number.slice(0, 3)
                 + ') ' + this.props.restaurant.restaurant_number.slice(3, 6)
@@ -121,7 +122,7 @@ class RestaurantShow extends React.Component {
               }
             </article>
             <article>
-              <h4>Address:</h4>
+              <h4><FontAwesome className="fa fa-car icon" />Address:</h4>
               { this.props.restaurant.street_address }
               {
                 this.props.restaurant.city_name + ', '
@@ -130,7 +131,7 @@ class RestaurantShow extends React.Component {
               }
             </article>
             <article>
-              <h4>Website:</h4>
+              <h4><FontAwesome className="fa fa-wifi icon" />Website:</h4>
               {this.props.restaurant.site}
             </article>
           </section>

@@ -1,5 +1,5 @@
 import { hashHistory } from 'react-router';
-import * as SearchApiUtil from '../util/search_api_util';
+import * as SearchAPIUtil from '../util/search_api_util';
 
 export const RECEIVE_SEARCH = 'RECEIVE_SEARCH';
 

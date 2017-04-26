@@ -19,13 +19,14 @@
 }
 
 .seats-form {
+  /*background: white;*/
   display: flex;
   justify-content: center;
   border-top: 1px solid gainsboro;
   border-bottom: 1px solid gainsboro;
   border-radius: 7px;
   width: 100%;
-  /*background: -webkit-linear-gradient(left, white, #F13737);*/
+  background: -webkit-linear-gradient(left, white, #F13737);
 }
 
 .search-bar ul li {
@@ -37,7 +38,7 @@
   margin:0;
 }
 
-.seats-form .input, .seats-form .bar-time {
+.seats-form .input {
   border: none;
   padding: 10px 20px;
   margin: 0;
@@ -45,6 +46,10 @@
   font-size: 14px;
   border-radius: 0px;
   border-right: 1px solid gainsboro;
+}
+
+.search-field .input {
+  border: none;
 }
 
 
@@ -88,8 +93,12 @@
 
 .search-field {
   margin: 0px;
-  position: relative;
   flex: 6;
+}
+
+.search-box-container {
+  width: 100%;
+  position: relative;
 }
 
 .search-list {
@@ -99,14 +108,15 @@
   justify-content: flex-start;
   width: 90%;
   max-height: 300px;
-  top: 56px;
+  top: 55px;
   left: -1px;
-  overflow: scroll;
+  overflow: hidden;
+  z-index: 9;
   font-size: 14px;
-  padding-left: 5px;
+  padding: 5px;
   color: gray;
   background: white;
-  border-left: 1px solid gainsboro;
+  border: 1px solid gainsboro;
 }
 
 .search-field li:hover {

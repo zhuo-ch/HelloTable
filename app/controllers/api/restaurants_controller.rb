@@ -36,12 +36,17 @@ class Api::RestaurantsController < ApplicationController
 
   def search
     if params[:query].present?
-      @restaurants = Restaurant.where("lower(restaurant_name) ~ ?", params[:query].downcase)
+      @restaurants = Restaurant.where("lower(restaurant_name) ~ ?", params[:query].downcase) || []
+      @cities = City.where("lower(city_name) ~ ?", params[:query].downcase) || []
     else
       @restaurants = Restaurant.none
+      @cities = Cities.none
     end
 
-    render 'api/restaurants/search'
+    data = {cities: @cities, restaurants: @restaurants}.to_json
+    render search_api_restaurants: data
+    # render json: {cities: @cities, restaurants: @restaurants}, location: :search_api_restaurants
+    # render 'api/restaurants/search'
   end
 
   def update
