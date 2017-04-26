@@ -5,6 +5,7 @@ import { fetchRestaurant } from '../../actions/restaurant_actions';
 import RestaurantMap from './restaurant_map';
 import PhotoSection from './photo_section';
 import FontAwesome from 'react-fontawesome';
+import ReservationsSnippet from './reservations';
 
 class RestaurantShow extends React.Component {
   constructor(props) {
@@ -45,7 +46,10 @@ class RestaurantShow extends React.Component {
               <img src={this.props.restaurant.images[0]}/>
             </section>
           </div>
-
+          <ReservationsSnippet
+            date={new Date()}
+            time="800"
+            restaurantId={this.props.restaurant.id} />
           <div className='splash-details'>
             <section className="splash-name"><h1>{this.props.restaurant.restaurant_name}</h1></section>
             <section className="splash-ratings">
