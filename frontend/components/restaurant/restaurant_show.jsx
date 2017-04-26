@@ -13,6 +13,7 @@ class RestaurantShow extends React.Component {
   }
 
   componentWillMount() {
+    debugger
     this.props.fetchRestaurant(this.props.restaurantId);
   }
 
@@ -37,6 +38,7 @@ class RestaurantShow extends React.Component {
   //   fetchRestaurant={fetchRestaurant} />
 
   render() {
+    debugger
     return (
       <div className='restaurant-view'>
         <section className='restaurant-splash'>
@@ -142,6 +144,7 @@ class RestaurantShow extends React.Component {
 }
 
 const mapStateToProps = (state, {params}) => {
+  debugger
   let restaurantId = parseInt(params.restaurantId);
 
   return ({

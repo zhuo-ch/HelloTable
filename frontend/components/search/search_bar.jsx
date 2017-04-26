@@ -9,11 +9,14 @@ class SearchBar extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
+      searchType: "",
+      searchId: "",
       searching: false,
       searchTerm: "",
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
     this.formatDate = this.formatDate.bind(this);
     this.timeBar = this.timeBar.bind(this);
     this.seats = this.seats.bind(this);
@@ -24,12 +27,35 @@ class SearchBar extends React.Component {
     this.setState({searching: false, searchTerm: ''})
   }
 
-  // componentWillReceiveProps(nextProps) {
-  //   debugger
-  //   if (this.props.header !== nextProps.header) {
-  //     this.setState({searching: false, searchTerm: ''})
-  //   }
-  // }
+  handleSubmit(e) {
+    e.preventDefault();
+    const seats = e.currentTarget.elements.seats.value;
+    const date = e.currentTarget.elements.date.value;
+    const time= e.currentTarget.elements.time.value;
+    const id = (this.state.searchType === "cities") ? this.state.searchId/1000 : this.state.searchId;
+    const type = this.state.searchType;
+    this.props.router.push(`/${type}/${id}`)
+  }
+
+  handleClick(e) {
+    e.preventDefault();
+    this.setState({searching: false, searchTerm: e.currentTarget.innerText,
+      searchId: e.currentTarget.id, searchType: e.currentTarget.type})
+    debugger
+  }
+
+  handleChange(e) {
+    e.preventDefault();
+    const val = e.currentTarget.value;
+
+    if (val !== "") {
+      this.setState({ searching: true, searchTerm: val });
+      this.props.searchRestaurants(val);
+    } else {
+      this.setState({ searching: false, searchTerm: val });
+    }
+
+  }
 
   timeBar() {
     const currentTime = new Date();
@@ -114,27 +140,24 @@ class SearchBar extends React.Component {
 
   results() {
     const toggle = (this.state.searching ? 'search-list' : 'no-search');
-    if (this.props.restaurants.restaurant) {
-      return "";
-    }
 
-    const cities = this.props.restaurants.cities.map((city) => {
+    const cities = this.props.search.cities.map((city) => {
       return (<li key={city.id}
         onClick={this.handleClick}
-        id={city.id}>
+        id={`${city.id*1000}`}
+        type='cities'>
         {city.city_name} {city.state}
       </li>);
     });
-    const restaurants = this.props.restaurants.restaurants.map((res) => {
-      const restaurant = Object.keys(res).map((id) => res[id])[0];
-
-      return (<li key={restaurant.id}
+    const restaurants = this.props.search.restaurants.map((res) => {
+      return (<li key={res.id}
         onClick={this.handleClick}
-        id={restaurant.id}>
-        {restaurant.restaurant_name} {restaurant.city_name} {restaurant.state}
+        id={res.id}
+        type='restaurant'>
+        {res.restaurant_name} {res.city_name} {res.state}
       </li>);
     });
-
+    debugger
     return (
       <ul className={ toggle }>
         <li className='search-res-cities'><FontAwesome className='fa fa-map-marker icon'/>Cities</li>
@@ -145,32 +168,10 @@ class SearchBar extends React.Component {
     );
   }
 
-  handleSubmit(e) {
 
-  }
-
-  handleClick(e) {
-    e.preventDefault();
-    this.setState({searching: false, searchTerm: e.currentTarget.innerText})
-  }
-
-  handleChange(e) {
-    e.preventDefault();
-    const val = e.currentTarget.value;
-
-    if (val !== "") {
-      this.setState({searching: true});
-    } else {
-      this.setState({searching: false});
-    }
-
-    this.props.searchRestaurants(val);
-    this.setState({searchTerm: val});
-  }
 
 
   render() {
-
     const defaultDate = this.formatDate();
     const head = this.props.header ? this.props.header : "";
     const resultList = this.results();
@@ -182,12 +183,13 @@ class SearchBar extends React.Component {
       <div className='search-bar'>
         <h1>{ head }</h1>
         <div className='search-fields'>
-          <form className='seats-form'>
+          <form className='seats-form' onSubmit={ this.handleSubmit }>
             <select name='seats' className='input bar-seats'>
               { this.seats() }
             </select>
             <input type='date'
               required='required'
+              name='date'
               defaultValue={ defaultDate }
               className='input bar-date'
               ></input>
@@ -204,10 +206,7 @@ class SearchBar extends React.Component {
                 { resultList }
               </article>
             </section>
-          <input type='submit'
-            className='bar-submit'
-            value='Search'
-            onSubmit={ this.handleSubmit }></input>
+          <input type='submit' className='bar-submit' value='Search' ></input>
         </form>
       </div>
     </div>
@@ -217,7 +216,7 @@ class SearchBar extends React.Component {
 
 const mapStateToProps = (state, ownProps) => {
   return ({
-    restaurants: state.restaurants,
+    search: state.search,
     header: ownProps.header,
   })
 }

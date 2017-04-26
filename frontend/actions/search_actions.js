@@ -5,7 +5,7 @@ export const RECEIVE_SEARCH = 'RECEIVE_SEARCH';
 
 export const searchRestaurants = (query, callback) => dispatch => {
   return SearchAPIUtil.searchRestaurants(query)
-    .then((restaurants) => dispatch(receiveSearch(restaurants)));
+    .then((search) => dispatch(receiveSearch(search)));
 }
 
 export const findRestaurants = (query, callback) => dispatch => {
@@ -13,7 +13,7 @@ export const findRestaurants = (query, callback) => dispatch => {
     .then((restaurants))
 }
 
-const receiveSearch = (restaurants) => ({
+const receiveSearch = (search) => ({
     type: RECEIVE_SEARCH,
-    restaurants,
+    search,
 })
