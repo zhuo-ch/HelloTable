@@ -37,7 +37,6 @@ const RestaurantsReducer = (state = _nullRestaurants, action) => {
     case RECEIVE_DESTROY:
       return _nullRestaurants;
     case RECEIVE_SEARCH:
-      debugger
       return action.restaurants;
     default:
       return state;

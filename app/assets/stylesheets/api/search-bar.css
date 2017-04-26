@@ -78,7 +78,7 @@
   border-left: 1px solid gainsboro;
   border-top-right-radius: 0px;
   border-bottom-right-radius: 0px;
-  overflow: hidden;
+
   align-items: center;
   flex: 2;
 }
@@ -120,14 +120,15 @@
 }
 
 .search-field li:hover {
-  background: gainsboro;
+  background: #FF8787;
+  color: white;
 }
 
 .search-field input {
   margin: 0px;
 }
 
-.no-search ul {
+.no-search {
   display: none;
 }
 
@@ -156,4 +157,10 @@ input[type=date]::-webkit-calendar-picker-indicator {
   background: #A70303;
   cursor: pointer;
   transition-duration: .5s;
+}
+
+.search-res-cities, .search-res-res {
+  font-size: 14px;
+  font-weight: bold;
+  color: dimgray;
 }
