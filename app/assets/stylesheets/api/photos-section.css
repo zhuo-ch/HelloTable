@@ -1,7 +1,19 @@
+
+.show-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-bottom: 15px;
+  background: white
+}
+
 .section-img {
-  height: 80%;
+  display: inline-block;
+  max-height: 230px;
 }
 
 .section-img img {
-  height: 100%;
+  display: inline-block;
+  width: 99%;
+  height: 99%;
 }

@@ -3,9 +3,9 @@ import React from 'react';
 const PhotoSection = ({photos}) => {
   if (photos.length > 0) {
     return (
-      <div className='photo-section'>
+      <div className='photo-section show-section'>
         <section>
-          <h2>Restaurant Photos</h2>
+            <h2>Restaurant Photos</h2>
         </section>
         <ul className='splash-images'>
           {
