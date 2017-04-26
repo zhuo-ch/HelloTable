@@ -38,8 +38,6 @@ const TimeBar = () => {
     return <option value={slot}>{`${slot}`}</option>;
   });
 
-  debugger
-
   return (
     <input type='select' className='time-bar'>
       {slots}

@@ -41,7 +41,6 @@ class SearchBar extends React.Component {
     e.preventDefault();
     this.setState({searching: false, searchTerm: e.currentTarget.innerText,
       searchId: e.currentTarget.id, searchType: e.currentTarget.type})
-    debugger
   }
 
   handleChange(e) {
@@ -142,9 +141,9 @@ class SearchBar extends React.Component {
     const toggle = (this.state.searching ? 'search-list' : 'no-search');
 
     const cities = this.props.search.cities.map((city) => {
-      return (<li key={city.id}
+      return (<li key={city.id * 1000}
         onClick={this.handleClick}
-        id={`${city.id*1000}`}
+        id={ city.id }
         type='cities'>
         {city.city_name} {city.state}
       </li>);
@@ -157,12 +156,12 @@ class SearchBar extends React.Component {
         {res.restaurant_name} {res.city_name} {res.state}
       </li>);
     });
-    debugger
+    
     return (
       <ul className={ toggle }>
-        <li className='search-res-cities'><FontAwesome className='fa fa-map-marker icon'/>Cities</li>
+        <li className='search-res-cities'><FontAwesome name='search-city' className='fa fa-map-marker icon'/>Cities</li>
         { cities }
-        <li className='search-res-res'><FontAwesome className='fa fa-cutlery icon'/>Restaurants</li>
+        <li className='search-res-res'><FontAwesome name='search-res' className='fa fa-cutlery icon'/>Restaurants</li>
         { restaurants }
       </ul>
     );
