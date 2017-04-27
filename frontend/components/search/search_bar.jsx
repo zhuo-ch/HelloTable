@@ -29,8 +29,12 @@ class SearchBar extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
+    const day = e.currentTarget.date.value.getDate().toString();
+    const month = e.currentTarget.date.value.getMonth().toString();
+    const year = e.currentTarget.date.value.getFullYear().toString();
+
     const seats = e.currentTarget.elements.seats.value;
-    const date = e.currentTarget.elements.date.value;
+    const date = [month, day, year].join('-');
     const time= e.currentTarget.elements.time.value;
     const id = (this.state.searchType === "cities") ? this.state.searchId/1000 : this.state.searchId;
     const type = this.state.searchType;
@@ -156,7 +160,7 @@ class SearchBar extends React.Component {
         {res.restaurant_name} {res.city_name} {res.state}
       </li>);
     });
-    
+
     return (
       <ul className={ toggle }>
         <li className='search-res-cities'><FontAwesome name='search-city' className='fa fa-map-marker icon'/>Cities</li>

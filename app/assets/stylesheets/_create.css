@@ -1,4 +1,8 @@
 .restaurant-create {
+  margin-top: 30px;
+  background: white;
+  border-radius: 7px;
+  border-bottom: 1px solid gainsboro;
   display: flex;
   width: 60%;
   margin: 0 auto;

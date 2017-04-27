@@ -41,9 +41,14 @@ class RestaurantShow extends React.Component {
       return '';
     }
 
+    const currentDate = new Date();
+    const day = currentDate.getDate();
+    const month = currentDate.getMonth();
+    const year = currentDate.getFullYear();
+
     return (
       <ReservationsSnippet
-        date={new Date()}
+        date={"4-27-2017"}
         time="800"
         restaurantId={this.props.restaurant.id}
         fetchType='restaurant' />
@@ -51,7 +56,9 @@ class RestaurantShow extends React.Component {
   }
 
   render() {
+    debugger
     const resSnippet = this.getReservations();
+    
     return (
       <div className='restaurant-view'>
         <section className='restaurant-splash'>

@@ -10,21 +10,20 @@ class Navbar extends React.Component {
   }
 
   rightBar() {
-    let bar;
     let inForm = ((this.props.formType === 'signup') || (this.props.formType === 'login')) ? false : true;
 
     if (inForm) {
       if (this.props.currentUser) {
-        bar = (
+        return (
           <section className="nav-right">
             <section className='nav-welcome'>
-              <h4>Hi, {this.props.currentUser.username}!</h4>
+              <h4>Hi, {this.props.currentUser.username}</h4>
               <button onClick={this.handleLogOut} className='button'>Log out</button>
             </section>
           </section>
         );
       } else {
-        bar = (
+        return (
           <section className="right-bar">
             <Link to='/login' className='nav-link button'>
               Log In
@@ -36,8 +35,6 @@ class Navbar extends React.Component {
         );
       }
     }
-
-    return bar;
   }
 
   handleLogOut() {

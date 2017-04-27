@@ -70,6 +70,7 @@ class ReservationsSnippet extends React.Component {
 
 
   render() {
+    debugger
     const reservationItems = this.reservationItems
     return (
       <div className='reservationsIndex'>

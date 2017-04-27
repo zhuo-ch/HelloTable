@@ -5,8 +5,9 @@ class Restaurant < ActiveRecord::Base
     start_hour = time.to_i - 200
     end_hour = time.to_i + 200
 
-    x = self.reservations.where(["time > ? and time < ?", start_hour, end_hour])
 
+    x = self.reservations.where(["time > ? and time < ? and date = ?", start_hour, end_hour, date])
+    
     return x
   end
 
