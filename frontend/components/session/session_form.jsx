@@ -13,6 +13,7 @@ class SessionForm extends React.Component {
   componentWillReceiveProps(nextProps) {
     if (this.props.location.pathname !== nextProps.location.pathname) {
       this.props.receiveErrors({base:[]});
+      this.setState({ username: "", email: "", password: ""})
     }
   }
 
@@ -35,7 +36,7 @@ class SessionForm extends React.Component {
 
   handleChange(e) {
     e.preventDefault();
-    const action = e.currentTarget.className;
+    const action = e.currentTarget.className.split(" ")[0];
     this.setState({[action]: e.currentTarget.value});
   }
 

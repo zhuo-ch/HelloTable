@@ -7,7 +7,6 @@ export const DELETE_RESERVATION = 'DELETE_RESERVATION';
 export const fetchAllReservations = (query) => dispatch => {
   return ReservationsAPIUtil.fetchAllReservations(query)
     .then((reservations) => {
-      debugger
       dispatch(receiveAllReservations(reservations))});
 }
 

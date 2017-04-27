@@ -7,7 +7,6 @@ class Restaurant < ActiveRecord::Base
 
     x = self.reservations.where(["time > ? and time < ?", start_hour, end_hour])
 
-    debugger
     return x
   end
 

@@ -52,7 +52,6 @@ class RestaurantShow extends React.Component {
 
   render() {
     const resSnippet = this.getReservations();
-    debugger
     return (
       <div className='restaurant-view'>
         <section className='restaurant-splash'>

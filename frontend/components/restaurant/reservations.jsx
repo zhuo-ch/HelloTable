@@ -10,7 +10,6 @@ class ReservationsSnippet extends React.Component {
   }
 
   componentWillMount() {
-    debugger
     const query = {
       date: this.props.date,
       time: this.props.time,
@@ -86,7 +85,6 @@ class ReservationsSnippet extends React.Component {
 }
 
 const mapStateToProps = (state, { restaurantId, time, date, fetchType }) => {
-  debugger
   return ({
     reservations: state.reservations,
     restaurantId,

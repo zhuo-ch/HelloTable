@@ -8,6 +8,9 @@
 
 
 .login-form {
+  background: white;
+  border-radius: 7px;
+  border-bottom: 1px solid gainsboro;
   display: flex;
   flex-direction: column;
   justify-content: center;
