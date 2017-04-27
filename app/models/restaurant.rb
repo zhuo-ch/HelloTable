@@ -2,10 +2,13 @@ class Restaurant < ActiveRecord::Base
   # validates :owner_id, :restaurant_name, :description, :street_address, :state, :restaurant_number, presence: true
 
   def get_reservations(date, time)
-    start_hour = ((time.slice(0.. -3).to_i) - 2).to_s + (time.slice(-2.. -1))
-    end_hour = ((time.slice(0.. -3).to_i) + 2).to_s + (time.slice(-2.. -1))
+    start_hour = time.to_i - 200
+    end_hour = time.to_i + 200
 
     x = self.reservations.where(["time > ? and time < ?", start_hour, end_hour])
+
+    debugger
+    return x
   end
 
   def city_name=(name)

@@ -6,6 +6,7 @@ const _nullReservations = Object.freeze({
 });
 
 const ReservationsReducer = (state = _nullReservations, action) => {
+  debugger
   switch(action.type) {
     case RECEIVE_ALL_RESERVATIONS:
       return merge({}, state, action.reservations);

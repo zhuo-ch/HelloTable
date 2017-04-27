@@ -4,9 +4,11 @@ import * as ReservationsAPIUtil from '../util/reservations_api_util';
 export const RECEIVE_ALL_RESERVATIONS = 'RECEIVE_ALL_RESERVATIONS';
 export const DELETE_RESERVATION = 'DELETE_RESERVATION';
 
-export const fetchAllReservations = (date, time, restaurantId) => dispatch => {
-  return ReservationsAPIUtil.fetchAllReservations(date, time, restaurant_id)
-    .then((reservations) => dispatch(receiveAllReservations));
+export const fetchAllReservations = (query) => dispatch => {
+  return ReservationsAPIUtil.fetchAllReservations(query)
+    .then((reservations) => {
+      debugger
+      dispatch(receiveAllReservations(reservations))});
 }
 
 export const destroyReservation = id => dispatch => {
@@ -14,9 +16,7 @@ export const destroyReservation = id => dispatch => {
     .then((restaurants) => dispatch(receiveAllReservations));
 }
 
-const receiveAllReservations = reservations => {
-  debugger
-  return ({
+const receiveAllReservations = (reservations) => ({
   type: RECEIVE_ALL_RESERVATIONS,
   reservations,
-});}
+})

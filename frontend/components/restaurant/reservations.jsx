@@ -10,7 +10,15 @@ class ReservationsSnippet extends React.Component {
   }
 
   componentWillMount() {
-    this.props.fetchAllReservations(this.props.date, this.props.time, this.props.restaurantId);
+    debugger
+    const query = {
+      date: this.props.date,
+      time: this.props.time,
+      restaurantId: this.props.restaurantId,
+      type: this.props.fetchType,
+    }
+
+    this.props.fetchAllReservations(query);
   }
 
   formatMinutes(minute) {
@@ -77,17 +85,19 @@ class ReservationsSnippet extends React.Component {
   }
 }
 
-const mapStateToProps = (state, { restaurantId, time, date }) => {
+const mapStateToProps = (state, { restaurantId, time, date, fetchType }) => {
+  debugger
   return ({
     reservations: state.reservations,
     restaurantId,
     time,
     date,
+    fetchType,
   })
 };
 
 const mapDispatchToProps = dispatch => ({
-  fetchAllReservations: (restaurant_id) => dispatch(fetchAllReservations()),
+  fetchAllReservations: (query) => dispatch(fetchAllReservations(query)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ReservationsSnippet);

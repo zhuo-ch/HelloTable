@@ -1,8 +1,8 @@
-export const fetchAllReservations = (date, time, restaurant_id) => {
+export const fetchAllReservations = (query) => {
   return $.ajax({
     method: 'GET',
-    url: '/api/restaurants/:restaurant_id/reservations',
-    data: {date, time, restaurant_id}
+    url: 'api/reservations/search',
+    data: { query }
   })
 }
 
@@ -10,7 +10,7 @@ export const fetchAllReservations = (date, time, restaurant_id) => {
 export const deleteReservation = (reservation_id) => {
   return $.ajax({
     method: 'DELETE',
-    url: '/api/restaurants/:restaurant_id/reservations/:id'
+    url: 'api/restaurants/:restaurant_id/reservations/:id'
   })
 }
 
