@@ -1,3 +1,47 @@
 // Place all the styles related to the api/reservations controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.reservations-index {
+  margin: 30px 0px;
+  background: white;
+}
+
+.reservation-show {
+  display: flex;
+  justify-content: center;
+}
+
+.res-avail-list {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+}
+
+.reserve-date {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+
+.res-button {
+  display: inline-block;
+  margin: 15px;
+  flex: 1;
+  border-radius: 5px;
+  border: none;
+  text-align: center;
+}
+
+.not-reservable {
+  background: gainsboro;
+  color: #d41010;
+}
+
+.new-res {
+  display: flex;
+  justify-content: space-around;
+  width: 80%;
+}

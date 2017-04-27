@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, hashHistory, withRouter } from 'react-router';
 import { connect } from 'react-redux';
-import { searchRestaurants, findRestaurants } from '../../actions/search_actions';
+import { searchRestaurants, findRestaurants, receiveSearchResults } from '../../actions/search_actions';
 import FontAwesome from 'react-fontawesome';
 
 
@@ -29,15 +29,15 @@ class SearchBar extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    const day = e.currentTarget.date.value.getDate().toString();
-    const month = e.currentTarget.date.value.getMonth().toString();
-    const year = e.currentTarget.date.value.getFullYear().toString();
+    let date = e.currentTarget.date.value.split('-')
+    date = [date[1], date[2], date[0]].join('-');
 
     const seats = e.currentTarget.elements.seats.value;
-    const date = [month, day, year].join('-');
-    const time= e.currentTarget.elements.time.value;
+    const time= e.currentTarget.elements.time.value.split("  ")[0].split(":").join("");
     const id = (this.state.searchType === "cities") ? this.state.searchId/1000 : this.state.searchId;
     const type = this.state.searchType;
+
+    this.props.receiveSearchResults({seats, date, time, id, type})
     this.props.router.push(`/${type}/${id}`)
   }
 
@@ -218,7 +218,10 @@ class SearchBar extends React.Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
+  debugger
+
   return ({
+    searchResults: state.search.searchResults,
     search: state.search,
     header: ownProps.header,
   })
@@ -227,6 +230,7 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = dispatch => {
   return ({
     searchRestaurants: query => dispatch(searchRestaurants(query)),
+    receiveSearchResults: query => dispatch(receiveSearchResults(query)),
   })
 }
 

@@ -6,6 +6,13 @@ export const fetchAllReservations = (query) => {
   })
 }
 
+export const createReservation = (reservation) => {
+  return $.ajax({
+    method: 'POST',
+    url: 'api/reservations',
+    data: {reservation}
+  })
+}
 
 export const deleteReservation = (reservation_id) => {
   return $.ajax({
@@ -13,11 +20,3 @@ export const deleteReservation = (reservation_id) => {
     url: 'api/restaurants/:restaurant_id/reservations/:id'
   })
 }
-
-// export const createReservation = (reservation) => {
-//   return $.ajax({
-//     method: 'POST',
-//     url: '/api/restaurants/:restaurant_id/reservations',
-//     data: {reservation}
-//   })
-// }

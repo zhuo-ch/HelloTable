@@ -56,9 +56,8 @@ class RestaurantShow extends React.Component {
   }
 
   render() {
-    debugger
     const resSnippet = this.getReservations();
-    
+
     return (
       <div className='restaurant-view'>
         <section className='restaurant-splash'>
@@ -165,7 +164,6 @@ class RestaurantShow extends React.Component {
 
 const mapStateToProps = (state, {params}) => {
   let restaurantId = parseInt(params.restaurantId);
-
   return ({
     restaurantId,
     restaurant: state.restaurants.restaurant,

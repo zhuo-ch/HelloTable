@@ -1,5 +1,5 @@
 import { merge } from 'lodash';
-import { RECEIVE_SEARCH } from '../actions/search_actions'
+import { RECEIVE_SEARCH, RECEIVE_SEARCH_RESULTS } from '../actions/search_actions'
 import { searchSelector } from '../selectors/search_selector';
 
 const _nullSearch = Object.freeze ({
@@ -9,6 +9,9 @@ const _nullSearch = Object.freeze ({
 
 const SearchReducer = (state = _nullSearch, action) => {
   switch (action.type) {
+    case RECEIVE_SEARCH_RESULTS:
+    const searchResults = action.query
+      return merge({}, state, {searchResults});
     case RECEIVE_SEARCH:
       const restaurants = searchSelector(action.search.restaurants);
       const cities = action.search.cities;

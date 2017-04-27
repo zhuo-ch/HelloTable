@@ -7,7 +7,7 @@ Rails.application.routes.draw do
       get "search", on: :collection
     end
     resources :cities, only: [:index, :show]
-    resources :reservations, only: [:create, :destroy] do
+    resources :reservations, only: [:create, :show, :destroy] do
       get "search", on: :collection
     end
   end
