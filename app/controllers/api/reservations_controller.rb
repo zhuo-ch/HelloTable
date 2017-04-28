@@ -9,10 +9,6 @@ class Api::ReservationsController < ApplicationController
     end
   end
 
-  # def show
-  #   @reservation = Reservation.
-  # end
-
   def search
     if params[:query][:type] == "restaurant"
       @reservations = Restaurant.find(

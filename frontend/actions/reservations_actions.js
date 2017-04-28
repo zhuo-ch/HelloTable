@@ -3,6 +3,7 @@ import * as ReservationsAPIUtil from '../util/reservations_api_util';
 
 export const RECEIVE_ALL_RESERVATIONS = 'RECEIVE_ALL_RESERVATIONS';
 export const RECEIVE_RESERVATION = 'RECEIVE_RESERVATION';
+export const CLEAR_RESERVATION = 'CLEAR_RESERVATION';
 export const DESTROY_RESERVATION = 'DESTROY_RESERVATION';
 
 export const fetchAllReservations = (query) => dispatch => {
@@ -20,10 +21,10 @@ export const destroyReservation = id => dispatch => {
   return ReservationsAPIUtil.destroyReservation(id)
     .then((id) => dispatch(destroyReservation(id)));
 }
-// 
-// export const clearReservations = () => dispatch => {
-//   return dispatch(receiveAllReservations({}));
-// }
+
+export const resetReservation = () => dispatch => {
+  return dispatch(clearReservation({}));
+}
 
 const receiveAllReservations = (reservations) => ({
   type: RECEIVE_ALL_RESERVATIONS,
@@ -32,6 +33,11 @@ const receiveAllReservations = (reservations) => ({
 
 const receiveReservation = reservation => ({
   type: RECEIVE_RESERVATION,
+  reservation,
+})
+
+const clearReservation = (reservation) => ({
+  type: CLEAR_RESERVATION,
   reservation,
 })
 

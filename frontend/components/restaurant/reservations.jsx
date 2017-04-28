@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, hashHistory } from 'react-router';
 import { connect } from 'react-redux';
-import { fetchAllReservations, createReservation } from '../../actions/reservations_actions';
+import { fetchAllReservations, createReservation, resetReservation } from '../../actions/reservations_actions';
 import FontAwesome from 'react-fontawesome';
 import { merge } from 'lodash';
 
@@ -39,9 +39,9 @@ class ReservationsSnippet extends React.Component {
     this.props.fetchAllReservations(query);
   }
 
-  // componentWillUnmount() {
-  //   this.props.clearReservations();
-  // }
+  componentWillUnmount() {
+    this.props.resetReservation();
+  }
 
   handleReserve(e) {
     e.preventDefault();
@@ -183,7 +183,7 @@ const mapStateToProps = (state, { restaurantId, time, date, fetchType }) => {
 const mapDispatchToProps = dispatch => ({
   fetchAllReservations: (query) => dispatch(fetchAllReservations(query)),
   createReservation: (reservation) => dispatch(createReservation(reservation)),
-  // clearReservations: (reservation) => dispatch(clearReservations(reservation)),
+  resetReservation: () => dispatch(resetReservation()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ReservationsSnippet);

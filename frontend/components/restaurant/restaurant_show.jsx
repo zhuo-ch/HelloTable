@@ -10,32 +10,12 @@ import ReservationsSnippet from './reservations';
 class RestaurantShow extends React.Component {
   constructor(props) {
     super(props)
-    // this.state = {map: <div></div>};
   }
 
   componentWillMount() {
     this.props.fetchRestaurant(this.props.restaurantId);
   }
 
-  // componentWillUpdate(prevProps, nextState) {
-  //   // debugger
-  //   // if (nextState.map != this.state.map) {
-  //   //   this.setState({
-  //   //     map: (
-  //           // <RestaurantMap
-  //           //   restaurants={this.props.restaurant}
-  //           //   restaurantId={this.props.restaurant.id}
-  //           //   singleRestaurant="true"
-  //           //   fetchRestaurant={fetchRestaurant} />
-  //   //     )})
-  //   // }
-  //   // debugger
-  // }
-  // <RestaurantMap
-  //   restaurants={this.props.restaurant}
-  //   restaurantId={this.props.restaurant.id}
-  //   singleRestaurant="true"
-  //   fetchRestaurant={fetchRestaurant} />
   getReservations() {
     if (this.props.restaurant.id === '') {
       return '';
