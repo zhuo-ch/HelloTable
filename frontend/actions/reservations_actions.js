@@ -20,6 +20,10 @@ export const destroyReservation = id => dispatch => {
   return ReservationsAPIUtil.destroyReservation(id)
     .then((id) => dispatch(destroyReservation(id)));
 }
+// 
+// export const clearReservations = () => dispatch => {
+//   return dispatch(receiveAllReservations({}));
+// }
 
 const receiveAllReservations = (reservations) => ({
   type: RECEIVE_ALL_RESERVATIONS,

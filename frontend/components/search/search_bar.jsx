@@ -143,7 +143,6 @@ class SearchBar extends React.Component {
 
   results() {
     const toggle = (this.state.searching ? 'search-list' : 'no-search');
-
     const cities = this.props.search.cities.map((city) => {
       return (<li key={city.id * 1000}
         onClick={this.handleClick}
@@ -204,6 +203,7 @@ class SearchBar extends React.Component {
                   name='query'
                   placeholder='Search Restaurants'
                   className='input'
+                  autoComplete='off'
                   onChange={this.handleChange}
                   value={this.state.searchTerm}></input>
                 { resultList }
@@ -218,8 +218,6 @@ class SearchBar extends React.Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  debugger
-
   return ({
     searchResults: state.search.searchResults,
     search: state.search,

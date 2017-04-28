@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router';
+import { Link, hashHistory } from 'react-router';
 import { connect } from 'react-redux';
 import { fetchAllReservations, createReservation } from '../../actions/reservations_actions';
 import FontAwesome from 'react-fontawesome';
@@ -8,50 +8,60 @@ import { merge } from 'lodash';
 class ReservationsSnippet extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { date: "", time: '800' };
+    this.state = { date: "", time: "" };
     this.handleReserve = this.handleReserve.bind(this);
+    this.getTimeSlots = this.getTimeSlots.bind(this);
+  }
+
+  currentDate() {
+    const defaultDate = new Date;
+    const date = [(defaultDate.getMonth()+1).toString(),
+      defaultDate.getDate().toString(),
+      defaultDate.getFullYear().toString()].join('-');
+    const time = '800';
+    const restaurantId = this.props.restaurant.id;
+    const type = 'restaurant';
+    return { date, time, restaurantId, type };
   }
 
   componentWillMount() {
-    const _default = new Date;
-    let query = {
-      date: [(_default.getMonth()+1).toString(), _default.getDate().toString(), _default.getFullYear().toString()].join('-'),
-      time: '800',
-      restaurantId: this.props.restaurant.id,
-      type: 'restaurant',
-    }
-
-    if (this.props.searchResults) {
-      this.setState({date: this.props.searchResults.date, time: this.props.searchResults.time});
-
+    let query = this.currentDate();
+    if (this.props.searchResults.time) {
       query = {
         date: this.props.searchResults.date,
         time: this.props.searchResults.time,
         restaurantId: this.props.restaurant.id,
         type: 'restaurant',
         }
-      } else {
-        this.setState({date: query.date});
       }
 
+    this.setState({date: query.date, time: query.time});
     this.props.fetchAllReservations(query);
   }
 
+  // componentWillUnmount() {
+  //   this.props.clearReservations();
+  // }
+
   handleReserve(e) {
     e.preventDefault();
-    const time = parseInt(e.currentTarget.innerText.split(":").join(""));
     debugger
-    const reservation = { user_id: this.props.currentUser.id, restaurant_id: this.props.restaurant.id,
-      date: this.state.date, time };
-    this.props.createReservation(reservation);
-
+    if (this.props.currentUser) {
+      debugger
+      const time = parseInt(e.currentTarget.innerText.split(":").join(""));
+      const reservation = { user_id: this.props.currentUser.id, restaurant_id: this.props.restaurant.id,
+        date: this.state.date, time };
+        this.props.createReservation(reservation);
+    } else {
+      hashHistory.push('/login');
+    }
   }
 
   formatMinutes(minute) {
     if (minute === 0) {
-      return '0' + minute.toString();
+      return '00';
     } else {
-      return minute.toString();
+      return '30';
     }
   }
 
@@ -63,24 +73,17 @@ class ReservationsSnippet extends React.Component {
     }
   }
 
-  reservationItems() {
-    let baseTime = parseInt(this.state.time);
-    let minutes = 0;
-
-    if (this.props.searchResults) {
-      const timeParse = this.props.searchResults.time;
-      baseTime = parseInt(timeParse);
-      minutes = parseInt(timeParse.slice(timeParse.length-2, timeParse.length-1));
-    }
-
-    let timeStart = baseTime-100;
+  getTimeSlots(baseTime) {
+    const baseStr = baseTime.toString();
     const timeEnd = baseTime+100;
+    let timeStart = baseTime-100;
+    let minutes = minutes = parseInt(baseStr.slice(baseStr.length-2, baseStr.length));
     let slots = new Object;
 
     while (timeStart <= timeEnd) {
       let hour = timeStart.toString();
       hour = hour.slice(0, hour.length-2);
-      let timeSlot = (this.formatHour(hour)+":"+this.formatMinutes(minutes));
+      let timeSlot = (this.formatHour(hour) + this.formatMinutes(minutes));
       slots[timeSlot] = 0;
 
       minutes += 30;
@@ -91,36 +94,36 @@ class ReservationsSnippet extends React.Component {
       }
     }
 
+    return slots;
+  }
+
+  reservationItems() {
+    let baseTime = parseInt(this.state.time);
+    let slots = this.getTimeSlots(baseTime);
     const reservations = Object.keys(this.props.reservations).map((key) => {
       return this.props.reservations[key];
     });
 
-
     reservations.forEach((reservation) => {
-      function formatTime(time) {
-        const formatedTime = time.toString();
-        return formatedTime.slice(0, formatedTime.length-2) + ':' + formatedTime.slice(formatedTime.length-2, formatedTime.length);
-      }
-
-      const newTime = formatTime(reservation.time)
-      slots[newTime] += 1;
+      const resTime = reservation.time.toString();
+      slots[resTime] += 1;
     })
 
     const availList = Object.keys(slots).map((slot) => {
       if (slots[slot] > 1) {
         return (<li
           className='not-reservable res-button'
-          key={slot}>{slot}</li>)
+          key={slot}>{this.formatTime(slot)}</li>)
       } else {
         return (<li
           className='reservable button res-button'
           onClick={this.handleReserve}
           value={slot}
-          key={slot}>{slot}</li>)
+          key={slot}>{this.formatTime(slot)}</li>)
       }
     });
 
-    const date = this.formatDate(this.props.date);
+    const date = this.formatDate(this.state.date);
 
     return (
       <ul className='res-avail-list'>
@@ -182,6 +185,7 @@ const mapStateToProps = (state, { restaurantId, time, date, fetchType }) => {
 const mapDispatchToProps = dispatch => ({
   fetchAllReservations: (query) => dispatch(fetchAllReservations(query)),
   createReservation: (reservation) => dispatch(createReservation(reservation)),
+  // clearReservations: (reservation) => dispatch(clearReservations(reservation)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ReservationsSnippet);
