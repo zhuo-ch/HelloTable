@@ -20,6 +20,13 @@ const Root = ({store}) => {
     }
   }
 
+  function handleCreateEnter(nextState, replace) {
+    const loggedIn = store.getState().session.currentUser;
+    if (!(loggedIn)) {
+      replace('/login')
+    }
+  }
+
   return(
     <Provider store={store}>
       <Router history={hashHistory}>
@@ -28,7 +35,7 @@ const Root = ({store}) => {
           <Route path='/login' component={sessionFormContainer} onEnter={handleEnter}/>
           <Route path='/signup' component={sessionFormContainer} onEnter={handleEnter}/>
           <Route path='/restaurant/:restaurantId' component={restaurantContainer} />
-          <Route path='/create' component={restaurantCreate} />
+          <Route path='/create' component={restaurantCreate} onEnter={handleCreateEnter}/>
           <Route path='/cities/:cityId' component={CityShow} />
           <Route path='/users/:userId' component={UserShow} />
         </Route>
