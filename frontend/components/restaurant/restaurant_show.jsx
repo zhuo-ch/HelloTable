@@ -15,7 +15,6 @@ class RestaurantShow extends React.Component {
   }
 
   handleScroll(e) {
-    debugger
     console.log(e);
   }
 

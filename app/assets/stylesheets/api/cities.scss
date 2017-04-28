@@ -119,3 +119,18 @@
 .splash-city-name h4:hover {
   color: #18566b;
 }
+
+.create-splash {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 20px;
+  border-radius: 5px;
+}
+
+.splash-create-button {
+  align-self: center;
+  text-align: center;
+  width: 20%;
+  border-radius: 5px;
+}

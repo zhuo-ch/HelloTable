@@ -43,7 +43,7 @@ class CreateRestaurant extends React.Component {
 
   handleChange(e) {
     e.preventDefault();
-    const action = e.currentTarget.className;
+    const action = e.currentTarget.name;
     this.setState({[action]: e.currentTarget.value});
   }
 
@@ -56,7 +56,7 @@ class CreateRestaurant extends React.Component {
     formData.append('restaurant[hours]', this.state.hours);
     formData.append('restaurant[cuisine]', this.state.cuisine);
     formData.append('restaurant[street_address]', this.state.street_address);
-    // formData.append('restaurant[city_name]', this.state.city_name);
+    formData.append('restaurant[city_name]', this.state.city_name);
     formData.append('restaurant[state]', this.state.state);
     formData.append('restaurant[site]', this.state.site);
     formData.append('restaurant[owner_id]', this.state.owner_id);
@@ -76,30 +76,39 @@ class CreateRestaurant extends React.Component {
           </article>
           <form>
             <input type='text' className='restaurant_name input'
+              name='restaurant_name'
               onChange={this.handleChange}
               placeholder='Name of Your Restaurant'></input>
             <input type='text' className='description input'
+              name='description'
               onChange={this.handleChange}
               placeholder='Restaurant Description'></input>
             <input type='text' className='hours input'
+              name='hours'
               onChange={this.handleChange}
               placeholder='Restaurant Hours'></input>
             <input type='text' className='cuisine input'
+              name='cuisine'
               onChange={this.handleChange}
               placeholder='Type of Cuisine'></input>
             <input type='text' className='restaurant_number input'
+              name='restaurant_number'
               onChange={this.handleChange}
               placeholder='Contact Phone Number'></input>
             <input type='text' className='street_address input'
+              name='street_address'
               onChange={this.handleChange}
               placeholder='Street Address'></input>
             <input type='text' className='city_name input'
+              name='city_name'
               onChange={this.handleChange}
               placeholder='City'></input>
             <input type='text' className='state input'
+              name='state'
               onChange={this.handleChange}
               placeholder='State'></input>
             <input type='text' className='site input'
+              name='site'
               onChange={this.handleChange}
               placeholder='Website'></input>
             <input type='file'

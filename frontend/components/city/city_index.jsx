@@ -51,6 +51,7 @@ class CityIndex extends React.Component {
           <ul className='splash-city-names'>
             { citiesNames }
           </ul>
+          <CreateRestaurantSplash />
         </div>
       </div>
     )

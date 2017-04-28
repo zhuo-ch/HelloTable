@@ -6,7 +6,7 @@ const CreateRestaurantSplash = () => {
   return (
     <div className='create-splash'>
       <section>
-        <Link to='/create' className='splash-create-button'>Add your Table</Link>
+        <Link to='/create' className='splash-create-button button'>Add your Table</Link>
       </section>
     </div>
   )

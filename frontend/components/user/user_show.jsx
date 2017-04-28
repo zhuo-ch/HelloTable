@@ -12,7 +12,6 @@ class UserShow extends React.Component {
   }
 
   componentWillMount() {
-    debugger
     this.props.fetchUser(this.props.currentUser.id)
   }
 

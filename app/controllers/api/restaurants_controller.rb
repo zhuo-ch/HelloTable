@@ -13,8 +13,7 @@ class Api::RestaurantsController < ApplicationController
   def create
     @restaurant = Restaurant.new(restaurant_params)
     city = City.where("state = ?", restaurant_params[:state]).first
-    @restaurant.city_name = city.city_name
-    @restaurant.city = city
+    @restaurant.city_id = city.id
 
     if @restaurant.save
       if params[:imageFiles]
@@ -68,7 +67,7 @@ class Api::RestaurantsController < ApplicationController
   private
   def restaurant_params
     params.require(:restaurant).permit(:owner_id, :restaurant_name,
-      :restaurant_number, :cuisine, :description, :hours, :site,
+      :restaurant_number, :cuisine, :description, :hours, :site, :city_name,
       :state, :street_address, :zip, :city_id)
   end
 end

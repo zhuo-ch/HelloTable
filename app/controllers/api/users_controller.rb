@@ -1,5 +1,9 @@
 class Api::UsersController < ApplicationController
 
+  # def index
+  #   @user = User.find_by_credentials(email: params[:user][:email], password: )
+  # end
+
   def create
     @user = User.new(user_params)
 

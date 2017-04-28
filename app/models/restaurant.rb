@@ -11,8 +11,8 @@ class Restaurant < ActiveRecord::Base
     return x
   end
 
-  # def city_name=(dname)
-  #   self.city_name = name
+  # def city_id=(id)
+  #   self.city_id = id
   # end
 
   belongs_to :city
