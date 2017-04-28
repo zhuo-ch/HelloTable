@@ -154,8 +154,8 @@ class ReservationsSnippet extends React.Component {
     const resTime = this.formatTime(this.props.reservations.reservation.time);
     return (
       <ul className='new-res'>
-        <li className='res-message'>A table will be set for {this.props.reservations.reservation.username}</li>
-        <li className='res-details'>{resDate} at {this.props.reservations.reservation.time}</li>
+        <li className='res-message'>A table for {this.props.reservations.reservation.seats} will be set for {this.props.reservations.reservation.username} on</li>
+        <li className='res-details'>{resDate} at {resTime}</li>
       </ul>
     )
   }
