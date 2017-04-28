@@ -7,13 +7,13 @@ class Restaurant < ActiveRecord::Base
 
 
     x = self.reservations.where(["time > ? and time < ? and date = ?", start_hour, end_hour, date])
-    
+
     return x
   end
 
-  def city_name=(name)
-    self.city_name = name
-  end
+  # def city_name=(dname)
+  #   self.city_name = name
+  # end
 
   belongs_to :city
   belongs_to :owner,

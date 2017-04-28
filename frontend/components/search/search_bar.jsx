@@ -36,7 +36,6 @@ class SearchBar extends React.Component {
     const time= e.currentTarget.elements.time.value.split("  ")[0].split(":").join("");
     const id = (this.state.searchType === "cities") ? this.state.searchId: this.state.searchId;
     const type = this.state.searchType;
-    debugger
     this.props.receiveSearchResults({seats, date, time, id, type})
     this.props.router.push(`/${type}/${id}`)
   }
@@ -222,6 +221,7 @@ const mapStateToProps = (state, ownProps) => {
     searchResults: state.search.searchResults,
     search: state.search,
     header: ownProps.header,
+    restaurantId: ownProps.restaurantId
   })
 }
 

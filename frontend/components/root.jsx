@@ -9,6 +9,7 @@ import restaurantContainer from './restaurant/restaurant_show';
 import restaurantCreate from './restaurant/restaurant_create';
 import CityIndex from './city/city_index';
 import CityShow from './city/city_show';
+import UserShow from './user/user_show';
 
 const Root = ({store}) => {
 
@@ -29,6 +30,7 @@ const Root = ({store}) => {
           <Route path='/restaurant/:restaurantId' component={restaurantContainer} />
           <Route path='/create' component={restaurantCreate} />
           <Route path='/cities/:cityId' component={CityShow} />
+          <Route path='/users/:userId' component={UserShow} />
         </Route>
       </Router>
     </Provider>

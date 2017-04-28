@@ -21,13 +21,15 @@ class ReservationsSnippet extends React.Component {
     const time = '800';
     const restaurantId = this.props.restaurant.id;
     const type = 'restaurant';
-    return { date, time, restaurantId, type };
+    const seats = '2';
+    return { date, time, restaurantId, type, seats };
   }
 
   componentWillMount() {
     let query = this.currentDate();
     if (this.props.searchResults.time) {
       query = {
+        seats: this.props.searchResults.seats,
         date: this.props.searchResults.date,
         time: this.props.searchResults.time,
         restaurantId: this.props.restaurant.id,
@@ -35,7 +37,7 @@ class ReservationsSnippet extends React.Component {
         }
       }
 
-    this.setState({date: query.date, time: query.time});
+    this.setState({date: query.date, time: query.time, seats: query.seats});
     this.props.fetchAllReservations(query);
   }
 
@@ -48,7 +50,7 @@ class ReservationsSnippet extends React.Component {
     if (this.props.currentUser) {
       const time = parseInt(e.currentTarget.innerText.split(":").join(""));
       const reservation = { user_id: this.props.currentUser.id, restaurant_id: this.props.restaurant.id,
-        date: this.state.date, time };
+        date: this.state.date, seats: this.state.seats, time };
         this.props.createReservation(reservation);
     } else {
       hashHistory.push('/login');

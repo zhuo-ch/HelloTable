@@ -104,7 +104,7 @@ class CreateRestaurant extends React.Component {
               placeholder='Website'></input>
             <input type='file'
               onChange={this.handleFile}
-              className='input'></input>
+              className='input upload-button'></input>
             <ul className='upload-images'>
               {
                 this.state.imageUrls.map((image, idx) => {

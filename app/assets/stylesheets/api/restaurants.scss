@@ -14,7 +14,7 @@
 }
 
 .restaurant-splash-img {
-  background: -webkit-linear-gradient(right, #222, #666);
+
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -45,7 +45,7 @@
 }
 
 .splash-details {
-  background: -webkit-linear-gradient(left, #222, #666);
+
   flex: 6;
   display: flex;
   flex-direction: column;
@@ -201,3 +201,43 @@
   color: #D41010;
   margin-right: 10px;
 }
+
+.grey-right {
+  background: -webkit-linear-gradient(left, #222, #666);
+}
+
+.grey-left {
+  background: -webkit-linear-gradient(right, #222, #666);
+}
+
+// .blue-right {
+//   background: -webkit-linear-gradient(left, #000066, #003366);
+// }
+//
+// .blue-left {
+//   background: -webkit-linear-gradient(left, #003366, #000066);
+// }
+//
+// .brw-right {
+//   background: -webkit-linear-gradient(left, #333300, #333333);
+// }
+//
+// .brw-left {
+//   background: -webkit-linear-gradient(left, #333333, #333300);
+// }
+//
+// .brown-right {
+//   background: -webkit-linear-gradient(left, #562400, #8F3C00);
+// }
+//
+// .brown-left {
+//   background: -webkit-linear-gradient(left, #8F3C00, #562400);
+// }
+//
+// .blue-right {
+//   background: -webkit-linear-gradient(left, #222, #666);
+// }
+//
+// .blue-left {
+//   background: -webkit-linear-gradient(left, #222, #666);
+// }

@@ -4,6 +4,7 @@ import RestaurantsReducer from './restaurants_reducer';
 import CitiesReducer from './cities_reducer';
 import SearchReducer from './search_reducer';
 import ReservationsReducer from './reservations_reducer';
+import UsersReducer from './users_reducer';
 
 export default combineReducers({
   session: SessionReducer,
@@ -11,4 +12,5 @@ export default combineReducers({
   cities: CitiesReducer,
   search: SearchReducer,
   reservations: ReservationsReducer,
+  user: UsersReducer
 });

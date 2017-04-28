@@ -22,7 +22,7 @@ class CityShow extends React.Component {
     return (
       <div className='restaurants-index'>
         <section className='restaurants-index-splash'>
-          <SearchBar header=''/>
+          <SearchBar header=""/>
         </section>
         <section className='restaurant-snippets'>
           { Snippets }

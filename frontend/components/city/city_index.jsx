@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { fetchAllCities } from '../../actions/city_actions';
 import { Link } from 'react-router';
 import SearchBar from '../search/search_bar';
+import CreateRestaurantSplash from '../restaurant/create-splash'
 
 class CityIndex extends React.Component {
   constructor(props) {

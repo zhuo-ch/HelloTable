@@ -6,10 +6,17 @@ import RestaurantMap from './restaurant_map';
 import PhotoSection from './photo_section';
 import FontAwesome from 'react-fontawesome';
 import ReservationsSnippet from './reservations';
+import Scrollchor from 'react-scrollchor';
 
 class RestaurantShow extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
+    this.handleScroll = this.handleScroll;
+  }
+
+  handleScroll(e) {
+    debugger
+    console.log(e);
   }
 
   componentWillMount() {
@@ -28,10 +35,7 @@ class RestaurantShow extends React.Component {
 
     return (
       <ReservationsSnippet
-        date={"4-27-2017"}
-        time="800"
-        restaurantId={this.props.restaurant.id}
-        fetchType='restaurant' />
+        restaurantId={this.props.restaurant.id} />
     )
   }
 
@@ -41,12 +45,12 @@ class RestaurantShow extends React.Component {
     return (
       <div className='restaurant-view'>
         <section className='restaurant-splash'>
-          <div className='restaurant-splash-img'>
+          <div className='restaurant-splash-img grey-left'>
             <section className='splash-img-holder'>
               <img src={this.props.restaurant.images[0]}/>
             </section>
           </div>
-          <div className='splash-details'>
+          <div className='splash-details grey-right'>
             <section className="splash-name"><h1>{this.props.restaurant.restaurant_name}</h1></section>
             <section className="splash-ratings">
               {}
@@ -64,23 +68,22 @@ class RestaurantShow extends React.Component {
         </section>
 
         <div className='restaurant-body'>
-          <section className='restaurant-left'>
+          <section className='restaurant-left' >
             <article className='bold'>
-              <h3>Reservation</h3>
+              <Scrollchor to='#reservations'><h3>Reservation</h3></Scrollchor>
             </article>
             <article>
-              <h3><a href="#about">About</a></h3>
+              <Scrollchor to='#about'><h3>About</h3></Scrollchor>
             </article>
             <article>
-              <h3><a href="#photos">Photos</a></h3>
-            </article>
-            <article>
-              <h3>Reviews</h3>
+              <Scrollchor to='#photos'><h3>Photos</h3></Scrollchor>
             </article>
           </section>
 
           <section className='restaurant-mid'>
-            { resSnippet }
+            <article className='reservations-container' id='reservations'>
+              { resSnippet }
+            </article>
             <article className='restaurant-about' id="about">
               <div className='about-text'>
                 <div className='about-header'>
@@ -90,11 +93,9 @@ class RestaurantShow extends React.Component {
                   {this.props.restaurant.description}
                 </div>
               </div>
-              <div className='restaurant-map'>
-              </div>
             </article>
 
-            <article className='show-photos'>
+            <article className='show-photos' id="photos">
               <PhotoSection photos={this.props.restaurant.images} />
             </article>
           </section>

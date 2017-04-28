@@ -5,6 +5,7 @@ import Navbar from './navbar';
 
 
 const App = (props) => {
+  
   return (
     <div className='main-app'>
       <Navbar />
