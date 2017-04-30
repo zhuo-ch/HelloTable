@@ -11,10 +11,7 @@ export const fetchUser = id => dispatch => {
 
 export const destroyReservation = id => dispatch => {
   return UserApiUtil.destroyReservation(id)
-    .then((res) => {
-      debugger
-      dispatch(receiveDestroy(res.id));
-})
+    .then((res) => dispatch(receiveDestroy(res.id)));
 }
 
 const receiveUser = user => ({

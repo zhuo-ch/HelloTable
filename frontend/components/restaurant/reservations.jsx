@@ -11,6 +11,7 @@ class ReservationsSnippet extends React.Component {
     this.state = { date: "", time: "" };
     this.handleReserve = this.handleReserve.bind(this);
     this.getTimeSlots = this.getTimeSlots.bind(this);
+    this.handleShow = this.handleShow.bind(this);
   }
 
   currentDate() {
@@ -55,6 +56,11 @@ class ReservationsSnippet extends React.Component {
     } else {
       hashHistory.push('/login');
     }
+  }
+
+  handleShow(e) {
+    e.preventDefault();
+    hashHistory.push(`/users/${this.props.currentUser.id}`);
   }
 
   formatMinutes(minute) {
@@ -154,8 +160,14 @@ class ReservationsSnippet extends React.Component {
     const resTime = this.formatTime(this.props.reservations.reservation.time);
     return (
       <ul className='new-res'>
-        <li className='res-message'>A table for {this.props.reservations.reservation.seats} will be set for {this.props.reservations.reservation.username} on</li>
-        <li className='res-details'>{resDate} at {resTime}</li>
+        <li className='res-message'>
+          A table for {'  '}
+          {this.props.reservations.reservation.seats}
+          {'  '} will be set for {'  '}
+          {this.props.reservations.reservation.username}
+          {'  '} on {resDate} at {resTime}
+        </li>
+        <li className='new-res-button'><button className='button' onClick={ this.handleShow }>View</button></li>
       </ul>
     )
   }

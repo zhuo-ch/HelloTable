@@ -45,6 +45,24 @@
 .new-res {
   display: flex;
   justify-content: space-around;
+  align-items: center;
   color: #f13737;
-  width: 80%;
+  width: 90%;
+  padding: 10px 0px;
+}
+
+.res-message {
+  flex: 7;
+  text-align: center;
+}
+
+.new-res-button {
+  flex: 2;
+  align-content: center;
+}
+
+.new-res-button .button {
+  margin: 0 auto;
+  width: 100%;
+  align-self: center;
 }
