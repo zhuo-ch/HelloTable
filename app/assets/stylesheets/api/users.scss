@@ -1,3 +1,66 @@
 // Place all the styles related to the api/users controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+.user-show {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.user-show-splash {
+  background: white;
+  padding: 20px 5%;
+  font-size: 24;
+}
+
+.user-show-body {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.user-show-nav {
+  flex: 2;
+  margin: 20px;
+  padding: 20px;
+  width: 100%;
+  text-align: center;
+  color: lightslategray;
+}
+
+.restaurant-left h3:hover {
+  color: #A70303;
+  cursor: pointer;
+}
+
+.user-show-main {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex: 11;
+}
+
+.user-show-res {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: white;
+  width: 80%;
+  border-radius: 7px;
+  margin-top: 30px;
+  border-bottom: 1px solid gainsboro;
+  overflow: hidden;
+}
+
+.user-show-res-header {
+  align-self: center;
+  color: darkgray;
+  width: 90%;
+  border-bottom: 1px solid #f13737;
+}
+
+.user-show-res img {
+  max-height: 80%;
+}

@@ -2,7 +2,7 @@ import { merge } from 'lodash';
 import { RECEIVE_USER } from '../actions/user_actions';
 
 const _nullUser = {
-  reservations: {}
+  reservations: [],
 }
 
 const UsersReducer = (state = _nullUser, action) => {

@@ -19,7 +19,10 @@
 
 ### Database
 
-* HelloTable's backend is comprised of five distinct tables - Users, Cities, Restaurants, Reservations, and Phot os. Each restaurant is indexed by its association to a city.
+* HelloTable's backend is comprised of five distinct tables - Users, Cities, Restaurants, Reservations, and Photos. Each city has associations to restaurants for easy browsing from the city show page and simplified searching from the the home page.
+* Restaurants can be added by users so access to editing is restricted to the user who added the restaurant.
+* Reservations have associations to users who made the reservation and restaurants to which the reservations belong.
+* Photos have been separated out into it's own table and have an association to a restaurant.
 
 ## Tech examples
 
