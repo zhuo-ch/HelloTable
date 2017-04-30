@@ -18,6 +18,12 @@ class Api::ReservationsController < ApplicationController
     end
   end
 
+  def destroy
+    @reservation = Reservation.find(params[:id])
+    @reservation.destroy
+    render 'api/reservations/show'
+  end
+
   private
   def reservation_params
     params.require(:reservation).permit(:user_id, :restaurant_id, :time, :date, :seats)

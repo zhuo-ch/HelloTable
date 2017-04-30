@@ -7,6 +7,7 @@ import PhotoSection from './photo_section';
 import FontAwesome from 'react-fontawesome';
 import ReservationsSnippet from './reservations';
 import Scrollchor from 'react-scrollchor';
+import { StickyContainer, Sticky } from 'react-sticky';
 
 class RestaurantShow extends React.Component {
   constructor(props) {
@@ -42,7 +43,7 @@ class RestaurantShow extends React.Component {
     const resSnippet = this.getReservations();
 
     return (
-      <div className='restaurant-view'>
+      <StickyContainer className='restaurant-view'>
         <section className='restaurant-splash'>
           <div className='restaurant-splash-img grey-left'>
             <section className='splash-img-holder'>
@@ -67,16 +68,18 @@ class RestaurantShow extends React.Component {
         </section>
 
         <div className='restaurant-body'>
-          <section className='restaurant-left' >
-            <article className='bold'>
-              <Scrollchor to='#reservations'><h3>Reservation</h3></Scrollchor>
-            </article>
-            <article>
-              <Scrollchor to='#about'><h3>About</h3></Scrollchor>
-            </article>
-            <article>
-              <Scrollchor to='#photos'><h3>Photos</h3></Scrollchor>
-            </article>
+          <section className='restaurant-left'>
+            <Sticky>
+              <article className='bold'>
+                <Scrollchor to='#reservations'><h3>Reservation</h3></Scrollchor>
+              </article>
+              <article>
+                <Scrollchor to='#about'><h3>About</h3></Scrollchor>
+              </article>
+              <article>
+                <Scrollchor to='#photos'><h3>Photos</h3></Scrollchor>
+              </article>
+            </Sticky>
           </section>
 
           <section className='restaurant-mid'>
@@ -137,7 +140,7 @@ class RestaurantShow extends React.Component {
             </article>
           </section>
         </div>
-      </div>
+      </StickyContainer>
     )
   }
 }

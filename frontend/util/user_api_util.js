@@ -4,3 +4,10 @@ export const fetchUser = (id) => {
     url: `api/users/${id}`
   })
 }
+
+export const destroyReservation = id => {
+  return $.ajax({
+    method: 'DELETE',
+    url: `api/reservations/${id}`,
+  })
+}

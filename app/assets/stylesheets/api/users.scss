@@ -29,7 +29,7 @@
   color: lightslategray;
 }
 
-.restaurant-left h3:hover {
+.user-show-nav h3:hover {
   color: #A70303;
   cursor: pointer;
 }
@@ -63,4 +63,16 @@
 
 .user-show-res img {
   max-height: 80%;
+}
+
+.user-show-res .new-res {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 20px;
+}
+
+.new-res button {
+  align-self: center;
+  width: 20%;
 }

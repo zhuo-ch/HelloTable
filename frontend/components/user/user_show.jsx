@@ -1,15 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
-import { fetchUser } from '../../actions/user_actions';
+import { fetchUser, destroyReservation } from '../../actions/user_actions';
 import FontAwesome from 'react-fontawesome';
 import ReservationsSnippet from '../restaurant/reservations';
 import Scrollchor from 'react-scrollchor';
 import RestaurantSnippet from '../restaurant/restaurant_snippet';
+import { StickyContainer, Sticky } from 'react-sticky';
 
 class UserShow extends React.Component {
   constructor(props) {
     super(props)
+    this.handleCancel = this.handleCancel.bind(this);
   }
 
   componentWillMount() {
@@ -18,6 +20,11 @@ class UserShow extends React.Component {
     } else {
       this.props.fetchUser(this.props.currentUser.id, )
     }
+  }
+
+  handleCancel(e) {
+    e.preventDefault();
+    this.props.destroyReservation(e.currentTarget.value);
   }
 
   formatDate(date) {
@@ -45,13 +52,14 @@ class UserShow extends React.Component {
 
   render() {
     const Upcoming = this.props.user.reservations.filter(reservation => this.setUpcoming(reservation))
-      .map((restaurant, idx) => {
+      .map((restaurant) => {
         return (
-          <section key={idx}>
+          <section key={restaurant.res_id}>
             <article className='new-res'>
               <h4>
                 A table for {restaurant.seats} will be set at {this.formatTime(restaurant.time)} on {this.formatDate(restaurant.date)}
               </h4>
+              <button onClick={ this.handleCancel } className='button' value={restaurant.res_id}>Cancel Reservation</button>
             </article>
             <RestaurantSnippet restaurant={restaurant}/>
           </section>
@@ -59,9 +67,9 @@ class UserShow extends React.Component {
       })
 
     const Previous = this.props.user.reservations.filter(reservation => !this.setUpcoming(reservation))
-      .map((restaurant, idx) => {
+      .map((restaurant) => {
         return (
-          <section key={idx}>
+          <section key={restaurant.res_id}>
             <article className='new-res'>
               <h4>
                 We hope you enjoyed your visit on {this.formatDate(restaurant.date)}
@@ -71,25 +79,22 @@ class UserShow extends React.Component {
           </section>
         );
       })
-    // const UserNav = (
-    //     <ul>
-    //       <
-    //     </ul>
-    // )
 
     return(
-      <div className='user-show'>
+      <StickyContainer className='user-show'>
         <section className='user-show-splash'><h2>{currentUser.username}</h2></section>
         <div className='user-show-body'>
           <div className='user-show-nav'>
-            <ul>
-              <li className='user-nav-options'>
-                <Scrollchor to='#up-res'><h3>Upcoming Reservation</h3></Scrollchor>
-              </li>
-              <li>
-                <Scrollchor to='#prev-res'><h3>Previous Reservations</h3></Scrollchor>
-              </li>
-            </ul>
+            <Sticky>
+              <ul className='user-nav-options'>
+                <li>
+                  <Scrollchor to='#up-res'><h3>Upcoming Reservation</h3></Scrollchor>
+                </li>
+                <li>
+                  <Scrollchor to='#prev-res'><h3>Previous Reservations</h3></Scrollchor>
+                </li>
+              </ul>
+            </Sticky>
           </div>
 
           <div className='user-show-main'>
@@ -103,7 +108,7 @@ class UserShow extends React.Component {
             </section>
           </div>
         </div>
-      </div>
+      </StickyContainer>
     )
   }
 }
@@ -118,6 +123,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return ({
     fetchUser: id => dispatch(fetchUser(id)),
+    destroyReservation: id => dispatch(destroyReservation(id)),
   })
 }
 

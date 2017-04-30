@@ -2,6 +2,7 @@ import React from 'react';
 import { Link, Router, Route, hashHistory } from 'react-router';
 import { connect } from 'react-redux';
 import { logout } from '../actions/session_actions';
+import FontAwesome from 'react-fontawesome';
 
 class Navbar extends React.Component {
   constructor(props) {
@@ -17,7 +18,12 @@ class Navbar extends React.Component {
         return (
           <section className="nav-right">
             <section className='nav-welcome'>
-              <h4>Hi, {this.props.currentUser.username}</h4>
+              <h4>
+                <Link to={`users/${this.props.currentUser.id}`}>
+                Hi, {' ' + this.props.currentUser.username}{'   '}<FontAwesome name='cog'
+                className='fa fa-cog icon'/>
+                </Link>
+              </h4>
               <button onClick={this.handleLogOut} className='button'>Log out</button>
             </section>
           </section>
