@@ -15,6 +15,7 @@
 
 * HelloTable was created using a Ruby on Rails backend with React handling front end components in conjunction with the Redux cycle.
 * Smooth scroll with anchor links was achieved with the use of react-scrollchor.
+* Side navbars use react-sticky for onScroll event.
 * All other components were build with native Javascript, React, and Redux.
 
 ### Database
@@ -24,6 +25,20 @@
 * Reservations have associations to users who made the reservation and restaurants to which the reservations belong.
 * Photos have been separated out into it's own table and have an association to a restaurant.
 
-## Tech examples
+### Sessions
 
-*
+* Sessions are handled with backend auth using BCrypt for password encryption and SecureRandom for session tokens
+* Front end auth maintains a user's logged in status.
+
+### Users
+
+* Users must log in to view the profile page, add restaurants, or create and cancel reservations.
+* On the user profile page, users can view and cancel upcoming reservations as well as view previous reservations.
+* Front the front page, users navigate to a form where they can add restaurants.
+
+### Restaurants
+
+* Restaurants can be added by any user. Once created, restaurants are fairly static items.
+* Restaurants can be found by browsing through the catalog of using the search feature on either the home page or the city show page.
+* Restaurant show page displays restaurant details along with associated photos.
+* Show page also has quick links set to reasonable defaults for convenient reservations as well as a search bar for custom reservations.
