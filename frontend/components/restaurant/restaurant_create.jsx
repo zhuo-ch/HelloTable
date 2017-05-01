@@ -23,6 +23,7 @@ class CreateRestaurant extends React.Component {
   this.handleChange = this.handleChange.bind(this);
   this.handleSubmit = this.handleSubmit.bind(this);
   this.handleFile = this.handleFile.bind(this);
+  this.renderErrors = this.renderErrors.bind(this);
   }
 
   handleFile(e) {
@@ -65,6 +66,11 @@ class CreateRestaurant extends React.Component {
     })
 
     this.props.createRestaurant(formData);
+  }
+
+  renderErrors() {
+    const errors = this.props.errors.join('. ') + '.'
+    return (<h5>{ errors }</h5>)
   }
 
   render() {
@@ -125,6 +131,9 @@ class CreateRestaurant extends React.Component {
                 })
               }
             </ul>
+            <section className='errors'>
+              { this.renderErrors() }
+            </section>
             <input type='submit'
               onClick={this.handleSubmit}
               className="button input"
@@ -138,7 +147,8 @@ class CreateRestaurant extends React.Component {
 
 const mapStateToProps = state => {
   return ({
-    currentUser: state.session.currentUser
+    currentUser: state.session.currentUser,
+    errors: state.restaurants.errors,
   })
 };
 

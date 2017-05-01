@@ -12,8 +12,10 @@ class Api::RestaurantsController < ApplicationController
 
   def create
     @restaurant = Restaurant.new(restaurant_params)
-    city = City.where("state = ?", restaurant_params[:state]).first
-    @restaurant.city_id = city.id
+    if restaurant_params[:state] != ''
+      city = City.where("state = ?", restaurant_params[:state]).first
+      @restaurant.city_id = city.id
+    end
 
     if @restaurant.save
       if params[:imageFiles]
@@ -44,8 +46,6 @@ class Api::RestaurantsController < ApplicationController
 
     data = {cities: @cities, restaurants: @restaurants}.to_json
     render search_api_restaurants: data
-    # render json: {cities: @cities, restaurants: @restaurants}, location: :search_api_restaurants
-    # render 'api/restaurants/search'
   end
 
   def update

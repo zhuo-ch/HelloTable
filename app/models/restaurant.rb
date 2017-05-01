@@ -1,5 +1,5 @@
 class Restaurant < ActiveRecord::Base
-  # validates :owner_id, :restaurant_name, :description, :street_address, :state, :restaurant_number, presence: true
+  validates :owner_id, :restaurant_name, :description, :street_address, :state, :restaurant_number, presence: true
 
   def get_reservations(date, time)
     start_hour = time.to_i - 200
@@ -10,10 +10,6 @@ class Restaurant < ActiveRecord::Base
 
     return x
   end
-
-  # def city_id=(id)
-  #   self.city_id = id
-  # end
 
   belongs_to :city
   belongs_to :owner,

@@ -5,7 +5,3 @@ json.reservations user.reservations do |reservation|
     json.image reservation.restaurant.photos.first.nil? ? asset_path(@city.image.url) : asset_path(reservation.restaurant.photos.first.image.url)
     json.extract! reservation.restaurant, :id, :restaurant_name, :cuisine, :city_name, :state
 end
-# json.reservations @user.reservations, :id, :seats, :time, :date, :restaurant_id
-# json.restaurants @user.reservations do |reservation|
-#   json.extract! reservation.restaurant, :id, :restaurant_name, :city_name, :cuisine, :city_name, :state
-# end

@@ -54,7 +54,6 @@ class ReservationsSnippet extends React.Component {
 
       this.setState({date: query.date, time: query.time, seats: query.seats});
       this.props.fetchAllReservations(query);
-      debugger
     }
   }
 
@@ -189,7 +188,6 @@ class ReservationsSnippet extends React.Component {
   }
 
   render() {
-    debugger
     const availReservations = this.props.reservations.reservation ? this.showReservation() : this.reservationItems();
 
     return (

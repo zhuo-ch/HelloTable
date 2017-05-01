@@ -2,6 +2,7 @@ import { merge } from 'lodash';
 import { RECEIVE_ALL_RESTAURANTS,
   RECEIVE_RESTAURANT,
   RECEIVE_DESTROY,
+  RECEIVE_ERRORS
 } from '../actions/restaurant_actions';
 import { RECEIVE_SEARCH } from '../actions/search_actions'
 
@@ -24,6 +25,7 @@ const _nullRestaurants = Object.freeze({
     lng: "",
     city_id: "",
   },
+  errors: [],
 });
 
 const RestaurantsReducer = (state = _nullRestaurants, action) => {
@@ -36,6 +38,9 @@ const RestaurantsReducer = (state = _nullRestaurants, action) => {
       return newState;
     case RECEIVE_DESTROY:
       return _nullRestaurants;
+    case RECEIVE_ERRORS:
+      const errors = action.errors;
+      return Object.assign({}, state, {errors});
     default:
       return state;
   }

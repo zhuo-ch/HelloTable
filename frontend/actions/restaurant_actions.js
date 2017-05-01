@@ -4,6 +4,7 @@ import * as RestaurantAPIUtil from '../util/restaurant_api_util';
 export const RECEIVE_ALL_RESTAURANTS = 'RECEIVE_ALL_RESTAURANTS';
 export const RECEIVE_RESTAURANT = 'RECEIVE_RESTAURANT';
 export const RECEIVE_DESTROY = 'RECEIVE_DESTROY';
+export const RECEIVE_ERRORS = 'RECEIVE_ERRORS';
 
 export const fetchAllRestaurants = (cityId) => dispatch => {
   return RestaurantAPIUtil.fetchAllRestaurants(cityId)
@@ -15,7 +16,10 @@ export const fetchAllRestaurants = (cityId) => dispatch => {
 
 export const createRestaurant = (restaurant) => dispatch => {
   return RestaurantAPIUtil.createRestaurant(restaurant)
-    .then((newRestaurant) => dispatch(receiveRestaurant(newRestaurant)))
+    .then((newRestaurant) => dispatch(receiveRestaurant(newRestaurant)),
+    err => {
+      dispatch(receiveErrors(err.responseJSON));
+    })
     .then((newRestaurant) => {
       hashHistory.push(`/restaurant/${newRestaurant.restaurant.id}`)
     });
@@ -49,3 +53,10 @@ const receiveRestaurant = (restaurant) => ({
 const receiveDestroy = () => ({
   type: RECEIVE_DESTROY,
 })
+
+const receiveErrors = (errors) => {
+  return ({
+    type: RECEIVE_ERRORS,
+    errors
+  })
+}

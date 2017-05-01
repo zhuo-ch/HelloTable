@@ -1,9 +1,5 @@
 class Api::UsersController < ApplicationController
 
-  # def index
-  #   @user = User.find_by_credentials(email: params[:user][:email], password: )
-  # end
-
   def create
     @user = User.new(user_params)
 
@@ -18,7 +14,7 @@ class Api::UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-  
+
     if @user && @user == current_user
       render "api/users/show"
     else
