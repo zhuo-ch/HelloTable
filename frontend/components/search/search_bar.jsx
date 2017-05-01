@@ -21,6 +21,7 @@ class SearchBar extends React.Component {
     this.timeBar = this.timeBar.bind(this);
     this.seats = this.seats.bind(this);
     this.results = this.results.bind(this);
+    this.getSearchBox = this.getSearchBox.bind(this);
   }
 
   componentWillMount() {
@@ -36,8 +37,11 @@ class SearchBar extends React.Component {
     const time= e.currentTarget.elements.time.value.split("  ")[0].split(":").join("");
     const id = (this.state.searchType === "cities") ? this.state.searchId: this.state.searchId;
     const type = this.state.searchType;
-    this.props.receiveSearchResults({seats, date, time, id, type})
-    this.props.router.push(`/${type}/${id}`)
+    this.props.receiveSearchResults({seats, date, time, id, type});
+
+    if (!(this.props.restaurantId)) {
+      this.props.router.push(`${type}/${id}`)
+    }
   }
 
   handleClick(e) {
@@ -169,16 +173,31 @@ class SearchBar extends React.Component {
     );
   }
 
+  getSearchBox() {
+    const resultList = this.results();
+    return (
+      <section className='search-field'>
+        <article className='search-box-container'>
+          <input
+            type='search'
+            name='query'
+            placeholder='Search Restaurants'
+            className='input'
+            autoComplete='off'
+            onChange={this.handleChange}
+            value={this.state.searchTerm}></input>
+          { resultList }
+        </article>
+      </section>
+    )
+  }
 
 
 
   render() {
     const defaultDate = this.formatDate();
     const head = this.props.header ? this.props.header : "";
-    const resultList = this.results();
-    const cities = resultList[0];
-    const restaurants = resultList[1];
-
+    const searchBox = this.props.restaurantId ? "" : this.getSearchBox();
 
     return (
       <div className='search-bar'>
@@ -195,19 +214,7 @@ class SearchBar extends React.Component {
               className='input bar-date'
               ></input>
             { this.timeBar() }
-            <section className='search-field'>
-              <article className='search-box-container'>
-                <input
-                  type='search'
-                  name='query'
-                  placeholder='Search Restaurants'
-                  className='input'
-                  autoComplete='off'
-                  onChange={this.handleChange}
-                  value={this.state.searchTerm}></input>
-                { resultList }
-              </article>
-            </section>
+            { searchBox }
           <input type='submit' className='bar-submit' value='Search' ></input>
         </form>
       </div>

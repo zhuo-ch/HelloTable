@@ -8,6 +8,7 @@ import FontAwesome from 'react-fontawesome';
 import ReservationsSnippet from './reservations';
 import Scrollchor from 'react-scrollchor';
 import { StickyContainer, Sticky } from 'react-sticky';
+import SearchBar from '../search/search_bar';
 
 class RestaurantShow extends React.Component {
   constructor(props) {
@@ -84,6 +85,7 @@ class RestaurantShow extends React.Component {
 
           <section className='restaurant-mid'>
             <article className='reservations-container' id='reservations'>
+              <SearchBar restaurantId={this.props.restaurant.id}/>
               { resSnippet }
             </article>
             <article className='restaurant-about' id="about">

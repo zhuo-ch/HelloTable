@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, hashHistory } from 'react-router';
+import { Link, hashHistory, withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import { fetchAllReservations, createReservation, resetReservation } from '../../actions/reservations_actions';
 import FontAwesome from 'react-fontawesome';
@@ -40,6 +40,22 @@ class ReservationsSnippet extends React.Component {
 
     this.setState({date: query.date, time: query.time, seats: query.seats});
     this.props.fetchAllReservations(query);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (this.props.searchResults !== nextProps.searchResults) {
+      let query = {
+        seats: nextProps.searchResults.seats,
+        date: nextProps.searchResults.date,
+        time: nextProps.searchResults.time,
+        restaurantId: nextProps.restaurant.id,
+        type: 'restaurant',
+      }
+
+      this.setState({date: query.date, time: query.time, seats: query.seats});
+      this.props.fetchAllReservations(query);
+      debugger
+    }
   }
 
   componentWillUnmount() {
@@ -173,6 +189,7 @@ class ReservationsSnippet extends React.Component {
   }
 
   render() {
+    debugger
     const availReservations = this.props.reservations.reservation ? this.showReservation() : this.reservationItems();
 
     return (
@@ -200,4 +217,4 @@ const mapDispatchToProps = dispatch => ({
   resetReservation: () => dispatch(resetReservation()),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(ReservationsSnippet);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(ReservationsSnippet));
