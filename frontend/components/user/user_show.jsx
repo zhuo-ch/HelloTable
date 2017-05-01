@@ -47,8 +47,7 @@ class UserShow extends React.Component {
     const resDate = reservation.date.split("-").map((str) => parseInt(str));
     const resTime = this.formatTime(reservation.time).split(':').map((str) => parseInt(str));
     const newDate = new Date(resDate[2], resDate[0]-1, resDate[1], resTime[0]+12, resTime[1]);
-    const upcoming = newDate > curDate;
-    return upcoming;
+    return newDate > curDate;
   }
 
   render() {
@@ -83,7 +82,10 @@ class UserShow extends React.Component {
 
     return(
       <StickyContainer className='user-show'>
-        <section className='user-show-splash'><h2>{currentUser.username}</h2></section>
+        <section className='user-show-splash'>
+          <h2>{currentUser.username}</h2>
+          <h5>You have {Upcoming.length} upcoming reservations.</h5>
+          </section>
         <div className='user-show-body'>
           <div className='user-show-nav'>
             <Sticky>
