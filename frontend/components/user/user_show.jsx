@@ -45,9 +45,10 @@ class UserShow extends React.Component {
   setUpcoming(reservation) {
     const curDate = new Date();
     const resDate = reservation.date.split("-").map((str) => parseInt(str));
-    const resTime = this.formatTime(reservation.time).split(':');
+    const resTime = this.formatTime(reservation.time).split(':').map((str) => parseInt(str));
     const newDate = new Date(resDate[2], resDate[0]-1, resDate[1], resTime[0]+12, resTime[1]);
-    return newDate > curDate;
+    const upcoming = newDate > curDate;
+    return upcoming;
   }
 
   render() {

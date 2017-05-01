@@ -210,6 +210,7 @@ class SearchBar extends React.Component {
             <input type='date'
               required='required'
               name='date'
+              min = { defaultDate }
               defaultValue={ defaultDate }
               className='input bar-date'
               ></input>
