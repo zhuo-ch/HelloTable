@@ -9,6 +9,7 @@ import ReservationsSnippet from './reservations';
 import Scrollchor from 'react-scrollchor';
 import { StickyContainer, Sticky } from 'react-sticky';
 import SearchBar from '../search/search_bar';
+import { fetchAllReviews } from '../../actions/review_action';
 
 class RestaurantShow extends React.Component {
   constructor(props) {
@@ -22,6 +23,7 @@ class RestaurantShow extends React.Component {
 
   componentWillMount() {
     this.props.fetchRestaurant(this.props.restaurantId);
+    this.props.fetchAllReviews(this.props.restaurantId);
   }
 
   getReservations() {
@@ -156,6 +158,7 @@ const mapStateToProps = (state, {params}) => {
 };
 
 const mapDispatchToProps = dispatch => ({
+  fetchAllReviews: id => dispatch(fetchAllReviews(id)),
   fetchRestaurant: id => dispatch(fetchRestaurant(id)),
 });
 

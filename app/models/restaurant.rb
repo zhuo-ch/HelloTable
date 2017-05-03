@@ -17,6 +17,7 @@ class Restaurant < ActiveRecord::Base
     foreign_key: :owner_id,
     primary_key: :id
 
+  has_many :reviews
   has_many :reservations
   has_many :photos, dependent: :destroy, inverse_of: :restaurant
 end
