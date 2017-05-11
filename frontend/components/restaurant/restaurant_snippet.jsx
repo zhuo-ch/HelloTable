@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'react-router';
 
 const RestaurantSnippet = ({restaurant}) => {
-  // const imgStyle = {backgroundImage: `url("${restaurant.image}")`}
   return (
     <section className='snippet-section'>
       <Link to={`restaurant/${restaurant.id}`} className='snippet-photo'>

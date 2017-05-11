@@ -21,8 +21,8 @@ export const destroyReview = id => dispatch => {
 }
 
 const receiveAllReviews = reviews => ({
-  type: RECEIVE_ALL_REVIEWS,
-  reviews,
+    type: RECEIVE_ALL_REVIEWS,
+    reviews,
 })
 
 const receiveReview = review => ({

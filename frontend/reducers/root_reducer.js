@@ -5,6 +5,7 @@ import CitiesReducer from './cities_reducer';
 import SearchReducer from './search_reducer';
 import ReservationsReducer from './reservations_reducer';
 import UsersReducer from './users_reducer';
+import ReviewsReducer from './reviews_reducer';
 
 export default combineReducers({
   session: SessionReducer,
@@ -12,5 +13,6 @@ export default combineReducers({
   cities: CitiesReducer,
   search: SearchReducer,
   reservations: ReservationsReducer,
-  user: UsersReducer
+  user: UsersReducer,
+  reviews: ReviewsReducer,
 });

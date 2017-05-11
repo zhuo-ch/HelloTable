@@ -1,9 +1,10 @@
 class Api::ReviewsController < ApplicationController
 
   def index
-    debugger
-    restaurant = Restaurant.find(params[:restaurant_id])
-    @reviews = restaurant.reviews.all
+    @reviews = Restaurant.find(params[:restaurant_id]).reviews.all
+    # @reviews = restaurant.reviews.all
+    # @ratings = restaurant.get_reviews
+    # debugger
   end
 
   def create

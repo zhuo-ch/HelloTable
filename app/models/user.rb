@@ -5,10 +5,11 @@ class User < ActiveRecord::Base
   after_initialize :ensure_session_token
 
   has_many :reservations
-  has_many :restaurants,
-    class_name: "Restaurant",
-    primary_key: :id,
-    foreign_key: :owner_id
+  has_many :reviews, through: :reservations
+  has_many :restaurants
+    # class_name: "Restaurant",
+    # primary_key: :id,
+    # foreign_key: :owner_id
 
   attr_reader :password
 

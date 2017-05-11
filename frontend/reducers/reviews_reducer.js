@@ -4,7 +4,7 @@ import { RECEIVE_ALL_REVIEWS,
   RECEIVE_DESTROY,
 } from '../actions/review_actions';
 
-const _nullReviews = ([])
+const _nullReviews = ([]);
 
 const ReviewsReducer = (state = _nullReviews, action) => {
   Object.freeze(state);
@@ -16,7 +16,7 @@ const ReviewsReducer = (state = _nullReviews, action) => {
       newState.push(action.review);
       return newState;
     case RECEIVE_DESTROY:
-      const desState = Object.assign([], state)
+      let desState = Object.assign([], state)
       desState = desState.filter((rev) => rev.id !== action.id)
       return desState;
     default:

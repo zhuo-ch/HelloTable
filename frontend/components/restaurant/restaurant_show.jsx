@@ -9,7 +9,9 @@ import ReservationsSnippet from './reservations';
 import Scrollchor from 'react-scrollchor';
 import { StickyContainer, Sticky } from 'react-sticky';
 import SearchBar from '../search/search_bar';
-import { fetchAllReviews } from '../../actions/review_action';
+import { fetchAllReviews } from '../../actions/review_actions';
+import ReviewSnippet from './review_snippet';
+import ReactStars from 'react-stars';
 
 class RestaurantShow extends React.Component {
   constructor(props) {
@@ -42,8 +44,78 @@ class RestaurantShow extends React.Component {
     )
   }
 
+  getStarRating(rating) {
+    return (
+      <ReactStars
+        count={5}
+        edit={false}
+        value={rating}
+        />
+    );
+  }
+
+  getAvgRatings() {
+    const add = (first, second) => {
+      if (first) {
+        return first + second;
+      } else {
+        return second;
+      }
+    }
+    const ratings = {};
+
+      this.props.reviews.forEach(review => {
+        ratings.rating = review.rating ? add(ratings.rating, review.rating) : 0
+        ratings.food = review.food ? add(ratings.food, review.food) : 0
+        ratings.service = review.service ? add(ratings.service, review.service) : 0
+        ratings.ambiance = review.ambiance ? add(ratings.ambiance, review.ambiance) : 0
+        ratings.value = review.value ? add(ratings.value, review.value) : 0
+      })
+
+    for (let key in ratings) {
+      ratings[key] = Math.round(ratings[key]/this.props.reviews.length*2)/2;
+    }
+
+    return ratings
+  }
+
+  getReviewTopBar(averages) {
+    const starRating = this.getStarRating(averages.rating);
+
+    return (
+      <div className='review-top'>
+        <section className='review-overalls'>
+          <article className='rating'>{averages.rating}</article>
+          <article className='rating-stars'>
+            <span className='overall'>Overall Rating</span>
+            <div className='overall-stars'>{ starRating }  based on recent ratings</div>
+          </article>
+        </section>
+        <section className='review-averages'>
+            {
+              Object.keys(averages).map(key => {
+                return (
+                  <ul key={key} className='avg-scores'>
+                    <li key='type' className='review-type'>
+                      {key.toUpperCase()}
+                    </li>
+                    <li key='score' className='review-score'>
+                      {averages[key]}
+                    </li>
+                  </ul>
+                );
+              })
+            }
+        </section>
+      </div>
+    )
+  }
+
   render() {
+    const averages = this.getAvgRatings();
     const resSnippet = this.getReservations();
+    const reviewTopBar = this.getReviewTopBar(averages);
+    const reviewSnippets = this.props.reviews.map(review => <ReviewSnippet key={review.id} review={ review } />);
 
     return (
       <StickyContainer className='restaurant-view'>
@@ -56,7 +128,7 @@ class RestaurantShow extends React.Component {
           <div className='splash-details grey-right'>
             <section className="splash-name"><h1>{this.props.restaurant.restaurant_name}</h1></section>
             <section className="splash-ratings">
-              {}
+              { this.getStarRating(averages.rating) }
             </section>
             <section className='splash-info'>
               <section className='info-details'>
@@ -82,6 +154,9 @@ class RestaurantShow extends React.Component {
               <article>
                 <Scrollchor to='#photos'><h3>Photos</h3></Scrollchor>
               </article>
+              <article>
+                <Scrollchor to='#reviews'><h3>Reviews</h3></Scrollchor>
+              </article>
             </Sticky>
           </section>
 
@@ -103,6 +178,14 @@ class RestaurantShow extends React.Component {
 
             <article className='show-photos' id="photos">
               <PhotoSection photos={this.props.restaurant.images} />
+            </article>
+
+            <article className='reviews-section' id='reviews'>
+              <section className='reviews-section-bar'>
+                <h1>{this.props.restaurant.restaurant_name} Ratings and Reviews</h1>
+                { reviewTopBar }
+              </section>
+                { reviewSnippets }
             </article>
           </section>
 
@@ -154,6 +237,7 @@ const mapStateToProps = (state, {params}) => {
   return ({
     restaurantId,
     restaurant: state.restaurants.restaurant,
+    reviews: state.reviews
   });
 };
 
