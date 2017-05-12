@@ -10,6 +10,7 @@ body, main, div, section, a, input, li {
   vertical-align: inherit;
   box-sizing: inherit;
   background: transparent;
+  opacity: inherit;
 }
 
 main, section, div, footer {
@@ -26,9 +27,26 @@ a {
   text-decoration: none;
 }
 
+html {
+  height: 100%;
+  width: 100%;
+}
+
 body {
-  background: whitesmoke;
   font-family: 'Open Sans', sans-serif;
+  height: 100%;
+  width: 100%;
+}
+
+#root {
+  height: 100%;
+  width: 100%;
+}
+
+.main-app {
+  position: relative;
+  height: 100%;
+  width: 100%;
 }
 
 .group:after {

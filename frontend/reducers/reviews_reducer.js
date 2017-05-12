@@ -12,8 +12,11 @@ const ReviewsReducer = (state = _nullReviews, action) => {
     case RECEIVE_ALL_REVIEWS:
       return Object.assign([], state, action.reviews);
     case RECEIVE_REVIEW:
-      const newState = Object.assign([], state)
-      newState.push(action.review);
+      let newState = Object.assign([], state)
+        
+        if (!(newState.includes(action.review))) {
+          newState.push(action.review);
+        }
       return newState;
     case RECEIVE_DESTROY:
       let desState = Object.assign([], state)

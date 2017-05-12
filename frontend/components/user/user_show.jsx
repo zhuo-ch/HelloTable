@@ -7,11 +7,13 @@ import ReservationsSnippet from '../restaurant/reservations';
 import Scrollchor from 'react-scrollchor';
 import RestaurantSnippet from '../restaurant/restaurant_snippet';
 import { StickyContainer, Sticky } from 'react-sticky';
+import { setCurrentModal } from '../../actions/modal_actions';
 
 class UserShow extends React.Component {
   constructor(props) {
     super(props)
     this.handleCancel = this.handleCancel.bind(this);
+    this.handleAddReview = this.handleAddReview.bind(this);
   }
 
   componentWillMount() {
@@ -25,6 +27,11 @@ class UserShow extends React.Component {
   handleCancel(e) {
     e.preventDefault();
     this.props.destroyReservation(e.currentTarget.value);
+  }
+
+  handleAddReview(e) {
+    e.preventDefault();
+    this.props.setCurrentModal({hidden: false, type:'reviewForm', reservation: e.currentTarget.value});
   }
 
   formatDate(date) {
@@ -59,7 +66,7 @@ class UserShow extends React.Component {
               <h4>
                 A table for {restaurant.seats} will be set at {this.formatTime(restaurant.time)} on {this.formatDate(restaurant.date)}
               </h4>
-              <button onClick={ this.handleCancel } className='button' value={restaurant.res_id}>Cancel Reservation</button>
+              <button onClick={ this.handleCancel } className='button' value={restaurant.res_id}>Cancel</button>
             </article>
             <RestaurantSnippet restaurant={restaurant}/>
           </section>
@@ -68,12 +75,16 @@ class UserShow extends React.Component {
 
     const Previous = this.props.user.reservations.filter(reservation => !this.setUpcoming(reservation))
       .map((restaurant) => {
+        const leaveReviewButton = restaurant.reviewed ? '' : (
+          <button className='button' value={ restaurant.res_id } onClick={this.handleAddReview}>Review</button>
+        );
         return (
           <section key={restaurant.res_id}>
             <article className='new-res'>
               <h4>
                 We hope you enjoyed your visit on {this.formatDate(restaurant.date)}
               </h4>
+              {leaveReviewButton}
             </article>
             <RestaurantSnippet restaurant={restaurant}/>
           </section>
@@ -127,6 +138,7 @@ const mapDispatchToProps = dispatch => {
   return ({
     fetchUser: id => dispatch(fetchUser(id)),
     destroyReservation: id => dispatch(destroyReservation(id)),
+    setCurrentModal: modal => dispatch(setCurrentModal(modal)),
   })
 }
 

@@ -15,6 +15,11 @@ export const fetchReview = id => dispatch => {
     .then(review => dispatch(receiveReview(review)));
 }
 
+export const createReview = review => dispatch => {
+  return ReviewAPIUtil.createReview(review)
+    .then(review => dispatch(receiveReview(review)));
+}
+
 export const destroyReview = id => dispatch => {
   return ReviewAPIUtil.destroyReview(id)
     .then(review => dispatch(receiveDestroy(review)));

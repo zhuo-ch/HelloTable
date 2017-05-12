@@ -10,7 +10,7 @@ import Scrollchor from 'react-scrollchor';
 import { StickyContainer, Sticky } from 'react-sticky';
 import SearchBar from '../search/search_bar';
 import { fetchAllReviews } from '../../actions/review_actions';
-import ReviewSnippet from './review_snippet';
+import ReviewSnippet from '../review/review_snippet';
 import ReactStars from 'react-stars';
 
 class RestaurantShow extends React.Component {

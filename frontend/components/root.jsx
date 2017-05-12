@@ -4,12 +4,14 @@ import { Router, Route, IndexRoute, hashHistory } from 'react-router';
 import NavbarContainer from './navbar';
 import sessionFormContainer from './session/session_form_container';
 import configureStore from '../store/store';
-import App from './app'
+import App from './app';
 import restaurantContainer from './restaurant/restaurant_show';
 import restaurantCreate from './restaurant/restaurant_create';
 import CityIndex from './city/city_index';
 import CityShow from './city/city_show';
 import UserShow from './user/user_show';
+import ReviewForm from './review/review_form';
+import Modal from './modal';
 
 const Root = ({store}) => {
 
@@ -38,6 +40,7 @@ const Root = ({store}) => {
           <Route path='/create' component={restaurantCreate} onEnter={handleCreateEnter}/>
           <Route path='/cities/:cityId' component={CityShow} />
           <Route path='/users/:userId' component={UserShow} />
+          <Route path='/reviewform' component={ReviewForm} />
         </Route>
       </Router>
     </Provider>
