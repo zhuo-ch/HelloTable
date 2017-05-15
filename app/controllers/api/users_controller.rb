@@ -8,7 +8,7 @@ class Api::UsersController < ApplicationController
 
       render "api/users/show"
     else
-      render json: {base: @user.errors.full_messages }, status: 422
+      render json: @user.errors.full_messages, status: 422
     end
   end
 

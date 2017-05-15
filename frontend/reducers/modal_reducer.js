@@ -7,14 +7,14 @@ const _nullModal = {
 
 const ModalReducer = (state = _nullModal, action) => {
   Object.freeze(state);
-
+  
   switch (action.type) {
     case RECEIVE_CURRENT_MODAL:
       return action.modal;
     case RECEIVE_RESET_MODAL:
       return _nullModal;
     default:
-      return _nullModal;
+      return state;
   }
 }
 

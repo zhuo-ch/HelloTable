@@ -8,30 +8,32 @@ class SessionForm extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleGuest = this.handleGuest.bind(this);
+    this.handleSwitch = this.handleSwitch.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.location.pathname !== nextProps.location.pathname) {
-      this.props.receiveErrors(errors);
-      this.setState({ username: "", email: "", password: ""})
+    if (nextProps.formType !== this.props.formType) {
+      this.props.receiveErrors([]);
+      this.setState({ username: "", email: "", password: ""});
     }
   }
 
   handleGuest(e) {
     e.preventDefault();
-    const user = {user: {
+    const user = {
       username: 'Guest',
       email: 'guest@guest-email.com',
       password: 'password'
-    }};
+    };
 
-    this.props.login(user).then(() => this.props.router.push('/'));
+    this.props.login(user).then(() => this.props.resetCurrentModal());
   }
 
   handleSubmit(e) {
    e.preventDefault();
+   const action = this.props.formType === 'signup' ? this.props.signup : this.props.login;
    const user = Object.assign({}, this.state);
-   this.props.processForm(user).then(() => this.props.resetCurrentModal());
+   action(user).then(() => this.props.resetCurrentModal());
  }
 
   handleChange(e) {
@@ -40,8 +42,13 @@ class SessionForm extends React.Component {
     this.setState({[action]: e.currentTarget.value});
   }
 
+  handleSwitch(e) {
+    e.preventDefault();
+    const type = this.props.formType === 'signup' ? 'login' : 'signup';
+    this.props.setCurrentModal({hidden: false, type})
+  }
+
   renderErrors() {
-    debugger
     const errors = this.props.errors ? this.props.errors.join('. ') : "";
 
     return (
@@ -50,7 +57,6 @@ class SessionForm extends React.Component {
   }
 
   render() {
-
     let username;
     let welcome;
     let buttonText;
@@ -102,7 +108,7 @@ class SessionForm extends React.Component {
             <button onClick={this.handleGuest} className='button'>Demo</button>
           </form>
           <div className='switch-link'>
-            <Link to={link}>{linkText}</Link>
+            <span onClick={this.handleSwitch}>{linkText}</span>
           </div>
         </section>
       </div>

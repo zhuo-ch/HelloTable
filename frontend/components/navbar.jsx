@@ -40,12 +40,12 @@ class Navbar extends React.Component {
         return (
           <section className="right-bar">
             <button name='login'
-              className='nav-link button'
+              className='button'
               onClick={this.handleModal}>
               Log In
             </button>
             <button name='signup'
-              className='nav-link button'
+              className='button'
               onClick={this.handleModal}>
               Sign Up
             </button>

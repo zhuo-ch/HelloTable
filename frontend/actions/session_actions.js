@@ -8,19 +8,16 @@ export const LOGOUT = 'LOGOUT';
 export const login = (user) => dispatch => {
   return SessionApiUtil.login(user)
     .then((newUser) => {
+      debugger
       dispatch(receiveCurrentUser(newUser));
-      dispatch(receiveErrors(errors));
-    },
-      err => dispatch(receiveErrors(err.responseJSON)));
+    }, err => dispatch(receiveErrors(err.responseJSON)));
 };
 
 export const signup = (user) => dispatch => {
   return SessionApiUtil.signup(user)
     .then((newUser) => {
       dispatch(receiveCurrentUser(newUser));
-      dispatch(receiveErrors(errors));
-    },
-      err => dispatch(receiveErrors(err.responseJSON)));
+    }, err => dispatch(receiveErrors(err.responseJSON)));
 };
 
 export const logout = () => dispatch => {
@@ -30,7 +27,7 @@ export const logout = () => dispatch => {
 
 const receiveCurrentUser = (user) => ({
   type: RECEIVE_CURRENT_USER,
-  currentUser: user
+  user
 });
 
 export const receiveErrors = (errors) => {

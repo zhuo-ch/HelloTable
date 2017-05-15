@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import ReviewForm from './review/review_form';
-import SessionForm from './session/session_form';
+import SessionForm from './session/session_form_container';
 import { merge } from 'lodash';
 import { resetCurrentModal } from '../actions/modal_actions';
 
@@ -35,7 +35,6 @@ class Modal extends React.Component {
     return (
       <div className={ currentClassName } id='modal'>
         <div className='overlay' onClick={this.hideModal}></div>
-        Hello World
         { currentModal }
       </div>
     )
