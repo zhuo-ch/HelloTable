@@ -5,6 +5,13 @@ export const fetchUser = (id) => {
   })
 }
 
+export const fetchUpdatedReservation = id => {
+  return $.ajax({
+    method: 'GET',
+    url: `api/reservations/${id}`
+  })
+}
+
 export const destroyReservation = id => {
   return $.ajax({
     method: 'DELETE',

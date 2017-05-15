@@ -2,16 +2,13 @@ class Api::ReviewsController < ApplicationController
 
   def index
     @reviews = Restaurant.find(params[:restaurant_id]).reviews.all
-    # @reviews = restaurant.reviews.all
-    # @ratings = restaurant.get_reviews
-    # debugger
   end
 
   def create
     @review = Review.new(review_params)
 
     if @review.save
-      render
+      render 'api/reviews/show'
     else
       render json: @review.errors.full_messages, status: 422
     end

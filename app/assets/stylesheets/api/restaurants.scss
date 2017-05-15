@@ -14,7 +14,6 @@
 }
 
 .restaurant-splash-img {
-
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -134,7 +133,6 @@
   display: flex;
   flex-direction: column;
   flex: 7;
-  margin-top: 30px;
   border-bottom: 1px solid lightgray;
 }
 
@@ -144,6 +142,7 @@
   flex-direction: column;
   border-bottom: 1px solid gainsboro;
   border-radius: 7px;
+  margin-top: 30px;
 }
 
 .about-text {
@@ -175,68 +174,6 @@
   margin: 20px 0px;
   border-bottom: 1px solid gainsboro;
   border-radius: 7px;
-}
-
-.reviews-section-bar h1 {
-  padding-left: 20px;
-  border-bottom: gainsboro;
-  font-size: 24px;
-}
-
-.review-top {
-  display: flex;
-  flex-direction: column;
-  border-top: 1px solid gainsboro;
-  border-bottom: 1px solid gainsboro;
-  padding: 10px 0px;
-}
-
-.review-overalls {
-  display: flex;
-  justify-content: space-between;
-}
-
-.rating-stars {
-  flex: 7;
-  display: flex;
-  flex-direction: column;
-}
-
-.overall {
-  font-size: 20px;
-}
-
-.overall-stars {
-  display: flex;
-  font-size: 12px;
-  color: gray;
-}
-
-.rating {
-  flex: 2;
-  font-size: 24px;
-  margin: 10px 30px;
-}
-
-.review-averages {
-  display: flex;
-  justify-content: space-around;
-}
-
-.avg-scores {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-}
-
-.review-type {
-  font-size: 12px;
-  color: gray;
-}
-
-.review-score {
-  font-size: 14px;
-  font-weight: bold;
 }
 
 .restaurant-right {

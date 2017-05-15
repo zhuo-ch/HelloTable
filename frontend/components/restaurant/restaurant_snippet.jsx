@@ -1,7 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router';
+import ReactStars from 'react-stars';
 
 const RestaurantSnippet = ({restaurant}) => {
+  const overallRating = Math.floor(restaurant.ratings.rating/restaurant.ratings.total*2)/2;
+  const overallValue = Math.floor(restaurant.ratings.value/restaurant.ratings.total*2)/2;
+
   return (
     <section className='snippet-section'>
       <Link to={`restaurant/${restaurant.id}`} className='snippet-photo'>
@@ -15,14 +19,23 @@ const RestaurantSnippet = ({restaurant}) => {
             {restaurant.restaurant_name}
           </Link>
         </h4>
-        <h4>Ratings</h4>
+        <ReactStars
+          count={5}
+          edit={false}
+          value={overallRating}
+          />
         <h4 className="detail-fade">{restaurant.cuisine} | {restaurant.city_name}, {restaurant.state}</h4>
       </article>
       <article className='snippet-price'>
-        <h4>Dollar Signs</h4>
+        <ReactStars
+          count={5}
+          edit={false}
+          value={overallValue}
+          char='$'
+          />
       </article>
       <article className='snippet-review'>
-        <p>This is a sample review</p>
+        <p>{restaurant.ratings.details}</p>
       </article>
     </section>
   )

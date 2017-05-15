@@ -9,7 +9,7 @@ import ReservationsSnippet from './reservations';
 import Scrollchor from 'react-scrollchor';
 import { StickyContainer, Sticky } from 'react-sticky';
 import SearchBar from '../search/search_bar';
-import { fetchAllReviews } from '../../actions/review_actions';
+import { receiveAllReviews } from '../../actions/review_actions';
 import ReviewSnippet from '../review/review_snippet';
 import ReactStars from 'react-stars';
 
@@ -24,8 +24,8 @@ class RestaurantShow extends React.Component {
   }
 
   componentWillMount() {
-    this.props.fetchRestaurant(this.props.restaurantId);
-    this.props.fetchAllReviews(this.props.restaurantId);
+    this.props.fetchRestaurant(this.props.restaurantId)
+      .then(e => this.props.receiveAllReviews(e.restaurant));
   }
 
   getReservations() {
@@ -55,26 +55,16 @@ class RestaurantShow extends React.Component {
   }
 
   getAvgRatings() {
-    const add = (first, second) => {
-      if (first) {
-        return first + second;
-      } else {
-        return second;
-      }
+    function average(item) {
+      return Math.floor(item/this.props.ratings.total*2)/2;
     }
+
     const ratings = {};
-
-      this.props.reviews.forEach(review => {
-        ratings.rating = review.rating ? add(ratings.rating, review.rating) : 0
-        ratings.food = review.food ? add(ratings.food, review.food) : 0
-        ratings.service = review.service ? add(ratings.service, review.service) : 0
-        ratings.ambiance = review.ambiance ? add(ratings.ambiance, review.ambiance) : 0
-        ratings.value = review.value ? add(ratings.value, review.value) : 0
-      })
-
-    for (let key in ratings) {
-      ratings[key] = Math.round(ratings[key]/this.props.reviews.length*2)/2;
-    }
+    Object.keys(this.props.ratings).forEach(key => {
+      if (key != 'total') {
+        ratings[key] = this.props.ratings[key] ? Math.floor(this.props.ratings[key]/this.props.ratings.total*2)/2 : 0;
+      }
+    })
 
     return ratings
   }
@@ -88,7 +78,11 @@ class RestaurantShow extends React.Component {
           <article className='rating'>{averages.rating}</article>
           <article className='rating-stars'>
             <span className='overall'>Overall Rating</span>
-            <div className='overall-stars'>{ starRating }  based on recent ratings</div>
+            <div className='overall-stars'>{ starRating }
+              based on
+              { this.props.ratings.total }
+              ratings
+            </div>
           </article>
         </section>
         <section className='review-averages'>
@@ -112,8 +106,8 @@ class RestaurantShow extends React.Component {
   }
 
   render() {
-    const averages = this.getAvgRatings();
     const resSnippet = this.getReservations();
+    const averages = this.getAvgRatings();
     const reviewTopBar = this.getReviewTopBar(averages);
     const reviewSnippets = this.props.reviews.map(review => <ReviewSnippet key={review.id} review={ review } />);
 
@@ -128,7 +122,7 @@ class RestaurantShow extends React.Component {
           <div className='splash-details grey-right'>
             <section className="splash-name"><h1>{this.props.restaurant.restaurant_name}</h1></section>
             <section className="splash-ratings">
-              { this.getStarRating(averages.rating) }
+              { this.getStarRating(this.props.ratings.rating) }
             </section>
             <section className='splash-info'>
               <section className='info-details'>
@@ -237,12 +231,13 @@ const mapStateToProps = (state, {params}) => {
   return ({
     restaurantId,
     restaurant: state.restaurants.restaurant,
-    reviews: state.reviews
+    reviews: state.reviews.reviews,
+    ratings: state.reviews.ratings,
   });
 };
 
 const mapDispatchToProps = dispatch => ({
-  fetchAllReviews: id => dispatch(fetchAllReviews(id)),
+  receiveAllReviews: id => dispatch(receiveAllReviews(id)),
   fetchRestaurant: id => dispatch(fetchRestaurant(id)),
 });
 

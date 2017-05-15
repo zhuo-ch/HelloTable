@@ -19,8 +19,8 @@ const RestaurantSnippet = ({review}) => {
             <li>Reviewed on: { review.date }</li>
           </ul>
         </article>
-        <article className='review-description'>
-          {review.description}
+        <article className='review-details'>
+          {review.details}
         </article>
       </section>
       <section className='review-snippet-right-bar'>

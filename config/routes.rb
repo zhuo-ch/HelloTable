@@ -5,8 +5,8 @@ Rails.application.routes.draw do
     resource :session, only: [:create, :destroy]
     resources :restaurants, only: [:index, :create, :show, :update, :destroy] do
       get "search", on: :collection
-      resources :reviews, only: [:index, :create, :show, :destroy]
     end
+    resources :reviews, only: [:index, :create, :show, :destroy]
     resources :cities, only: [:index, :show]
     resources :reservations, only: [:create, :show, :destroy] do
       get "search", on: :collection

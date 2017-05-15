@@ -25,9 +25,9 @@ export const destroyReview = id => dispatch => {
     .then(review => dispatch(receiveDestroy(review)));
 }
 
-const receiveAllReviews = reviews => ({
+export const receiveAllReviews = restaurant => ({
     type: RECEIVE_ALL_REVIEWS,
-    reviews,
+    restaurant,
 })
 
 const receiveReview = review => ({

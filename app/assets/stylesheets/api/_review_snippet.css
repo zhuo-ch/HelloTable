@@ -30,8 +30,10 @@
   color: darkgray;
 }
 
-.review-description {
+.review-details {
   flex: 6;
+  font-size: 12px;
+  color: gray;
 }
 
 .review-snippet-right-bar {

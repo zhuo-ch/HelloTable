@@ -57,39 +57,48 @@ class UserShow extends React.Component {
     return newDate > curDate;
   }
 
-  render() {
-    const Upcoming = this.props.user.reservations.filter(reservation => this.setUpcoming(reservation))
-      .map((restaurant) => {
+  getUpcoming() {
+    const reservations = this.props.user.reservations.filter(reservation => this.setUpcoming(reservation));
+    return (
+      reservations.map((reservation) => {
         return (
-          <section key={restaurant.res_id}>
+          <section key={reservation.res_id}>
             <article className='new-res'>
               <h4>
-                A table for {restaurant.seats} will be set at {this.formatTime(restaurant.time)} on {this.formatDate(restaurant.date)}
+                A table for {reservation.seats} will be set at {this.formatTime(reservation.time)} on {this.formatDate(reservation.date)}
               </h4>
-              <button onClick={ this.handleCancel } className='button' value={restaurant.res_id}>Cancel</button>
+              <button onClick={ this.handleCancel } className='button' value={reservation.res_id}>Cancel</button>
             </article>
-            <RestaurantSnippet restaurant={restaurant}/>
+            <RestaurantSnippet restaurant={reservation.restaurant}/>
           </section>
         );
-      })
+      }));
+  }
 
-    const Previous = this.props.user.reservations.filter(reservation => !this.setUpcoming(reservation))
-      .map((restaurant) => {
-        const leaveReviewButton = restaurant.reviewed ? '' : (
-          <button className='button' value={ restaurant.res_id } onClick={this.handleAddReview}>Review</button>
+  getPrevious() {
+    const previous = this.props.user.reservations.filter(reservation => !this.setUpcoming(reservation));
+    return (
+      previous.map((reservation) => {
+        const leaveReviewButton = reservation.reviewed ? '' : (
+          <button className='button' value={ reservation.res_id } onClick={this.handleAddReview}>Review</button>
         );
         return (
-          <section key={restaurant.res_id}>
+          <section key={reservation.res_id}>
             <article className='new-res'>
               <h4>
-                We hope you enjoyed your visit on {this.formatDate(restaurant.date)}
+                We hope you enjoyed your visit on {this.formatDate(reservation.date)}
               </h4>
               {leaveReviewButton}
             </article>
-            <RestaurantSnippet restaurant={restaurant}/>
+            <RestaurantSnippet restaurant={reservation.restaurant}/>
           </section>
         );
-      })
+      }));
+  }
+
+  render() {
+    const Upcoming = this.getUpcoming();
+    const Previous = this.getPrevious();
 
     return(
       <StickyContainer className='user-show'>

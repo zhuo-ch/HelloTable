@@ -2,10 +2,11 @@
   display: flex;
   border-bottom: 1px solid grey;
   padding: 0px 10px 0px 10px;
+  margin: 5px 0px;
 }
 
 .snippet-photo {
-  /*max-height: 80%;*/
+  max-height: 150px;
   flex: 3;
   margin: 15px 10px;
 }
@@ -36,11 +37,13 @@
 }
 
 .snippet-price {
-  flex: 1;
+  flex: 2;
   margin: 15px 10px;
 }
 
 .snippet-review {
   flex: 6;
   margin: 15px 10px;
+  font-size: 12px;
+  color: gray;
 }
