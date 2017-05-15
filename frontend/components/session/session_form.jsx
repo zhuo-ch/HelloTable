@@ -12,7 +12,7 @@ class SessionForm extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (this.props.location.pathname !== nextProps.location.pathname) {
-      this.props.receiveErrors({base:[]});
+      this.props.receiveErrors(errors);
       this.setState({ username: "", email: "", password: ""})
     }
   }
@@ -31,7 +31,7 @@ class SessionForm extends React.Component {
   handleSubmit(e) {
    e.preventDefault();
    const user = Object.assign({}, this.state);
-   this.props.processForm(user).then(() => this.props.router.push('/'));
+   this.props.processForm(user).then(() => this.props.resetCurrentModal());
  }
 
   handleChange(e) {
@@ -41,7 +41,8 @@ class SessionForm extends React.Component {
   }
 
   renderErrors() {
-    const errors = this.props.errors.base.join('. ');
+    debugger
+    const errors = this.props.errors ? this.props.errors.join('. ') : "";
 
     return (
       <h5>{ errors }</h5>

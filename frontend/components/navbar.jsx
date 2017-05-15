@@ -3,11 +3,19 @@ import { Link, Router, Route, hashHistory } from 'react-router';
 import { connect } from 'react-redux';
 import { logout } from '../actions/session_actions';
 import FontAwesome from 'react-fontawesome';
+import Modal from './modal';
+import { setCurrentModal } from '../actions/modal_actions';
 
 class Navbar extends React.Component {
   constructor(props) {
     super(props)
+    this.handleModal = this.handleModal.bind(this);
     this.handleLogOut = this.handleLogOut.bind(this);
+  }
+
+  handleModal(e) {
+    e.preventDefault();
+    this.props.setCurrentModal({hidden: false, type: e.currentTarget.name});
   }
 
   rightBar() {
@@ -31,12 +39,16 @@ class Navbar extends React.Component {
       } else {
         return (
           <section className="right-bar">
-            <Link to='/login' className='nav-link button'>
+            <button name='login'
+              className='nav-link button'
+              onClick={this.handleModal}>
               Log In
-            </Link>
-            <Link to='/signup' className='nav-link button'>
+            </button>
+            <button name='signup'
+              className='nav-link button'
+              onClick={this.handleModal}>
               Sign Up
-            </Link>
+            </button>
           </section>
         );
       }
@@ -46,8 +58,6 @@ class Navbar extends React.Component {
   handleLogOut() {
     this.props.logout()
   }
-
-  // 'http://i.imgur.com/3ztfVmN.png'
 
   render () {
     return (
@@ -82,6 +92,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => ({
   logout: () => dispatch(logout()),
+  setCurrentModal: modal => dispatch(setCurrentModal(modal)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Navbar);

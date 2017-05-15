@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import ReviewForm from './review/review_form';
+import SessionForm from './session/session_form';
 import { merge } from 'lodash';
 import { resetCurrentModal } from '../actions/modal_actions';
 
@@ -19,6 +20,10 @@ class Modal extends React.Component {
     switch (this.props.modal.type) {
       case 'reviewForm':
         return <ReviewForm />
+      case 'login':
+        return <SessionForm />
+      case 'signup':
+        return <SessionForm />
       default:
         return '';
     }

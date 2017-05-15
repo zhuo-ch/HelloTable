@@ -9,7 +9,7 @@ export const login = (user) => dispatch => {
   return SessionApiUtil.login(user)
     .then((newUser) => {
       dispatch(receiveCurrentUser(newUser));
-      dispatch(receiveErrors({base:[]}));
+      dispatch(receiveErrors(errors));
     },
       err => dispatch(receiveErrors(err.responseJSON)));
 };
@@ -18,15 +18,14 @@ export const signup = (user) => dispatch => {
   return SessionApiUtil.signup(user)
     .then((newUser) => {
       dispatch(receiveCurrentUser(newUser));
-      dispatch(receiveErrors({base:[]}));
+      dispatch(receiveErrors(errors));
     },
       err => dispatch(receiveErrors(err.responseJSON)));
 };
 
 export const logout = () => dispatch => {
   return SessionApiUtil.logout()
-    .then(() => dispatch(logOutUser()))
-    .then(() => hashHistory.push('/login'));
+    .then(() => dispatch(logOutUser()));
 };
 
 const receiveCurrentUser = (user) => ({
