@@ -17,7 +17,11 @@ class CityIndex extends React.Component {
   }
 
   handleCreate() {
-    this.props.setCurrentModal({hidden: false, type: 'create'});
+    if (this.currentUser) {
+      this.props.setCurrentModal({hidden: false, type: 'create'});
+    } else {
+      this.props.setCurrentModal({hidden: false, type: 'login'});
+    }
   }
 
   render () {
@@ -68,8 +72,9 @@ class CityIndex extends React.Component {
   }
 }
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state) => {
   return ({
+    currentUser: state.session.currentUser,
     cities: state.cities,
   })
 };

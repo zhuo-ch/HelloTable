@@ -12,11 +12,7 @@ class Api::RestaurantsController < ApplicationController
 
   def create
     @restaurant = Restaurant.new(restaurant_params)
-    if restaurant_params[:state] != ''
-      city = City.where("state = ?", restaurant_params[:state]).first
-      @restaurant.city_id = city.id
-    end
-
+  
     if @restaurant.save
       if params[:imageFiles]
         params[:imageFiles].each do |image|
