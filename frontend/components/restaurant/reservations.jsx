@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { fetchAllReservations, createReservation, resetReservation } from '../../actions/reservations_actions';
 import FontAwesome from 'react-fontawesome';
 import { merge } from 'lodash';
+import { setCurrentModal } from '../../actions/modal_actions';
 
 class ReservationsSnippet extends React.Component {
   constructor(props) {
@@ -63,19 +64,20 @@ class ReservationsSnippet extends React.Component {
 
   handleReserve(e) {
     e.preventDefault();
+
     if (this.props.currentUser) {
       const time = parseInt(e.currentTarget.innerText.split(":").join(""));
       const reservation = { user_id: this.props.currentUser.id, restaurant_id: this.props.restaurant.id,
         date: this.state.date, seats: this.state.seats, time };
         this.props.createReservation(reservation);
     } else {
-      hashHistory.push('/login');
+      this.props.setCurrentModal({hidden: false, type: 'login'});
     }
   }
 
   handleShow(e) {
     e.preventDefault();
-    hashHistory.push(`/users/${this.props.currentUser.id}`);
+    this.props.router.push(`/users/${this.props.currentUser.id}`);
   }
 
   formatMinutes(minute) {
@@ -210,9 +212,10 @@ const mapStateToProps = (state, { restaurantId, time, date, fetchType }) => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  fetchAllReservations: (query) => dispatch(fetchAllReservations(query)),
-  createReservation: (reservation) => dispatch(createReservation(reservation)),
+  fetchAllReservations: query => dispatch(fetchAllReservations(query)),
+  createReservation: reservation => dispatch(createReservation(reservation)),
   resetReservation: () => dispatch(resetReservation()),
+  setCurrentModal: modal => dispatch(setCurrentModal(modal)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(ReservationsSnippet));
