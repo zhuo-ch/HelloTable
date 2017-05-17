@@ -8,7 +8,6 @@ export const LOGOUT = 'LOGOUT';
 export const login = (user) => dispatch => {
   return SessionApiUtil.login(user)
     .then((newUser) => {
-      debugger
       dispatch(receiveCurrentUser(newUser));
     }, err => dispatch(receiveErrors(err.responseJSON)));
 };

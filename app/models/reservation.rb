@@ -3,5 +3,5 @@ class Reservation < ActiveRecord::Base
 
   belongs_to :user
   belongs_to :restaurant
-  has_one :review
+  has_one :review, inverse_of: :reservation
 end

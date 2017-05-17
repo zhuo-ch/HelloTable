@@ -2,10 +2,10 @@ require 'json'
 
 class Restaurant < ActiveRecord::Base
   validates :owner_id, :restaurant_name, :description, :street_address, :state, :restaurant_number, presence: true
-  before_create :ensure_rating
+  after_initialize :ensure_rating
 
   def ensure_rating
-    Rating.create(restaurant: self)
+    Rating.create(restaurant: self) unless self.rating
   end
 
   def get_reservations(date, time)
