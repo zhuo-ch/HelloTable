@@ -17,12 +17,7 @@ export const fetchAllRestaurants = (cityId) => dispatch => {
 export const createRestaurant = (restaurant) => dispatch => {
   return RestaurantAPIUtil.createRestaurant(restaurant)
     .then((newRestaurant) => dispatch(receiveRestaurant(newRestaurant)),
-    err => {
-      dispatch(receiveErrors(err.responseJSON));
-    })
-    .then((newRestaurant) => {
-      hashHistory.push(`/restaurant/${newRestaurant.restaurant.id}`)
-    });
+      err => dispatch(receiveErrors(err.responseJSON)));
 }
 
 export const fetchRestaurant = (id) => dispatch => {

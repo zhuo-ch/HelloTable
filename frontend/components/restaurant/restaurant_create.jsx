@@ -1,11 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
 import { createRestaurant } from '../../actions/restaurant_actions';
+import { resetCurrentModal } from '../../actions/modal_actions';
 
 class CreateRestaurant extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { restaurant_name: '',
+    this.state = {imageUrls: [], imageFiles: []}
+    this.restaurant = { restaurant_name: '',
                       restaurant_number: '',
                       description: '',
                       hours: '',
@@ -34,6 +37,9 @@ class CreateRestaurant extends React.Component {
       imageFiles.push(file);
       const imageUrls = this.state.imageUrls.slice();
       imageUrls.push(fileReader.result);
+      if (imageUrls.length > 3) {
+        imageUrls.splice(0, 1);
+      }
       this.setState({ imageFiles, imageUrls})
     }
 
@@ -45,27 +51,29 @@ class CreateRestaurant extends React.Component {
   handleChange(e) {
     e.preventDefault();
     const action = e.currentTarget.name;
-    this.setState({[action]: e.currentTarget.value});
+    this.restaurant[action] = e.currentTarget.value;
   }
 
   handleSubmit(e) {
     e.preventDefault();
     let formData = new FormData();
-    formData.append('restaurant[restaurant_name]', this.state.restaurant_name);
-    formData.append('restaurant[restaurant_number]', this.state.restaurant_number);
-    formData.append('restaurant[description]', this.state.description);
-    formData.append('restaurant[hours]', this.state.hours);
-    formData.append('restaurant[cuisine]', this.state.cuisine);
-    formData.append('restaurant[street_address]', this.state.street_address);
-    formData.append('restaurant[city_name]', this.state.city_name);
-    formData.append('restaurant[state]', this.state.state);
-    formData.append('restaurant[site]', this.state.site);
-    formData.append('restaurant[owner_id]', this.state.owner_id);
+    formData.append('restaurant[restaurant_name]', this.restaurant.restaurant_name);
+    formData.append('restaurant[restaurant_number]', this.restaurant.restaurant_number);
+    formData.append('restaurant[description]', this.restaurant.description);
+    formData.append('restaurant[hours]', this.restaurant.hours);
+    formData.append('restaurant[cuisine]', this.restaurant.cuisine);
+    formData.append('restaurant[street_address]', this.restaurant.street_address);
+    formData.append('restaurant[city_name]', this.restaurant.city_name);
+    formData.append('restaurant[state]', this.restaurant.state);
+    formData.append('restaurant[site]', this.restaurant.site);
+    formData.append('restaurant[owner_id]', this.restaurant.owner_id);
     this.state.imageFiles.forEach((data, idx) => {
       formData.append('imageFiles[]', data);
     })
 
-    this.props.createRestaurant(formData);
+    this.props.createRestaurant(formData)
+      .then(r => this.props.router.push(`restaurant/${r.restaurant.id}`))
+      .then(() => this.props.resetCurrentModal());
   }
 
   renderErrors() {
@@ -81,63 +89,71 @@ class CreateRestaurant extends React.Component {
             <h2>Add Your Restaurant!</h2>
           </article>
           <form>
-            <input type='text' className='restaurant_name input'
-              name='restaurant_name'
-              onChange={this.handleChange}
-              placeholder='Name of Your Restaurant'></input>
-            <input type='text' className='description input'
-              name='description'
-              onChange={this.handleChange}
-              placeholder='Restaurant Description'></input>
-            <input type='text' className='hours input'
-              name='hours'
-              onChange={this.handleChange}
-              placeholder='Restaurant Hours'></input>
-            <input type='text' className='cuisine input'
-              name='cuisine'
-              onChange={this.handleChange}
-              placeholder='Type of Cuisine'></input>
-            <input type='text' className='restaurant_number input'
-              name='restaurant_number'
-              onChange={this.handleChange}
-              placeholder='Contact Phone Number'></input>
-            <input type='text' className='street_address input'
-              name='street_address'
-              onChange={this.handleChange}
-              placeholder='Street Address'></input>
-            <input type='text' className='city_name input'
-              name='city_name'
-              onChange={this.handleChange}
-              placeholder='City'></input>
-            <input type='text' className='state input'
-              name='state'
-              onChange={this.handleChange}
-              placeholder='State'></input>
-            <input type='text' className='site input'
-              name='site'
-              onChange={this.handleChange}
-              placeholder='Website'></input>
-            <input type='file'
-              onChange={this.handleFile}
-              className='input upload-button'></input>
-            <ul className='upload-images'>
-              {
-                this.state.imageUrls.map((image, idx) => {
-                  return (
-                    <li key={idx} className='upload-image'>
-                      <img src={image} />
-                    </li>
-                  )
-                })
-              }
-            </ul>
-            <section className='errors'>
-              { this.renderErrors() }
+            <section className='create-top'>
+              <section className='create-left'>
+                <input type='text' className='restaurant_name input'
+                  name='restaurant_name'
+                  onChange={this.handleChange}
+                  placeholder='Name of Your Restaurant'></input>
+                <input type='text' className='description input'
+                  name='description'
+                  onChange={this.handleChange}
+                  placeholder='Restaurant Description'></input>
+                <input type='text' className='hours input'
+                  name='hours'
+                  onChange={this.handleChange}
+                  placeholder='Restaurant Hours'></input>
+                <input type='text' className='cuisine input'
+                  name='cuisine'
+                  onChange={this.handleChange}
+                  placeholder='Type of Cuisine'></input>
+                <input type='text' className='restaurant_number input'
+                  name='restaurant_number'
+                  onChange={this.handleChange}
+                  placeholder='Contact Phone Number'></input>
+                <input type='text' className='street_address input'
+                  name='street_address'
+                  onChange={this.handleChange}
+                  placeholder='Street Address'></input>
+                <input type='text' className='city_name input'
+                  name='city_name'
+                  onChange={this.handleChange}
+                  placeholder='City'></input>
+                <input type='text' className='state input'
+                  name='state'
+                  onChange={this.handleChange}
+                  placeholder='State'></input>
+                <input type='text' className='site input'
+                  name='site'
+                  onChange={this.handleChange}
+                  placeholder='Website'></input>
+              </section>
+              <section className='create-right'>
+                <input type='file'
+                  onChange={this.handleFile}
+                  className='upload-button'></input>
+                <ul className='upload-images'>
+                  {
+                    this.state.imageUrls.map((image, idx) => {
+                      return (
+                        <li key={idx} className='upload-image'>
+                          <img src={image} />
+                        </li>
+                      )
+                    })
+                  }
+                </ul>
+              </section>
             </section>
-            <input type='submit'
-              onClick={this.handleSubmit}
-              className="button input"
-              value='Add Restaurant!'></input>
+            <section className='create-bottom'>
+              <section className='errors'>
+                { this.renderErrors() }
+              </section>
+              <input type='submit'
+                onClick={this.handleSubmit}
+                className="button input"
+                value='Add Restaurant!'></input>
+            </section>
           </form>
         </section>
       </div>
@@ -154,8 +170,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return ({
-    createRestaurant: (restaurant) => dispatch(createRestaurant(restaurant)),
+    createRestaurant: restaurant => dispatch(createRestaurant(restaurant)),
+    resetCurrentModal: modal => dispatch(resetCurrentModal()),
   })
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(CreateRestaurant);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(CreateRestaurant));

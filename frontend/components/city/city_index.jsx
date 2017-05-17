@@ -3,15 +3,21 @@ import { connect } from 'react-redux';
 import { fetchAllCities } from '../../actions/city_actions';
 import { Link } from 'react-router';
 import SearchBar from '../search/search_bar';
-import CreateRestaurantSplash from '../restaurant/create-splash'
+import CreateRestaurantSplash from '../restaurant/create_splash';
+import { setCurrentModal } from '../../actions/modal_actions';
 
 class CityIndex extends React.Component {
   constructor(props) {
     super(props);
+    this.handleCreate = this.handleCreate.bind(this);
   }
 
   componentWillMount() {
     this.props.fetchAllCities();
+  }
+
+  handleCreate() {
+    this.props.setCurrentModal({hidden: false, type: 'create'});
   }
 
   render () {
@@ -51,7 +57,11 @@ class CityIndex extends React.Component {
           <ul className='splash-city-names'>
             { citiesNames }
           </ul>
-          <CreateRestaurantSplash />
+          <div className='create-splash'>
+            <section>
+              <button className='button' onClick={this.handleCreate}>Add your Table</button>
+            </section>
+          </div>
         </div>
       </div>
     )
@@ -66,6 +76,7 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = dispatch => ({
   fetchAllCities: () => dispatch(fetchAllCities()),
+  setCurrentModal: modal => dispatch(setCurrentModal(modal)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CityIndex);

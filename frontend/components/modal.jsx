@@ -4,6 +4,7 @@ import ReviewForm from './review/review_form';
 import SessionForm from './session/session_form_container';
 import { merge } from 'lodash';
 import { resetCurrentModal } from '../actions/modal_actions';
+import CreateRestaurant from './restaurant/restaurant_create';
 
 class Modal extends React.Component {
   constructor(props) {
@@ -24,6 +25,8 @@ class Modal extends React.Component {
         return <SessionForm />
       case 'signup':
         return <SessionForm />
+      case 'create':
+        return <CreateRestaurant />
       default:
         return '';
     }

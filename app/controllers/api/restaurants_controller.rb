@@ -18,7 +18,6 @@ class Api::RestaurantsController < ApplicationController
     end
 
     if @restaurant.save
-      Rating.create(restaurant_id: @restaurant.id)
       if params[:imageFiles]
         params[:imageFiles].each do |image|
             @restaurant.photos.create(image: image)

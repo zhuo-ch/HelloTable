@@ -1,14 +1,20 @@
 .res-create-container {
-  margin: 30px 0px;
+  display: flex;
+  position: fixed;
+  top: 10%;
+  left: 25%;
+  width: 50%;
+  height: 80%;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .restaurant-create {
-  margin-top: 30px;
   background: white;
   border-radius: 7px;
   border-bottom: 1px solid gainsboro;
   display: flex;
-  width: 60%;
+  width: 100%;
   margin: 0 auto;
   flex-direction: column;
   align-items: center;
@@ -16,22 +22,83 @@
   color: #F13737;
 }
 
+.res-create-container h2 {
+  display: block;
+}
+
 .restaurant-create article {
-  width: 40%;
+  width: 90%;
+  border-bottom: 1px solid gainsboro;
 }
 
 .restaurant-create form {
   display: flex;
   flex-direction: column;
-  width: 80%;
+  justify-content: center;
+  width: 100%;
+}
+
+.create-top {
+  display: flex;
+}
+
+.create-left {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.create-right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.create-bottom {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .restaurant-create input {
   width:70%;
   text-align: center;
   align-items: center;
+  margin: 2px;
 }
 
 .restaurant-create .button {
-  width: 30%;
+  width: 40%;
+}
+
+.create-right input {
+  color: white;
+  width: 100%;
+  flex: 1;
+}
+
+.upload-images {
+  flex: 9;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 95%;
+  /*overflow: scroll;*/
+}
+
+.upload-image {
+  flex: 1;
+}
+
+.upload-image img {
+  /*max-height: 100%;*/
+  max-width: 100%;
+}
+
+.create-splash {
+  display: flex;
+  flex: 1;
+  justify-content: center;
 }

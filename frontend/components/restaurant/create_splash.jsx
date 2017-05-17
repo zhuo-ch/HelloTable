@@ -1,12 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router';
+import Modal from '../modal';
 
-const CreateRestaurantSplash = () => {
-
+const CreateRestaurantSplash = ({setCurrentModal}) => {
   return (
     <div className='create-splash'>
       <section>
-        <Link to='/create' className='splash-create-button button'>Add your Table</Link>
+        <button className='button'>Add your Table</button>
       </section>
     </div>
   )
