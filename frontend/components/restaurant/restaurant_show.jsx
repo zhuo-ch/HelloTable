@@ -122,7 +122,7 @@ class RestaurantShow extends React.Component {
           <div className='splash-details grey-right'>
             <section className="splash-name"><h1>{this.props.restaurant.restaurant_name}</h1></section>
             <section className="splash-ratings">
-              { this.getStarRating(this.props.ratings.rating) }
+              { this.getStarRating(averages.rating) }
             </section>
             <section className='splash-info'>
               <section className='info-details'>
