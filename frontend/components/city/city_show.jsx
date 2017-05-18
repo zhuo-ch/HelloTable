@@ -31,11 +31,11 @@ class CityShow extends React.Component {
     switch (this.state.activeFilter) {
       case 'Top Rated':
         return this.props.city.restaurants.sort((a, b) => {
-          return a.ratings.rating/a.ratings.total - b.ratings.rating/b.ratings.total;
+          return b.ratings.rating/b.ratings.total - a.ratings.rating/a.ratings.total;
         });
       case 'Best Value':
         return this.props.city.restaurants.sort((a,b) => {
-          return a.ratings.value/a.ratings.total - b.ratings.value/b.ratings.total;
+          return b.ratings.value/b.ratings.total - a.ratings.value/a.ratings.total;
         });
       case 'Newest Restaurants':
         return this.props.city.restaurants.sort((a,b) => b.id - a.id);
