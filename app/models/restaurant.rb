@@ -29,6 +29,7 @@ class Restaurant < ActiveRecord::Base
   belongs_to :owner
   has_one :rating, inverse_of: :restaurant
   has_many :reservations
+  has_many :favorites
   has_many :reviews, through: :reservations
   has_many :photos, dependent: :destroy, inverse_of: :restaurant
 end

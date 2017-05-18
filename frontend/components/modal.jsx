@@ -10,11 +10,22 @@ class Modal extends React.Component {
   constructor(props) {
     super(props)
     this.hideModal = this.hideModal.bind(this);
+    this.getSpinner = this.getSpinner.bind(this);
   }
 
   hideModal(e) {
     e.preventDefault();
     this.props.resetCurrentModal();
+  }
+
+  getSpinner() {
+    return (
+      <div className='spinner-cover'>
+        <div className='spinner-container'>
+          <i className='icon fa fa-spinner fa-5x fa-pulse'></i>
+        </div>
+      </div>
+    )
   }
 
   getCurrentModal() {
@@ -27,6 +38,8 @@ class Modal extends React.Component {
         return <SessionForm />
       case 'create':
         return <CreateRestaurant />
+      case 'spinner':
+        return this.getSpinner();
       default:
         return '';
     }
@@ -35,6 +48,7 @@ class Modal extends React.Component {
   render() {
     const currentModal = this.getCurrentModal();
     const currentClassName = this.props.modal.hidden ? 'modal hidden' : 'modal';
+
     return (
       <div className={ currentClassName } id='modal'>
         <div className='overlay' onClick={this.hideModal}></div>

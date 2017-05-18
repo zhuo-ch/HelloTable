@@ -15,20 +15,6 @@ import Modal from './modal';
 
 const Root = ({store}) => {
 
-  function handleEnter(nextState, replace) {
-    const loggedIn = store.getState().session.currentUser;
-    if (loggedIn) {
-      replace("/");
-    }
-  }
-
-  function handleCreateEnter(nextState, replace) {
-    const loggedIn = store.getState().session.currentUser;
-    if (!(loggedIn)) {
-      replace('/login')
-    }
-  }
-
   return(
     <Provider store={store}>
       <Router history={hashHistory}>

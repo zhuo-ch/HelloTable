@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { fetchCity } from '../../actions/city_actions';
 import RestaurantSnippet from '../restaurant/restaurant_snippet';
 import SearchBar from '../search/search_bar'
+import { setCurrentModal, resetCurrentModal } from '../../actions/modal_actions';
 
 class CityShow extends React.Component {
   constructor(props) {
@@ -11,13 +12,22 @@ class CityShow extends React.Component {
   }
 
   componentWillMount() {
-    this.props.fetchCity(this.props.cityId);
+    this.setState({fetching: true});
+    this.props.fetchCity(this.props.cityId)
+      .then(() => this.setState({fetching: false}))
+      .then(() => this.props.resetCurrentModal());
   }
 
   render() {
-    const Snippets = this.props.city.restaurants.map((restaurant) => {
-      return (<RestaurantSnippet restaurant={restaurant} key={restaurant.id}/>);
-    })
+    let Snippets;
+
+    if (this.state.fetching === true) {
+      this.props.setCurrentModal({hidden: false, type: 'spinner'})
+    } else {
+      Snippets = this.props.city.restaurants.map((restaurant) => {
+        return (<RestaurantSnippet restaurant={restaurant} key={restaurant.id}/>);
+      });
+    }
 
     return (
       <div className='restaurants-index'>
@@ -41,7 +51,9 @@ const mapStateToProps = (state, ownProps) => {
 }
 
 const mapDispatchToProps = dispatch => ({
-  fetchCity: (cityId) => dispatch(fetchCity(cityId)),
+  fetchCity: cityId => dispatch(fetchCity(cityId)),
+  setCurrentModal: modal => dispatch(setCurrentModal(modal)),
+  resetCurrentModal: () => dispatch(resetCurrentModal()),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(CityShow);
