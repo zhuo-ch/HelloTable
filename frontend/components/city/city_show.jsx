@@ -22,7 +22,7 @@ class CityShow extends React.Component {
     let Snippets;
 
     if (this.state.fetching === true) {
-      this.props.setCurrentModal({hidden: false, type: 'spinner'})
+      this.props.setCurrentModal({hidden: false, type: 'spinner'});
     } else {
       Snippets = this.props.city.restaurants.map((restaurant) => {
         return (<RestaurantSnippet restaurant={restaurant} key={restaurant.id}/>);

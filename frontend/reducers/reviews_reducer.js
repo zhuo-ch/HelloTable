@@ -24,7 +24,6 @@ const ReviewsReducer = (state = _nullReviews, action) => {
       return newState;
     case RECEIVE_DESTROY:
       let desState = Object.assign({}, state)
-      debugger
       desState = desState.filter((rev) => rev.id !== action.id)
       return desState;
     default:

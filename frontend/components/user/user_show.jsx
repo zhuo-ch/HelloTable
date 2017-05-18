@@ -7,7 +7,7 @@ import ReservationsSnippet from '../restaurant/reservations';
 import Scrollchor from 'react-scrollchor';
 import RestaurantSnippet from '../restaurant/restaurant_snippet';
 import { StickyContainer, Sticky } from 'react-sticky';
-import { setCurrentModal } from '../../actions/modal_actions';
+import { setCurrentModal, resetCurrentModal } from '../../actions/modal_actions';
 
 class UserShow extends React.Component {
   constructor(props) {
@@ -17,10 +17,13 @@ class UserShow extends React.Component {
   }
 
   componentWillMount() {
+    this.setState({fetching: true});
     if (parseInt(this.props.routeParams.userId) !== this.props.currentUser.id) {
       this.props.router.push('/');
     } else {
-      this.props.fetchUser(this.props.currentUser.id, )
+      this.props.fetchUser(this.props.currentUser.id)
+        .then(() => this.setState({fetching: false}))
+        .then(() => this.props.resetCurrentModal());
     }
   }
 
@@ -97,6 +100,9 @@ class UserShow extends React.Component {
   }
 
   render() {
+    if (this.state.fetching === true) {
+      this.props.setCurrentModal({hidden: false, type: 'spinner'});
+    }
     const Upcoming = this.getUpcoming();
     const Previous = this.getPrevious();
 
@@ -137,7 +143,6 @@ class UserShow extends React.Component {
 }
 
 const mapStateToProps = state => {
-  debugger
   return ({
     currentUser: state.session.currentUser,
     user: state.user,
@@ -149,6 +154,7 @@ const mapDispatchToProps = dispatch => {
     fetchUser: id => dispatch(fetchUser(id)),
     destroyReservation: id => dispatch(destroyReservation(id)),
     setCurrentModal: modal => dispatch(setCurrentModal(modal)),
+    resetCurrentModal: () => dispatch(resetCurrentModal()),
   })
 }
 

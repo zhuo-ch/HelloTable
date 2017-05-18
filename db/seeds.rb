@@ -3385,8 +3385,8 @@ reviews = ["For dinner we ordered the shrimp enchiladas, chicken enchiladas, chi
 users = User.all.map {|user| user.id}
 times = [500, 530, 600, 630, 700, 730, 800, 830, 900]
 Restaurant.all.each do |restaurant|
-  10.times do
-    Reservation.create(user_id: users.sample, restaurant_id: restaurant.id,
+  20.times do
+    Reservation.create(user_id: users.sample.id, restaurant_id: restaurant.id,
       date: "#{rand(1..4)}-#{rand(1..28)}-2017", time: times.sample, seats: rand(6))
   end
 end
