@@ -1,0 +1,31 @@
+.filter {
+  display: flex;
+  justify-content: flex-start;
+  margin: 10px;
+}
+
+.filter-list {
+  align-self: center;
+  display: flex;
+  justify-content: flex-start;
+  border-bottom: 1px solid gainsboro;
+  width: 100%;
+}
+
+.filter-item {
+  padding: 20px;
+  font-size: 2vw;
+  color: #009080;
+}
+
+.filter-item:hover {
+  cursor: pointer;
+  color: mediumaquamarine;
+  border-bottom: 1px solid #A70303;
+}
+
+.active-filter {
+  color: #008080;
+  font-weight: bold;
+  border-bottom: 1px solid #F13737;
+}
