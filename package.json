@@ -1,5 +1,5 @@
 {
-  "name": "OpenTable",
+  "name": "HelloTable",
   "version": "1.0.0",
   "description": "== README",
   "main": "index.js",
@@ -18,15 +18,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/zhuo-ch/OpenTable.git"
+    "url": "git+https://github.com/zhuo-ch/HelloTable.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/zhuo-ch/OpenTable/issues"
+    "url": "https://github.com/zhuo-ch/HelloTable/issues"
   },
-  "homepage": "https://github.com/zhuo-ch/OpenTable#readme",
+  "homepage": "https://github.com/zhuo-ch/HelloTable#readme",
   "dependencies": {
     "babel-core": "^6.2.0",
     "babel-loader": "^6.2.0",

@@ -9,6 +9,7 @@ class SearchBar extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
+      nullSearch: false,
       searchType: "",
       searchId: "",
       searching: false,
@@ -30,6 +31,10 @@ class SearchBar extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
+    if (this.state.searchTerm === '') {
+      this.setState({nullSearch: true});
+      return
+    }
     let date = e.currentTarget.date.value.split('-')
     date = [date[1], date[2], date[0]].join('-');
 
@@ -175,14 +180,25 @@ class SearchBar extends React.Component {
 
   getSearchBox() {
     const resultList = this.results();
+    let cName;
+    let pHolder;
+
+    if (this.state.nullSearch) {
+      cName = 'input red';
+      pHolder = 'Type here to search';
+    } else {
+      cName = 'input';
+      pHolder = 'Search Restaurants';
+    }
+
     return (
       <section className='search-field'>
         <article className='search-box-container'>
           <input
             type='search'
             name='query'
-            placeholder='Search Restaurants'
-            className='input'
+            placeholder={pHolder}
+            className={cName}
             autoComplete='off'
             onChange={this.handleChange}
             value={this.state.searchTerm}></input>
@@ -192,12 +208,11 @@ class SearchBar extends React.Component {
     )
   }
 
-
-
   render() {
     const defaultDate = this.formatDate();
     const head = this.props.header ? this.props.header : "";
     const searchBox = this.props.restaurantId ? "" : this.getSearchBox();
+    const searchPlaceHolder = this.state._nullSearch
 
     return (
       <div className='search-bar'>

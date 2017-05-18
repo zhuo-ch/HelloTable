@@ -2,7 +2,7 @@ import * as UserApiUtil from '../util/user_api_util';
 import { hashHistory } from 'react-router'
 
 export const RECEIVE_USER = 'RECEIVE_USER';
-export const RECEIVE_DESTROY = 'RECEIVE_DESTROY';
+export const RECEIVE_DESTROY_RESERVATION = 'RECEIVE_DESTROY_RESERVATION';
 export const RECEIVE_UPDATE = 'RECEIVE_UPDATE';
 
 export const fetchUser = id => dispatch => {
@@ -31,6 +31,6 @@ const receiveUpdate = reservation => ({
 })
 
 const receiveDestroy = id => ({
-  type: RECEIVE_DESTROY,
+  type: RECEIVE_DESTROY_RESERVATION,
   id
 })

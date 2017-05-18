@@ -18,6 +18,11 @@ class Navbar extends React.Component {
     this.props.setCurrentModal({hidden: false, type: e.currentTarget.name});
   }
 
+  handleLogOut() {
+    hashHistory.push('/');
+    this.props.logout();
+  }
+
   rightBar() {
     let inForm = ((this.props.formType === 'signup') || (this.props.formType === 'login')) ? false : true;
 
@@ -55,9 +60,6 @@ class Navbar extends React.Component {
     }
   }
 
-  handleLogOut() {
-    this.props.logout()
-  }
 
   render () {
     return (

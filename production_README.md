@@ -1,6 +1,6 @@
 ## General Description
 
-[HelloTable](https://hellotable.herokuapp.com/#/) is an OpenTable inspired clone where a user can browse, search, and view restaurants. If a user likes what they see, a reservation can be made.
+[HelloTable](https://hellotable.herokuapp.com/#/) is an HelloTable inspired clone where a user can browse, search, and view restaurants. If a user likes what they see, a reservation can be made.
 
 ## Features
 

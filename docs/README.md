@@ -1,11 +1,11 @@
-<h2>OpenTable</h2>
+<h2>HelloTable</h2>
 
 * //pending Heroku link
-* [Trello](https://trello.com/b/ONOhYsX9/opentable)
+* [Trello](https://trello.com/b/ONOhYsX9/HelloTable)
 
 <h2>Minimum Viable Product</h2>
 
-OpenTable is a web application inspired by OpenTable. This web application is built with a Ruby on Rails backend and React/Redux frontend. By completion this app will satisfy the following criterial with smooth, bug-free navigation, and sufficient CSS styling:
+HelloTable is a web application inspired by HelloTable. This web application is built with a Ruby on Rails backend and React/Redux frontend. By completion this app will satisfy the following criterial with smooth, bug-free navigation, and sufficient CSS styling:
 
 - [ ] Hosting on Heroku
 - [ ] Create and search restaurants
@@ -15,11 +15,11 @@ OpenTable is a web application inspired by OpenTable. This web application is bu
 
 <h2>Design Docs</h2>
 
-* [View Wireframes](https://github.com/zhuo-ch/OpenTable/tree/master/docs/wireframes)
-* [React Components](https://github.com/zhuo-ch/OpenTable/tree/master/docs/react-components.md)
-* [API Endpoints](https://github.com/zhuo-ch/OpenTable/tree/master/docs/api-endpoints.md)
-* [DB Schema](https://github.com/zhuo-ch/OpenTable/tree/master/docs/schema.md)
-* [Sample State](https://github.com/zhuo-ch/OpenTable/blob/master/docs/sample-state.md)
+* [View Wireframes](https://github.com/zhuo-ch/HelloTable/tree/master/docs/wireframes)
+* [React Components](https://github.com/zhuo-ch/HelloTable/tree/master/docs/react-components.md)
+* [API Endpoints](https://github.com/zhuo-ch/HelloTable/tree/master/docs/api-endpoints.md)
+* [DB Schema](https://github.com/zhuo-ch/HelloTable/tree/master/docs/schema.md)
+* [Sample State](https://github.com/zhuo-ch/HelloTable/blob/master/docs/sample-state.md)
 
 <h2>Implementation Timeline</h2>
 

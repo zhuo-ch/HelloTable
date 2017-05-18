@@ -103,7 +103,7 @@ class UserShow extends React.Component {
     return(
       <StickyContainer className='user-show'>
         <section className='user-show-splash'>
-          <h2>{currentUser.username}</h2>
+          <h2>{this.props.currentUser.username}</h2>
           <h5>You have {Upcoming.length} upcoming reservations.</h5>
           </section>
         <div className='user-show-body'>
@@ -137,6 +137,7 @@ class UserShow extends React.Component {
 }
 
 const mapStateToProps = state => {
+  debugger
   return ({
     currentUser: state.session.currentUser,
     user: state.user,

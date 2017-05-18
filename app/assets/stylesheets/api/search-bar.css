@@ -8,10 +8,6 @@
   border-bottom: 1px solid gainsboro;
 }
 
-.search-bar h1 {
-
-}
-
 .search-fields {
   display: flex;
   width: 100%;
@@ -162,4 +158,8 @@ input[type=date]::-webkit-calendar-picker-indicator {
   font-size: 14px;
   font-weight: bold;
   color: dimgray;
+}
+
+.red::-webkit-input-placeholder {
+  color: #F13737;
 }

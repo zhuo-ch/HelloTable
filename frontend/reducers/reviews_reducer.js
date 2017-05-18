@@ -18,13 +18,13 @@ const ReviewsReducer = (state = _nullReviews, action) => {
       return Object.assign({}, state, {reviews, ratings});
     case RECEIVE_REVIEW:
       let newState = Object.assign({}, state)
-
         if (!(newState.reviews.includes(action.review))) {
           newState.reviews.push(action.review);
         }
       return newState;
     case RECEIVE_DESTROY:
       let desState = Object.assign({}, state)
+      debugger
       desState = desState.filter((rev) => rev.id !== action.id)
       return desState;
     default:
