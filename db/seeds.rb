@@ -3395,3 +3395,13 @@ Reservation.all.each do |reservation|
   Review.create(reservation: reservation, rating: rand(1..5), food: rand(1..5), service: rand(1..5),
     ambiance: rand(1..5), value: rand(1..5), details: reviews.sample)
 end
+
+10.times do
+  Reservation.create(user_id: a.id, restaurant_id: Restaurant.all.sample.id,
+    date: "#{rand(1..4)}-"+"#{rand(1..28)}"+"-2017", time: [500, 530, 600, 630, 700, 730, 800, 830, 900].sample, seats: rand(6))
+end
+
+a.reservations.each do |reservation|
+  Review.create(reservation: reservation, rating: rand(1..5), food: rand(1..5), service: rand(1..5),
+    ambiance: rand(1..5), value: rand(1..5), details: reviews.sample)
+end
