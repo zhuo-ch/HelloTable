@@ -2,9 +2,9 @@ class Api::RestaurantsController < ApplicationController
 
   def index
     if params[:cityId]
-      @restaurants = Restaurant.where("state = ?", City.find(params[:cityId]).state)
+      @restaurants = Restaurant.includes(:rating).includes(:reviews).includes(:photos).where("state = ?", City.find(params[:cityId]).state)
     elsif params[:query]
-      @restaurants = Restaurant.where("restaurant_name ~ ?", params[:query]);
+      @restaurants = Restaurant.includes(:rating).includes(:reviews).includes(:photos).where("restaurant_name ~ ?", params[:query]);
     else
       render json: ['No results found'], status: 422
     end
@@ -12,7 +12,7 @@ class Api::RestaurantsController < ApplicationController
 
   def create
     @restaurant = Restaurant.new(restaurant_params)
-  
+
     if @restaurant.save
       if params[:imageFiles]
         params[:imageFiles].each do |image|
@@ -27,7 +27,7 @@ class Api::RestaurantsController < ApplicationController
   end
 
   def show
-    @restaurant = Restaurant.find(params[:id])
+    @restaurant = Restaurant.includes(:rating).includes(:reviews).includes(:photos).find(params[:id])
     render 'api/restaurants/show'
   end
 

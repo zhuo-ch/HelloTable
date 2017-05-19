@@ -13,7 +13,7 @@ class Api::UsersController < ApplicationController
   end
 
   def show
-    @user = User.includes(:restaurants).includes(:photos).find(params[:id])
+    @user = User.includes(:restaurants).includes(:photos).includes(:ratings).includes(:reservations).includes(:reviews).find(params[:id])
 
     if @user && @user == current_user
       render "api/users/show"

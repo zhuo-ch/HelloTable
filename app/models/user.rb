@@ -8,6 +8,7 @@ class User < ActiveRecord::Base
   has_many :reviews, through: :reservations
   has_many :restaurants, through: :reservations
   has_many :photos, through: :restaurants
+  has_many :ratings, through: :restaurants
   has_many :favorites
     # class_name: "Restaurant",
     # primary_key: :id,
