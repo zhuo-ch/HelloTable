@@ -16,9 +16,8 @@ class CityShow extends React.Component {
   }
 
   componentWillMount() {
-    this.setState({fetching: true});
+    this.props.setCurrentModal({hidden: false, type: 'spinner'});
     this.props.fetchCity(this.props.cityId)
-      .then(() => this.setState({fetching: false}))
       .then(() => this.props.resetCurrentModal());
   }
 
@@ -70,10 +69,6 @@ class CityShow extends React.Component {
     const Snippets = restaurants.map((restaurant) => {
       return (<RestaurantSnippet restaurant={restaurant} key={restaurant.id}/>);
     });
-
-    if (this.state.fetching === true) {
-      this.props.setCurrentModal({hidden: false, type: 'spinner'});
-    }
 
     return (
       <div className='restaurants-index'>

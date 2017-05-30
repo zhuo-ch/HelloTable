@@ -1,11 +1,17 @@
 import { merge } from 'lodash';
-import { RECEIVE_SEARCH, RECEIVE_SEARCH_RESULTS } from '../actions/search_actions'
+import { RECEIVE_SEARCH, RECEIVE_SEARCH_PARAMS } from '../actions/search_actions'
 import { searchSelector } from '../selectors/search_selector';
+import * as SearchAPIUtil from '../util/search_api_util';
 
 const _nullSearch = Object.freeze ({
   cities: [],
   restaurants: [],
-  searchResults: {}
+  searchParams: {
+    seats: 2,
+    date: SearchAPIUtil.formatDate(),
+    time: SearchAPIUtil.formateTime(),
+    searchTerm: '',
+  },
 });
 
 // merge([1, 2, 3], [4, 5])
@@ -14,9 +20,9 @@ const _nullSearch = Object.freeze ({
 
 const SearchReducer = (state = _nullSearch, action) => {
   switch (action.type) {
-    case RECEIVE_SEARCH_RESULTS:
-    const searchResults = action.query
-      return merge({}, state, {searchResults: searchResults});
+    case RECEIVE_SEARCH_PARAMS:
+      const searchParams = action.query;
+      return merge({}, state, {searchParams});
     case RECEIVE_SEARCH:
       const restaurants = searchSelector(action.search.restaurants);
       const cities = action.search.cities;

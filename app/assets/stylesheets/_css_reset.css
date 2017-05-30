@@ -59,3 +59,7 @@ body {
 .errors {
   color: red;
 }
+
+#hidden {
+  display: none;
+}

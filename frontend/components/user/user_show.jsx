@@ -17,12 +17,11 @@ class UserShow extends React.Component {
   }
 
   componentWillMount() {
-    this.setState({fetching: true});
     if (parseInt(this.props.routeParams.userId) !== this.props.currentUser.id) {
       this.props.router.push('/');
     } else {
+      this.props.setCurrentModal({hidden: false, type: 'spinner'});
       this.props.fetchUser(this.props.currentUser.id)
-        .then(() => this.setState({fetching: false}))
         .then(() => this.props.resetCurrentModal());
     }
   }
@@ -100,9 +99,6 @@ class UserShow extends React.Component {
   }
 
   render() {
-    if (this.state.fetching === true) {
-      this.props.setCurrentModal({hidden: false, type: 'spinner'});
-    }
     const Upcoming = this.getUpcoming();
     const Previous = this.getPrevious();
 

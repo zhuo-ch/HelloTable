@@ -29,11 +29,11 @@ class ReservationsSnippet extends React.Component {
 
   componentWillMount() {
     let query = this.currentDate();
-    if (this.props.searchResults.time) {
+    if (this.props.searchParams.time) {
       query = {
-        seats: this.props.searchResults.seats,
-        date: this.props.searchResults.date,
-        time: this.props.searchResults.time,
+        seats: this.props.searchParams.seats,
+        date: this.props.searchParams.date,
+        time: this.props.searchParams.time,
         restaurantId: this.props.restaurant.id,
         type: 'restaurant',
         }
@@ -44,11 +44,11 @@ class ReservationsSnippet extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.searchResults !== nextProps.searchResults) {
+    if (this.props.searchParams !== nextProps.searchParams) {
       let query = {
-        seats: nextProps.searchResults.seats,
-        date: nextProps.searchResults.date,
-        time: nextProps.searchResults.time,
+        seats: nextProps.searchParams.seats,
+        date: nextProps.searchParams.date,
+        time: nextProps.searchParams.time,
         restaurantId: nextProps.restaurant.id,
         type: 'restaurant',
       }
@@ -205,7 +205,7 @@ class ReservationsSnippet extends React.Component {
 const mapStateToProps = (state, { restaurantId, time, date, fetchType }) => {
   return ({
     currentUser: state.session.currentUser,
-    searchResults: state.search.searchResults,
+    searchParams: state.search.searchParams,
     reservations: state.reservations,
     restaurant: state.restaurants.restaurant,
   })

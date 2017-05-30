@@ -1,13 +1,14 @@
 import React from 'react';
 import { Link, hashHistory, withRouter } from 'react-router';
 import { connect } from 'react-redux';
-import { searchRestaurants, findRestaurants, receiveSearchResults } from '../../actions/search_actions';
+import { searchRestaurants, findRestaurants, receiveSearchParams } from '../../actions/search_actions';
 import FontAwesome from 'react-fontawesome';
-
+import SeatBar from './seat_bar';
+import * as SearchAPIUtil from '../../util/search_api_util';
 
 class SearchBar extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       nullSearch: false,
       searchType: "",
@@ -42,7 +43,7 @@ class SearchBar extends React.Component {
     const time= e.currentTarget.elements.time.value.split("  ")[0].split(":").join("");
     const id = (this.state.searchType === "cities") ? this.state.searchId: this.state.searchId;
     const type = this.state.searchType;
-    this.props.receiveSearchResults({seats, date, time, id, type});
+    this.props.receiveSearchParams({seats, date, time, id, type});
 
     if (!(this.props.restaurantId)) {
       this.props.router.push(`${type}/${id}`)
@@ -219,9 +220,7 @@ class SearchBar extends React.Component {
         <h1>{ head }</h1>
         <div className='search-fields'>
           <form className='seats-form' onSubmit={ this.handleSubmit }>
-            <select name='seats' className='input bar-seats'>
-              { this.seats() }
-            </select>
+            <SeatBar />
             <input type='date'
               required='required'
               name='date'
@@ -241,7 +240,7 @@ class SearchBar extends React.Component {
 
 const mapStateToProps = (state, ownProps) => {
   return ({
-    searchResults: state.search.searchResults,
+    searchParams: state.search.searchParams,
     search: state.search,
     header: ownProps.header,
     restaurantId: ownProps.restaurantId
@@ -251,7 +250,7 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = dispatch => {
   return ({
     searchRestaurants: query => dispatch(searchRestaurants(query)),
-    receiveSearchResults: query => dispatch(receiveSearchResults(query)),
+    receiveSearchParams: query => dispatch(receiveSearchParams(query)),
   })
 }
 

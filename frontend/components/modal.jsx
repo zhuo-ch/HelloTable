@@ -47,10 +47,10 @@ class Modal extends React.Component {
 
   render() {
     const currentModal = this.getCurrentModal();
-    const currentClassName = this.props.modal.hidden ? 'modal hidden' : 'modal';
+    const currentClassName = this.props.modal.hidden ? 'hidden' : '';
 
     return (
-      <div className={ currentClassName } id='modal'>
+      <div className='modal' id={ currentClassName }>
         <div className='overlay' onClick={this.hideModal}></div>
         { currentModal }
       </div>

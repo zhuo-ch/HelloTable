@@ -43,6 +43,16 @@
   border-right: 1px solid gainsboro;
 }
 
+.seats-item:hover {
+  background: #FF8787;
+  color: white;
+}
+
+.highlight {
+  background: #FF8787;
+  color: white;
+}
+
 .search-field .input {
   border: none;
 }
@@ -73,9 +83,9 @@
   border-left: 1px solid gainsboro;
   border-top-right-radius: 0px;
   border-bottom-right-radius: 0px;
-
   align-items: center;
   flex: 2;
+  position: relative;
 }
 
 .bar-date {
@@ -162,4 +172,9 @@ input[type=date]::-webkit-calendar-picker-indicator {
 
 .red::-webkit-input-placeholder {
   color: #F13737;
+}
+
+.seats-list {
+  left:auto;
+  right: -1px;
 }
