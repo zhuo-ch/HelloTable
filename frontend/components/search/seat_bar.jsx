@@ -47,8 +47,8 @@ class SeatBar extends React.Component {
       this.setState({ selecting: true });
       document.addEventListener('keydown', this.handleKey);
     } else {
-      this.setState({ selecting: false, targeted: e.currentTarget.value });
       this.props.setSearchParams({ seats: e.currentTarget.value });
+      this.setState({ selecting: false });
       document.removeEventListener('keydown', this.handleKey);
     }
   }

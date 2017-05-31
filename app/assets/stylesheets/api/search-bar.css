@@ -57,13 +57,11 @@
   border: none;
 }
 
-
 .search-fields section {
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
-
 
 .seats-form select {
   height: 100%;
@@ -94,6 +92,7 @@
 
 .bar-time {
   flex: 2;
+  position: relative;
 }
 
 .search-field {
@@ -122,6 +121,11 @@
   color: gray;
   background: white;
   border: 1px solid gainsboro;
+}
+
+.time-list {
+  position: absolute;
+  left: -1px;
 }
 
 .search-field li:hover {

@@ -8,8 +8,8 @@ const _nullSearch = Object.freeze ({
   restaurants: [],
   searchParams: {
     seats: 2,
-    date: SearchAPIUtil.formatDate(),
-    time: SearchAPIUtil.formateTime(),
+    date: SearchAPIUtil.formatDate(new Date()),
+    time: SearchAPIUtil.getNewTime(),
     searchTerm: '',
   },
 });

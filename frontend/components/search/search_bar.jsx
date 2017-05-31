@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { searchRestaurants, findRestaurants, receiveSearchParams } from '../../actions/search_actions';
 import FontAwesome from 'react-fontawesome';
 import SeatBar from './seat_bar';
+import TimeBar from './time_bar';
 import * as SearchAPIUtil from '../../util/search_api_util';
 
 class SearchBar extends React.Component {
@@ -228,7 +229,7 @@ class SearchBar extends React.Component {
               defaultValue={ defaultDate }
               className='input bar-date'
               ></input>
-            { this.timeBar() }
+            <TimeBar />
             { searchBox }
           <input type='submit' className='bar-submit' value='Search' ></input>
         </form>
