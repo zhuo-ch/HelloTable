@@ -11,6 +11,7 @@ const ReservationsReducer = (state = _nullReservations, action) => {
   switch(action.type) {
     case RECEIVE_ALL_RESERVATIONS:
       const reservations = action.reservations;
+      debugger
       return merge({}, state, reservations);
     case RECEIVE_RESERVATION:
       const reservation = action.reservation

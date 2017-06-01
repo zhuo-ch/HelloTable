@@ -5,6 +5,7 @@ import { fetchAllReservations, createReservation, resetReservation } from '../..
 import FontAwesome from 'react-fontawesome';
 import { merge } from 'lodash';
 import { setCurrentModal } from '../../actions/modal_actions';
+import * as SearchAPIUtil from '../../util/search_api_util';
 
 class ReservationsSnippet extends React.Component {
   constructor(props) {
@@ -37,11 +38,11 @@ class ReservationsSnippet extends React.Component {
       //   restaurantId: this.props.restaurant.id,
       //   type: 'restaurant',
       //   }
-    let query = merge({}, this.props.searchParams, { restaurantId: this.props.restaurant.id })
+    const time = parseInt(this.props.searchParams.time.split(':').join(''));
+    let query = merge({}, this.props.searchParams, { restaurantId: this.props.restaurant.id, time })
       // }
     //
     // this.setState({date: query.date, time: query.time, seats: query.seats});
-    debugger
     this.props.fetchAllReservations(query);
   }
 
@@ -82,21 +83,21 @@ class ReservationsSnippet extends React.Component {
     this.props.router.push(`/users/${this.props.currentUser.id}`);
   }
 
-  formatMinutes(minute) {
-    if (minute === 0) {
-      return '00';
-    } else {
-      return '30';
-    }
-  }
-
-  formatHour(hour) {
-    if (hour > 12) {
-      return (hour%12).toString();
-    } else {
-      return hour.toString();
-    }
-  }
+  // formatMinutes(minute) {
+  //   if (minute === 0) {
+  //     return '00';
+  //   } else {
+  //     return '30';
+  //   }
+  // }
+  //
+  // formatHour(hour) {
+  //   if (hour > 12) {
+  //     return (hour%12).toString();
+  //   } else {
+  //     return hour.toString();
+  //   }
+  // }
 
   getTimeSlots(baseTime) {
     const baseStr = baseTime.toString();
@@ -108,7 +109,7 @@ class ReservationsSnippet extends React.Component {
     while (timeStart <= timeEnd) {
       let hour = timeStart.toString();
       hour = hour.slice(0, hour.length-2);
-      let timeSlot = (this.formatHour(hour) + this.formatMinutes(minutes));
+      let timeSlot = (SearchAPIUtil.formatTime(hour, minutes));
       slots[timeSlot] = 0;
 
       minutes += 30;
@@ -123,7 +124,7 @@ class ReservationsSnippet extends React.Component {
   }
 
   reservationItems() {
-    let baseTime = parseInt(this.props.searchParams.time);
+    let baseTime = parseInt(this.props.searchParams.time.split(':').join(''));
     let slots = this.getTimeSlots(baseTime);
     const reservations = Object.keys(this.props.reservations).map((key) => {
       return this.props.reservations[key];
@@ -138,13 +139,13 @@ class ReservationsSnippet extends React.Component {
       if (slots[slot] > 1) {
         return (<li
           className='not-reservable res-button'
-          key={slot}>{this.formatTime(slot)}</li>)
+          key={ slot }>{ slot }</li>)
       } else {
         return (<li
           className='reservable button res-button'
-          onClick={this.handleReserve}
-          value={slot}
-          key={slot}>{this.formatTime(slot)}</li>)
+          onClick={ this.handleReserve }
+          value={ slot }
+          key={ slot }>{ slot }</li>)
       }
     });
 

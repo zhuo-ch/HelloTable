@@ -14,12 +14,13 @@ class Api::ReservationsController < ApplicationController
   end
 
   def search
-    # if params[:query][:type] == "restaurant"
-      @reservations = Restaurant.find(
-        params[:query][:restaurantId]).get_reservations(params[:query][:date],
-          params[:query][:time]).to_a
-        render 'api/reservations/search'
-    # end
+    @reservations = Reservation
+      .where("date = ?", params[:query][:date])
+      .where("time > ?", params[:query][:time].to_i - 200)
+      .where("time < ?", params[:query][:time].to_i + 200)
+      .where("restaurant_id = ?", params[:query][:restaurantId])
+
+    render 'api/reservations/search'
   end
 
   def destroy
