@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
-import { fetchRestaurant } from '../../actions/restaurant_actions';
+import { fetchRestaurant, resetRestaurant } from '../../actions/restaurant_actions';
 import RestaurantMap from './restaurant_map';
 import PhotoSection from './photo_section';
 import FontAwesome from 'react-fontawesome';
@@ -21,6 +21,10 @@ class RestaurantShow extends React.Component {
   componentWillMount() {
     this.props.fetchRestaurant(this.props.restaurantId)
       .then(e => this.props.receiveAllReviews(e.restaurant));
+  }
+
+  componentWillUnmount() {
+    this.props.resetRestaurant();
   }
 
   getReservations() {
@@ -229,6 +233,7 @@ const mapStateToProps = (state, {params}) => {
 const mapDispatchToProps = dispatch => ({
   receiveAllReviews: id => dispatch(receiveAllReviews(id)),
   fetchRestaurant: id => dispatch(fetchRestaurant(id)),
+  resetRestaurant: () => dispatch(resetRestaurant()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RestaurantShow);

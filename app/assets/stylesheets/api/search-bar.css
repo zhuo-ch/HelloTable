@@ -21,7 +21,7 @@
   border-bottom: 1px solid gainsboro;
   border-radius: 7px;
   width: 100%;
-  background: -webkit-linear-gradient(left, white, #F13737);
+  /*background: -webkit-linear-gradient(left, white, #F13737);*/
 }
 
 .search-bar ul li {
@@ -146,6 +146,7 @@
   text-align: center;
   color: white;
   border-radius: 7px;
+  border: 1px solid #A70303;
   border-top-left-radius: 0px;
   border-bottom-left-radius: 0px;
   font-size: 18px;
@@ -181,4 +182,14 @@ input[type=date]::-webkit-calendar-picker-indicator {
 .seats-list {
   left:auto;
   right: -1px;
+}
+
+.seats-form .res-present {
+  border-radius: 7px;
+  border: 1px solid gainsboro;
+  border-top-left-radius: none;
+  border-bottom-left-radius: none;
+  border-top: none;
+  border-bottom: none;
+  border-left: none;
 }

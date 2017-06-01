@@ -113,9 +113,10 @@ class TimeBar extends React.Component {
   render() {
     const timeSlots = this.getTimeList();
     const currentTime = this.getCurrentTime();
+    const cName = this.props.restaurantId ? 'input bar-time res-present' : 'input bar-time';
 
     return (
-      <section className='input bar-time'>
+      <section className={ cName }>
         { currentTime }
         { timeSlots }
       </section>
@@ -126,6 +127,7 @@ class TimeBar extends React.Component {
 const mapStateToProps = state => ({
     time: state.search.searchParams.time,
     date: state.search.searchParams.date,
+    restaurantId: state.restaurants.restaurant.id,
 });
 
 const mapDispatchToProps = dispatch => ({

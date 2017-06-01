@@ -10,56 +10,16 @@ import * as SearchAPIUtil from '../../util/search_api_util';
 class ReservationsSnippet extends React.Component {
   constructor(props) {
     super(props);
-    // this.state = { date: "", time: "" };
     this.handleReserve = this.handleReserve.bind(this);
     this.getTimeSlots = this.getTimeSlots.bind(this);
     this.handleShow = this.handleShow.bind(this);
   }
 
-  // currentDate() {
-  //   const defaultDate = new Date;
-  //   const date = [(defaultDate.getMonth()+1).toString(),
-  //     defaultDate.getDate().toString(),
-  //     defaultDate.getFullYear().toString()].join('-');
-  //   const time = '800';
-  //   const restaurantId = this.props.restaurant.id;
-  //   const type = 'restaurant';
-  //   const seats = '2';
-  //   return { date, time, restaurantId, type, seats };
-  // }
-
   componentWillMount() {
-    // let query = this.currentDate();
-    // if (this.props.searchParams.time) {
-      // query = {
-      //   seats: this.props.searchParams.seats,
-      //   date: this.props.searchParams.date,
-      //   time: this.props.searchParams.time,
-      //   restaurantId: this.props.restaurant.id,
-      //   type: 'restaurant',
-      //   }
     const time = parseInt(this.props.searchParams.time.split(':').join(''));
-    let query = merge({}, this.props.searchParams, { restaurantId: this.props.restaurant.id, time })
-      // }
-    //
-    // this.setState({date: query.date, time: query.time, seats: query.seats});
+    const query = merge({}, this.props.searchParams, { restaurantId: this.props.restaurant.id, time })
     this.props.fetchAllReservations(query);
   }
-
-  // componentWillReceiveProps(nextProps) {
-  //   if (this.props.searchParams !== nextProps.searchParams) {
-  //     let query = {
-  //       seats: nextProps.searchParams.seats,
-  //       date: nextProps.searchParams.date,
-  //       time: nextProps.searchParams.time,
-  //       restaurantId: nextProps.restaurant.id,
-  //       type: 'restaurant',
-  //     }
-  //
-  //     this.setState({date: query.date, time: query.time, seats: query.seats});
-  //     this.props.fetchAllReservations(query);
-  //   }
-  // }
 
   componentWillUnmount() {
     this.props.resetReservation();
@@ -82,22 +42,6 @@ class ReservationsSnippet extends React.Component {
     e.preventDefault();
     this.props.router.push(`/users/${this.props.currentUser.id}`);
   }
-
-  // formatMinutes(minute) {
-  //   if (minute === 0) {
-  //     return '00';
-  //   } else {
-  //     return '30';
-  //   }
-  // }
-  //
-  // formatHour(hour) {
-  //   if (hour > 12) {
-  //     return (hour%12).toString();
-  //   } else {
-  //     return hour.toString();
-  //   }
-  // }
 
   getTimeSlots(baseTime) {
     const baseStr = baseTime.toString();

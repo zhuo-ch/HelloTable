@@ -50,7 +50,8 @@ class SearchBar extends React.Component {
     const defaultDate = this.getDefaultDate();
     const head = this.props.header ? this.props.header : "";
     const searchBox = this.props.restaurantId ? '' : <SearchBox nullSearch={ this.state.nullSearch } />;
-
+    const searchButton = this.props.restaurantId ? '' : <input type='submit' className='bar-submit' value='Search' ></input>;
+    
     return (
       <div className='search-bar'>
         <h1>{ head }</h1>
@@ -67,7 +68,7 @@ class SearchBar extends React.Component {
               ></input>
             <TimeBar />
             { searchBox }
-          <input type='submit' className='bar-submit' value='Search' ></input>
+            { searchButton }
         </form>
       </div>
     </div>

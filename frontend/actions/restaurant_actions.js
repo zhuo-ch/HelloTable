@@ -3,6 +3,7 @@ import * as RestaurantAPIUtil from '../util/restaurant_api_util';
 
 export const RECEIVE_ALL_RESTAURANTS = 'RECEIVE_ALL_RESTAURANTS';
 export const RECEIVE_RESTAURANT = 'RECEIVE_RESTAURANT';
+export const RECEIVE_RESET_RESTAURANT = 'RECEIVE_RESET_RESTAURANT';
 export const RECEIVE_DESTROY = 'RECEIVE_DESTROY';
 export const RECEIVE_ERRORS = 'RECEIVE_ERRORS';
 
@@ -25,6 +26,10 @@ export const fetchRestaurant = (id) => dispatch => {
     .then((restaurant) => dispatch(receiveRestaurant(restaurant)));
 }
 
+export const resetRestaurant = () => dispatch => {
+  dispatch(receiveResetRestaurant());
+}
+
 export const updateRestaurant = (restaurant) => dispatch => {
   return RestaurantAPIUtil.updateRestaurant(restaurant)
     .then((newRestaurant) => dispatch(receiveRestaurant(newRestaurant)));
@@ -43,6 +48,10 @@ const receiveAllRestaurants = (restaurants) => ({
 const receiveRestaurant = (restaurant) => ({
   type: RECEIVE_RESTAURANT,
   restaurant,
+})
+
+const receiveResetRestaurant = () => ({
+  type: RECEIVE_RESET_RESTAURANT,
 })
 
 const receiveDestroy = () => ({
