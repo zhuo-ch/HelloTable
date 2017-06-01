@@ -6,14 +6,6 @@ export const searchRestaurants = (query) => {
   })
 }
 
-export const findRestaurants = (query) => {
-  return $.ajax({
-    method: 'GET',
-    url: 'api/restaurants/search',
-    data: {query},
-  })
-}
-
 export const formatDate = (date) => {
     let currentDate = `${date.getMonth()+1}-${date.getDate()}-${date.getFullYear()}`;
 

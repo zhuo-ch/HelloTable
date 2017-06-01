@@ -16,11 +16,6 @@ import ReactStars from 'react-stars';
 class RestaurantShow extends React.Component {
   constructor(props) {
     super(props);
-    this.handleScroll = this.handleScroll;
-  }
-
-  handleScroll(e) {
-    console.log(e);
   }
 
   componentWillMount() {
@@ -32,12 +27,7 @@ class RestaurantShow extends React.Component {
     if (this.props.restaurant.id === '') {
       return '';
     }
-
-    const currentDate = new Date();
-    const day = currentDate.getDate();
-    const month = currentDate.getMonth();
-    const year = currentDate.getFullYear();
-
+    
     return (
       <ReservationsSnippet
         restaurantId={this.props.restaurant.id} />

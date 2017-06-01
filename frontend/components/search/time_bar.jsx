@@ -86,7 +86,6 @@ class TimeBar extends React.Component {
 
     return slots.map((slot, idx) => {
       return <li
-        value={ slot }
         key={ idx+1 }
         className={ this.targeted(idx+1) }
         onClick={ this.handleClick }>{`${slot}`}</li>;

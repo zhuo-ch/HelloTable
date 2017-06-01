@@ -9,54 +9,56 @@ import { setCurrentModal } from '../../actions/modal_actions';
 class ReservationsSnippet extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { date: "", time: "" };
+    // this.state = { date: "", time: "" };
     this.handleReserve = this.handleReserve.bind(this);
     this.getTimeSlots = this.getTimeSlots.bind(this);
     this.handleShow = this.handleShow.bind(this);
   }
 
-  currentDate() {
-    const defaultDate = new Date;
-    const date = [(defaultDate.getMonth()+1).toString(),
-      defaultDate.getDate().toString(),
-      defaultDate.getFullYear().toString()].join('-');
-    const time = '800';
-    const restaurantId = this.props.restaurant.id;
-    const type = 'restaurant';
-    const seats = '2';
-    return { date, time, restaurantId, type, seats };
-  }
+  // currentDate() {
+  //   const defaultDate = new Date;
+  //   const date = [(defaultDate.getMonth()+1).toString(),
+  //     defaultDate.getDate().toString(),
+  //     defaultDate.getFullYear().toString()].join('-');
+  //   const time = '800';
+  //   const restaurantId = this.props.restaurant.id;
+  //   const type = 'restaurant';
+  //   const seats = '2';
+  //   return { date, time, restaurantId, type, seats };
+  // }
 
   componentWillMount() {
-    let query = this.currentDate();
-    if (this.props.searchParams.time) {
-      query = {
-        seats: this.props.searchParams.seats,
-        date: this.props.searchParams.date,
-        time: this.props.searchParams.time,
-        restaurantId: this.props.restaurant.id,
-        type: 'restaurant',
-        }
-      }
-
-    this.setState({date: query.date, time: query.time, seats: query.seats});
+    // let query = this.currentDate();
+    // if (this.props.searchParams.time) {
+      // query = {
+      //   seats: this.props.searchParams.seats,
+      //   date: this.props.searchParams.date,
+      //   time: this.props.searchParams.time,
+      //   restaurantId: this.props.restaurant.id,
+      //   type: 'restaurant',
+      //   }
+    let query = merge({}, this.props.searchParams, { restaurantId: this.props.restaurant.id })
+      // }
+    //
+    // this.setState({date: query.date, time: query.time, seats: query.seats});
+    debugger
     this.props.fetchAllReservations(query);
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (this.props.searchParams !== nextProps.searchParams) {
-      let query = {
-        seats: nextProps.searchParams.seats,
-        date: nextProps.searchParams.date,
-        time: nextProps.searchParams.time,
-        restaurantId: nextProps.restaurant.id,
-        type: 'restaurant',
-      }
-
-      this.setState({date: query.date, time: query.time, seats: query.seats});
-      this.props.fetchAllReservations(query);
-    }
-  }
+  // componentWillReceiveProps(nextProps) {
+  //   if (this.props.searchParams !== nextProps.searchParams) {
+  //     let query = {
+  //       seats: nextProps.searchParams.seats,
+  //       date: nextProps.searchParams.date,
+  //       time: nextProps.searchParams.time,
+  //       restaurantId: nextProps.restaurant.id,
+  //       type: 'restaurant',
+  //     }
+  //
+  //     this.setState({date: query.date, time: query.time, seats: query.seats});
+  //     this.props.fetchAllReservations(query);
+  //   }
+  // }
 
   componentWillUnmount() {
     this.props.resetReservation();
@@ -68,7 +70,7 @@ class ReservationsSnippet extends React.Component {
     if (this.props.currentUser) {
       const time = parseInt(e.currentTarget.innerText.split(":").join(""));
       const reservation = { user_id: this.props.currentUser.id, restaurant_id: this.props.restaurant.id,
-        date: this.state.date, seats: this.state.seats, time };
+        date: this.props.searchParams.date, seats: this.props.searchParams.seats, time };
         this.props.createReservation(reservation);
     } else {
       this.props.setCurrentModal({hidden: false, type: 'login'});
@@ -121,7 +123,7 @@ class ReservationsSnippet extends React.Component {
   }
 
   reservationItems() {
-    let baseTime = parseInt(this.state.time);
+    let baseTime = parseInt(this.props.searchParams.time);
     let slots = this.getTimeSlots(baseTime);
     const reservations = Object.keys(this.props.reservations).map((key) => {
       return this.props.reservations[key];
@@ -146,7 +148,7 @@ class ReservationsSnippet extends React.Component {
       }
     });
 
-    const date = this.formatDate(this.state.date);
+    const date = this.formatDate(this.props.searchParams.date);
 
     return (
       <ul className='res-avail-list'>
@@ -202,7 +204,7 @@ class ReservationsSnippet extends React.Component {
   }
 }
 
-const mapStateToProps = (state, { restaurantId, time, date, fetchType }) => {
+const mapStateToProps = state => {
   return ({
     currentUser: state.session.currentUser,
     searchParams: state.search.searchParams,
