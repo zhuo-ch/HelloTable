@@ -104,7 +104,7 @@ class RestaurantShow extends React.Component {
     const averages = this.getAvgRatings();
     const reviewTopBar = this.getReviewTopBar(averages);
     const reviewSnippets = this.props.reviews.map(review => <ReviewSnippet key={review.id} review={ review } />);
-debugger
+
     return (
       <StickyContainer className='restaurant-view'>
         <section className='restaurant-splash'>

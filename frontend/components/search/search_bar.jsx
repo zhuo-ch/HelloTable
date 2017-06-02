@@ -21,6 +21,7 @@ class SearchBar extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
+
     if (this.state.searchTerm === '') {
       this.setState({nullSearch: true});
       return ;
@@ -28,10 +29,7 @@ class SearchBar extends React.Component {
 
     const id = this.props.searchBoxParams.searchId;
     const type = this.props.searchBoxParams.searchType;
-
-    if (!(this.props.restaurantId)) {
-      this.props.router.push(`${type}/${id}`)
-    }
+    this.props.router.push(`${type}/${id}`);
   }
 
   handleDateChange(e) {
@@ -51,7 +49,7 @@ class SearchBar extends React.Component {
     const head = this.props.header ? this.props.header : "";
     const searchBox = this.props.restaurantId ? '' : <SearchBox nullSearch={ this.state.nullSearch } />;
     const searchButton = this.props.restaurantId ? '' : <input type='submit' className='bar-submit' value='Search' ></input>;
-    
+
     return (
       <div className='search-bar'>
         <h1>{ head }</h1>
@@ -78,7 +76,7 @@ class SearchBar extends React.Component {
 
 const mapStateToProps = (state, ownProps) => {
   return ({
-    searchBoxParams: state.searchBoxParams,
+    searchBoxParams: state.search.searchBoxParams,
     searchParams: state.search.searchParams,
     header: ownProps.header,
     restaurantId: ownProps.restaurantId

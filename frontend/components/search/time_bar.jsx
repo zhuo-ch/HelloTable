@@ -9,17 +9,14 @@ class TimeBar extends React.Component {
     this.state = {
       selecting: false,
       targeted: 0,
-      timeSlots: [],
+      timeSlots: 0,
     }
     this.getSlots = this.getSlots.bind(this);
     this.targeted = this.targeted.bind(this);
+    this.getTimeSlots = this.getTimeSlots.bind(this);
     this.getTimeList = this.getTimeList.bind(this);
     this.handleClick = this.handleClick.bind(this);
-  }
-
-  componentWillMount() {
-    const timeSlots = this.getSlots();
-    this.setState({ timeSlots });
+    this.handleKey = this.handleKey.bind(this);
   }
 
   handleKey(e) {
@@ -27,7 +24,7 @@ class TimeBar extends React.Component {
       e.preventDefault();
       switch (e.key) {
         case 'Enter':
-          this.props.setSearchParams({ time: this.state.targeted });
+          this.props.setSearchParams({ time: this.getSlots()[this.state.targeted - 1] });
           this.setState({ selecting: false })
           document.removeEventListener('keydown', this.handleKey);
           break;
@@ -37,7 +34,7 @@ class TimeBar extends React.Component {
           }
           break;
         case 'ArrowDown':
-          if (this.state.targeted < this.state.timeSlots.length) {
+          if (this.state.targeted < this.getSlots().length) {
             this.setState({ targeted: this.state.targeted + 1 });
           }
           break;
@@ -84,6 +81,12 @@ class TimeBar extends React.Component {
       }
     }
 
+    return slots;
+  }
+
+  getTimeSlots() {
+    const slots = this.getSlots();
+
     return slots.map((slot, idx) => {
       return <li
         key={ idx+1 }
@@ -94,10 +97,11 @@ class TimeBar extends React.Component {
 
   getTimeList() {
     const selecting = this.state.selecting ? '' : 'hidden';
+    const timeSlots = this.getTimeSlots();
 
     return (
       <ul className='search-list time-list' id={ selecting }>
-        { this.state.timeSlots }
+        { timeSlots }
       </ul>
     )
   }
@@ -127,6 +131,7 @@ class TimeBar extends React.Component {
 const mapStateToProps = state => ({
     time: state.search.searchParams.time,
     date: state.search.searchParams.date,
+    timeSlots: state.search.searchParams.timeSlots,
     restaurantId: state.restaurants.restaurant.id,
 });
 

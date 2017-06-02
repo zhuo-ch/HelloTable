@@ -48,6 +48,11 @@
   color: white;
 }
 
+.time-item:hover {
+  background: #FF8787;
+  color: white;
+}
+
 .highlight {
   background: #FF8787;
   color: white;
@@ -126,6 +131,7 @@
 .time-list {
   position: absolute;
   left: -1px;
+  overflow: scroll;
 }
 
 .search-field li:hover {

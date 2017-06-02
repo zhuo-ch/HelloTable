@@ -14,6 +14,7 @@ const _nullSearch = Object.freeze ({
     seats: 2,
     date: SearchAPIUtil.formatDate(new Date()),
     time: SearchAPIUtil.getNewTime(),
+    timeSlots: [],
   },
   searchBoxParams: {
     searching: false,
