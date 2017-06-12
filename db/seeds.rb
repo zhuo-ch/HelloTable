@@ -3366,45 +3366,49 @@
 # Photo.create(restaurant_id: 250, image: File.new('app/assets/images/pexels-photo-29346.jpg'))
 # Photo.create(restaurant_id: 250, image: File.new('app/assets/images/pexels-photo-62097.jpeg'))
 
-reviews = ["For dinner we ordered the shrimp enchiladas, chicken enchiladas, chicken burrito, chimichangas, and steak quesadillas. Everything was so tasty and amazing. I wasn't surprised because the food at the FiDi location is the best so I figured this location would be just as good and it was!!! The enchiladas with the green sauce is to die for. My go to at the FiDi location is usually the chicken enchiladas but I decided to try something new and the shrimp enchiladas did not disappoint.",
-  "For dessert, we ordered the chocolate drizzled churros and they were delicious too! They even came with some fresh fruit (blueberries and strawberries). ", "Overall, the evening was a smash and I am so glad there is a new location closer to my office!!",
-  "Brand new. Great design. Odd to hear pop music in a Mexican establishment. Music is a bit loud. It should be background.", "The chicken nachos were delicious and the atmosphere was great. The frozen margaritas were a little on the weak side. Would probably return for a work happy hour but was pretty disappointed about the lack of free tequila and beer we read about!",
-  "The counter is on the left side, and so is the menu. It can get pretty busy with 30 min wait times. I recommend checking the website and see how busy their store is.",
-  "They are way understaffed, where the cashier needs to stop taking orders to help pack to-go orders. The line ends up piling up and people are neglected.  Seen this happen multiple times during lunch hours.",
-  "This particular location like the many other restaurants down the block has ample seating and a second floor. ",
-  "I first heard about this place through Instagram post. The drinks looked creative so I made it a point to give it try while in the city. Located inside American Eagle in Times Square they serve up the coolest non-alcoholic beverages. You have an array of options from tea, soda, coffee, latte, water and more. There's countertops (with phone chargers) so you're able to stand and enjoy your beverage. This visit I opted for the Pegasus latte which was not only beautiful but tasted just as good as it looked. Great staff and great service. This is a must try if you are in the area. I'm sure I'll be back soon!",
-  "Great place to stop in from a chaotic Times Square adventure! The coffee is great, the drinks are creative and the staff is very nice and hospitable. Can't wait to stop in again. Without a doubt 5 stars from me!!",
-  "Great lattes and cold drinks as well. Nice to see a place carrying local coffee and products in Times Square! Excited to make it a part of my morning commute as it is much less crowded than the chain coffee shops around here.",
-  "Fish was high quality but portions were small. $57 for 9 pieces and a hand roll which is fair but on the expensive side.",
-  "Ambience was good, service was no nonsense but friendly.",
-  "Id have to say that each piece was fresh and had their own slight unique flavor twist to it, pushing the line between traditional edomae and fusion. The Hokkaido uni and the ocean trout topped with cook seaweed was the highlights of the meal. But each piece served was really something special. ",
-  "Staff was very accommodating but the chef were no nonsense. The ambiance is clean and tranquil which is perfect if youre looking to have a conversation with a date or a friend.",
-  "My only critique would be that the rice could of used more vingaer and for them to use real wasabi. Also the variety of fish in stock wasnt a lot but hopefully that can change over time. The cost justify the quality you're getting. A solid 4 stars.",
-  "In terms of omakase, they had a few options but the one we chose was the 87 dollar version which include sashimi and sushi."]
+# reviews = ["For dinner we ordered the shrimp enchiladas, chicken enchiladas, chicken burrito, chimichangas, and steak quesadillas. Everything was so tasty and amazing. I wasn't surprised because the food at the FiDi location is the best so I figured this location would be just as good and it was!!! The enchiladas with the green sauce is to die for. My go to at the FiDi location is usually the chicken enchiladas but I decided to try something new and the shrimp enchiladas did not disappoint.",
+#   "For dessert, we ordered the chocolate drizzled churros and they were delicious too! They even came with some fresh fruit (blueberries and strawberries). ", "Overall, the evening was a smash and I am so glad there is a new location closer to my office!!",
+#   "Brand new. Great design. Odd to hear pop music in a Mexican establishment. Music is a bit loud. It should be background.", "The chicken nachos were delicious and the atmosphere was great. The frozen margaritas were a little on the weak side. Would probably return for a work happy hour but was pretty disappointed about the lack of free tequila and beer we read about!",
+#   "The counter is on the left side, and so is the menu. It can get pretty busy with 30 min wait times. I recommend checking the website and see how busy their store is.",
+#   "They are way understaffed, where the cashier needs to stop taking orders to help pack to-go orders. The line ends up piling up and people are neglected.  Seen this happen multiple times during lunch hours.",
+#   "This particular location like the many other restaurants down the block has ample seating and a second floor. ",
+#   "I first heard about this place through Instagram post. The drinks looked creative so I made it a point to give it try while in the city. Located inside American Eagle in Times Square they serve up the coolest non-alcoholic beverages. You have an array of options from tea, soda, coffee, latte, water and more. There's countertops (with phone chargers) so you're able to stand and enjoy your beverage. This visit I opted for the Pegasus latte which was not only beautiful but tasted just as good as it looked. Great staff and great service. This is a must try if you are in the area. I'm sure I'll be back soon!",
+#   "Great place to stop in from a chaotic Times Square adventure! The coffee is great, the drinks are creative and the staff is very nice and hospitable. Can't wait to stop in again. Without a doubt 5 stars from me!!",
+#   "Great lattes and cold drinks as well. Nice to see a place carrying local coffee and products in Times Square! Excited to make it a part of my morning commute as it is much less crowded than the chain coffee shops around here.",
+#   "Fish was high quality but portions were small. $57 for 9 pieces and a hand roll which is fair but on the expensive side.",
+#   "Ambience was good, service was no nonsense but friendly.",
+#   "Id have to say that each piece was fresh and had their own slight unique flavor twist to it, pushing the line between traditional edomae and fusion. The Hokkaido uni and the ocean trout topped with cook seaweed was the highlights of the meal. But each piece served was really something special. ",
+#   "Staff was very accommodating but the chef were no nonsense. The ambiance is clean and tranquil which is perfect if youre looking to have a conversation with a date or a friend.",
+#   "My only critique would be that the rice could of used more vingaer and for them to use real wasabi. Also the variety of fish in stock wasnt a lot but hopefully that can change over time. The cost justify the quality you're getting. A solid 4 stars.",
+#   "In terms of omakase, they had a few options but the one we chose was the 87 dollar version which include sashimi and sushi."]
 
-users = User.all.map {|user| user.id}
-times = [500, 530, 600, 630, 700, 730, 800, 830, 900]
+# users = User.all.map {|user| user.id}
+# times = [500, 530, 600, 630, 700, 730, 800, 830, 900]
+#
+# Restaurant.all.each do |restaurant|
+#   100.times do
+#     Reservation.create(user_id: users.sample, restaurant_id: restaurant.id,
+#       date: "#{rand(6..12)}-#{rand(1..28)}-2017", time: times.sample, seats: rand(6))
+#   end
+# end
 
-Restaurant.all.each do |restaurant|
-  20.times do
-    Reservation.create(user_id: users.sample, restaurant_id: restaurant.id,
-      date: "#{rand(1..6)}-#{rand(1..28)}-2017", time: times.sample, seats: rand(6))
-  end
-end
-
-Reservation.all.each do |reservation|
-  Review.create(reservation: reservation, rating: rand(1..5), food: rand(1..5), service: rand(1..5),
-    ambiance: rand(1..5), value: rand(1..5), details: reviews.sample)
-end
+# Reservation.all.each do |reservation|
+#   Review.create(reservation: reservation, rating: rand(1..5), food: rand(1..5), service: rand(1..5),
+#     ambiance: rand(1..5), value: rand(1..5), details: reviews.sample)
+# end
 
 a = User.first
+#
+# 10.times do
+#   Reservation.create(user_id: a.id, restaurant_id: Restaurant.all.sample.id,
+#     date: "#{rand(1..4)}-"+"#{rand(1..28)}"+"-2017", time: [500, 530, 600, 630, 700, 730, 800, 830, 900].sample, seats: rand(6))
+# end
 
-10.times do
-  Reservation.create(user_id: a.id, restaurant_id: Restaurant.all.sample.id,
-    date: "#{rand(1..4)}-"+"#{rand(1..28)}"+"-2017", time: [500, 530, 600, 630, 700, 730, 800, 830, 900].sample, seats: rand(6))
-end
+# a.reservations.each do |reservation|
+#   Review.create(reservation: reservation, rating: rand(1..5), food: rand(1..5), service: rand(1..5),
+#     ambiance: rand(1..5), value: rand(1..5), details: reviews.sample)
+# end
 
-a.reservations.each do |reservation|
-  Review.create(reservation: reservation, rating: rand(1..5), food: rand(1..5), service: rand(1..5),
-    ambiance: rand(1..5), value: rand(1..5), details: reviews.sample)
+5.times do |user|
+  Favorite.create(user_id: a.id, restaurant_id: Restaurant.all.sample.id)
 end

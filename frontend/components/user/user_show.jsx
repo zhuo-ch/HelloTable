@@ -142,6 +142,7 @@ const mapStateToProps = state => {
   return ({
     currentUser: state.session.currentUser,
     user: state.user,
+    favorites: state.session.currentUser.favorites,
   })
 }
 

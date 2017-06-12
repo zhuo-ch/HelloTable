@@ -7,6 +7,7 @@ import ReservationsReducer from './reservations_reducer';
 import UsersReducer from './users_reducer';
 import ReviewsReducer from './reviews_reducer';
 import ModalReducer from './modal_reducer';
+import FavoritesReducer from './favorites_reducer';
 
 export default combineReducers({
   session: SessionReducer,
@@ -17,4 +18,5 @@ export default combineReducers({
   user: UsersReducer,
   reviews: ReviewsReducer,
   modal: ModalReducer,
+  favorites: FavoritesReducer,
 });

@@ -1,5 +1,3 @@
-require 'json'
-
 class Restaurant < ActiveRecord::Base
   validates :owner_id, :restaurant_name, :description, :street_address, :state, :restaurant_number, presence: true
   after_initialize :ensure_rating

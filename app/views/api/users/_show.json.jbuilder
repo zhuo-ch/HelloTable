@@ -1,4 +1,5 @@
 json.extract! user, :username, :id
+json.extract! user.favorites, :id, :user_id, :restaurant_id
 json.reservations user.reservations do |reservation|
     json.res_id reservation.id
     json.reviewed reservation.review ? true : false

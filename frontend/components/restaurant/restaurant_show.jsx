@@ -10,12 +10,14 @@ import Scrollchor from 'react-scrollchor';
 import { StickyContainer, Sticky } from 'react-sticky';
 import SearchBar from '../search/search_bar';
 import { receiveAllReviews } from '../../actions/review_actions';
+import { addFavorite, removeFavorite } from '../../actions/favorites_actions';
 import ReviewSnippet from '../review/review_snippet';
 import ReactStars from 'react-stars';
 
 class RestaurantShow extends React.Component {
   constructor(props) {
     super(props);
+    this.handleFavorite = this.handleFavorite.bind(this);
   }
 
   componentWillMount() {
@@ -25,6 +27,21 @@ class RestaurantShow extends React.Component {
 
   componentWillUnmount() {
     this.props.resetRestaurant();
+  }
+
+  handleFavorite() {
+    const user_id = this.props.user_id;
+    const restaurant_id = this.props.restaurantId;
+debugger
+    if (this.currentFavorite() === 1) {
+      this.props.addFavorite({ user_id, restaurant_id });
+    } else {
+      this.props.removeFavorite(this.props.favorites[this.props.restaurantId]);
+    }
+  }
+
+  currentFavorite() {
+    return Object.keys(this.props.favorites).includes(this.props.restaurantId) ? 1 : 0;
   }
 
   getReservations() {
@@ -41,11 +58,26 @@ class RestaurantShow extends React.Component {
   getStarRating(rating) {
     return (
       <ReactStars
-        count={5}
-        edit={false}
-        value={rating}
+        count={ 5 }
+        edit={ false }
+        value={ rating }
         />
     );
+  }
+
+  getFavorite(favValue) {
+    const favText = favValue === 1 ? 'Favorited' : 'Add to Favorites';
+
+    return (
+      <article className='favorite' onClick={ this.handleFavorite }>
+        <ReactStars
+          count={ 1 }
+          edit={ false }
+          value={ favValue }
+          char='♡'
+          /> { favText }
+      </article>
+    )
   }
 
   getAvgRatings() {
@@ -104,6 +136,7 @@ class RestaurantShow extends React.Component {
     const averages = this.getAvgRatings();
     const reviewTopBar = this.getReviewTopBar(averages);
     const reviewSnippets = this.props.reviews.map(review => <ReviewSnippet key={review.id} review={ review } />);
+    const favorite = this.getFavorite(this.currentFavorite());
 
     return (
       <StickyContainer className='restaurant-view'>
@@ -123,8 +156,8 @@ class RestaurantShow extends React.Component {
                 <h5 className='splash-cuisine'>{this.props.restaurant.cuisine}</h5>
                 <h5 className='splash-location'>{this.props.restaurant.city_name}, {this.props.restaurant.state}</h5>
               </section>
-              <section className="likes">
-
+              <section className="fav-section">
+                { favorite }
               </section>
             </section>
           </div>
@@ -224,9 +257,11 @@ const mapStateToProps = (state, {params}) => {
   let restaurantId = parseInt(params.restaurantId);
   return ({
     restaurantId,
+    user_id: state.session.currentUser.id,
     restaurant: state.restaurants.restaurant,
     reviews: state.reviews.reviews,
     ratings: state.reviews.ratings,
+    favorites: state.favorites,
   });
 };
 
@@ -234,6 +269,8 @@ const mapDispatchToProps = dispatch => ({
   receiveAllReviews: id => dispatch(receiveAllReviews(id)),
   fetchRestaurant: id => dispatch(fetchRestaurant(id)),
   resetRestaurant: () => dispatch(resetRestaurant()),
+  addFavorite: favorite => dispatch(addFavorite(favorite)),
+  removeFavorite: id => dispatch(removeFavorite()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RestaurantShow);
