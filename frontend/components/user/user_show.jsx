@@ -79,6 +79,7 @@ class UserShow extends React.Component {
 
   getPrevious() {
     const previous = this.props.user.reservations.filter(reservation => !this.setUpcoming(reservation));
+
     return (
       previous.map((reservation) => {
         const leaveReviewButton = reservation.reviewed ? '' : (
@@ -95,12 +96,24 @@ class UserShow extends React.Component {
             <RestaurantSnippet restaurant={reservation.restaurant}/>
           </section>
         );
-      }));
+      })
+    );
+  }
+
+  getFavorites() {
+    return Object.keys(this.props.favorites).map(key => {
+      return (
+        <section key={key}>
+          <RestaurantSnippet restaurant={this.props.favorites[key].restaurant} />
+        </section>
+      );
+    });
   }
 
   render() {
     const Upcoming = this.getUpcoming();
     const Previous = this.getPrevious();
+    const Favorites = this.getFavorites();
 
     return(
       <StickyContainer className='user-show'>
@@ -118,6 +131,9 @@ class UserShow extends React.Component {
                 <li>
                   <Scrollchor to='#prev-res'><h3>Previous Reservations</h3></Scrollchor>
                 </li>
+                <li>
+                  <Scrollchor to='#favorites'><h3>Favorites</h3></Scrollchor>
+                </li>
               </ul>
             </Sticky>
           </div>
@@ -131,6 +147,10 @@ class UserShow extends React.Component {
               <article className='user-show-res-header' id='prev-res'><h2>Previous Reservations</h2></article>
               { Previous }
             </section>
+            <section className='user-show-res'>
+              <article className='user-show-res-header' id='favorites'><h2>Favorites</h2></article>
+              { Favorites }
+            </section>
           </div>
         </div>
       </StickyContainer>
@@ -142,7 +162,7 @@ const mapStateToProps = state => {
   return ({
     currentUser: state.session.currentUser,
     user: state.user,
-    favorites: state.session.currentUser.favorites,
+    favorites: state.favorites,
   })
 }
 
