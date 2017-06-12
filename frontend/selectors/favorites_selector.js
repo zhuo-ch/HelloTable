@@ -4,6 +4,6 @@ export const faves = favorites => {
   favorites.forEach(fav => {
     favs[fav.restaurant_id] = fav;
   });
-  
+
   return favs;
 }
