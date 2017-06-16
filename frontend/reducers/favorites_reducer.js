@@ -9,12 +9,15 @@ const FavoritesReducer = (state = _nullFavorites, action) => {
   switch (action.type) {
     case RECEIVE_FAVORITES:
       const favorites = FavoritesSelector.faves(action.favorites);
+      debugger
       return favorites;
     case RECEIVE_FAVORITE:
-      return merge({}, state, [action.favorite]);
+    const favorite = FavoritesSelector.fave(action.favorite);
+    debugger
+      return merge({}, state, favorite);
     case REMOVE_FAVORITE:
       let newState = merge({}, state);
-      delete newState[action.id];
+      delete newState[action.favorite.restaurant_id];
       return newState;
     default:
       return state;

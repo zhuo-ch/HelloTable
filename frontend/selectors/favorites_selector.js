@@ -7,3 +7,8 @@ export const faves = favorites => {
 
   return favs;
 }
+
+export const fave = favorite => {
+  const id = favorite.restaurant_id;
+  return {[id]: favorite};
+}

@@ -8,14 +8,15 @@ export const receiveAllFavorites = favorites => dispatch => {
   return dispatch(receiveFavorites(favorites));
 }
 
-export const addFavorite = favorite => dispatch => {
-  return FavoritesAPIUtil.createFavorite(favorite)
-    .then(dispatch(receiveFavorite(favorite)));
+export const addFavorite = newFavorite => dispatch => {
+  return FavoritesAPIUtil.createFavorite(newFavorite)
+    .then(favorite => dispatch(receiveFavorite(favorite)));
 }
 
-export const removeFavorite = id => dispatch => {
-  return FavoritesAPIUtil.destroyFavorite(id)
-    .then(dispatch(receiveRemoveFavorite(id)));
+export const removeFavorite = favorite => dispatch => {
+  debugger
+  return FavoritesAPIUtil.destroyFavorite(favorite)
+    .then(dispatch(receiveRemoveFavorite(favorite)));
 }
 
 const receiveFavorites = favorites => ({
@@ -28,7 +29,7 @@ const receiveFavorite = favorite => ({
   favorite,
 });
 
-const receiveRemoveFavorite = id => ({
+const receiveRemoveFavorite = favorite => ({
   type: REMOVE_FAVORITE,
-  id
+  favorite
 });

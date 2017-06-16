@@ -1,8 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router';
 import ReactStars from 'react-stars';
+import FavoriteBox from '../favorite/favorite_box';
 
-const RestaurantSnippet = ({ restaurant, favorite }) => {
+const RestaurantSnippet = ({ restaurant }) => {
   const overallRating = Math.floor(restaurant.ratings.rating/restaurant.ratings.total*2)/2;
   const overallValue = Math.floor(restaurant.ratings.value/restaurant.ratings.total*2)/2;
 
@@ -35,6 +36,7 @@ const RestaurantSnippet = ({ restaurant, favorite }) => {
           />
       </article>
       <article className='snippet-review'>
+        <FavoriteBox restaurantId={restaurant.id.toString()}/>
         <p>{restaurant.ratings.details}</p>
       </article>
     </section>
