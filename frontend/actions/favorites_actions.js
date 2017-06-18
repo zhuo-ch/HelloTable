@@ -14,7 +14,6 @@ export const addFavorite = newFavorite => dispatch => {
 }
 
 export const removeFavorite = favorite => dispatch => {
-  debugger
   return FavoritesAPIUtil.destroyFavorite(favorite)
     .then(dispatch(receiveRemoveFavorite(favorite)));
 }

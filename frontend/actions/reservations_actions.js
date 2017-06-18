@@ -1,7 +1,7 @@
 import { hashHistory } from 'react-router';
 import * as ReservationsAPIUtil from '../util/reservations_api_util';
 
-export const RECEIVE_ALL_RESERVATIONS = 'RECEIVE_ALL_RESERVATIONS';
+export const RECEIVE_RESERVATIONS = 'RECEIVE_RESERVATIONS';
 export const RECEIVE_RESERVATION = 'RECEIVE_RESERVATION';
 export const CLEAR_RESERVATION = 'CLEAR_RESERVATION';
 export const DESTROY_RESERVATION = 'DESTROY_RESERVATION';
@@ -27,7 +27,7 @@ export const resetReservation = () => dispatch => {
 }
 
 const receiveAllReservations = (reservations) => ({
-  type: RECEIVE_ALL_RESERVATIONS,
+  type: RECEIVE_RESERVATIONS,
   reservations,
 })
 

@@ -19,11 +19,12 @@ class UserShow extends React.Component {
   componentWillMount() {
     if (parseInt(this.props.routeParams.userId) !== this.props.currentUser.id) {
       this.props.router.push('/');
-    } else {
-      this.props.setCurrentModal({hidden: false, type: 'spinner'});
-      this.props.fetchUser(this.props.currentUser.id)
-        .then(() => this.props.resetCurrentModal());
     }
+    // else {
+    //   this.props.setCurrentModal({hidden: false, type: 'spinner'});
+    //   this.props.fetchUser(this.props.currentUser.id)
+    //     .then(() => this.props.resetCurrentModal());
+    // }
   }
 
   handleCancel(e) {
@@ -60,7 +61,7 @@ class UserShow extends React.Component {
   }
 
   getUpcoming() {
-    const reservations = this.props.user.reservations.filter(reservation => this.setUpcoming(reservation));
+    const reservations = this.props.currentUser.reservations.filter(reservation => this.setUpcoming(reservation));
     return (
       reservations.map((reservation) => {
         return (
@@ -78,7 +79,7 @@ class UserShow extends React.Component {
   }
 
   getPrevious() {
-    const previous = this.props.user.reservations.filter(reservation => !this.setUpcoming(reservation));
+    const previous = this.props.currentUser.reservations.filter(reservation => !this.setUpcoming(reservation));
 
     return (
       previous.map((reservation) => {
@@ -161,7 +162,6 @@ class UserShow extends React.Component {
 const mapStateToProps = state => {
   return ({
     currentUser: state.session.currentUser,
-    user: state.user,
     favorites: state.favorites,
   })
 }

@@ -11,7 +11,6 @@ class FavoriteBox extends React.Component {
   }
 
   handleAdd() {
-    debugger
     this.props.addFavorite({
       user_id: this.props.user_id,
       restaurant_id: this.props.restaurantId
@@ -19,12 +18,11 @@ class FavoriteBox extends React.Component {
   }
 
   handleRemove() {
-    debugger
     this.props.removeFavorite(this.props.favorites[this.props.restaurantId]);
   }
 
   render() {
-    const favorite = Object.keys(this.props.favorites).includes(this.props.restaurantId);
+    const favorite = this.props.favorites[this.props.restaurantId];
     const fave = favorite ? 1 : 0;
     const text = favorite ? 'Favorited' : 'Add to Favorites';
     const toggle = favorite ? this.handleRemove : this.handleAdd;
@@ -35,8 +33,10 @@ class FavoriteBox extends React.Component {
           count={1}
           edit={false}
           value={fave}
+          char='♡'
+          color2={'#FF8787'}
           />
-        <h5>{text}</h5>
+        <h5>{ text }</h5>
       </section>
     );
   }

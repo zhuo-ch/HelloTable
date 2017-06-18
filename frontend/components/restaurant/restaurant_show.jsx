@@ -13,6 +13,7 @@ import { receiveAllReviews } from '../../actions/review_actions';
 import { addFavorite, removeFavorite } from '../../actions/favorites_actions';
 import ReviewSnippet from '../review/review_snippet';
 import ReactStars from 'react-stars';
+import FavoriteBox from '../favorite/favorite_box';
 
 class RestaurantShow extends React.Component {
   constructor(props) {
@@ -32,7 +33,7 @@ class RestaurantShow extends React.Component {
   handleFavorite() {
     const user_id = this.props.user_id;
     const restaurant_id = this.props.restaurantId;
-debugger
+
     if (this.currentFavorite() === 1) {
       this.props.addFavorite({ user_id, restaurant_id });
     } else {
@@ -157,7 +158,7 @@ debugger
                 <h5 className='splash-location'>{this.props.restaurant.city_name}, {this.props.restaurant.state}</h5>
               </section>
               <section className="fav-section">
-                { favorite }
+                <FavoriteBox restaurantId={ this.props.restaurantId } />
               </section>
             </section>
           </div>

@@ -9,11 +9,9 @@ const FavoritesReducer = (state = _nullFavorites, action) => {
   switch (action.type) {
     case RECEIVE_FAVORITES:
       const favorites = FavoritesSelector.faves(action.favorites);
-      debugger
       return favorites;
     case RECEIVE_FAVORITE:
     const favorite = FavoritesSelector.fave(action.favorite);
-    debugger
       return merge({}, state, favorite);
     case REMOVE_FAVORITE:
       let newState = merge({}, state);
