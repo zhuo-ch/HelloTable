@@ -1,9 +1,11 @@
 import * as SessionApiUtil from '../util/session_api_util';
+import * as UserApiUtil from '../util/user_api_util';
 import { hashHistory } from 'react-router'
 
 export const RECEIVE_CURRENT_USER = 'RECEIVE_CURRENT_USER';
 export const RECEIVE_ERRORS = 'RECEIVE_ERRORS';
 export const LOGOUT = 'LOGOUT';
+export const RECEIVE_DESTROY_RESERVATION = 'RECEIVE_DESTROY_RESERVATION';
 const RECEIVE_FAVORITES = 'RECEIVE_FAVORITES';
 const RECEIVE_RESERVATIONS = 'RECEIVE_RESERVATIONS';
 
@@ -12,7 +14,6 @@ export const login = user => dispatch => {
     .then((newUser) => {
       dispatch(receiveCurrentUser(newUser));
       dispatch(receiveAllFavorites(newUser.favorites));
-      dispatch(receiveAllReservations(newUser.reservations));
     },
     err => dispatch(receiveErrors(err.responseJSON)));
 };
@@ -28,6 +29,11 @@ export const logout = () => dispatch => {
   return SessionApiUtil.logout()
     .then(() => dispatch(logOutUser()));
 };
+
+export const destroyReservation = id => dispatch => {
+  return UserApiUtil.destroyReservation(id)
+    .then((res) => dispatch(receiveDestroy(res.id)));
+}
 
 const receiveCurrentUser = (user) => ({
   type: RECEIVE_CURRENT_USER,
@@ -50,7 +56,7 @@ const receiveAllFavorites = favorites => ({
   favorites,
 });
 
-const receiveAllReservations = reservations => ({
-  type: RECEIVE_RESERVATIONS,
-  reservations,
+const receiveDestroy = id => ({
+  type: RECEIVE_DESTROY_RESERVATION,
+  id
 });

@@ -19,7 +19,7 @@ export const createReservation = reservation => dispatch => {
 
 export const destroyReservation = id => dispatch => {
   return ReservationsAPIUtil.destroyReservation(id)
-    .then((id) => dispatch(destroyReservation(id)));
+    .then((id) => dispatch(receiveDestroyReservation(id)));
 }
 
 export const resetReservation = () => dispatch => {
@@ -29,19 +29,14 @@ export const resetReservation = () => dispatch => {
 const receiveAllReservations = (reservations) => ({
   type: RECEIVE_RESERVATIONS,
   reservations,
-})
+});
 
 const receiveReservation = reservation => ({
   type: RECEIVE_RESERVATION,
   reservation,
-})
+});
 
 const clearReservation = (reservation) => ({
   type: CLEAR_RESERVATION,
   reservation,
-})
-
-const receiveDestroyReservation = id => ({
-  type: DESTROY_RESERVATION,
-  reservation,
-})
+});

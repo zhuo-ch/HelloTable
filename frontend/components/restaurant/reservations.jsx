@@ -155,7 +155,7 @@ const mapStateToProps = state => {
     searchParams: state.search.searchParams,
     reservations: state.reservations,
     restaurant: state.restaurants.restaurant,
-  })
+  });
 };
 
 const mapDispatchToProps = dispatch => ({

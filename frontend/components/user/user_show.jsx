@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
-import { fetchUser, destroyReservation } from '../../actions/user_actions';
+import { fetchUser } from '../../actions/user_actions';
+import { destroyReservation } from '../../actions/session_actions';
 import FontAwesome from 'react-fontawesome';
 import ReservationsSnippet from '../restaurant/reservations';
 import Scrollchor from 'react-scrollchor';
@@ -20,11 +21,6 @@ class UserShow extends React.Component {
     if (parseInt(this.props.routeParams.userId) !== this.props.currentUser.id) {
       this.props.router.push('/');
     }
-    // else {
-    //   this.props.setCurrentModal({hidden: false, type: 'spinner'});
-    //   this.props.fetchUser(this.props.currentUser.id)
-    //     .then(() => this.props.resetCurrentModal());
-    // }
   }
 
   handleCancel(e) {
@@ -62,6 +58,7 @@ class UserShow extends React.Component {
 
   getUpcoming() {
     const reservations = this.props.currentUser.reservations.filter(reservation => this.setUpcoming(reservation));
+
     return (
       reservations.map((reservation) => {
         return (
@@ -163,6 +160,7 @@ const mapStateToProps = state => {
   return ({
     currentUser: state.session.currentUser,
     favorites: state.favorites,
+    reservations: state.session.currentUser.reservations,
   })
 }
 

@@ -14,10 +14,6 @@ const UsersReducer = (state = _nullUser, action) => {
       let updateState = Object.assign({}, state);
       merge(updateState.reservations.find(el => el.res_id === action.reservation.res_id), action.reservation);
       return updateState;
-    case RECEIVE_DESTROY_RESERVATION:
-      let newState = merge({}, state);
-      newState.reservations = newState.reservations.filter((res) => res.res_id !== action.id)
-      return newState;
     default:
       return state;
   }
