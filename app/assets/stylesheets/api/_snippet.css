@@ -57,6 +57,6 @@
   color: lightgray;
 }
 
-#no-hover:hover {
-  cursor: default;
+.no-hover * {
+  cursor: default !important;
 }

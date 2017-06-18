@@ -6,6 +6,7 @@ import FavoriteBox from '../favorite/favorite_box';
 const RestaurantSnippet = ({ restaurant }) => {
   const overallRating = Math.floor(restaurant.ratings.rating/restaurant.ratings.total*2)/2;
   const overallValue = Math.floor(restaurant.ratings.value/restaurant.ratings.total*2)/2;
+  const stars = 'stars'
 
   return (
     <section className='snippet-section'>
@@ -20,22 +21,24 @@ const RestaurantSnippet = ({ restaurant }) => {
             {restaurant.restaurant_name}
           </Link>
         </h4>
-        <ReactStars
-          id='no-hover'
-          count={5}
-          edit={false}
-          value={overallRating}
-          />
+        <article className='no-hover'>
+          <ReactStars
+            count={5}
+            edit={false}
+            value={overallRating}
+            />
+        </article>
         <h4 className="detail-fade">{restaurant.cuisine} | {restaurant.city_name}, {restaurant.state}</h4>
       </article>
       <article className='snippet-price'>
-        <ReactStars
-          id='no-hover'
-          count={5}
-          edit={false}
-          value={overallValue}
-          char='$'
-          />
+        <article className='no-hover'>
+          <ReactStars
+            count={5}
+            edit={false}
+            value={overallValue}
+            char='$'
+            />
+        </article>
       </article>
       <article className='snippet-review'>
         <FavoriteBox restaurantId={restaurant.id.toString()}/>
