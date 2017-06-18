@@ -18,7 +18,6 @@ import FavoriteBox from '../favorite/favorite_box';
 class RestaurantShow extends React.Component {
   constructor(props) {
     super(props);
-    this.handleFavorite = this.handleFavorite.bind(this);
   }
 
   componentWillMount() {
@@ -28,21 +27,6 @@ class RestaurantShow extends React.Component {
 
   componentWillUnmount() {
     this.props.resetRestaurant();
-  }
-
-  handleFavorite() {
-    const user_id = this.props.user_id;
-    const restaurant_id = this.props.restaurantId;
-
-    if (this.currentFavorite() === 1) {
-      this.props.addFavorite({ user_id, restaurant_id });
-    } else {
-      this.props.removeFavorite(this.props.favorites[this.props.restaurantId]);
-    }
-  }
-
-  currentFavorite() {
-    return Object.keys(this.props.favorites).includes(this.props.restaurantId) ? 1 : 0;
   }
 
   getReservations() {
@@ -64,21 +48,6 @@ class RestaurantShow extends React.Component {
         value={ rating }
         />
     );
-  }
-
-  getFavorite(favValue) {
-    const favText = favValue === 1 ? 'Favorited' : 'Add to Favorites';
-
-    return (
-      <article className='favorite' onClick={ this.handleFavorite }>
-        <ReactStars
-          count={ 1 }
-          edit={ false }
-          value={ favValue }
-          char='♡'
-          /> { favText }
-      </article>
-    )
   }
 
   getAvgRatings() {
@@ -137,7 +106,6 @@ class RestaurantShow extends React.Component {
     const averages = this.getAvgRatings();
     const reviewTopBar = this.getReviewTopBar(averages);
     const reviewSnippets = this.props.reviews.map(review => <ReviewSnippet key={review.id} review={ review } />);
-    const favorite = this.getFavorite(this.currentFavorite());
 
     return (
       <StickyContainer className='restaurant-view'>
@@ -258,7 +226,6 @@ const mapStateToProps = (state, {params}) => {
   let restaurantId = parseInt(params.restaurantId);
   return ({
     restaurantId,
-    user_id: state.session.currentUser.id,
     restaurant: state.restaurants.restaurant,
     reviews: state.reviews.reviews,
     ratings: state.reviews.ratings,

@@ -89,7 +89,6 @@ const mapStateToProps = (state, ownProps) => {
     cityId: ownProps.params.cityId,
     city: state.cities.city,
     restaurants: state.cities.city.restaurants,
-    favorites: state.session.currentUser.favorites,
   })
 }
 

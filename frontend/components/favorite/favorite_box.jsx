@@ -12,14 +12,18 @@ class FavoriteBox extends React.Component {
   }
 
   handleAdd() {
-    this.props.addFavorite({
-      user_id: this.props.user_id,
-      restaurant_id: this.props.restaurantId
-    });
+    if (this.props.currentUser.id) {
+      this.props.addFavorite({
+        user_id: this.props.currentUser.id,
+        restaurant_id: this.props.restaurantId
+      });
+    }
   }
 
   handleRemove() {
-    this.props.removeFavorite(this.props.favorites[this.props.restaurantId]);
+    if (this.props.currentUser.id) {
+      this.props.removeFavorite(this.props.favorites[this.props.restaurantId]);
+    }
   }
 
   getFillData() {
@@ -49,7 +53,7 @@ class FavoriteBox extends React.Component {
 }
 
 const mapStateToProps = (state, { restaurantId }) => ({
-  user_id: state.session.currentUser.id,
+  currentUser: state.session.currentUser,
   favorites: state.favorites,
   restaurantId,
 });

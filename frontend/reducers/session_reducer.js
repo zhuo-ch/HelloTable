@@ -7,7 +7,7 @@ import { RECEIVE_CURRENT_USER,
 import { RECEIVE_RESERVATION } from '../actions/reservations_actions';
 
 const _nullUser = Object.freeze({
-  currentUser: null,
+  currentUser: {},
   errors: []
 });
 
@@ -25,7 +25,6 @@ const SessionReducer = (state = _nullUser, action) => {
     case LOGOUT:
       return _nullUser;
     case RECEIVE_RESERVATION:
-    debugger
       return merge({}, state, {currentUser: {reservations: [action.reservation]}});
     case RECEIVE_DESTROY_RESERVATION:
       let newStateRes = merge({}, state);
