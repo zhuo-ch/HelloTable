@@ -2,53 +2,6 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-// .featured-areas-splash {
-//   background: white;
-//   display: flex;
-//   justify-content: center;
-//   flex-direction: column;
-//   width: 80%;
-//   margin: 0 auto;
-//   border-radius: 4px;
-//   border-bottom: 1px solid grey;
-//   margin-top: 30px;
-// }
-//
-// .splash-header {
-//   display: flex;
-//   padding-left: 50px;
-// }
-//
-// .splash-images {
-//   display: flex;
-//   flex-wrap: wrap;
-//   align-self: center;
-//   width: 100%;
-//   margin: 0 auto;
-// }
-//
-//
-// .splash-img {
-//   height: 250px;
-//   width: 350px;
-//   background-size: cover;
-//   position: relative;
-// }
-//
-// .splash-img img {
-//   width: 100%;
-//   height: 100%
-// }
-//
-// .splash-img h2 {
-//   z-index: 9;
-//   position: absolute;
-//   top: 20%;
-//   left: 20%;
-//   color: white;
-// }
-
-
 .featured-areas-splash {
   background: white;
   display: flex;
@@ -90,11 +43,17 @@
 }
 
 .splash-img h2 {
-  z-index: 9;
+  z-index: 3;
   position: absolute;
   top: 20%;
   left: 20%;
   color: white;
+}
+
+.splash-img:hover {
+  opacity: 0.9;
+  font-size: 1.1em;
+  transition-duration: 0.5s;
 }
 
 .splash-city-names {

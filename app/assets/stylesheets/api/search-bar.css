@@ -21,7 +21,6 @@
   border-bottom: 1px solid gainsboro;
   border-radius: 7px;
   width: 100%;
-  /*background: -webkit-linear-gradient(left, white, #F13737);*/
 }
 
 .search-bar ul li {
@@ -60,6 +59,7 @@
 
 .search-field .input {
   border: none;
+  width: 100%;
 }
 
 .search-fields section {
@@ -98,6 +98,14 @@
 .bar-time {
   flex: 2;
   position: relative;
+}
+
+.time:hover {
+  cursor: pointer;
+}
+
+.seats:hover {
+  cursor: pointer;
 }
 
 .search-field {

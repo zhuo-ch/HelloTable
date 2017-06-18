@@ -25,6 +25,11 @@
   vertical-align: middle;
 }
 
+.snippet-img:hover {
+  opacity: 0.7;
+  transition-duration: 0.5s;
+}
+
 .snippet-info {
   display: flex;
   flex-direction: column;
@@ -46,4 +51,12 @@
   margin: 15px 10px;
   font-size: 12px;
   color: gray;
+}
+
+.snippet-section a:hover {
+  color: lightgray;
+}
+
+#no-hover:hover {
+  cursor: default;
 }

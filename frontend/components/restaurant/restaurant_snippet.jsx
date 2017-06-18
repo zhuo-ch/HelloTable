@@ -21,6 +21,7 @@ const RestaurantSnippet = ({ restaurant }) => {
           </Link>
         </h4>
         <ReactStars
+          id='no-hover'
           count={5}
           edit={false}
           value={overallRating}
@@ -29,6 +30,7 @@ const RestaurantSnippet = ({ restaurant }) => {
       </article>
       <article className='snippet-price'>
         <ReactStars
+          id='no-hover'
           count={5}
           edit={false}
           value={overallValue}
