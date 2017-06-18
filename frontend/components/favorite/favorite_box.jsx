@@ -8,6 +8,7 @@ class FavoriteBox extends React.Component {
     super(props);
     this.handleAdd = this.handleAdd.bind(this);
     this.handleRemove = this.handleRemove.bind(this);
+    this.getFillData = this.getFillData.bind(this);
   }
 
   handleAdd() {
@@ -21,22 +22,27 @@ class FavoriteBox extends React.Component {
     this.props.removeFavorite(this.props.favorites[this.props.restaurantId]);
   }
 
+  getFillData() {
+    if (this.props.favorites[this.props.restaurantId]) {
+      return { fave: 1, text: 'Favorited', toggle: this.handleRemove, cName: 'favorite-box favorited' };
+    } else {
+      return { fave: 0, text: 'Add to Favorited', toggle: this.handleAdd, cName: 'favorite-box not-favorited' };
+    }
+  }
+
   render() {
-    const favorite = this.props.favorites[this.props.restaurantId];
-    const fave = favorite ? 1 : 0;
-    const text = favorite ? 'Favorited' : 'Add to Favorites';
-    const toggle = favorite ? this.handleRemove : this.handleAdd;
+    const fillData = this.getFillData();
 
     return (
-      <section className='favorite-box' onClick={ toggle }>
+      <section className={ fillData.cName } onClick={ fillData.toggle }>
         <ReactStars
           count={1}
           edit={false}
-          value={fave}
+          value={fillData.fave}
           char='♡'
           color2={'#FF8787'}
           />
-        <h5>{ text }</h5>
+        <h5>{ fillData.text }</h5>
       </section>
     );
   }

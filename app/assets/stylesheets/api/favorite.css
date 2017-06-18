@@ -1,0 +1,25 @@
+.favorite-box {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.favorite-box h5 {
+  margin: 5px 0px;
+}
+
+.favorite-box h5:hover {
+  cursor: pointer;
+}
+
+.favorite-box div {
+  align-items: center;
+  margin: 0 5px;
+}
+
+.favorited {
+  color: #FF8787;
+}
+
+.not-favorite {
+  color: gray;
+}
