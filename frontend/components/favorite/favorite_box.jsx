@@ -26,7 +26,7 @@ class FavoriteBox extends React.Component {
     if (this.props.favorites[this.props.restaurantId]) {
       return { fave: 1, text: 'Favorited', toggle: this.handleRemove, cName: 'favorite-box favorited' };
     } else {
-      return { fave: 0, text: 'Add to Favorited', toggle: this.handleAdd, cName: 'favorite-box not-favorited' };
+      return { fave: 0, text: 'Add to Favorites', toggle: this.handleAdd, cName: 'favorite-box not-favorited' };
     }
   }
 

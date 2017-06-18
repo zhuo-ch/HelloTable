@@ -11,7 +11,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (window.currentUser) {
       const preloadedState = {
         session: { currentUser: window.currentUser, errors: []},
-        reservations: window.currentUser.reservations,
         favorites: faves(window.currentUser.favorites),
         };
       store = configureStore(preloadedState);
