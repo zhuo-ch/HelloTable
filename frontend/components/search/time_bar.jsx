@@ -20,6 +20,7 @@ class TimeBar extends React.Component {
   }
 
   handleKey(e) {
+    debugger
     if (this.state.selecting === true) {
       e.preventDefault();
       switch (e.key) {
@@ -51,7 +52,7 @@ class TimeBar extends React.Component {
       document.addEventListener('keydown', this.handleKey);
       document.addEventListener('mousedown', this.handleClick);
     } else {
-      this.setState({ selecting: false, targeted: e.currentTarget.innerText });
+      this.setState({ selecting: false, targeted: e.currentTarget.innerText ? e.currentTarget.innerText : 0 });
       this.props.setSearchParams({ time: e.currentTarget.innerText });
       document.removeEventListener('keydown', this.handleKey);
     }
