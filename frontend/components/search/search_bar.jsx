@@ -21,7 +21,6 @@ class SearchBar extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-debugger
     if (this.props.searchBoxParams.searchId === null) {
       this.setState({nullSearch: true});
       return ;

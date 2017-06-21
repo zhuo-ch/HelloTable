@@ -49,6 +49,7 @@ class TimeBar extends React.Component {
     if (e.currentTarget.id === 'time') {
       this.setState({ selecting: true });
       document.addEventListener('keydown', this.handleKey);
+      document.addEventListener('mousedown', this.handleClick);
     } else {
       this.setState({ selecting: false, targeted: e.currentTarget.innerText });
       this.props.setSearchParams({ time: e.currentTarget.innerText });
