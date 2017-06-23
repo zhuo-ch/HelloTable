@@ -17,7 +17,7 @@ class CityIndex extends React.Component {
   }
 
   handleCreate() {
-    if (this.props.currentUser) {
+    if (this.props.currentUser.id) {
       this.props.setCurrentModal({hidden: false, type: 'create'});
     } else {
       this.props.setCurrentModal({hidden: false, type: 'login'});

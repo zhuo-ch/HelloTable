@@ -28,7 +28,7 @@ class ReservationsSnippet extends React.Component {
   handleReserve(e) {
     e.preventDefault();
 
-    if (this.props.currentUser) {
+    if (this.props.currentUser.id) {
       const time = parseInt(e.currentTarget.innerText.split(":").join(""));
       const reservation = { user_id: this.props.currentUser.id, restaurant_id: this.props.restaurant.id,
         date: this.props.searchParams.date, seats: this.props.searchParams.seats, time };
