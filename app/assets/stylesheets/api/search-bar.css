@@ -45,11 +45,13 @@
 .seats-item:hover {
   background: #FF8787;
   color: white;
+  cursor: pointer;
 }
 
 .time-item:hover {
   background: #FF8787;
   color: white;
+  cursor: pointer;
 }
 
 .highlight {
