@@ -24,10 +24,7 @@ class Navbar extends React.Component {
   }
 
   rightBar() {
-    let inForm = ((this.props.formType === 'signup') || (this.props.formType === 'login')) ? false : true;
-
-    if (inForm) {
-      if (this.props.currentUser) {
+      if (this.props.currentUser.id) {
         return (
           <section className="nav-right">
             <section className='nav-welcome'>
@@ -55,8 +52,7 @@ class Navbar extends React.Component {
               Sign Up
             </button>
           </section>
-        );
-      }
+      );
     }
   }
 

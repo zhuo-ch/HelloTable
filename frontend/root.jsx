@@ -7,17 +7,18 @@ import { faves } from './selectors/favorites_selector';
 
 document.addEventListener('DOMContentLoaded', () => {
   let store;
+  let preloadedState = { session: { currentUser: {}, errors: [] }};
 
     if (window.currentUser) {
-      const preloadedState = {
-        session: { currentUser: window.currentUser, errors: []},
-        favorites: faves(window.currentUser.favorites),
-        };
-      store = configureStore(preloadedState);
-    } else {
-      store = configureStore({session:{errors: []}});
+      preloadedState = merge(
+        {}, preloadedState, {
+          session: { currentUser: window.currentUser, errors: []},
+          favorites: faves(window.currentUser.favorites),
+        }
+      );
     }
 
+  store = configureStore(preloadedState);
   const root = document.getElementById('root');
   ReactDOM.render(<Root store={store}/>, root);
 });
