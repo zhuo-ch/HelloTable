@@ -17,6 +17,13 @@ class TimeBar extends React.Component {
     this.getTimeList = this.getTimeList.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.handleKey = this.handleKey.bind(this);
+    this.handleOutsideClick = this.handleOutsideClick.bind(this);
+  }
+
+  handleOutsideClick(e) {
+    e.preventDefault();
+    this.setState({ selecting: false });
+    document.removeEventListener('keydown', this.handleKey);
   }
 
   handleKey(e) {
@@ -118,9 +125,11 @@ class TimeBar extends React.Component {
     const timeSlots = this.getTimeList();
     const currentTime = this.getCurrentTime();
     const cName = this.props.restaurantId ? 'input bar-time res-present' : 'input bar-time';
+    const wrapper = this.state.selecting ? '' : 'hidden';
 
     return (
       <section className={ cName }>
+        <div className='input-wrapper' id={ wrapper } onClick={ this.handleOutsideClick }></div> 
         { currentTime }
         { timeSlots }
       </section>

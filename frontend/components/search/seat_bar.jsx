@@ -14,6 +14,13 @@ class SeatBar extends React.Component {
     this.targeted = this.targeted.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.handleKey = this.handleKey.bind(this);
+    this.handleOutsideClick = this.handleOutsideClick.bind(this);
+  }
+
+  handleOutsideClick(e) {
+    e.preventDefault();
+    this.setState({ selecting: false });
+    document.removeEventListener('keydown', this.handleKey);
   }
 
   handleKey(e) {
@@ -105,9 +112,11 @@ class SeatBar extends React.Component {
   render() {
     const seats = this.getSeats();
     const currentSeat = this.getCurrentSeat();
+    const wrapper = this.state.selecting ? '' : 'hidden';
 
     return (
       <section className='input bar-seats'>
+        <div className='input-wrapper' id={ wrapper } onClick={ this.handleOutsideClick }></div>
         { currentSeat }
         { seats }
       </section>
