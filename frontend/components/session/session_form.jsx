@@ -26,6 +26,7 @@ class SessionForm extends React.Component {
       password: 'password'
     };
 
+    this.props.setCurrentModal({ hidden: false, type: 'spinner' });
     this.props.login(user).then(() => this.props.resetCurrentModal());
   }
 
@@ -33,6 +34,7 @@ class SessionForm extends React.Component {
    e.preventDefault();
    const action = this.props.formType === 'signup' ? this.props.signup : this.props.login;
    const user = Object.assign({}, this.state);
+   this.props.setCurrentModal({ hidden: false, type: 'spinner' });
    action(user).then(() => this.props.resetCurrentModal());
  }
 
