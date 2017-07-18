@@ -74,7 +74,7 @@ class TimeBar extends React.Component {
     let minutes = time[1] < 30 ? 0 : 30;
     let slots = new Array();
 
-    if (this.props.date === SearchAPIUtil.formatDate(new Date())) {
+    if ((this.props.date === SearchAPIUtil.formatDate(new Date())) && (new Date().getHours() > 12)) {
       startTime = (new Date().getHours() % 12) + 1;
     }
 
@@ -129,7 +129,7 @@ class TimeBar extends React.Component {
 
     return (
       <section className={ cName }>
-        <div className='input-wrapper' id={ wrapper } onClick={ this.handleOutsideClick }></div> 
+        <div className='input-wrapper' id={ wrapper } onClick={ this.handleOutsideClick }></div>
         { currentTime }
         { timeSlots }
       </section>
