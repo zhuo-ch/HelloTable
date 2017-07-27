@@ -8,7 +8,6 @@
 #
 #
 # #users
-a = User.create(username: 'Guest', email: 'guest@guest-email.com', password: 'password')
 User.create(username: 'Josie Leuschke', email: 'taurean_goodwin@loweabernathy.com', password: 'GhF4YiZeW')
 User.create(username: 'Meta Grady', email: 'ena_armstrong@rolfson.net', password: 'QySvKjZs0')
 User.create(username: 'Zachery Strosin', email: 'amaya_gutmann@veumkautzer.biz', password: '3qIdHvXnPe')
@@ -3397,7 +3396,7 @@ Reservation.all.each do |reservation|
     ambiance: rand(1..5), value: rand(1..5), details: reviews.sample)
 end
 
-a = User.first
+a = User.create(username: 'Guest', email: 'guest@guest-email.com', password: 'password')
 
 5.times do
   Reservation.create(user_id: a.id, restaurant_id: Restaurant.all.sample.id,
