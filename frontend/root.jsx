@@ -6,7 +6,6 @@ import { merge } from 'lodash';
 import { faves } from './selectors/favorites_selector';
 
 document.addEventListener('DOMContentLoaded', () => {
-  let store;
   let preloadedState = { session: { currentUser: {}, errors: [] }};
 
     if (window.currentUser) {
@@ -18,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
       );
     }
 
-  store = configureStore(preloadedState);
+  const store = configureStore(preloadedState);
   const root = document.getElementById('root');
   ReactDOM.render(<Root store={store}/>, root);
 });
