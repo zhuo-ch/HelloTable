@@ -39,7 +39,7 @@ gem 'pry-rails'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a  console
   gem 'byebug'
-  gem 'pry-rails'
+  # gem 'pry-rails'
   gem 'better_errors'
   gem 'binding_of_caller'
 end
