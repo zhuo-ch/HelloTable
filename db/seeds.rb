@@ -3385,15 +3385,19 @@ users = User.all.map { |user| user.id }
 times = [500, 530, 600, 630, 700, 730, 800, 830, 900]
 
 Restaurant.all.each do |restaurant|
-  100.times do
+  15.times do
     Reservation.create(user_id: users.sample, restaurant_id: restaurant.id,
       date: "#{rand(7..8)}-#{rand(1..28)}-2017", time: times.sample, seats: rand(6))
   end
 end
 
 Reservation.all.each do |reservation|
-  Review.create(reservation: reservation, rating: rand(1..5), food: rand(1..5), service: rand(1..5),
-    ambiance: rand(1..5), value: rand(1..5), details: reviews.sample)
+  def get_rating
+    (rand(1..5) + rand(2..5) + rand(3..5))/3
+  end
+
+  Review.create(reservation: reservation, rating: get_rating, food: get_rating, service: get_rating,
+    ambiance: get_rating, value: get_rating, details: reviews.sample)
 end
 
 a = User.create(username: 'Guest', email: 'guest@guest-email.com', password: 'password')
