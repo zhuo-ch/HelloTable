@@ -1,8 +1,7 @@
 import React from 'react';
 import ReactStars from 'react-stars';
 import { createReview } from '../../actions/review_actions';
-import { fetchUpdatedReservation } from '../../actions/user_actions';
-import { resetCurrentModal } from '../../actions/modal_actions';
+import { resetCurrentModal, setCurrentModal } from '../../actions/modal_actions';
 import { connect }from 'react-redux';
 
 class ReviewForm extends React.Component {
@@ -21,12 +20,16 @@ class ReviewForm extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  handleError() {
+    setTimeout(() => this.props.setCurrentModal({ hidden: false, type: 'reviewForm'}), 500);
+  }
+
   handleSubmit(e) {
     e.preventDefault();
     const review = Object.assign({}, this.ratings, {reservation_id: parseInt(this.props.reservation)});
+    this.props.setCurrentModal({ hidden: false, type: 'spinner' });
     this.props.createReview(review)
-      .then(this.props.resetCurrentModal())
-      .then(this.props.fetchUpdatedReservation(this.props.reservation));
+      .then(this.props.resetCurrentModal(), this.handleError());
   }
 
   handleRating(newRating) {
@@ -110,8 +113,8 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = dispatch => ({
   createReview: review => dispatch(createReview(review)),
-  fetchUpdatedReservation: id => dispatch(fetchUpdatedReservation(id)),
   resetCurrentModal: () => dispatch(resetCurrentModal()),
+  setCurrentModal: modal => dispatch(setCurrentModal(modal)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ReviewForm);

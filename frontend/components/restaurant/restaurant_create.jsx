@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { createRestaurant } from '../../actions/restaurant_actions';
-import { resetCurrentModal } from '../../actions/modal_actions';
+import { resetCurrentModal, setCurrentModal } from '../../actions/modal_actions';
 
 class CreateRestaurant extends React.Component {
   constructor(props) {
@@ -26,6 +26,7 @@ class CreateRestaurant extends React.Component {
   this.handleChange = this.handleChange.bind(this);
   this.handleSubmit = this.handleSubmit.bind(this);
   this.handleFile = this.handleFile.bind(this);
+  this.handleError = this.handleError.bind(this);
   this.renderErrors = this.renderErrors.bind(this);
   }
 
@@ -54,6 +55,10 @@ class CreateRestaurant extends React.Component {
     this.restaurant[action] = e.currentTarget.value;
   }
 
+  handleError() {
+    setTimeout(() => this.props.setCurrentModal({ hidden: false, type: 'create' }), 500);
+  }
+
   handleSubmit(e) {
     e.preventDefault();
     let formData = new FormData();
@@ -69,10 +74,11 @@ class CreateRestaurant extends React.Component {
     formData.append('restaurant[owner_id]', this.restaurant.owner_id);
     this.state.imageFiles.forEach((data, idx) => {
       formData.append('imageFiles[]', data);
-    })
+    });
 
+    this.props.setCurrentModal({ hidden: false, type: 'spinner' });
     this.props.createRestaurant(formData)
-      .then(r => this.props.router.push(`restaurant/${r.restaurant.id}`))
+      .then(r => this.props.router.push(`restaurant/${r.restaurant.id}`), () => this.handleError())
       .then(() => this.props.resetCurrentModal());
   }
 
@@ -171,7 +177,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return ({
     createRestaurant: restaurant => dispatch(createRestaurant(restaurant)),
-    resetCurrentModal: modal => dispatch(resetCurrentModal()),
+    resetCurrentModal: () => dispatch(resetCurrentModal()),
+    setCurrentModal: modal => dispatch(setCurrentModal(modal)),
   })
 };
 

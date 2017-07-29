@@ -9,6 +9,7 @@ class SessionForm extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleGuest = this.handleGuest.bind(this);
     this.handleSwitch = this.handleSwitch.bind(this);
+    this.handleError = this.handleError.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -16,6 +17,10 @@ class SessionForm extends React.Component {
       this.props.receiveErrors([]);
       this.setState({ username: "", email: "", password: ""});
     }
+  }
+
+  handleError() {
+    setTimeout( () => this.props.setCurrentModal({ hidden: false, type: this.props.formType }), 500);
   }
 
   handleGuest(e) {
@@ -30,17 +35,13 @@ class SessionForm extends React.Component {
     this.props.login(user).then(() => this.props.resetCurrentModal());
   }
 
-  handleError(e) {
-
-  }
-
   handleSubmit(e) {
    e.preventDefault();
    const action = this.props.formType === 'signup' ? this.props.signup : this.props.login;
    const user = Object.assign({}, this.state);
-   action(user)
-   .then(() => this.props.setCurrentModal({ hidden: false, type: 'spinner' }))
-   .then(() => this.props.resetCurrentModal());
+
+   this.props.setCurrentModal({ hidden: false, type: 'spinner' });
+   action(user).then(() => this.props.resetCurrentModal(), () => this.handleError());
  }
 
   handleChange(e) {

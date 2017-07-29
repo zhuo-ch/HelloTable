@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
-import { fetchUser } from '../../actions/user_actions';
 import { destroyReservation } from '../../actions/session_actions';
 import FontAwesome from 'react-fontawesome';
 import ReservationsSnippet from '../restaurant/reservations';
@@ -166,7 +165,6 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return ({
-    fetchUser: id => dispatch(fetchUser(id)),
     destroyReservation: id => dispatch(destroyReservation(id)),
     setCurrentModal: modal => dispatch(setCurrentModal(modal)),
     resetCurrentModal: () => dispatch(resetCurrentModal()),
