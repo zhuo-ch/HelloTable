@@ -30,12 +30,17 @@ class SessionForm extends React.Component {
     this.props.login(user).then(() => this.props.resetCurrentModal());
   }
 
+  handleError(e) {
+
+  }
+
   handleSubmit(e) {
    e.preventDefault();
    const action = this.props.formType === 'signup' ? this.props.signup : this.props.login;
    const user = Object.assign({}, this.state);
-   this.props.setCurrentModal({ hidden: false, type: 'spinner' });
-   action(user).then(() => this.props.resetCurrentModal());
+   action(user)
+   .then(() => this.props.setCurrentModal({ hidden: false, type: 'spinner' }))
+   .then(() => this.props.resetCurrentModal());
  }
 
   handleChange(e) {
