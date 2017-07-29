@@ -3387,7 +3387,7 @@ times = [500, 530, 600, 630, 700, 730, 800, 830, 900]
 Restaurant.all.each do |restaurant|
   15.times do
     Reservation.create(user_id: users.sample, restaurant_id: restaurant.id,
-      date: "#{rand(7..8)}-#{rand(1..28)}-2017", time: times.sample, seats: rand(6))
+      date: "#{rand(7..8)}-#{rand(1..28)}-2017", time: times.sample, seats: rand(1..6))
   end
 end
 
