@@ -23,7 +23,6 @@ class SearchBar extends React.Component {
     e.preventDefault();
     if (this.props.searchBoxParams.searchId === null) {
       this.setState({nullSearch: true});
-      return ;
     } else {
       const id = this.props.searchBoxParams.searchId;
       const type = this.props.searchBoxParams.searchType;

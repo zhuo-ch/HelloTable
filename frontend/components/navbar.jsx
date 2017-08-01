@@ -5,12 +5,23 @@ import { logout } from '../actions/session_actions';
 import FontAwesome from 'react-fontawesome';
 import Modal from './modal';
 import { setCurrentModal } from '../actions/modal_actions';
+import { formatDate, formatTime } from '../selectors/date_selectors';
 
 class Navbar extends React.Component {
   constructor(props) {
     super(props)
+    this.state = { idx: 0 };
     this.handleModal = this.handleModal.bind(this);
     this.handleLogOut = this.handleLogOut.bind(this);
+    this.increment = this.increment.bind(this);
+    this.setTimer = this.setTimer.bind(this);
+  }
+
+  componentWillMount() {
+    if (this.props.currentUser.id) {
+      this.setTimer();
+      this.setScrollType();
+    }
   }
 
   handleModal(e) {
@@ -23,7 +34,75 @@ class Navbar extends React.Component {
     this.props.logout();
   }
 
-  rightBar() {
+  getLeftBar() {
+    return (
+      <section className='nav-left'>
+        <section className='nav-logo'>
+          <Link to='/'>
+            <article>
+              <img src='/images/red-wine.png' />
+            </article>
+          </Link>
+          <Link to='/' className='logo-name'>
+            <h2>Hello Table</h2>
+          </Link>
+        </section>
+      </section>
+    );
+  }
+
+  increment() {
+    const max = this.state.max;
+    this.state.idx === max - 1 ? this.setState({ idx : 0 }) : this.setState({ idx: this.state.idx + 1 });
+  }
+
+  setScrollType() {
+    if (this.props.currentUser.reservations) {
+      this.setState({ type: 'reservations', max: this.props.currentUser.reservations.length });
+    } else if (this.props.currentUser.favorites) {
+      this.setState({ type: 'favorites', max: this.props.currentUser.favorites.length });
+    }
+  }
+
+  setTimer() {
+    setInterval(this.increment, 500);
+  }
+
+  getReservationItem() {
+    const item = this.props.currentUser.reservations[this.state.idx];
+    const date = this.props.formatDate(item.date);
+    const time = this.props.formatTime(item.time);
+
+    return (
+      <article>
+        <aside>You have an upcoming reservation!</aside>
+        <aside>
+          <span>{ date } { time }</span>
+          <span>{ item.restaurant.restaurant_name }</span>
+        </aside>
+      </article>
+    );
+  }
+
+  getFavoriteItem() {
+    const name = this.props.currentUser.favorites[this.state.idx].restaurant.restaurant_name;
+
+    return (
+      <article>Say hello to a table at { name }</article>
+    )
+  }
+
+  getMidBar() {
+    if (this.state.type === 'reservations') {
+      return this.getReservationItem();
+    } else if (this.state.type === 'favorites') {
+      return this.getFavoriteItem();
+    }
+
+    return '';
+  }
+
+  getRightBar() {
       if (this.props.currentUser.id) {
         return (
           <section className="nav-right">
@@ -58,24 +137,18 @@ class Navbar extends React.Component {
 
 
   render () {
+    const leftBar = this.getLeftBar();
+    const midBar = this.getMidBar();
+    const rightBar = this.getRightBar();
+
     return (
       <div className='navbar'>
-        <section className='nav-left'>
-          <section className='nav-logo'>
-            <Link to='/'>
-              <article>
-                <img src='/images/red-wine.png' />
-              </article>
-            </Link>
-            <Link to='/' className='logo-name'>
-              <h2>Hello Table</h2>
-            </Link>
-          </section>
-        </section>
+        { leftBar }
         <section className='nav-mid'>
+          { midBar }
         </section>
         <section className='nav-right'>
-          {this.rightBar()}
+          { rightBar }
         </section>
       </div>
     );
@@ -91,6 +164,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => ({
   logout: () => dispatch(logout()),
   setCurrentModal: modal => dispatch(setCurrentModal(modal)),
+  formatDate: date => formatDate(date),
+  formatTime: time => formatTime(time),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Navbar);
