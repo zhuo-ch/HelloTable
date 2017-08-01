@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import React from 'react';
 import FontAwesome from 'react-fontawesome';
-import { setSearchBoxParams, searchRestaurants } from '../../actions/search_actions';
+import { setSearchBoxParams, searchRestaurants, filterResults } from '../../actions/search_actions';
 
 class SearchBox extends React.Component {
   constructor(props) {
@@ -10,6 +10,8 @@ class SearchBox extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.getResults = this.getResults.bind(this);
     this.getSearchBox = this.getSearchBox.bind(this);
+    this.setDelay = this.setDelay.bind(this);
+    this.getSearchResults = this.getSearchResults.bind(this);
   }
 
   handleClick(e) {
@@ -25,11 +27,29 @@ class SearchBox extends React.Component {
     const searchTerm = e.currentTarget.value;
 
     if (searchTerm !== '') {
-      this.props.setSearchBoxParams({ searching: true, searchTerm });
-      this.props.searchRestaurants(searchTerm);
+      if (this.props.searchBoxParams.searchTerm.indexOf(searchTerm) !== -1) {
+        this.props.setSearchBoxParams({ searchTerm });
+        this.props.filterResults(searchTerm);
+      } else {
+        this.props.setSearchBoxParams({ searchTerm });
+        this.setDelay();
+      }
     } else {
       this.props.setSearchBoxParams({ searching: false, searchTerm });
     }
+  }
+
+  getSearchResults() {
+    if (this.props.searchBoxParams.searchTerm !== '') {
+      this.props.setSearchBoxParams({ searching: true });
+      this.props.searchRestaurants(this.props.searchBoxParams.searchTerm);
+    }
+  }
+
+  setDelay(searchTerm) {
+    clearTimeout(this.props.searchBoxParams.timer)
+    let timer = setTimeout(this.getSearchResults, 300);
+    this.props.setSearchBoxParams({ timer });
   }
 
   getResults() {
@@ -113,6 +133,7 @@ const mapStateToProps = (state, ownProps) => ({
 const mapDispatchToProps = dispatch => ({
   setSearchBoxParams: params => dispatch(setSearchBoxParams(params)),
   searchRestaurants: params => dispatch(searchRestaurants(params)),
+  filterResults: searchTerm => dispatch(filterResults(searchTerm)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchBox);
