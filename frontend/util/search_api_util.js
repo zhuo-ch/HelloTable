@@ -1,5 +1,4 @@
 export const searchRestaurants = (query) => {
-  console.log(new Date());
   return $.ajax({
     method: 'GET',
     url: 'api/restaurants/search',
