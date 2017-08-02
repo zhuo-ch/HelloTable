@@ -25,6 +25,16 @@ class RestaurantShow extends React.Component {
       .then(e => this.props.receiveAllReviews(e.restaurant));
   }
 
+  componentWillReceiveProps(nextProps) {
+    const nextId = nextProps.location.pathname;
+    const curId = this.props.location.pathname;
+
+    if (nextId !== curId) {
+      this.props.fetchRestaurant(nextId.slice(11, nextId.length))
+      .then(e => this.props.receiveAllReviews(e.restaurant));
+    }
+  }
+
   componentWillUnmount() {
     this.props.resetRestaurant();
   }
