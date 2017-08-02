@@ -47,8 +47,8 @@ class UserShow extends React.Component {
     return (
       reservations.map((reservation) => {
         return (
-          <section key={reservation.res_id}>
-            <article className='new-res'>
+          <section className='show-res' key={reservation.res_id}>
+            <article className='user-res'>
               <h4>
                 A table for {reservation.seats} will be set at {this.props.formatTime(reservation.time)} on {this.props.formatDate(reservation.date)}
               </h4>
@@ -69,8 +69,8 @@ class UserShow extends React.Component {
           <button className='button' value={ reservation.res_id } onClick={this.handleAddReview}>Review</button>
         );
         return (
-          <section key={reservation.res_id}>
-            <article className='new-res'>
+          <section className='show-res' key={reservation.res_id}>
+            <article className='user-res'>
               <h4>
                 We hope you enjoyed your visit on {this.props.formatDate(reservation.date)}
               </h4>
@@ -86,7 +86,7 @@ class UserShow extends React.Component {
   getFavorites() {
     return Object.keys(this.props.favorites).map(key => {
       return (
-        <section key={key}>
+        <section className='show-fav' key={key}>
           <RestaurantSnippet restaurant={this.props.favorites[key].restaurant} />
         </section>
       );

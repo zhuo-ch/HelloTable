@@ -69,14 +69,22 @@
   max-height: 80%;
 }
 
-.user-show-res .new-res {
-  width: 100%;
+.user-res {
+  width: 90%;
   display: flex;
   justify-content: space-between;
-  padding: 5px 20px;
+  color: #f13737;
+  padding: 0;
 }
 
-.new-res button {
+.user-res button {
   align-self: center;
   width: 20%;
+}
+
+.show-res {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
