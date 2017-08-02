@@ -65,30 +65,33 @@ class Navbar extends React.Component {
   }
 
   setTimer() {
-    setInterval(this.increment, 500);
+    setInterval(this.increment, 5000);
   }
 
   getReservationItem() {
     const item = this.props.currentUser.reservations[this.state.idx];
     const date = this.props.formatDate(item.date);
     const time = this.props.formatTime(item.time);
+    const text = `${time} on ${date} at ${item.restaurant.restaurant_name}`;
+    const link = `/users/${this.props.currentUser.id}`;
 
     return (
-      <article>
-        <aside>You have an upcoming reservation!</aside>
-        <aside>
-          <span>{ date } { time }</span>
-          <span>{ item.restaurant.restaurant_name }</span>
-        </aside>
-      </article>
+      <Link to={ link } className='nav-item'>
+        <aside className='nav-item-type'>Upcoming Reservation:</aside>
+        <aside>{ text }</aside>
+      </Link>
     );
   }
 
   getFavoriteItem() {
-    const name = this.props.currentUser.favorites[this.state.idx].restaurant.restaurant_name;
+    const item = this.props.currentUser.favorites[this.state.idx].restaurant;
+    const link = `/restaurant/${item.id}`;
 
     return (
-      <article>Say hello to a table at { name }</article>
+      <Link to={ link } className='nav-item'>
+        <aside className='nav-item-type'>Your Favorites:</aside>
+        <aside>{ item.restaurant_name } has open tables!</aside>
+      </Link>
     )
   }
 

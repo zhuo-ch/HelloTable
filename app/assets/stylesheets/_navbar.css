@@ -35,6 +35,33 @@
 
 .nav-mid {
   flex: 5;
+  display: flex;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.nav-item {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-size: 0.8em;
+  color: #D41010;
+  animation: 5s linear 0s infinite normal slide_up;
+}
+
+@keyframes slide_up {
+  0% { top: 100%; }
+  20% { top: 20%; }
+  80% { top: 20% }
+  100% { top: -100%; }
+}
+
+.nav-item-type {
+  align-self: center;
+  font-size: 0.7em;
+  color: darkgray;
 }
 
 .nav-right {
