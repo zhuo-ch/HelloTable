@@ -57,7 +57,9 @@ class Navbar extends React.Component {
   }
 
   setScrollType() {
-    if (this.props.currentUser.favorites) {
+    if (this.props.currentUser.reservations) {
+      this.setState({ type: 'reservations', max: this.props.currentUser.reservations.length });
+    } else if (this.props.currentUser.favorites) {
       this.setState({ type: 'favorites', max: this.props.currentUser.favorites.length });
     }
   }
