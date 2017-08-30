@@ -17,8 +17,8 @@ class Navbar extends React.Component {
     this.setTimer = this.setTimer.bind(this);
   }
 
-  componentWillMount() {
-    if (this.props.currentUser.id) {
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.currentUser !== this.currentUser) {
       this.setTimer();
       this.setScrollType();
     }
