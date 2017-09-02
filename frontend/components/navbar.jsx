@@ -14,13 +14,20 @@ class Navbar extends React.Component {
     this.handleModal = this.handleModal.bind(this);
     this.handleLogOut = this.handleLogOut.bind(this);
     this.increment = this.increment.bind(this);
-    this.setTimer = this.setTimer.bind(this);
+    this.startScroll = this.startScroll.bind(this);
+    this.stopScroll = this.stopScroll.bind(this);
+  }
+
+  componentWillMount() {
+    this.props.currentUser.id ? this.startScroll() : '';
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.currentUser !== this.currentUser) {
-      this.setTimer();
-      this.setScrollType();
+    if ((nextProps.currentUser.id) && (nextProps.currentUser !== this.props.currentUser)) {
+      this.stopScroll();
+      this.startScroll();
+    } else {
+      this.stopScroll();
     }
   }
 
@@ -64,8 +71,18 @@ class Navbar extends React.Component {
     }
   }
 
+  startScroll() {
+    this.timer = this.setTimer();
+    this.setScrollType();
+  }
+
+  stopScroll() {
+    clearInterval(this.timer);
+    this.setState({ type: '' });
+  }
+
   setTimer() {
-    setInterval(this.increment, 5000);
+    return setInterval(this.increment, 5000);
   }
 
   getReservationItem() {
