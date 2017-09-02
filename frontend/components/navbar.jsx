@@ -5,7 +5,7 @@ import { logout } from '../actions/session_actions';
 import FontAwesome from 'react-fontawesome';
 import Modal from './modal';
 import { setCurrentModal } from '../actions/modal_actions';
-import { formatDate, formatTime } from '../selectors/date_selectors';
+import { formatDate, formatTime, revertDate } from '../selectors/date_selectors';
 
 class Navbar extends React.Component {
   constructor(props) {
@@ -65,7 +65,10 @@ class Navbar extends React.Component {
 
   setScrollType() {
     if (this.props.currentUser.reservations) {
-      this.setState({ type: 'reservations', max: this.props.currentUser.reservations.length });
+      var reservations = this.filterUpcomingReservations();
+    }
+    if (this.props.currentUser.reservations && reservations.length > 0) {
+      this.setState({ type: 'reservations', reservations, max: reservations.length });
     } else if (this.props.currentUser.favorites) {
       this.setState({ type: 'favorites', max: this.props.currentUser.favorites.length });
     }
@@ -85,8 +88,16 @@ class Navbar extends React.Component {
     return setInterval(this.increment, 5000);
   }
 
+  filterUpcomingReservations() {
+    return this.props.currentUser.reservations.filter(reservation => {
+      const resDate = this.props.revertDate(reservation.date, reservation.time);
+
+      return new Date() < resDate;
+    })
+  }
+
   getReservationItem() {
-    const item = this.props.currentUser.reservations[this.state.idx];
+    const item = this.state.reservations[this.state.idx];
     const date = this.props.formatDate(item.date);
     const time = this.props.formatTime(item.time);
     const text = `${time} on ${date} at ${item.restaurant.restaurant_name}`;
@@ -186,6 +197,7 @@ const mapDispatchToProps = dispatch => ({
   setCurrentModal: modal => dispatch(setCurrentModal(modal)),
   formatDate: date => formatDate(date),
   formatTime: time => formatTime(time),
+  revertDate: (date, time) => revertDate(date, time),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Navbar);

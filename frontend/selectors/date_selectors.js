@@ -12,3 +12,10 @@ export const formatTime = time => {
   const newTime = time.toString();
   return newTime.slice(0, newTime.length-2) + ":" + newTime.slice(newTime.length-2, newTime.length);
 }
+
+export const revertDate = (date, time) => {
+  const dateArray = date.split('-');
+  const timeString = (time + 1200).toString();
+
+  return new Date(dateArray[2], dateArray[0] - 1, dateArray[1], timeString.slice(0,2) - 1, timeString.slice(2, 4));
+}
