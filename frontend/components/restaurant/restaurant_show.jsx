@@ -111,11 +111,20 @@ class RestaurantShow extends React.Component {
     )
   }
 
+  getAddress() {
+    const restaurant = this.props.restaurant;
+    debugger
+    return ({
+
+    });
+  }
+
   render() {
     const resSnippet = this.getReservations();
     const averages = this.getAvgRatings();
     const reviewTopBar = this.getReviewTopBar(averages);
     const reviewSnippets = this.props.reviews.map(review => <ReviewSnippet key={review.id} review={ review } />);
+    const address = this.getAddress();
 
     return (
       <StickyContainer className='restaurant-view'>
@@ -172,6 +181,9 @@ class RestaurantShow extends React.Component {
                 </div>
                 <div className='about-description'>
                   {this.props.restaurant.description}
+                </div>
+                <div id='map-container'>
+                  <RestaurantMap address={ address } />
                 </div>
               </div>
             </article>
