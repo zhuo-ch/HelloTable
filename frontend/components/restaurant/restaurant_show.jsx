@@ -111,12 +111,8 @@ class RestaurantShow extends React.Component {
     )
   }
 
-  getAddress() {
-    const restaurant = this.props.restaurant;
-    debugger
-    return ({
-
-    });
+  getMap() {
+    return this.props.restaurant.id ? <RestaurantMap /> : '';
   }
 
   render() {
@@ -124,7 +120,7 @@ class RestaurantShow extends React.Component {
     const averages = this.getAvgRatings();
     const reviewTopBar = this.getReviewTopBar(averages);
     const reviewSnippets = this.props.reviews.map(review => <ReviewSnippet key={review.id} review={ review } />);
-    const address = this.getAddress();
+    const map = this.getMap();
 
     return (
       <StickyContainer className='restaurant-view'>
@@ -182,9 +178,7 @@ class RestaurantShow extends React.Component {
                 <div className='about-description'>
                   {this.props.restaurant.description}
                 </div>
-                <div id='map-container'>
-                  <RestaurantMap address={ address } />
-                </div>
+                { map }
               </div>
             </article>
 
@@ -227,6 +221,7 @@ class RestaurantShow extends React.Component {
             <article>
               <h4><FontAwesome name='address-car' className="fa fa-car icon" />Address:</h4>
               { this.props.restaurant.street_address }
+              <br></br>
               {
                 this.props.restaurant.city_name + ', '
                 + this.props.restaurant.state + ' '

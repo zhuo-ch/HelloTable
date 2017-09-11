@@ -8,6 +8,7 @@ import UsersReducer from './users_reducer';
 import ReviewsReducer from './reviews_reducer';
 import ModalReducer from './modal_reducer';
 import FavoritesReducer from './favorites_reducer';
+import MapReducer from './map_reducer';
 
 export default combineReducers({
   session: SessionReducer,
@@ -19,4 +20,5 @@ export default combineReducers({
   reviews: ReviewsReducer,
   modal: ModalReducer,
   favorites: FavoritesReducer,
+  map: MapReducer,
 });
