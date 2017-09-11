@@ -1,0 +1,6 @@
+Mon	Closed,	Tue	11:30 am - 10:00 pm,	Wed	11:30 am - 10:00 pm,	Thu	11:30 am - 10:00 pm,	Fri	11:30 am - 10:00 pm,	Sat	11:30 am - 10:00 pm,	Sun	11:30 am - 9:00 pm
+Mon	11:00 am - 10:30 pm,	Tue	11:00 am - 10:30 pm,	Wed	11:00 am - 10:30 pm,	Thu	11:00 am - 10:30 pm,	Fri	11:00 am - 11:30 pm,	Sat	10:30 am - 11:30 pm,	Sun	10:30 am - 10:00 pm
+Mon	5:30 pm - 10:30 pm,	Tue	Closed,	Wed	5:30 pm - 10:30 pm,	Thu	5:30 pm - 10:30 pm,	Fri	5:30 pm - 10:30 pm,	Sat	5:30 pm - 10:30 pm,	Sun	11:00 am - 3:00 pm
+Mon	12:00 pm - 10:00 pm,	Tue	12:00 pm - 10:00 pm,	Wed	12:00 pm - 10:00 pm,	Thu	12:00 pm - 10:00 pm,	Fri	12:00 pm - 10:00 pm,	Sat	12:00 pm - 10:00 pm,	Sun	12:00 pm - 10:00 pm
+Mon	Closed,	Tue	4:00 pm - 12:00 am,	Wed	4:00 pm - 12:00 am,	Thu	4:00 pm - 12:00 am,	Fri	4:00 pm - 1:00 am,	Sat	2:00 pm - 1:00 am,	Sun	11:00 am - 3:30 pm
+Mon	1:00 pm - 2:00 am,	Tue	1:00 pm - 2:00 am,	Wed	1:00 pm - 2:00 am,	Thu	1:00 pm - 2:00 am,	Fri	1:00 pm - 2:00 am,	Sat	1:00 pm - 2:00 am,	Sun	1:00 pm - 2:00 am

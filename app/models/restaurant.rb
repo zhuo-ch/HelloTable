@@ -1,17 +1,9 @@
 class Restaurant < ActiveRecord::Base
-  validates :owner_id, :restaurant_name, :description, :street_address, :state, :restaurant_number, presence: true
+  validates :owner_id, :restaurant_name, :description, :address, :restaurant_number, presence: true
   after_initialize :ensure_rating
-  before_create :ensure_city
 
   def ensure_rating
     Rating.create(restaurant: self) unless self.rating
-  end
-
-  def ensure_city
-    if self.state != ''
-      city = City.where("lower(state) = ?", self.state.downcase).first
-      self.city_id = city.id
-    end
   end
 
   def get_reservations(date, time)

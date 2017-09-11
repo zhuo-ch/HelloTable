@@ -29,7 +29,7 @@ gem 'figaro'
 gem 'aws-sdk'
 gem 'faker'
 gem 'pry-rails'
-
+gem 'rest-client'
 # Use Unicorn as the app server
 # gem 'unicorn'
 
@@ -42,6 +42,7 @@ group :development, :test do
   # gem 'pry-rails'
   gem 'better_errors'
   gem 'binding_of_caller'
+  gem 'faker'
 end
 
 group :development do

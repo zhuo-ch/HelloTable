@@ -1,0 +1,64 @@
+Pizza
+Latin American
+Greek
+Bakery
+Modern American
+Kosher
+American
+Tapas
+Brazilian
+Sandwiches/Subs
+Mediterranean
+Diner
+Pakistani
+French
+Salads
+Donuts
+Vietnamese
+Japanese
+Seafood
+Tex-Mex
+Desserts/Ice Cream
+Cuban
+Tacos
+Soups
+Middle Eastern
+Mexican
+Steakhouse
+Indian
+English/Irish
+Buffet
+Hot Dogs/Sausages
+Dim Sum
+Chicken
+European
+Eastern European
+Asian
+Chinese
+Pub Food
+Organic
+Coffee
+Burgers
+Wine Bar
+Peruvian
+Sushi
+Tea
+Thai
+Spanish
+Vegetarian
+Bagels
+Smoothies
+Fast Food
+Noodle Shop
+Southern/Soul
+Italian
+Barbecue
+Delicatessen
+International
+Caribbean
+Breakfast/Brunch
+Turkish
+African
+Korean
+Gastropub
+German
