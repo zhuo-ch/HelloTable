@@ -53,7 +53,8 @@ class TimeBar extends React.Component {
 
   handleClick(e) {
     e.preventDefault();
-    if (e.currentTarget.id === 'time') {
+
+    if (e.currentTarget.className === 'time') {
       this.setState({ selecting: true });
       document.addEventListener('keydown', this.handleKey);
     } else {
