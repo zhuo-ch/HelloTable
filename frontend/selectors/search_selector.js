@@ -6,7 +6,7 @@ export const searchSelector = restaurants => {
 };
 
 export const restaurantFilter = (restaurants, searchTerm) => {
-  return restaurants.filter(res  => res.restaurant_name.toLowerCase().indexOf(searchTerm) > -1);
+  return restaurants.filter(res  => res.name.toLowerCase().indexOf(searchTerm) > -1);
 }
 
 export const cityFilter = (cities, searchTerm) => {

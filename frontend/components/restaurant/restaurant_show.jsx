@@ -132,14 +132,14 @@ class RestaurantShow extends React.Component {
             </section>
           </div>
           <div className='splash-details grey-right'>
-            <section className="splash-name"><h1>{this.props.restaurant.restaurant_name}</h1></section>
+            <section className="splash-name"><h1>{this.props.restaurant.name}</h1></section>
             <section className="splash-ratings">
               { this.getStarRating(averages.rating) }
             </section>
             <section className='splash-info'>
               <section className='info-details'>
                 <h5 className='splash-cuisine'>{this.props.restaurant.cuisine}</h5>
-                <h5 className='splash-location'>{this.props.restaurant.name}, {this.props.restaurant.state}</h5>
+                <h5 className='splash-location'>{address.city}</h5>
               </section>
               <section className="fav-section">
                 <FavoriteBox restaurantId={ this.props.restaurantId } />
@@ -174,7 +174,7 @@ class RestaurantShow extends React.Component {
             <article className='restaurant-about' id="about">
               <div className='about-text'>
                 <div className='about-header'>
-                  <h2>About {this.props.restaurant.restaurant_name}</h2>
+                  <h2>About {this.props.restaurant.name}</h2>
                 </div>
                 <div className='about-description'>
                   {this.props.restaurant.description}
@@ -189,7 +189,7 @@ class RestaurantShow extends React.Component {
 
             <article className='reviews-section' id='reviews'>
               <section className='reviews-section-bar'>
-                <h1>{this.props.restaurant.restaurant_name} Ratings and Reviews</h1>
+                <h1>{this.props.restaurant.name} Ratings and Reviews</h1>
                 { reviewTopBar }
               </section>
                 { reviewSnippets }
@@ -214,9 +214,9 @@ class RestaurantShow extends React.Component {
             <article>
               <h4><FontAwesome name='phone-mobile' className="fa fa-mobile icon" />Phone Number:</h4>
               {
-                '(' + this.props.restaurant.restaurant_number.slice(0, 3)
-                + ') ' + this.props.restaurant.restaurant_number.slice(3, 6)
-                + ' - ' + this.props.restaurant.restaurant_number.slice(6, 10)
+                '(' + this.props.restaurant.phone.slice(0, 3)
+                + ') ' + this.props.restaurant.phone.slice(3, 6)
+                + ' - ' + this.props.restaurant.phone.slice(6, 10)
               }
             </article>
             <article>

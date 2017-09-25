@@ -21,7 +21,7 @@ const RestaurantSnippet = ({ restaurant }) => {
       <article className='snippet-info'>
         <h4>
           <Link to={`restaurant/${restaurant.id}`}>
-            {restaurant.restaurant_name}
+            {restaurant.name}
           </Link>
         </h4>
         <article className='no-hover'>

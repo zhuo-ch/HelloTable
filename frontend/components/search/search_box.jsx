@@ -74,7 +74,7 @@ class SearchBox extends React.Component {
         onClick={ this.handleClick }
         id={ res.id }
         type='restaurant'>
-        { res.restaurant_name }, { city } { state }
+        { res.name }, { city } { state }
       </li>);
     });
 

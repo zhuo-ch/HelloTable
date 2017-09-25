@@ -24,8 +24,8 @@ def generate_restaurant(restaurant, city_id, cuisines, hours, descriptions, user
   Restaurant.create(
     owner_id: users.sample,
     city_id: city_id,
-    restaurant_name: restaurant["name"],
-    restaurant_number: Faker::Number.number(10),
+    name: restaurant["name"],
+    phone: Faker::Number.number(10),
     cuisine: cuisines.sample,
     hours: hours.sample,
     site: Faker::Internet.domain_name,

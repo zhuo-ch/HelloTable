@@ -100,7 +100,7 @@ class Navbar extends React.Component {
     const item = this.state.reservations[this.state.idx];
     const date = this.props.formatDate(item.date);
     const time = this.props.formatTime(item.time);
-    const text = `${time} on ${date} at ${item.restaurant.restaurant_name}`;
+    const text = `${time} on ${date} at ${item.restaurant.name}`;
     const link = `/users/${this.props.currentUser.id}`;
 
     return (
@@ -118,7 +118,7 @@ class Navbar extends React.Component {
     return (
       <Link to={ link } className='nav-item'>
         <aside className='nav-item-type'>Your Favorites:</aside>
-        <aside>{ item.restaurant_name } has open tables!</aside>
+        <aside>{ item.name } has open tables!</aside>
       </Link>
     )
   }

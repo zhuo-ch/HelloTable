@@ -4,7 +4,7 @@ class Api::RestaurantsController < ApplicationController
     if params[:cityId]
       @restaurants = Restaurant.includes(:rating).includes(:reviews).includes(:photos).where("state = ?", City.find(params[:cityId]).state)
     elsif params[:query]
-      @restaurants = Restaurant.includes(:rating).includes(:reviews).includes(:photos).where("restaurant_name ~ ?", params[:query]);
+      @restaurants = Restaurant.includes(:rating).includes(:reviews).includes(:photos).where("name ~ ?", params[:query]);
     else
       render json: ['No results found'], status: 422
     end
@@ -33,7 +33,7 @@ class Api::RestaurantsController < ApplicationController
 
   def search
     if params[:query].present?
-      @restaurants = Restaurant.where("lower(restaurant_name) ~ ?", params[:query].downcase) || []
+      @restaurants = Restaurant.where("lower(name) ~ ?", params[:query].downcase) || []
       @cities = City.where("lower(name) ~ ?", params[:query].downcase) || []
     else
       @restaurants = Restaurant.none
@@ -62,8 +62,7 @@ class Api::RestaurantsController < ApplicationController
 
   private
   def restaurant_params
-    params.require(:restaurant).permit(:owner_id, :restaurant_name,
-      :restaurant_number, :cuisine, :description, :hours, :site, :city_name,
-      :state, :street_address, :zip, :city_id)
+    params.require(:restaurant).permit(:owner_id, :name,
+      :phone, :cuisine, :description, :hours, :site, :address, :location, :city_id)
   end
 end

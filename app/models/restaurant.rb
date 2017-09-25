@@ -1,5 +1,5 @@
 class Restaurant < ActiveRecord::Base
-  validates :owner_id, :restaurant_name, :description, :address, :restaurant_number, presence: true
+  validates :owner_id, :name, :description, :address, :phone, presence: true
   after_initialize :ensure_rating
 
   def ensure_rating

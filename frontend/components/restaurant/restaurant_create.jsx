@@ -8,8 +8,8 @@ class CreateRestaurant extends React.Component {
   constructor(props) {
     super(props);
     this.state = {imageUrls: [], imageFiles: []}
-    this.restaurant = { restaurant_name: '',
-                      restaurant_number: '',
+    this.restaurant = { name: '',
+                      phone: '',
                       description: '',
                       hours: '',
                       cuisine: '',
@@ -62,8 +62,8 @@ class CreateRestaurant extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     let formData = new FormData();
-    formData.append('restaurant[restaurant_name]', this.restaurant.restaurant_name);
-    formData.append('restaurant[restaurant_number]', this.restaurant.restaurant_number);
+    formData.append('restaurant[name]', this.restaurant.name);
+    formData.append('restaurant[phone]', this.phone);
     formData.append('restaurant[description]', this.restaurant.description);
     formData.append('restaurant[hours]', this.restaurant.hours);
     formData.append('restaurant[cuisine]', this.restaurant.cuisine);
@@ -98,7 +98,7 @@ class CreateRestaurant extends React.Component {
             <section className='create-top'>
               <section className='create-left'>
                 <input type='text' className='restaurant_name input'
-                  name='restaurant_name'
+                  name='name'
                   onChange={this.handleChange}
                   placeholder='Name of Your Restaurant'></input>
                 <input type='text' className='description input'
@@ -114,7 +114,7 @@ class CreateRestaurant extends React.Component {
                   onChange={this.handleChange}
                   placeholder='Type of Cuisine'></input>
                 <input type='text' className='restaurant_number input'
-                  name='restaurant_number'
+                  name='phone'
                   onChange={this.handleChange}
                   placeholder='Contact Phone Number'></input>
                 <input type='text' className='street_address input'
