@@ -31,8 +31,8 @@ class CityIndex extends React.Component {
       cities.push(
         <li className='splash-img' key={id}>
           <Link to={`cities/${id}`} >
-            <img src={ this.props.cities[id].image_url } alt={this.props.cities[id].city_name}/>
-            <h2>{ this.props.cities[id].city_name }</h2>
+            <img src={ this.props.cities[id].image_url } alt={this.props.cities[id].name}/>
+            <h2>{ this.props.cities[id].name }</h2>
           </Link>
         </li>
       )
@@ -42,7 +42,7 @@ class CityIndex extends React.Component {
       return (
         <li className='splash-city-name' key={id}>
           <Link to={`cities/${id}`} >
-            <h4>{ this.props.cities[id].city_name }</h4>
+            <h4>{ this.props.cities[id].name }</h4>
           </Link>
         </li>
       )

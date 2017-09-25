@@ -1,5 +1,5 @@
 json.extract! @restaurant, :id, :owner_id, :restaurant_name, :street_address,
-  :city_name, :state, :restaurant_number, :cuisine, :description, :hours, :site, :zip
+  :name, :state, :restaurant_number, :cuisine, :description, :hours, :site, :zip
 json.ratings @restaurant.rating, :total, :rating, :food, :service, :ambiance, :value
 json.reviews @restaurant.reviews do |review|
   json.extract! review, :id, :reservation_id, :rating, :details, :food, :service, :ambiance, :value

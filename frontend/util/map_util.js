@@ -7,7 +7,7 @@ export const fetchMapData = address => {
 
 export const parseAddress = restaurant => {
   const street = parseLine(restaurant.street_address);
-  const city = parseLine(restaurant.city_name);
+  const city = parseLine(restaurant.name);
 
   return `${street},+${city},+${restaurant.state}`;
 }

@@ -60,7 +60,7 @@ class SearchBox extends React.Component {
         onClick={ this.handleClick }
         id={ city.id }
         type='cities'>
-        { city.city_name } { city.state }
+        { city.name } { city.state }
       </li>);
     });
 
@@ -69,7 +69,7 @@ class SearchBox extends React.Component {
         onClick={ this.handleClick }
         id={ res.id }
         type='restaurant'>
-        { res.restaurant_name } { res.city_name } { res.state }
+        { res.restaurant_name } { res.city.name } { res.state }
       </li>);
     });
 

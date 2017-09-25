@@ -14,7 +14,7 @@ class CreateRestaurant extends React.Component {
                       hours: '',
                       cuisine: '',
                       street_address: '',
-                      city_name: '',
+                      name: '',
                       state: '',
                       site: '',
                       lat: '',
@@ -68,7 +68,7 @@ class CreateRestaurant extends React.Component {
     formData.append('restaurant[hours]', this.restaurant.hours);
     formData.append('restaurant[cuisine]', this.restaurant.cuisine);
     formData.append('restaurant[street_address]', this.restaurant.street_address);
-    formData.append('restaurant[city_name]', this.restaurant.city_name);
+    formData.append('restaurant[name]', this.restaurant.name);
     formData.append('restaurant[state]', this.restaurant.state);
     formData.append('restaurant[site]', this.restaurant.site);
     formData.append('restaurant[owner_id]', this.restaurant.owner_id);
@@ -121,8 +121,8 @@ class CreateRestaurant extends React.Component {
                   name='street_address'
                   onChange={this.handleChange}
                   placeholder='Street Address'></input>
-                <input type='text' className='city_name input'
-                  name='city_name'
+                <input type='text' className='city-name input'
+                  name='city-name'
                   onChange={this.handleChange}
                   placeholder='City'></input>
                 <input type='text' className='state input'

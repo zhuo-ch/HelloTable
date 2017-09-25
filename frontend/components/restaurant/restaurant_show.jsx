@@ -138,7 +138,7 @@ class RestaurantShow extends React.Component {
             <section className='splash-info'>
               <section className='info-details'>
                 <h5 className='splash-cuisine'>{this.props.restaurant.cuisine}</h5>
-                <h5 className='splash-location'>{this.props.restaurant.city_name}, {this.props.restaurant.state}</h5>
+                <h5 className='splash-location'>{this.props.restaurant.name}, {this.props.restaurant.state}</h5>
               </section>
               <section className="fav-section">
                 <FavoriteBox restaurantId={ this.props.restaurantId } />
@@ -223,7 +223,7 @@ class RestaurantShow extends React.Component {
               { this.props.restaurant.street_address }
               <br></br>
               {
-                this.props.restaurant.city_name + ', '
+                this.props.restaurant.name + ', '
                 + this.props.restaurant.state + ' '
                 + this.props.restaurant.zip
               }

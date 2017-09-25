@@ -7,12 +7,12 @@ end
 
 # cities
 
-a = City.create(city_name: "New York", state: "NY", latLng: "40.7230025,-74.3059752", image: File.new("app/assets/images/nyc.jpg"))
-b = City.create(city_name: "Boston", state: "MA", latLng: "42.3145186,-71.1103692", image: File.new("app/assets/images/boston.jpg"))
-c = City.create(city_name: "Los Angeles", state: "CA", latLng: "34.0207305,-118.6919263", image: File.new("app/assets/images/la.jpg"))
-d = City.create(city_name: "Seattle", state: "WA", latLng: "47.6131746,-122.4821489", image: File.new("app/assets/images/seattle.jpg"))
-e = City.create(city_name: "Houston", state: "TX", latLng: "29.8174782,-95.6814872", image: File.new("app/assets/images/houston.jpg"))
-f = City.create(city_name: "Miami", state: "FL", latLng: "25.7825453,-80.2994991", image: File.new("app/assets/images/miami.jpg"))
+a = City.create(name: "New York", state: "NY", latLng: "40.7230025,-74.3059752", image: File.new("app/assets/images/nyc.jpg"))
+b = City.create(name: "Boston", state: "MA", latLng: "42.3145186,-71.1103692", image: File.new("app/assets/images/boston.jpg"))
+c = City.create(name: "Los Angeles", state: "CA", latLng: "34.0207305,-118.6919263", image: File.new("app/assets/images/la.jpg"))
+d = City.create(name: "Seattle", state: "WA", latLng: "47.6131746,-122.4821489", image: File.new("app/assets/images/seattle.jpg"))
+e = City.create(name: "Houston", state: "TX", latLng: "29.8174782,-95.6814872", image: File.new("app/assets/images/houston.jpg"))
+f = City.create(name: "Miami", state: "FL", latLng: "25.7825453,-80.2994991", image: File.new("app/assets/images/miami.jpg"))
 
 # restaurants
 cuisines = File.open("app/assets/cuisine.txt", "r").readlines.map { |line| line.chomp }
@@ -116,10 +116,10 @@ guest.reservations.each do |reservation|
 end
 
 5.times do
-  Reservation.create(user_id: a.id, restaurant_id: Restaurant.all.sample.id,
+  Reservation.create(user_id: guest.id, restaurant_id: Restaurant.all.sample.id,
     date: "#{rand(8..9)}-" + "#{rand(1..30)}" + "-2017", time: times.sample, seats: rand(6))
 end
 
 5.times do |user|
-  Favorite.create(user_id: a.id, restaurant_id: Restaurant.all.sample.id)
+  Favorite.create(user_id: guest.id, restaurant_id: Restaurant.all.sample.id)
 end

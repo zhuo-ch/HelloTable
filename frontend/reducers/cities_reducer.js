@@ -3,7 +3,7 @@ import { RECEIVE_ALL_CITIES, RECEIVE_CITY } from '../actions/city_actions';
 
 const _nullCities = {
   city: {
-    city_name: "",
+    name: "",
     main_photo: "",
     restaurants: [],
   }

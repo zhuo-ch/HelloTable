@@ -28,7 +28,7 @@ const RestaurantSnippet = ({ restaurant }) => {
             value={overallRating}
             />
         </article>
-        <h4 className="detail-fade">{restaurant.cuisine} | {restaurant.city_name}, {restaurant.state}</h4>
+        <h4 className="detail-fade">{restaurant.cuisine} | {restaurant.name}, {restaurant.state}</h4>
       </article>
       <article className='snippet-price'>
         <article className='no-hover'>
