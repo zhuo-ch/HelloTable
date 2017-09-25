@@ -63,12 +63,16 @@ class CityShow extends React.Component {
     );
   }
 
+  getSnippets(restaurants) {
+    return restaurants.map((restaurant) => {
+      return (<RestaurantSnippet restaurant={restaurant} key={restaurant.id}/>);
+    });
+  }
+
   render() {
     const filterBar = this.getFilter();
     const restaurants = this.filterRestaurants();
-    const Snippets = restaurants.map((restaurant) => {
-      return (<RestaurantSnippet restaurant={restaurant} key={restaurant.id}/>);
-    });
+    const Snippets = getSnippets(restaurants);
 
     return (
       <div className='restaurants-index'>
