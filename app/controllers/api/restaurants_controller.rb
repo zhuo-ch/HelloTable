@@ -1,6 +1,7 @@
 class Api::RestaurantsController < ApplicationController
 
   def index
+    debugger
     if params[:cityId]
       @restaurants = Restaurant.includes(:rating).includes(:reviews).includes(:photos).where("state = ?", City.find(params[:cityId]).state)
     elsif params[:query]
@@ -34,7 +35,7 @@ class Api::RestaurantsController < ApplicationController
   def search
     if params[:query].present?
       @restaurants = Restaurant.where("lower(restaurant_name) ~ ?", params[:query].downcase) || []
-      @cities = City.where("lower(city_name) ~ ?", params[:query].downcase) || []
+      @cities = City.where("lower(name) ~ ?", params[:query].downcase) || []
     else
       @restaurants = Restaurant.none
       @cities = Cities.none

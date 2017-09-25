@@ -6,7 +6,7 @@ export const fetchMapData = address => {
 }
 
 export const parseAddress = address => {
-  address = address.split(',');
+  address = address.split(', ');
   const street = address[0];
   const city = [address[1], address[2]].join(', ');
   const country = address[3];

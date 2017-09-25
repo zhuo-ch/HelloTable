@@ -10,5 +10,5 @@ export const restaurantFilter = (restaurants, searchTerm) => {
 }
 
 export const cityFilter = (cities, searchTerm) => {
-  return cities.filter(city => city.city_name.toLowerCase().indexOf(searchTerm) > -1);
+  return cities.filter(city => city.name.toLowerCase().indexOf(searchTerm) > -1);
 }

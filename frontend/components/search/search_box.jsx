@@ -2,6 +2,7 @@ import { connect } from 'react-redux';
 import React from 'react';
 import FontAwesome from 'react-fontawesome';
 import { setSearchBoxParams, searchRestaurants, filterResults } from '../../actions/search_actions';
+import * as MapUtil from '../../util/map_util';
 
 class SearchBox extends React.Component {
   constructor(props) {
@@ -65,11 +66,15 @@ class SearchBox extends React.Component {
     });
 
     const restaurants = this.props.restaurants.map((res) => {
+      const address = MapUtil.parseAddress(res.address).city.split(', ');
+      const city = address[0];
+      const state = address[1].split(' ')[0];
+
       return (<li key={ res.id }
         onClick={ this.handleClick }
         id={ res.id }
         type='restaurant'>
-        { res.restaurant_name } { res.city.name } { res.state }
+        { res.restaurant_name }, { city } { state }
       </li>);
     });
 
