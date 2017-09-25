@@ -1,7 +1,6 @@
 class Api::RestaurantsController < ApplicationController
 
   def index
-    debugger
     if params[:cityId]
       @restaurants = Restaurant.includes(:rating).includes(:reviews).includes(:photos).where("state = ?", City.find(params[:cityId]).state)
     elsif params[:query]

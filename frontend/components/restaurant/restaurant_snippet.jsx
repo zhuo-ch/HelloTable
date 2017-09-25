@@ -2,11 +2,14 @@ import React from 'react';
 import { Link } from 'react-router';
 import ReactStars from 'react-stars';
 import FavoriteBox from '../favorite/favorite_box';
+import * as MapUtil from '../../util/map_util';
 
 const RestaurantSnippet = ({ restaurant }) => {
   const overallRating = Math.floor(restaurant.ratings.rating/restaurant.ratings.total*2)/2;
   const overallValue = Math.floor(restaurant.ratings.value/restaurant.ratings.total*2)/2;
-  const stars = 'stars'
+  const stars = 'stars';
+  const address = MapUtil.parseAddress(restaurant.address).city.split(', ');
+  const state = address[1].split(' ')[0];
 
   return (
     <section className='snippet-section'>
@@ -28,7 +31,7 @@ const RestaurantSnippet = ({ restaurant }) => {
             value={overallRating}
             />
         </article>
-        <h4 className="detail-fade">{restaurant.cuisine} | {restaurant.name}, {restaurant.state}</h4>
+        <h4 className="detail-fade">{ restaurant.cuisine } | { address[0] }, { state }</h4>
       </article>
       <article className='snippet-price'>
         <article className='no-hover'>

@@ -73,7 +73,7 @@ class CityShow extends React.Component {
     const filterBar = this.getFilter();
     const restaurants = this.filterRestaurants();
     const snippets = this.getSnippets(restaurants);
-debugger
+
     return (
       <div className='restaurants-index'>
         <section className='restaurants-index-splash'>

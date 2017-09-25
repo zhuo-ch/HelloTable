@@ -15,8 +15,6 @@ const CitiesReducer = (state = _nullCities, action) => {
     case RECEIVE_ALL_CITIES:
       return merge({}, state, action.cities);
     case RECEIVE_CITY:
-      const city = merge({}, state, { city: action.city });
-      debugger
       return merge({}, state, { city: action.city });
     default:
       return state;

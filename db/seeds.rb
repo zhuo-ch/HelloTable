@@ -7,12 +7,12 @@ end
 
 # cities
 
-a = City.create(name: "New York", state: "NY", latLng: "40.7230025,-74.3059752", image: File.new("app/assets/images/nyc.jpg"))
-b = City.create(name: "Boston", state: "MA", latLng: "42.3145186,-71.1103692", image: File.new("app/assets/images/boston.jpg"))
-c = City.create(name: "Los Angeles", state: "CA", latLng: "34.0207305,-118.6919263", image: File.new("app/assets/images/la.jpg"))
-d = City.create(name: "Seattle", state: "WA", latLng: "47.6131746,-122.4821489", image: File.new("app/assets/images/seattle.jpg"))
-e = City.create(name: "Houston", state: "TX", latLng: "29.8174782,-95.6814872", image: File.new("app/assets/images/houston.jpg"))
-f = City.create(name: "Miami", state: "FL", latLng: "25.7825453,-80.2994991", image: File.new("app/assets/images/miami.jpg"))
+a = City.create(name: "New York", state: "NY", latLng: "40.730610, -73.935242", image: File.new("app/assets/images/nyc.jpg"))
+b = City.create(name: "Boston", state: "MA", latLng: "42.361145, -71.057083", image: File.new("app/assets/images/boston.jpg"))
+c = City.create(name: "Los Angeles", state: "CA", latLng: "34.052235, -118.243683", image: File.new("app/assets/images/la.jpg"))
+d = City.create(name: "Seattle", state: "WA", latLng: "47.608013, -122.335167", image: File.new("app/assets/images/seattle.jpg"))
+e = City.create(name: "Houston", state: "TX", latLng: "29.761993, -95.366302", image: File.new("app/assets/images/houston.jpg"))
+f = City.create(name: "Miami", state: "FL", latLng: "25.761681, -80.191788", image: File.new("app/assets/images/miami.jpg"))
 
 # restaurants
 cuisines = File.open("app/assets/cuisine.txt", "r").readlines.map { |line| line.chomp }
