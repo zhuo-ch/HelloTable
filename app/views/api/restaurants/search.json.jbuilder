@@ -3,6 +3,6 @@ json.cities @cities.each do |city|
 end
 json.restaurants @restaurants.each do |restaurant|
   json.set! restaurant.id do
-  json.extract! restaurant, :restaurant_name, :id, :name, :address, :location
+  json.extract! restaurant, :restaurant_name, :id, :address, :location
   end
 end

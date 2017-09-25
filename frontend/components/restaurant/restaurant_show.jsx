@@ -14,6 +14,7 @@ import { addFavorite, removeFavorite } from '../../actions/favorites_actions';
 import ReviewSnippet from '../review/review_snippet';
 import ReactStars from 'react-stars';
 import FavoriteBox from '../favorite/favorite_box';
+import * as MapUtil from '../../util/map_util';
 
 class RestaurantShow extends React.Component {
   constructor(props) {
@@ -111,16 +112,16 @@ class RestaurantShow extends React.Component {
     )
   }
 
-  getMap() {
-    return this.props.restaurant.id ? <RestaurantMap /> : '';
-  }
+  // getMap() {
+  //   return this.props.restaurant.id ? <RestaurantMap /> : '';
+  // }
 
   render() {
     const resSnippet = this.getReservations();
     const averages = this.getAvgRatings();
     const reviewTopBar = this.getReviewTopBar(averages);
     const reviewSnippets = this.props.reviews.map(review => <ReviewSnippet key={review.id} review={ review } />);
-    const map = this.getMap();
+    const address = this.props.restaurant.id ? MapUtil.parseAddress(this.props.restaurant.address) : '';
 
     return (
       <StickyContainer className='restaurant-view'>
@@ -178,7 +179,7 @@ class RestaurantShow extends React.Component {
                 <div className='about-description'>
                   {this.props.restaurant.description}
                 </div>
-                { map }
+
               </div>
             </article>
 
@@ -220,13 +221,11 @@ class RestaurantShow extends React.Component {
             </article>
             <article>
               <h4><FontAwesome name='address-car' className="fa fa-car icon" />Address:</h4>
-              { this.props.restaurant.street_address }
+              { address.street }
               <br></br>
-              {
-                this.props.restaurant.name + ', '
-                + this.props.restaurant.state + ' '
-                + this.props.restaurant.zip
-              }
+              { address.city }
+              <br></br>
+              { address.country }
             </article>
             <article>
               <h4><FontAwesome name='web-wifi' className="fa fa-wifi icon" />Website:</h4>

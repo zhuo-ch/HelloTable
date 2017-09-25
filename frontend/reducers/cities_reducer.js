@@ -4,7 +4,7 @@ import { RECEIVE_ALL_CITIES, RECEIVE_CITY } from '../actions/city_actions';
 const _nullCities = {
   city: {
     name: "",
-    main_photo: "",
+    image_url: "",
     restaurants: [],
   }
 }
@@ -15,9 +15,9 @@ const CitiesReducer = (state = _nullCities, action) => {
     case RECEIVE_ALL_CITIES:
       return merge({}, state, action.cities);
     case RECEIVE_CITY:
-      // const restaurants = action.city.restaurants
-      // const city = merge({}, action.city, {restaurants})
-      return merge({}, state, {city});
+      const city = merge({}, state, { city: action.city });
+      debugger
+      return merge({}, state, { city: action.city });
     default:
       return state;
   }

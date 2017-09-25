@@ -72,8 +72,8 @@ class CityShow extends React.Component {
   render() {
     const filterBar = this.getFilter();
     const restaurants = this.filterRestaurants();
-    const Snippets = getSnippets(restaurants);
-
+    const snippets = this.getSnippets(restaurants);
+debugger
     return (
       <div className='restaurants-index'>
         <section className='restaurants-index-splash'>
@@ -81,7 +81,7 @@ class CityShow extends React.Component {
         </section>
         <section className='restaurant-snippets'>
           { filterBar }
-          { Snippets }
+          { snippets }
         </section>
       </div>
     )

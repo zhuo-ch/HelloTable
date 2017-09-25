@@ -5,11 +5,13 @@ export const fetchMapData = address => {
   });
 }
 
-export const parseAddress = restaurant => {
-  const street = parseLine(restaurant.street_address);
-  const city = parseLine(restaurant.name);
+export const parseAddress = address => {
+  address = address.split(',');
+  const street = address[0];
+  const city = [address[1], address[2]].join(', ');
+  const country = address[3];
 
-  return `${street},+${city},+${restaurant.state}`;
+  return { street, city, country };
 }
 
 const parseLine = line => line.split(' ').join('+');
