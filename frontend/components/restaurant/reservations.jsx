@@ -47,20 +47,19 @@ class ReservationsSnippet extends React.Component {
     const baseStr = baseTime.toString();
     const timeEnd = baseTime+100;
     let timeStart = baseTime-100;
-    let minutes = minutes = parseInt(baseStr.slice(baseStr.length-2, baseStr.length));
-    let slots = new Object;
+    let minutes = parseInt(baseStr.slice(baseStr.length-2, baseStr.length));
+    let slots = {};
 
     while (timeStart <= timeEnd) {
-      let hour = timeStart.toString();
-      hour = hour.slice(0, hour.length-2);
-      let timeSlot = (SearchAPIUtil.formatTime(hour, minutes));
-      slots[timeSlot] = 0;
-
+      slots[timeStart] = 0;
       minutes += 30;
 
-      if (minutes === 60) {
+      if (minutes >= 60) {
         minutes = 0;
         timeStart += 100;
+        timeStart -= 30;
+      } else {
+        timeStart += minutes;
       }
     }
 
@@ -75,9 +74,9 @@ class ReservationsSnippet extends React.Component {
     });
 
     reservations.forEach((reservation) => {
-      const resTime = reservation.time.toString();
+      const resTime = reservation.time;
       slots[resTime] += 1;
-    })
+    });
 
     const availList = Object.keys(slots).map((slot) => {
       if (slots[slot] > 1) {
@@ -122,6 +121,7 @@ class ReservationsSnippet extends React.Component {
   showReservation() {
     const resDate = this.formatDate(this.props.reservations.reservation.date);
     const resTime = this.formatTime(this.props.reservations.reservation.time);
+
     return (
       <ul className='new-res'>
         <li className='res-message'>

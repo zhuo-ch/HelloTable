@@ -24,7 +24,7 @@ class Api::RestaurantsController < ApplicationController
     @restaurant.location = response_address["geometry"]["location"]
     @restaurant.address = response_address["formatted_address"]
     @restaurant.city_id = City.in_bounds(response_address["geometry"]["location"])
-    debugger
+
     if @restaurant.save
       if params[:imageFiles]
         params[:imageFiles].each do |image|

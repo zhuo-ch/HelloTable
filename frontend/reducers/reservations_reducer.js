@@ -4,14 +4,12 @@ import { RECEIVE_RESERVATIONS,
   DESTROY_RESERVATION,
   CLEAR_RESERVATION } from '../actions/reservations_actions';
 
-const _nullReservations = Object.freeze({
-});
+const _nullReservations = Object.freeze({});
 
 const ReservationsReducer = (state = _nullReservations, action) => {
   switch(action.type) {
     case RECEIVE_RESERVATIONS:
-      const reservations = action.reservations;
-      return merge({}, state, reservations);
+      return merge({}, state, action.reservations);
     case RECEIVE_RESERVATION:
       const reservation = action.reservation
       return merge({}, state, {reservation});
