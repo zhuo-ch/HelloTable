@@ -94,7 +94,17 @@ reviews = File.open("app/assets/reviews.txt", "r").readlines.map { |line| line.c
 
 Reservation.all.each do |reservation|
   def get_rating
-    (rand(1..5) + rand(2..5) + rand(3..5))/3
+    rand_range = rand(100)
+    case rand_range
+      when 0..40
+        rand(1..5)
+      when 41..60
+        rand(2..5)
+      when 61..100
+        rand(3..5)
+      else
+        rand(1..5)
+      end
   end
 
   Review.create(reservation: reservation, rating: get_rating, food: get_rating, service: get_rating,
