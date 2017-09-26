@@ -12,7 +12,19 @@ class Api::RestaurantsController < ApplicationController
 
   def create
     @restaurant = Restaurant.new(restaurant_params)
-debugger
+    address = format_address
+
+    url = "https://maps.googleapis.com/maps/api/geocode/json?address="
+    response = RestClient::Request.execute(
+      method: :get,
+      url: "#{url}#{address}&key=#{ENV['google_places_key']}"
+    )
+
+    response_address = JSON.parse(response)["results"][0]
+    @restaurant.location = response_address["geometry"]["location"]
+    @restaurant.address = response_address["formatted_address"]
+    @restaurant.city_id = City.in_bounds(response_address["geometry"]["location"])
+    debugger
     if @restaurant.save
       if params[:imageFiles]
         params[:imageFiles].each do |image|
@@ -64,5 +76,9 @@ debugger
   def restaurant_params
     params.require(:restaurant).permit(:owner_id, :name,
       :phone, :cuisine, :description, :hours, :site, :address, :location, :city_id)
+  end
+
+  def format_address
+    restaurant_params[:address].split(', ').each { |el| el.gsub(" ", "+")}
   end
 end
