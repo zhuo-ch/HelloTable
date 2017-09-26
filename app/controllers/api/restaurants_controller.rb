@@ -12,7 +12,7 @@ class Api::RestaurantsController < ApplicationController
 
   def create
     @restaurant = Restaurant.new(restaurant_params)
-
+debugger
     if @restaurant.save
       if params[:imageFiles]
         params[:imageFiles].each do |image|

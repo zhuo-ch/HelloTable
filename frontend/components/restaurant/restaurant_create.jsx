@@ -7,7 +7,7 @@ import { resetCurrentModal, setCurrentModal } from '../../actions/modal_actions'
 class CreateRestaurant extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {imageUrls: [], imageFiles: []}
+    this.state = { imageUrls: [], imageFiles: [] }
     this.restaurant = { name: '',
                       phone: '',
                       description: '',
@@ -63,13 +63,11 @@ class CreateRestaurant extends React.Component {
     e.preventDefault();
     let formData = new FormData();
     formData.append('restaurant[name]', this.restaurant.name);
+    formData.append('restaurant[address]', this.formatAddress);
     formData.append('restaurant[phone]', this.phone);
     formData.append('restaurant[description]', this.restaurant.description);
     formData.append('restaurant[hours]', this.restaurant.hours);
     formData.append('restaurant[cuisine]', this.restaurant.cuisine);
-    formData.append('restaurant[street_address]', this.restaurant.street_address);
-    formData.append('restaurant[name]', this.restaurant.name);
-    formData.append('restaurant[state]', this.restaurant.state);
     formData.append('restaurant[site]', this.restaurant.site);
     formData.append('restaurant[owner_id]', this.restaurant.owner_id);
     this.state.imageFiles.forEach((data, idx) => {
@@ -80,6 +78,11 @@ class CreateRestaurant extends React.Component {
     this.props.createRestaurant(formData)
       .then(r => this.props.router.push(`restaurant/${r.restaurant.id}`), () => this.handleError())
       .then(() => this.props.resetCurrentModal());
+  }
+
+  formatAddress() {
+    const res = this.restaurant;
+    return `${res.street_address}, ${res.city}, ${res.state} ${res.zip}, USA`;
   }
 
   renderErrors() {

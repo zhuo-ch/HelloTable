@@ -20,8 +20,7 @@ class RestaurantMap extends React.Component {
   }
 
   componentWillUnmount() {
-    google.maps.events.clearInstanceListeners(this.map);
-    google.maps.events.clearInstanceListeners(this.marker);
+    google.maps.event.clearInstanceListeners(this.marker);
   }
 
   genMap(map, latLng) {
