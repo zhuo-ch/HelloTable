@@ -20,5 +20,4 @@ export default combineReducers({
   reviews: ReviewsReducer,
   modal: ModalReducer,
   favorites: FavoritesReducer,
-  map: MapReducer,
 });
