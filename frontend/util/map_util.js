@@ -1,4 +1,4 @@
-export const fetchMapData = address => {
+export const fetchMapData = latLng => {
   return $.ajax({
     method: 'GET',
     url: `http://maps.googleapis.com/maps/api/geocode/json?address=${address}`,

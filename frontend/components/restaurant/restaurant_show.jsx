@@ -112,10 +112,6 @@ class RestaurantShow extends React.Component {
     )
   }
 
-  // getMap() {
-  //   return this.props.restaurant.id ? <RestaurantMap /> : '';
-  // }
-
   render() {
     const resSnippet = this.getReservations();
     const averages = this.getAvgRatings();
@@ -179,7 +175,8 @@ class RestaurantShow extends React.Component {
                 <div className='about-description'>
                   {this.props.restaurant.description}
                 </div>
-
+                <br></br>
+                <RestaurantMap location={ this.props.restaurant.location } />
               </div>
             </article>
 

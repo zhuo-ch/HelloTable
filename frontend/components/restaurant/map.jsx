@@ -1,61 +1,60 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { merge } from 'lodash';
-import MarkerManager from '../util/marker_manager';
-import { updateBounds } from '../actions/filter_actions';
-import { fetchBenches } from '../actions/bench_actions';
-import { toggleModal } from '../actions/modal_actions';
+// import React from 'react';
+// import { connect } from 'react-redux';
+// import ReactDOM from 'react-dom';
+// import { merge } from 'lodash';
+// import MarkerManager from '../../util/marker_manager';
+// import * as MapUtil from '../../util/map_util';
+// import { fetchMapData } from '../../actions/map_actions';
+//
+// const _getCoordsObj = latLng => {
+//   return ({
+//     lat: latLng.lat(),
+//     lng: latLng.lng(),
+//   });
+// };
+//
+// let _mapOptions = {
+//   center: { lat: '', lng: '' },
+//   zoom: 13,
+// }
 
-class BenchMap extends React.Component {
-  constructor(props) {
-    super(props);
-    this.address = props.address;
-    this.updateMapBounds = this.updateMapBounds.bind(this);
-    this.handleClick = this.handleClick.bind(this);
-  }
+const RestaurantMap = ({ lat, lng }) => {
+  const mapOptions = { center: { lat, lng }, zoom: 8 };
+  const ref = document.getElementById('map-container');
+debugger
+  return new google.maps.Map(ref, mapOptions);
 
-  componentDidMount() {
-    const mapOptions = {
-      center: { lat: 40.730610, lng: -73.935242  },
-      zoom: 13,
-    };
-
-    this.map = new google.maps.Map(this.mapNode, mapOptions);
-    this.MarkerManager = new MarkerManager(this.map);
-    google.maps.event.addListener(this.map, 'idle', this.updateMapBounds);
-    google.maps.event.addListener(this.map, 'click', this.handleClick);
-  }
-
-  updateMapBounds() {
-    const { north, east, south, west } = this.map.getBounds().toJSON();
-    this.props.updateBounds({ north, east, south, west });
-  }
-
-  handleClick(e) {
-    this.props.toggleModal({ type: 'modal', lat: e.latLng.lat(), lng: e.latLng.lng() });
-  }
-
-  render() {
-    if (this.MarkerManager) {
-      this.MarkerManager.updateMarkers(this.props.benches);
-    }
-
-    return (
-      <div id='map-container' ref={ map => this.mapNode = map }>
-
-      </div>
-    );
-  }
+  // componentDidMount() {
+  //   const location = this.props.restaurant.location;
+  //   const mapOptions = merge({}, location, { zoom: 13 });
+  //   debugger
+  //   const map = this.refs.map;
+  //   this.map = new google.maps.Map(map, mapOptions);
+  // }
+  //
+  // componentDidUpdate() {
+  //   if (this.props.singleRestaurant === "true") {
+  //     this.MarkerManager
+  //       .updateMarkers([this.props.restaurants[Object.keys(this.props.restaurants)[0]]]);
+  //   } else {
+  //     this.MarkerManager.updateMarkers(this.props.restaurants);
+  //   }
+  // }
+  //
+  // _registerListeners() {
+  //   google.maps.events.addListener(this.map, 'idle', () => {
+  //     const { north, south, east, west } = this.map.getBounds().toJSON();
+  //     const bounds = {
+  //       northEast: { lat: north, lng: east },
+  //       southWest: { lat: south, lng: west },
+  //     };
+  //     this.props.updateFilter('bounds', bounds);
+  //   });
+  // }
+  //
+  // _handleMarkerClick(restaurant) {
+  //   this.props.router.push(`restaurant/${restaurant.id}`);
+  // }
 }
 
-const mapStateToProps = state => ({
-  benches: state.benches,
-});
-
-const mapDispatchToProps = dispatch => ({
-  updateBounds: bounds => dispatch(updateBounds(bounds)),
-  fetchBenches: () => dispatch(fetchBenches()),
-  toggleModal: modal => dispatch(toggleModal(modal)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(BenchMap);
+export default RestaurantMap;
