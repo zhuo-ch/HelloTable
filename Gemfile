@@ -29,6 +29,7 @@ gem 'aws-sdk'
 gem 'faker'
 gem 'rest-client'
 gem 'rails_12factor'
+gem 'pry-rails'
 # Use Unicorn as the app server
 # gem 'unicorn'
 
@@ -37,12 +38,9 @@ gem 'rails_12factor'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a  console
-  gem 'pry-rails'
   gem 'byebug'
-  # gem 'pry-rails'
   gem 'better_errors'
   gem 'binding_of_caller'
-  gem 'faker'
 end
 
 group :development do

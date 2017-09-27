@@ -55,7 +55,9 @@ def generate_city_restaurants(city, cuisines, hours, descriptions, users)
       url: "#{url}location=#{city.lat},#{city.lng}&type=restaurant&minprice=2&key=#{ENV['google_places_key']}"
       )
     end
-
+    if response.code != 200
+      p response.body
+    end
     response = JSON.parse(response)
     page_token = response["next_page_token"]
     idx += 1
