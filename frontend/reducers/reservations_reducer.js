@@ -12,7 +12,8 @@ const ReservationsReducer = (state = _nullReservations, action) => {
       return merge({}, state, action.reservations);
     case RECEIVE_RESERVATION:
       const reservation = action.reservation
-      return merge({}, state, {reservation});
+      const addState = { [action.reservation.id]: action.reservation};
+      return merge({}, state, addState, {reservation});
     case CLEAR_RESERVATION:
       return _nullReservations;
     case DESTROY_RESERVATION:

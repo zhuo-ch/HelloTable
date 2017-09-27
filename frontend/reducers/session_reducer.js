@@ -25,10 +25,12 @@ const SessionReducer = (state = _nullUser, action) => {
     case LOGOUT:
       return _nullUser;
     case RECEIVE_RESERVATION:
-      return merge({}, state, {currentUser: {reservations: [action.reservation]}});
+      const reservations = Object.assign([], state.currentUser.reservations, [action.reservation]);
+    debugger
+      return merge({}, state, {currentUser: { reservations: reservations }});
     case RECEIVE_DESTROY_RESERVATION:
       let newStateRes = merge({}, state);
-      newStateRes.currentUser.reservations = newStateRes.currentUser.reservations.filter((res) => res.res_id !== action.id)
+      newStateRes.currentUser.reservations = newStateRes.currentUser.reservations.filter((res) => res.id !== action.id)
       return newStateRes;
     default:
       return state;

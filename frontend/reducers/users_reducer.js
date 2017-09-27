@@ -12,7 +12,7 @@ const UsersReducer = (state = _nullUser, action) => {
       return action.user
     case RECEIVE_UPDATE:
       let updateState = Object.assign({}, state);
-      merge(updateState.reservations.find(el => el.res_id === action.reservation.res_id), action.reservation);
+      merge(updateState.reservations.find(el => el.id === action.reservation.id), action.reservation);
       return updateState;
     default:
       return state;

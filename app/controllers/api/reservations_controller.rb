@@ -2,6 +2,7 @@ class Api::ReservationsController < ApplicationController
 
   def create
     @reservation = Reservation.new(reservation_params)
+
     if @reservation.save
       render 'api/reservations/show'
     else
@@ -11,6 +12,9 @@ class Api::ReservationsController < ApplicationController
 
   def show
     @reservation = Reservation.find(params[:id])
+      .includes(:restaurants)
+      .includes(:photos)
+      .includes(:ratings)
   end
 
   def search

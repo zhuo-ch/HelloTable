@@ -47,12 +47,12 @@ class UserShow extends React.Component {
     return (
       reservations.map((reservation) => {
         return (
-          <section className='show-res' key={reservation.res_id}>
+          <section className='show-res' key={reservation.id}>
             <article className='user-res'>
               <h4>
                 A table for {reservation.seats} will be set at {this.props.formatTime(reservation.time)} on {this.props.formatDate(reservation.date)}
               </h4>
-              <button onClick={ this.handleCancel } className='button' value={reservation.res_id}>Cancel</button>
+              <button onClick={ this.handleCancel } className='button' value={reservation.id}>Cancel</button>
             </article>
             <RestaurantSnippet restaurant={reservation.restaurant}/>
           </section>
@@ -66,10 +66,10 @@ class UserShow extends React.Component {
     return (
       previous.map((reservation) => {
         const leaveReviewButton = reservation.reviewed ? '' : (
-          <button className='button' value={ reservation.res_id } onClick={this.handleAddReview}>Review</button>
+          <button className='button' value={ reservation.id } onClick={this.handleAddReview}>Review</button>
         );
         return (
-          <section className='show-res' key={reservation.res_id}>
+          <section className='show-res' key={reservation.id}>
             <article className='user-res'>
               <h4>
                 We hope you enjoyed your visit on {this.props.formatDate(reservation.date)}
@@ -97,7 +97,7 @@ class UserShow extends React.Component {
     const Upcoming = this.getUpcoming();
     const Previous = this.getPrevious();
     const Favorites = this.getFavorites();
-
+debugger
     return(
       <StickyContainer className='user-show'>
         <section className='user-show-splash'>
