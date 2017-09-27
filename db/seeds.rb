@@ -84,7 +84,7 @@ times = [500, 530, 600, 630, 700, 730, 800, 830, 900]
 Restaurant.all.each do |restaurant|
   15.times do
     Reservation.create(user_id: users.sample, restaurant_id: restaurant.id,
-      date: "#{rand(8..9)}-#{rand(1..28)}-2017", time: times.sample, seats: rand(1..6))
+      date: "#{rand(9..10)}-#{rand(1..28)}-2017", time: times.sample, seats: rand(1..6))
   end
 end
 
@@ -114,10 +114,11 @@ end
 # guest
 
 guest = User.create(username: 'Guest', email: 'guest@guest-email.com', password: 'password')
+restaurants = Restaurant.all.map { |res| res.id }
 
-5.times do
-  Reservation.create(user_id: a.id, restaurant_id: Restaurant.all.sample.id,
-    date: "#{rand(1..6)}-" + "#{rand(1..28)}" + "-2017", time: times.sample, seats: rand(6))
+3.times do
+  Reservation.create(user_id: guest.id, restaurant_id: restaurants.sample,
+    date: "#{rand(1..8)}-" + "#{rand(1..28)}" + "-2017", time: times.sample, seats: rand(6))
 end
 
 guest.reservations.each do |reservation|
@@ -125,11 +126,16 @@ guest.reservations.each do |reservation|
     ambiance: rand(1..5), value: rand(1..5), details: reviews.sample)
 end
 
+3.times do
+  Reservation.create(user_id: guest.id, restaurant_id: restaurants.sample,
+    date: "#{rand(1..8)}-" + "#{rand(1..28)}" + "-2017", time: times.sample, seats: rand(6))
+end
+
 5.times do
-  Reservation.create(user_id: guest.id, restaurant_id: Restaurant.all.sample.id,
+  Reservation.create(user_id: guest.id, restaurant_id: restaurants.sample,
     date: "#{rand(8..9)}-" + "#{rand(1..30)}" + "-2017", time: times.sample, seats: rand(6))
 end
 
 5.times do |user|
-  Favorite.create(user_id: guest.id, restaurant_id: Restaurant.all.sample.id)
+  Favorite.create(user_id: guest.id, restaurant_id: restaurants.sample)
 end

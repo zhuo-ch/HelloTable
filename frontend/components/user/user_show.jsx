@@ -97,7 +97,7 @@ class UserShow extends React.Component {
     const Upcoming = this.getUpcoming();
     const Previous = this.getPrevious();
     const Favorites = this.getFavorites();
-debugger
+
     return(
       <StickyContainer className='user-show'>
         <section className='user-show-splash'>

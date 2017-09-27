@@ -81,7 +81,7 @@ class Navbar extends React.Component {
 
   stopScroll() {
     clearInterval(this.timer);
-    this.setState({ type: '' });
+    this.setState({ type: '', reservations: [], max: 0 });
   }
 
   setTimer() {
@@ -97,6 +97,7 @@ class Navbar extends React.Component {
   }
 
   getReservationItem() {
+    debugger
     const item = this.state.reservations[this.state.idx];
     const date = this.props.formatDate(item.date);
     const time = this.props.formatTime(item.time);
