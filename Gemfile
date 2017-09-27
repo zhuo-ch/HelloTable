@@ -23,12 +23,10 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
-gem 'rails_12factor'
 gem 'paperclip', '~> 5.0.0'
 gem 'figaro'
 gem 'aws-sdk'
 gem 'faker'
-gem 'pry-rails'
 gem 'rest-client'
 # Use Unicorn as the app server
 # gem 'unicorn'
@@ -38,6 +36,8 @@ gem 'rest-client'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a  console
+  gem 'pry-rails'
+  gem 'rails_12factor'
   gem 'byebug'
   # gem 'pry-rails'
   gem 'better_errors'
