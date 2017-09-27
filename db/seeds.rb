@@ -1,9 +1,9 @@
-# # users
-100.times do
-  User.create(username: Faker::Name.unique.name,
-    email: Faker::Internet.email,
-    password: Faker::Internet.password(8,10))
-end
+# users
+# 100.times do
+#   User.create(username: Faker::Name.unique.name,
+#     email: Faker::Internet.email,
+#     password: Faker::Internet.password(8,10))
+# end
 
 # cities
 
@@ -55,19 +55,17 @@ def generate_city_restaurants(city, cuisines, hours, descriptions, users)
       url: "#{url}location=#{city.lat},#{city.lng}&type=restaurant&minprice=2&key=#{ENV['google_places_key']}"
       )
     end
-    if response.code != 200
-      p response.body
-    end
+    p response.status
     response = JSON.parse(response)
     page_token = response["next_page_token"]
     idx += 1
+    debugger
     response["results"].each { |res| generate_restaurant(res, city.id, cuisines, hours, descriptions, users)}
     sleep(3)
   end
 end
 
 City.all.each { |city| generate_city_restaurants(city, cuisines, hours, descriptions, users)}
-
 
 # photos
 
