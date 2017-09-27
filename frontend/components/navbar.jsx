@@ -97,7 +97,6 @@ class Navbar extends React.Component {
   }
 
   getReservationItem() {
-    debugger
     const item = this.state.reservations[this.state.idx];
     const date = this.props.formatDate(item.date);
     const time = this.props.formatTime(item.time);

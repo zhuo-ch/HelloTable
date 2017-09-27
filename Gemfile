@@ -1,6 +1,5 @@
 source 'https://rubygems.org'
 
-ruby '2.3.3'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.4'
 # Use postgresql as the database for Active Record
@@ -30,10 +29,7 @@ gem 'faker'
 gem 'rest-client'
 gem 'rails_12factor'
 
-gem 'pry-rails'
-gem 'byebug'
-gem 'better_errors'
-gem 'binding_of_caller'
+
 # Use Unicorn as the app server
 # gem 'unicorn'
 
@@ -42,6 +38,7 @@ gem 'binding_of_caller'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a  console
+  gem 'pry-rails'
   gem 'byebug'
   gem 'better_errors'
   gem 'binding_of_caller'
