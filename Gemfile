@@ -29,7 +29,11 @@ gem 'aws-sdk'
 gem 'faker'
 gem 'rest-client'
 gem 'rails_12factor'
+
 gem 'pry-rails'
+gem 'byebug'
+gem 'better_errors'
+gem 'binding_of_caller'
 # Use Unicorn as the app server
 # gem 'unicorn'
 
