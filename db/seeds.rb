@@ -7,12 +7,12 @@
 
 # cities
 
-a = City.create(name: "New York", state: "NY", lat: 40.730610, lng: -73.935242, image: File.new("app/assets/images/nyc.jpg"))
-b = City.create(name: "Boston", state: "MA", lat: 42.361145, lng: -71.057083, image: File.new("app/assets/images/boston.jpg"))
-c = City.create(name: "Los Angeles", state: "CA", lat: 34.052235, lng: -118.243683, image: File.new("app/assets/images/la.jpg"))
-d = City.create(name: "Seattle", state: "WA", lat: 47.608013, lng: -122.335167, image: File.new("app/assets/images/seattle.jpg"))
-e = City.create(name: "Houston", state: "TX", lat: 29.761993, lng: -95.366302, image: File.new("app/assets/images/houston.jpg"))
-f = City.create(name: "Miami", state: "FL", lat: 25.761681, lng: -80.191788, image: File.new("app/assets/images/miami.jpg"))
+# a = City.create(name: "New York", state: "NY", lat: 40.730610, lng: -73.935242, image: File.new("app/assets/images/nyc.jpg"))
+# b = City.create(name: "Boston", state: "MA", lat: 42.361145, lng: -71.057083, image: File.new("app/assets/images/boston.jpg"))
+# c = City.create(name: "Los Angeles", state: "CA", lat: 34.052235, lng: -118.243683, image: File.new("app/assets/images/la.jpg"))
+# d = City.create(name: "Seattle", state: "WA", lat: 47.608013, lng: -122.335167, image: File.new("app/assets/images/seattle.jpg"))
+# e = City.create(name: "Houston", state: "TX", lat: 29.761993, lng: -95.366302, image: File.new("app/assets/images/houston.jpg"))
+# f = City.create(name: "Miami", state: "FL", lat: 25.761681, lng: -80.191788, image: File.new("app/assets/images/miami.jpg"))
 
 # restaurants
 cuisines = File.open("app/assets/cuisine.txt", "r").readlines.map { |line| line.chomp }
@@ -47,7 +47,7 @@ def generate_city_restaurants(city, cuisines, hours, descriptions, users)
       response = RestClient::Request.execute(
       method: :get,
       url: "#{url}pagetoken=#{page_token}&key=#{ENV["google_places_key"]}",
-      headers: {key: "#{ENV['google_places_key']}"}
+      headers: {key: "#{ENV["google_places_key"]}"}
       )
     else
       response = RestClient::Request.execute(
