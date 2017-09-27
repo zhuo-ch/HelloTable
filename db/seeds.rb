@@ -46,13 +46,13 @@ def generate_city_restaurants(city, cuisines, hours, descriptions, users)
     if page_token != ""
       response = RestClient::Request.execute(
       method: :get,
-      url: "#{url}pagetoken=#{page_token}&key=#{ENV['google_places_key']}",
+      url: "#{url}pagetoken=#{page_token}&key=#{ENV["google_places_key"]}",
       headers: {key: "#{ENV['google_places_key']}"}
       )
     else
       response = RestClient::Request.execute(
       method: :get,
-      url: "#{url}location=#{city.lat},#{city.lng}&type=restaurant&minprice=2&key=#{ENV['google_places_key']}"
+      url: "#{url}location=#{city.lat},#{city.lng}&type=restaurant&minprice=2&key=#{ENV["google_places_key"]}"
       )
     end
     response = JSON.parse(response)
