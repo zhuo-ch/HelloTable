@@ -125,6 +125,11 @@ guest.reservations.each do |reservation|
     ambiance: rand(1..5), value: rand(1..5), details: reviews.sample)
 end
 
+3.times do
+  Reservation.create(user_id: guest.id, restaurant_id: restaurants.sample,
+  date: "#{rand(3..8)}-" + "#{rand(1..30)}" + "-2017", time: times.sample, seats: rand(6))
+end
+
 5.times do
   Reservation.create(user_id: guest.id, restaurant_id: restaurants.sample,
     date: "#{rand(10..11)}-" + "#{rand(1..30)}" + "-2017", time: times.sample, seats: rand(6))
