@@ -27,9 +27,7 @@ class ReviewForm extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     const review = Object.assign({}, this.ratings, {reservation_id: parseInt(this.props.reservation)});
-    this.props.setCurrentModal({ hidden: false, type: 'spinner' });
-    this.props.createReview(review)
-      .then(this.props.resetCurrentModal(), this.handleError());
+    this.props.createReview(review);
   }
 
   handleRating(newRating) {

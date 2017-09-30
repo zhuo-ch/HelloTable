@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import ReviewForm from './review/review_form';
+import ThankYou from './review/thank_you';
 import SessionForm from './session/session_form_container';
 import { merge } from 'lodash';
 import { resetCurrentModal } from '../actions/modal_actions';
@@ -32,6 +33,8 @@ class Modal extends React.Component {
     switch (this.props.modal.type) {
       case 'reviewForm':
         return <ReviewForm />
+      case 'thankyou':
+        return <ThankYou resetCurrentModal={ this.props.resetCurrentModal }/>
       case 'login':
         return <SessionForm />
       case 'signup':

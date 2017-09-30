@@ -63,3 +63,9 @@
 .review-form .button {
   margin-top: 10px;
 }
+
+.thank-you-container {
+  color: dimgray;
+  justify-content: space-around;
+  padding: 15px;
+}

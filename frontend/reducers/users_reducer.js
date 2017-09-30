@@ -1,5 +1,6 @@
 import { merge } from 'lodash';
 import { RECEIVE_USER, RECEIVE_UPDATE, RECEIVE_DESTROY_RESERVATION } from '../actions/user_actions';
+import { RECEIVE_REVIEW } from '../actions/review_actions';
 
 const _nullUser = {
   reservations: [],
