@@ -10,6 +10,7 @@ import {
 const _nullReservations = Object.freeze({
   userReservations: {},
   restaurantReservations: {},
+  currentReservation: {},
 });
 
 const ReservationsReducer = (state = _nullReservations, action) => {
@@ -19,11 +20,10 @@ const ReservationsReducer = (state = _nullReservations, action) => {
     case RECEIVE_USER_RESERVATIONS:
       return merge({}, state, { userReservations: action.reservations })
     case RECEIVE_RESERVATION:
-      const reservation = action.reservation
-      const addState = { [action.reservation.id]: action.reservation};
-      return merge({}, state, addState, {reservation});
+      return merge({}, state, { currentReservation: action.reservation });
     case CLEAR_RESERVATION:
-      return _nullReservations;
+      const _nullRestaurantReservations = {};
+      return merge({}, state, { restaurantReservations: _nullRestaurantReservations });
     case DESTROY_RESERVATION:
       let newReservations = merge({}, state);
       delete state[action.id];

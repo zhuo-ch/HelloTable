@@ -73,13 +73,16 @@ class ReservationsSnippet extends React.Component {
   }
 
   reservationItems() {
+    if (this.props.reservations === undefined) {
+      return ;
+    }
     let baseTime = parseInt(this.props.searchParams.time.split(':').join(''));
     let slots = this.getTimeSlots(baseTime);
-    const reservations = Object.keys(this.props.reservations).map((key) => {
+    const reservations = Object.keys(this.props.reservations).map(key => {
       return this.props.reservations[key];
     });
 
-    reservations.forEach((reservation) => {
+    reservations.forEach(reservation => {
       const resTime = reservation.time;
       slots[resTime] += 1;
     });
@@ -125,16 +128,16 @@ class ReservationsSnippet extends React.Component {
   }
 
   showReservation() {
-    const resDate = this.formatDate(this.props.reservations.reservation.date);
-    const resTime = this.formatTime(this.props.reservations.reservation.time);
+    const resDate = this.formatDate(this.props.currentReservation.date);
+    const resTime = this.formatTime(this.props.currentReservation.time);
 
     return (
       <ul className='new-res'>
         <li className='res-message'>
           A table for {'  '}
-          {this.props.reservations.reservation.seats}
+          {this.props.currentReservation.seats}
           {'  '} will be set for {'  '}
-          {this.props.reservations.reservation.username}
+          {this.props.currentReservation.username}
           {'  '} on {resDate} at {resTime}
         </li>
         <li className='new-res-button'><button className='button' onClick={ this.handleShow }>View</button></li>
@@ -143,7 +146,7 @@ class ReservationsSnippet extends React.Component {
   }
 
   render() {
-    const availReservations = this.props.reservations.reservation ? this.showReservation() : this.reservationItems();
+    const availReservations = this.props.currentReservation !== undefined ? this.showReservation() : this.reservationItems();
 
     return (
       <div className='reservations-index'>
@@ -159,7 +162,8 @@ const mapStateToProps = state => {
   return ({
     currentUser: state.session.currentUser,
     searchParams: state.search.searchParams,
-    reservations: state.reservations,
+    reservations: state.reservations.restaurantReservations,
+    currentReservation: state.reservations.currentReservation,
     restaurant: state.restaurants.restaurant,
   });
 };

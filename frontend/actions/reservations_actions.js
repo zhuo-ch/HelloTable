@@ -9,8 +9,7 @@ export const DESTROY_RESERVATION = 'DESTROY_RESERVATION';
 
 export const fetchRestaurantReservations = (query) => dispatch => {
   return ReservationsAPIUtil.fetchRestaurantReservations(query)
-    .then(reservations => {
-      dispatch(receiveRestaurantReservations(reservations))});
+    .then(reservations => dispatch(receiveRestaurantReservations(reservations)));
 }
 
 export const createReservation = reservation => dispatch => {
