@@ -115,7 +115,6 @@ class Navbar extends React.Component {
   }
 
   getFavoriteItem() {
-    debugger
     const item = this.props.favorites[this.state.idx].restaurant;
     const link = `/restaurant/${item.id}`;
     return (

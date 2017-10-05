@@ -15,7 +15,7 @@ const ReviewsReducer = (state = _nullReviews, action) => {
     case RECEIVE_ALL_REVIEWS:
       const reviews = action.restaurant.reviews;
       const ratings = action.restaurant.ratings;
-      return Object.assign({}, state, {reviews, ratings});
+      return Object.assign({}, state, { reviews, ratings });
     case RECEIVE_REVIEW:
       let newState = Object.assign({}, state)
         if (!(newState.reviews.includes(action.review))) {

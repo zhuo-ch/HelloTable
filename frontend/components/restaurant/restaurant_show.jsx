@@ -22,8 +22,7 @@ class RestaurantShow extends React.Component {
   }
 
   componentWillMount() {
-    this.props.fetchRestaurant(this.props.restaurantId)
-      .then(e => this.props.receiveAllReviews(e.restaurant));
+    this.props.fetchRestaurant(this.props.restaurantId);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -62,7 +61,7 @@ class RestaurantShow extends React.Component {
   }
 
   getAvgRatings() {
-    function average(item) {
+    const average = item => {
       return Math.floor(item/this.props.ratings.total*2)/2;
     }
 
@@ -112,11 +111,16 @@ class RestaurantShow extends React.Component {
     )
   }
 
+  getReviewSnippets() {
+    return this.props.reviews.map(review => <ReviewSnippet key={ review.id } review={ review } />);
+  }
+
   render() {
+    const validReviews = this.props.reviews.length > 0;
     const resSnippet = this.getReservations();
-    const averages = this.getAvgRatings();
-    const reviewTopBar = this.getReviewTopBar(averages);
-    const reviewSnippets = this.props.reviews.map(review => <ReviewSnippet key={review.id} review={ review } />);
+    const averages = validReviews ? this.getAvgRatings() : '';
+    const reviewTopBar = validReviews ? this.getReviewTopBar(averages) : '';
+    const reviewSnippets = validReviews ? this.getReviewSnippets : '';
     const address = this.props.restaurant.id ? MapUtil.parseAddress(this.props.restaurant.address) : '';
 
     return (
