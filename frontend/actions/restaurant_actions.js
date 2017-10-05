@@ -10,9 +10,8 @@ export const RECEIVE_ERRORS = 'RECEIVE_ERRORS';
 export const fetchAllRestaurants = (cityId) => dispatch => {
   return RestaurantAPIUtil.fetchAllRestaurants(cityId)
     .then((restaurants) => {
-      return dispatch(receiveAllRestaurants(restaurants));
-    }
-    );
+      dispatch(receiveAllRestaurants(restaurants));
+    });
 }
 
 export const createRestaurant = (restaurant) => dispatch => {
@@ -23,7 +22,7 @@ export const createRestaurant = (restaurant) => dispatch => {
 
 export const fetchRestaurant = (id) => dispatch => {
   return RestaurantAPIUtil.fetchRestaurant(id)
-    .then((restaurant) => dispatch(receiveRestaurant(restaurant)));
+    .then(restaurant => dispatch(receiveRestaurant(restaurant)));
 }
 
 export const resetRestaurant = () => dispatch => {
@@ -48,19 +47,19 @@ const receiveAllRestaurants = (restaurants) => ({
 const receiveRestaurant = (restaurant) => ({
   type: RECEIVE_RESTAURANT,
   restaurant,
-})
+});
 
 const receiveResetRestaurant = () => ({
   type: RECEIVE_RESET_RESTAURANT,
-})
+});
 
 const receiveDestroy = () => ({
   type: RECEIVE_DESTROY,
-})
+});
 
 const receiveErrors = (errors) => {
   return ({
     type: RECEIVE_ERRORS,
     errors
-  })
+  });
 }

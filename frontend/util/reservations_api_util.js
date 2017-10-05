@@ -1,4 +1,4 @@
-export const fetchAllReservations = (query) => {
+export const fetchRestaurantReservations = (query) => {
   return $.ajax({
     method: 'GET',
     url: 'api/reservations/search',

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, hashHistory, withRouter } from 'react-router';
 import { connect } from 'react-redux';
-import { fetchAllReservations, createReservation, resetReservation } from '../../actions/reservations_actions';
+import { fetchRestaurantReservations, createReservation, resetReservation } from '../../actions/reservations_actions';
 import FontAwesome from 'react-fontawesome';
 import { merge } from 'lodash';
 import { setCurrentModal } from '../../actions/modal_actions';
@@ -18,7 +18,7 @@ class ReservationsSnippet extends React.Component {
   componentWillMount() {
     const time = parseInt(this.props.searchParams.time.split(':').join(''));
     const query = merge({}, this.props.searchParams, { restaurantId: this.props.restaurant.id, time })
-    this.props.fetchAllReservations(query);
+    this.props.fetchRestaurantReservations(query);
   }
 
   componentWillUnmount() {
@@ -165,7 +165,7 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  fetchAllReservations: query => dispatch(fetchAllReservations(query)),
+  fetchRestaurantReservations: query => dispatch(fetchRestaurantReservations(query)),
   createReservation: reservation => dispatch(createReservation(reservation)),
   resetReservation: () => dispatch(resetReservation()),
   setCurrentModal: modal => dispatch(setCurrentModal(modal)),
