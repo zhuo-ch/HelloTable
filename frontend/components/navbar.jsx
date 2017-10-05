@@ -19,15 +19,16 @@ class Navbar extends React.Component {
   }
 
   componentWillMount() {
+    this.stopScroll();
     this.props.currentUser.id ? this.startScroll() : '';
   }
 
   componentWillReceiveProps(nextProps) {
-    if ((nextProps.currentUser.id) && (nextProps.currentUser !== this.props.currentUser)) {
+    if (!(nextProps.currentUser.id)) {
+      this.stopScroll();
+    } else if ((nextProps.currentUser.id) && (nextProps.currentUser.id !== this.props.currentUser.id)) {
       this.stopScroll();
       this.startScroll();
-    } else {
-      this.stopScroll();
     }
   }
 
@@ -64,6 +65,8 @@ class Navbar extends React.Component {
   }
 
   setScrollType() {
+    const favorites = this.props.favorites !== undefined ? Object.keys(this.props.favorites) : [];
+
     if (this.props.reservations) {
       var reservations = this.filterUpcomingReservations();
     }
@@ -71,7 +74,7 @@ class Navbar extends React.Component {
     if (this.props.reservations && reservations.length > 0) {
       this.setState({ type: 'reservations', reservations, max: reservations.length });
     } else if (this.props.favorites) {
-      this.setState({ type: 'favorites', max: this.props.favorites.length });
+      this.setState({ type: 'favorites', favorites, max: favorites.length });
     }
   }
 
@@ -100,7 +103,8 @@ class Navbar extends React.Component {
   }
 
   getReservationItem() {
-    const item = this.props.reservations[this.state.idx];
+    const idx = this.state.reservations[this.state.idx];
+    const item = this.props.reservations[idx];
     const date = this.props.formatDate(item.date);
     const time = this.props.formatTime(item.time);
     const text = `${time} on ${date} at ${item.restaurant.name}`;
@@ -115,8 +119,10 @@ class Navbar extends React.Component {
   }
 
   getFavoriteItem() {
-    const item = this.props.favorites[this.state.idx].restaurant;
+    const idx = this.state.favorites[this.state.idx];
+    const item = this.props.favorites[idx].restaurant;
     const link = `/restaurant/${item.id}`;
+
     return (
       <Link to={ link } className='nav-item'>
         <aside className='nav-item-type'>Your Favorites:</aside>
