@@ -67,6 +67,7 @@ class Navbar extends React.Component {
     if (this.props.reservations) {
       var reservations = this.filterUpcomingReservations();
     }
+
     if (this.props.reservations && reservations.length > 0) {
       this.setState({ type: 'reservations', reservations, max: reservations.length });
     } else if (this.props.favorites) {
@@ -89,15 +90,17 @@ class Navbar extends React.Component {
   }
 
   filterUpcomingReservations() {
-    return this.props.reservations.filter(reservation => {
-      const resDate = this.props.revertDate(reservation.date, reservation.time);
+    const reservations = this.props.reservations;
+
+    return Object.keys(reservations).filter(key => {
+      const resDate = this.props.revertDate(reservations[key].date, reservations[key].time);
 
       return new Date() < resDate;
-    })
+    });
   }
 
   getReservationItem() {
-    const item = this.state.reservations[this.state.idx];
+    const item = this.props.reservations[this.state.idx];
     const date = this.props.formatDate(item.date);
     const time = this.props.formatTime(item.time);
     const text = `${time} on ${date} at ${item.restaurant.name}`;
