@@ -8,12 +8,14 @@ export const LOGOUT = 'LOGOUT';
 export const RECEIVE_DESTROY_RESERVATION = 'RECEIVE_DESTROY_RESERVATION';
 const RECEIVE_FAVORITES = 'RECEIVE_FAVORITES';
 const RECEIVE_RESERVATIONS = 'RECEIVE_RESERVATIONS';
+const RECEIVE_USER_RESERVATIONS = 'RECEIVE_USER_RESERVATIONS';
 
 export const login = user => dispatch => {
   return SessionApiUtil.login(user)
     .then((newUser) => {
       dispatch(receiveCurrentUser(newUser));
       dispatch(receiveAllFavorites(newUser.favorites));
+      dispatch(receiveUserReservations(newUser.reservations));
     },
     err => dispatch(receiveErrors(err.responseJSON)));
 };
@@ -40,12 +42,10 @@ const receiveCurrentUser = (user) => ({
   user
 });
 
-export const receiveErrors = (errors) => {
-  return ({
-    type: RECEIVE_ERRORS,
-    errors
-  });
-};
+export const receiveErrors = errors => ({
+  type: RECEIVE_ERRORS,
+  errors,
+});
 
 const logOutUser = () => ({
   type: LOGOUT,
@@ -55,6 +55,11 @@ const receiveAllFavorites = favorites => ({
   type: RECEIVE_FAVORITES,
   favorites,
 });
+
+const receiveUserReservations = reservations => ({
+  type: RECEIVE_USER_RESERVATIONS,
+  reservations,
+})
 
 const receiveDestroy = id => ({
   type: RECEIVE_DESTROY_RESERVATION,

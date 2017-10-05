@@ -64,13 +64,13 @@ class Navbar extends React.Component {
   }
 
   setScrollType() {
-    if (this.props.currentUser.reservations) {
+    if (this.props.reservations) {
       var reservations = this.filterUpcomingReservations();
     }
-    if (this.props.currentUser.reservations && reservations.length > 0) {
+    if (this.props.reservations && reservations.length > 0) {
       this.setState({ type: 'reservations', reservations, max: reservations.length });
-    } else if (this.props.currentUser.favorites) {
-      this.setState({ type: 'favorites', max: this.props.currentUser.favorites.length });
+    } else if (this.props.favorites) {
+      this.setState({ type: 'favorites', max: this.props.favorites.length });
     }
   }
 
@@ -89,7 +89,7 @@ class Navbar extends React.Component {
   }
 
   filterUpcomingReservations() {
-    return this.props.currentUser.reservations.filter(reservation => {
+    return this.props.reservations.filter(reservation => {
       const resDate = this.props.revertDate(reservation.date, reservation.time);
 
       return new Date() < resDate;
@@ -112,7 +112,7 @@ class Navbar extends React.Component {
   }
 
   getFavoriteItem() {
-    const item = this.props.currentUser.favorites[this.state.idx].restaurant;
+    const item = this.props.favorites[this.state.idx].restaurant;
     const link = `/restaurant/${item.id}`;
 
     return (
@@ -189,6 +189,8 @@ class Navbar extends React.Component {
 const mapStateToProps = state => {
   return ({
     currentUser: state.session.currentUser,
+    reservations: state.reservations.userReservations,
+    favorites: state.favorites,
   });
 };
 

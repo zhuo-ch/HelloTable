@@ -1,15 +1,23 @@
 import { merge } from 'lodash';
-import { RECEIVE_RESERVATIONS,
+import {
+  RECEIVE_RESTAURANT_RESERVATIONS,
+  RECEIVE_USER_RESERVATIONS,
   RECEIVE_RESERVATION,
   DESTROY_RESERVATION,
-  CLEAR_RESERVATION } from '../actions/reservations_actions';
+  CLEAR_RESERVATION
+} from '../actions/reservations_actions';
 
-const _nullReservations = Object.freeze({});
+const _nullReservations = Object.freeze({
+  userReservations: {},
+  restaurantReservations: {},
+});
 
 const ReservationsReducer = (state = _nullReservations, action) => {
   switch(action.type) {
-    case RECEIVE_RESERVATIONS:
-      return merge({}, state, action.reservations);
+    case RECEIVE_RESTAURANT_RESERVATIONS:
+      return merge({}, state, { restaurantReservations: action.reservations });
+    case RECEIVE_USER_RESERVATIONS:
+      return merge({}, state, { userReservations: action.reservations })
     case RECEIVE_RESERVATION:
       const reservation = action.reservation
       const addState = { [action.reservation.id]: action.reservation};

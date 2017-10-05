@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
         {}, preloadedState, {
           session: { currentUser: window.currentUser, errors: []},
           favorites: faves(window.currentUser.favorites),
+          reservations: { userReservations: window.currentUser.reservations },
         }
       );
     }
