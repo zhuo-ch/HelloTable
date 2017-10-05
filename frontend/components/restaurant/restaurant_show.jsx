@@ -25,16 +25,6 @@ class RestaurantShow extends React.Component {
     this.props.fetchRestaurant(this.props.restaurantId);
   }
 
-  componentWillReceiveProps(nextProps) {
-    const nextId = nextProps.location.pathname;
-    const curId = this.props.location.pathname;
-
-    if (nextId !== curId) {
-      this.props.fetchRestaurant(nextId.slice(11, nextId.length))
-      .then(e => this.props.receiveAllReviews(e.restaurant));
-    }
-  }
-
   componentWillUnmount() {
     this.props.resetRestaurant();
   }
@@ -120,7 +110,7 @@ class RestaurantShow extends React.Component {
     const resSnippet = this.getReservations();
     const averages = validReviews ? this.getAvgRatings() : '';
     const reviewTopBar = validReviews ? this.getReviewTopBar(averages) : '';
-    const reviewSnippets = validReviews ? this.getReviewSnippets : '';
+    const reviewSnippets = validReviews ? this.getReviewSnippets() : '';
     const address = this.props.restaurant.id ? MapUtil.parseAddress(this.props.restaurant.address) : '';
 
     return (
