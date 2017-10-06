@@ -42,7 +42,7 @@ class UserShow extends React.Component {
   }
 
   getUpcoming() {
-    const reservations = this.props.currentUser.reservations.filter(reservation => this.setUpcoming(reservation));
+    const reservations = this.props.reservations.filter(reservation => this.setUpcoming(reservation));
 
     return (
       reservations.map((reservation) => {
@@ -61,7 +61,7 @@ class UserShow extends React.Component {
   }
 
   getPrevious() {
-    const previous = this.props.currentUser.reservations.filter(reservation => !this.setUpcoming(reservation));
+    const previous = this.props.reservations.filter(reservation => !this.setUpcoming(reservation));
 
     return (
       previous.map((reservation) => {
@@ -145,8 +145,8 @@ const mapStateToProps = state => {
   return ({
     currentUser: state.session.currentUser,
     favorites: state.favorites,
-    reservations: state.session.currentUser.reservations,
-  })
+    reservations: state.reservations.userReservations,
+  });
 }
 
 const mapDispatchToProps = dispatch => {
@@ -156,7 +156,7 @@ const mapDispatchToProps = dispatch => {
     resetCurrentModal: () => dispatch(resetCurrentModal()),
     formatDate: date => formatDate(date),
     formatTime: time => formatTime(time),
-  })
+  });
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserShow);

@@ -114,7 +114,6 @@ class ReservationsSnippet extends React.Component {
 
   formatDate(date) {
     const newDate = date.split('-');
-
     const newObj = new Date(newDate[2], parseInt(newDate[0])-1, newDate[1]);
     const week = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
     const month = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
@@ -146,7 +145,7 @@ class ReservationsSnippet extends React.Component {
   }
 
   render() {
-    const availReservations = this.props.currentReservation !== undefined ? this.showReservation() : this.reservationItems();
+    const availReservations = this.props.currentReservation.id ? this.showReservation() : this.reservationItems();
 
     return (
       <div className='reservations-index'>

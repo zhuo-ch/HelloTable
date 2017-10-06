@@ -12,7 +12,7 @@ json.favorites do
     end
   end
 end
-json.reservations user.reservations do |reservation|
+user.reservations do |reservation|
     json.id reservation.id
     json.reviewed reservation.review ? true : false
     json.extract! reservation, :time, :date, :seats

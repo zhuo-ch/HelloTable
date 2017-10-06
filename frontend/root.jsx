@@ -6,7 +6,10 @@ import { merge } from 'lodash';
 import { faves } from './selectors/favorites_selector';
 
 document.addEventListener('DOMContentLoaded', () => {
-  let preloadedState = { session: { currentUser: {}, errors: [] }};
+  let preloadedState = {
+    session: { currentUser: {}, errors: [] },
+    reservations: { userReservations: [], restaurantReservations: {}, currentReservation: {}},
+  };
 
     if (window.currentUser) {
       preloadedState = merge(

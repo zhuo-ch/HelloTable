@@ -4,6 +4,7 @@ import * as ReservationsAPIUtil from '../util/reservations_api_util';
 export const RECEIVE_RESTAURANT_RESERVATIONS = 'RECEIVE_RESTAURANT_RESERVATIONS';
 export const RECEIVE_USER_RESERVATIONS = 'RECEIVE_USER_RESERVATIONS';
 export const RECEIVE_RESERVATION = 'RECEIVE_RESERVATION';
+export const RECEIVE_ADD_USER_RESERVATION = 'RECEIVE_ADD_USER_RESERVATION';
 export const CLEAR_RESERVATION = 'CLEAR_RESERVATION';
 export const DESTROY_RESERVATION = 'DESTROY_RESERVATION';
 
@@ -14,7 +15,10 @@ export const fetchRestaurantReservations = (query) => dispatch => {
 
 export const createReservation = reservation => dispatch => {
   return ReservationsAPIUtil.createReservation(reservation)
-    .then(newReservation => dispatch(receiveReservation(newReservation)));
+    .then(newReservation => {
+      dispatch(receiveReservation(newReservation));
+      dispatch(receiveAddUserReservation(newReservation));
+    });
 }
 
 export const destroyReservation = id => dispatch => {
@@ -23,7 +27,7 @@ export const destroyReservation = id => dispatch => {
 }
 
 export const resetReservation = () => dispatch => {
-  return dispatch(clearReservation({}));
+  return dispatch(clearReservation());
 }
 
 const receiveRestaurantReservations = reservations => ({
@@ -31,12 +35,16 @@ const receiveRestaurantReservations = reservations => ({
   reservations,
 });
 
+const receiveAddUserReservation = reservation => ({
+  type: RECEIVE_ADD_USER_RESERVATION,
+  reservation,
+})
+
 const receiveReservation = reservation => ({
   type: RECEIVE_RESERVATION,
   reservation,
 });
 
-const clearReservation = (reservation) => ({
+const clearReservation = () => ({
   type: CLEAR_RESERVATION,
-  reservation,
 });

@@ -2,6 +2,7 @@ import { merge } from 'lodash';
 import {
   RECEIVE_RESTAURANT_RESERVATIONS,
   RECEIVE_USER_RESERVATIONS,
+  RECEIVE_ADD_USER_RESERVATION,
   RECEIVE_RESERVATION,
   DESTROY_RESERVATION,
   CLEAR_RESERVATION
@@ -21,9 +22,14 @@ const ReservationsReducer = (state = _nullReservations, action) => {
       return merge({}, state, { userReservations: action.reservations })
     case RECEIVE_RESERVATION:
       return merge({}, state, { currentReservation: action.reservation });
+    case RECEIVE_ADD_USER_RESERVATION:
+      const newUserState = merge({}, state);
+      newUserState.userReservations.push(action.reservation);
+      return newUserState;
     case CLEAR_RESERVATION:
-      const _nullRestaurantReservations = {};
-      return merge({}, state, { restaurantReservations: _nullRestaurantReservations });
+      const newState = merge({}, state);
+      newState.currentReservation = {};
+      return newState;
     case DESTROY_RESERVATION:
       let newReservations = merge({}, state);
       delete state[action.id];

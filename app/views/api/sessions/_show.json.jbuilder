@@ -26,4 +26,4 @@ json.reservations user.reservations do |reservation|
         json.details reservation.restaurant.reviews.sample.details
       end
     end
-end
+  end
