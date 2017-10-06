@@ -7,6 +7,7 @@ import {
   DESTROY_RESERVATION,
   CLEAR_RESERVATION
 } from '../actions/reservations_actions';
+import { filterReservation } from '../selectors/reservation_selectors';
 
 const _nullReservations = Object.freeze({
   userReservations: {},
@@ -32,7 +33,8 @@ const ReservationsReducer = (state = _nullReservations, action) => {
       return newState;
     case DESTROY_RESERVATION:
       let newReservations = merge({}, state);
-      delete state[action.id];
+      debugger
+      newReservations.userReservations = filterReservation(newReservations.userReservations, action.id);
       return newReservations;
     default:
       return state;

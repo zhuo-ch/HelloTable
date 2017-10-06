@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
-import { destroyReservation } from '../../actions/session_actions';
+import { destroyReservation } from '../../actions/reservations_actions';
 import FontAwesome from 'react-fontawesome';
 import ReservationsSnippet from '../restaurant/reservations';
 import Scrollchor from 'react-scrollchor';

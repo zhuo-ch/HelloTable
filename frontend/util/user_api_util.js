@@ -11,10 +11,3 @@ export const fetchUpdatedReservation = id => {
     url: `api/reservations/${id}`
   })
 }
-
-export const destroyReservation = id => {
-  return $.ajax({
-    method: 'DELETE',
-    url: `api/reservations/${id}`,
-  })
-}
