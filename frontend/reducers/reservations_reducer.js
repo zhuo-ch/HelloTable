@@ -33,7 +33,6 @@ const ReservationsReducer = (state = _nullReservations, action) => {
       return newState;
     case DESTROY_RESERVATION:
       let newReservations = merge({}, state);
-      debugger
       newReservations.userReservations = filterReservation(newReservations.userReservations, action.id);
       return newReservations;
     default:

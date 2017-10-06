@@ -1,5 +1,4 @@
 import * as SessionApiUtil from '../util/session_api_util';
-import * as UserApiUtil from '../util/user_api_util';
 import { hashHistory } from 'react-router';
 
 export const RECEIVE_CURRENT_USER = 'RECEIVE_CURRENT_USER';
