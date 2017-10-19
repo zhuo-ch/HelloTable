@@ -12,7 +12,6 @@ class Api::RestaurantsController < ApplicationController
 
   def create
     @restaurant = Restaurant.new(restaurant_params)
-    @restaurant.set_address(format_address)
     # address = format_address
     #
     # url = "https://maps.googleapis.com/maps/api/geocode/json?address="
@@ -27,6 +26,7 @@ class Api::RestaurantsController < ApplicationController
     # @restaurant.city_id = City.in_bounds(response_address["geometry"]["location"])
 
     if @restaurant.save
+      @restaurant.set_address(format_address)
       if params[:imageFiles]
         params[:imageFiles].each do |image|
             @restaurant.photos.create(image: image)
