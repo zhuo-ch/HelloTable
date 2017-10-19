@@ -27,7 +27,7 @@ gem 'figaro'
 gem 'aws-sdk'
 gem 'faker'
 gem 'rest-client'
-# gem 'rails_12factor'
+gem 'rails_12factor'
 
 
 # Use Unicorn as the app server

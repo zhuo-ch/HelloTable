@@ -3,6 +3,7 @@ import * as FavoritesAPIUtil from '../util/favorites_util';
 export const RECEIVE_FAVORITES = 'RECEIVE_FAVORITES';
 export const RECEIVE_FAVORITE = 'RECEIVE_FAVORITE';
 export const REMOVE_FAVORITE = 'REMOVE_FAVORITE';
+export const CLEAR_FAVORITES = 'CLEAR_FAVORITES';
 
 export const receiveAllFavorites = favorites => dispatch => {
   return dispatch(receiveFavorites(favorites));

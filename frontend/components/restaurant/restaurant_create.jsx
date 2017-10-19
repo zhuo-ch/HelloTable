@@ -17,8 +17,6 @@ class CreateRestaurant extends React.Component {
                       city: '',
                       state: '',
                       site: '',
-                      lat: '',
-                      lng: '',
                       imageFiles: [],
                       imageUrls: [],
                       owner_id: this.props.currentUser.id,

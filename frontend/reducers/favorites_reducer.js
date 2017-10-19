@@ -1,4 +1,5 @@
-import { RECEIVE_FAVORITE, REMOVE_FAVORITE, RECEIVE_FAVORITES } from '../actions/favorites_actions';
+import { RECEIVE_FAVORITE, REMOVE_FAVORITE, RECEIVE_FAVORITES, CLEAR_FAVORITES } from '../actions/favorites_actions';
+import { LOGOUT } from '../actions/session_actions';
 import * as FavoritesSelector from '../selectors/favorites_selector';
 import { merge } from 'lodash';
 
@@ -17,6 +18,8 @@ const FavoritesReducer = (state = _nullFavorites, action) => {
       let newState = merge({}, state);
       delete newState[action.favorite.restaurant_id];
       return newState;
+    case LOGOUT:
+      return _nullFavorites
     default:
       return state;
   }

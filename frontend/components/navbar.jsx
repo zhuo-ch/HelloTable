@@ -26,7 +26,13 @@ class Navbar extends React.Component {
   componentWillReceiveProps(nextProps) {
     if (!(nextProps.currentUser.id)) {
       this.stopScroll();
-    } else if ((nextProps.currentUser.id) && (nextProps.currentUser.id !== this.props.currentUser.id)) {
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const hasScrollItems = (this.props.reservations.length > 0) || (Object.keys(this.props.favorites).length > 0);
+
+    if (hasScrollItems && this.state.type === '') {
       this.stopScroll();
       this.startScroll();
     }
@@ -66,7 +72,6 @@ class Navbar extends React.Component {
 
   setScrollType() {
     const favorites = this.props.favorites !== undefined ? Object.keys(this.props.favorites) : [];
-
     if (this.props.reservations) {
       var reservations = this.filterUpcomingReservations();
     }
