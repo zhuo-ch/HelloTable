@@ -38,7 +38,6 @@ const RestaurantsReducer = (state = _nullRestaurants, action) => {
     case RECEIVE_DESTROY:
       return _nullRestaurants;
     case RECEIVE_ERRORS:
-    debugger
       return Object.assign({}, state, { errors: action.errors});
     default:
       return state;
