@@ -5,6 +5,11 @@ import Modal from '../modal.jsx';
 class Manager extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      details: false,
+      times: false,
+      limits: false,
+    }
   }
 
   getDetails() {
