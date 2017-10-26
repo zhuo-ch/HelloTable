@@ -19,7 +19,19 @@ class Manager extends React.Component {
 
   }
 
-  render() {
+  getEditButton() {
 
+  }
+
+
+
+  render() {
+    return (
+      <div>
+        { getDetails }
+        { getTimes }
+        { getLimits }
+      </div>
+    );
   }
 }
