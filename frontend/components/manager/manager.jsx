@@ -12,8 +12,12 @@ class Manager extends React.Component {
     }
   }
 
-  getDetails() {
+  componentWillMount() {
+    this.props.fetchManagerRestaurant(this.props.currentUser.id);
+  }
 
+  getDetails() {
+    
   }
 
   getTimes() {
@@ -43,11 +47,13 @@ class Manager extends React.Component {
 
 const mapStateToProps = state => ({
   currentUser: state.session.currentUser,
+  restaurant: state.Manager.restaurant,
 });
 
 const mapDispatchToProps = dispatch => ({
   resetCurrentModal: () => dispatch(resetCurrentModal()),
   setCurrentModal: modal => dispatch(setCurrentModal(modal)),
+  fetchManagerRestaurant: id => dispatch(fetchManagerRestaurant(id)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Manager);
