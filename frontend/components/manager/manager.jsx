@@ -17,11 +17,33 @@ class Manager extends React.Component {
   }
 
   getDetails() {
-    
+    const restaurant = this.props.restaurant;
+
+    return (
+      <section className='manager-details'>
+        <article>{ restaurant.name }</article>
+        <article>{ restaurant.phone }</article>
+        <article>{ restaurant.address }</article>
+        <article>{ restaurant.cuisine }</article>
+        <article>{ restaurant.site }</article>
+      </section>
+    );
   }
 
   getTimes() {
+    const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    const times = days.map(day => {
+      return (
+        <span>{ day }</span>
+        <span>{ open } to { closing }</span>
+      );
+    });
 
+    return (
+      <ul>
+        { times }
+      </ul>
+    );
   }
 
   getLimits() {
