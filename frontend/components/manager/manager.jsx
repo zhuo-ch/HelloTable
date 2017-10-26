@@ -42,11 +42,11 @@ class Manager extends React.Component {
 }
 
 const mapStateToProps = state => ({
-
+  currentUser: state.session.currentUser,
 });
 
 const mapDispatchToProps = dispatch => ({
-
+  resetCurrentModal: () => dispatch(resetCurrentModal()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Manager);
