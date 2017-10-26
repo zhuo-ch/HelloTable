@@ -47,6 +47,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   resetCurrentModal: () => dispatch(resetCurrentModal()),
+  setCurrentModal: modal => dispatch(setCurrentModal(modal)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Manager);
