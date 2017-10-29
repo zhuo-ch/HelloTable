@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import React from 'react';
 import { setSearchParams } from '../../actions/search_actions';
+import InputSelect from '../input_select.jsx';
 
 class SeatBar extends React.Component {
   constructor(props) {
@@ -8,10 +9,11 @@ class SeatBar extends React.Component {
     this.state = {
       selecting: false,
       targeted: 0,
+      max: 10,
     }
     this.getSeats = this.getSeats.bind(this);
     this.getCurrentSeat = this.getCurrentSeat.bind(this);
-    this.targeted = this.targeted.bind(this);
+    // this.targeted = this.targeted.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.handleKey = this.handleKey.bind(this);
     this.handleOutsideClick = this.handleOutsideClick.bind(this);
@@ -60,44 +62,58 @@ class SeatBar extends React.Component {
     }
   }
 
-  targeted(idx) {
-    return idx === this.state.targeted ? 'highlight seats-item' : 'seats-item';
-  }
-
   getSeats() {
-    const selecting = this.state.selecting ? '' : 'hidden';
-    let seats = [];
-
-    for (let i = 1; i < 11; i++) {
-      if (i === 1) {
-        seats.push(
-          <li
-            className={ this.targeted(i) }
-            key={i}
-            value={i}
-            onClick={ this.handleClick }>
-            {i} Patron
-          </li>
-        );
-      } else {
-        seats.push(
-          <li
-            className={ this.targeted(i) }
-            key={i}
-            value={i}
-            onClick={ this.handleClick }>
-            {i} Patrons
-          </li>
-        );
-      }
+    const options = {
+      selecting: this.state.selecting,
+      targetIdx: this.state.targeted,
+      handleClick: this.handleClick,
+      items: Array.from(Array(10)).map((el, idx) => idx + 1),
+      text: 'Patrons',
+      listName: ['search', 'seat'],
+      type: 'seats-item',
     }
 
-    return (
-      <ul className='search-list seats-list' id={ selecting }>
-        { seats }
-      </ul>
-    );
+    return InputSelect(options);
   }
+
+  // targeted(idx) {
+  //   return idx === this.state.targeted ? 'highlight seats-item' : 'seats-item';
+  // }
+  //
+  // getSeats() {
+  //   const selecting = this.state.selecting ? '' : 'hidden';
+  //   let seats = [];
+  //
+  //   for (let i = 1; i < 11; i++) {
+  //     if (i === 1) {
+  //       seats.push(
+  //         <li
+  //           className={ this.targeted(i) }
+  //           key={i}
+  //           value={i}
+  //           onClick={ this.handleClick }>
+  //           {i} Patron
+  //         </li>
+  //       );
+  //     } else {
+  //       seats.push(
+  //         <li
+  //           className={ this.targeted(i) }
+  //           key={i}
+  //           value={i}
+  //           onClick={ this.handleClick }>
+  //           {i} Patrons
+  //         </li>
+  //       );
+  //     }
+  //   }
+  //
+  //   return (
+  //     <ul className='search-list seats-list' id={ selecting }>
+  //       { seats }
+  //     </ul>
+  //   );
+  // }
 
   getCurrentSeat() {
     const currentSeat = this.props.seats;
@@ -130,6 +146,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   setSearchParams: query => dispatch(setSearchParams(query)),
+  inputSelect: options => dispatch(inputSelect(options)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SeatBar);
