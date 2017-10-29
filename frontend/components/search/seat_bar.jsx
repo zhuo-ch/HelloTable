@@ -13,7 +13,6 @@ class SeatBar extends React.Component {
     }
     this.getSeats = this.getSeats.bind(this);
     this.getCurrentSeat = this.getCurrentSeat.bind(this);
-    // this.targeted = this.targeted.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.handleKey = this.handleKey.bind(this);
     this.handleOutsideClick = this.handleOutsideClick.bind(this);
@@ -75,45 +74,6 @@ class SeatBar extends React.Component {
 
     return InputSelect(options);
   }
-
-  // targeted(idx) {
-  //   return idx === this.state.targeted ? 'highlight seats-item' : 'seats-item';
-  // }
-  //
-  // getSeats() {
-  //   const selecting = this.state.selecting ? '' : 'hidden';
-  //   let seats = [];
-  //
-  //   for (let i = 1; i < 11; i++) {
-  //     if (i === 1) {
-  //       seats.push(
-  //         <li
-  //           className={ this.targeted(i) }
-  //           key={i}
-  //           value={i}
-  //           onClick={ this.handleClick }>
-  //           {i} Patron
-  //         </li>
-  //       );
-  //     } else {
-  //       seats.push(
-  //         <li
-  //           className={ this.targeted(i) }
-  //           key={i}
-  //           value={i}
-  //           onClick={ this.handleClick }>
-  //           {i} Patrons
-  //         </li>
-  //       );
-  //     }
-  //   }
-  //
-  //   return (
-  //     <ul className='search-list seats-list' id={ selecting }>
-  //       { seats }
-  //     </ul>
-  //   );
-  // }
 
   getCurrentSeat() {
     const currentSeat = this.props.seats;
