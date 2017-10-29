@@ -32,17 +32,17 @@ class TimeBar extends React.Component {
       e.preventDefault();
       switch (e.key) {
         case 'Enter':
-          this.props.setSearchParams({ time: this.getSlots()[this.state.targeted - 1] });
+          this.props.setSearchParams({ time: this.getSlots()[this.state.targeted] });
           this.setState({ selecting: false })
           document.removeEventListener('keydown', this.handleKey);
           break;
         case 'ArrowUp':
-          if (this.state.targeted > 1) {
+          if (this.state.targeted > 0) {
             this.setState({ targeted: this.state.targeted - 1 });
           }
           break;
         case 'ArrowDown':
-          if (this.state.targeted < this.getSlots().length) {
+          if (this.state.targeted < this.getSlots().length - 1) {
             this.setState({ targeted: this.state.targeted + 1 });
           }
           break;

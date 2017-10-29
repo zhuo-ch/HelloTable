@@ -1,12 +1,12 @@
 import React from 'react';
 
 const InputSelect = ({ selecting, targetIdx, handleClick, items, text, listName, type}) => {
-  selecting = selecting ? '' : 'hidden';
+  const listId = selecting ? '' : 'hidden';
 
   const inputs = items.map((item, idx)=> {
     return (
       <li
-        className={ targeted(item, targetIdx, type) }
+        className={ targeted(idx, targetIdx, type) }
         key={ item }
         value={ item }
         onClick={ handleClick }>
@@ -18,7 +18,7 @@ const InputSelect = ({ selecting, targetIdx, handleClick, items, text, listName,
   return (
     <ul
       className={ listName.map(el => el + '-list').join(' ') }
-      id={ selecting }>
+      id={ listId }>
       { inputs }
     </ul>
   );

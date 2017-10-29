@@ -34,12 +34,12 @@ class SeatBar extends React.Component {
           document.removeEventListener('keydown', this.handleKey);
           break;
         case 'ArrowUp':
-          if (this.state.targeted > 1) {
+          if (this.state.targeted > 0) {
             this.setState({ targeted: this.state.targeted - 1 });
           }
           break;
         case 'ArrowDown':
-          if (this.state.targeted < 10) {
+          if (this.state.targeted < 9) {
             this.setState({ targeted: this.state.targeted + 1 });
           }
           break;
