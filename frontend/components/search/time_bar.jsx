@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import * as SearchAPIUtil from '../../util/search_api_util';
 import { setSearchParams } from '../../actions/search_actions';
+import InputSelect from '../input_select.jsx';
 
 class TimeBar extends React.Component {
   constructor(props) {
@@ -12,8 +13,8 @@ class TimeBar extends React.Component {
       timeSlots: 0,
     }
     this.getSlots = this.getSlots.bind(this);
-    this.targeted = this.targeted.bind(this);
-    this.getTimeSlots = this.getTimeSlots.bind(this);
+    // this.targeted = this.targeted.bind(this);
+    // this.getTimeSlots = this.getTimeSlots.bind(this);
     this.getTimeList = this.getTimeList.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.handleKey = this.handleKey.bind(this);
@@ -64,9 +65,9 @@ class TimeBar extends React.Component {
     }
   }
 
-  targeted(idx) {
-    return idx === this.state.targeted ? 'highlight time-item' : 'time-item';
-  }
+  // targeted(idx) {
+  //   return idx === this.state.targeted ? 'highlight time-item' : 'time-item';
+  // }
 
   getSlots() {
     const time = this.props.time.split(':');
@@ -92,26 +93,41 @@ class TimeBar extends React.Component {
     return slots;
   }
 
-  getTimeSlots() {
-    const slots = this.getSlots();
+  // getTimeSlots() {
+  //   const slots = this.getSlots();
+  //
+  //   return slots.map((slot, idx) => {
+  //     return <li
+  //       key={ idx+1 }
+  //       className={ this.targeted(idx+1) }
+  //       onClick={ this.handleClick }>{`${slot}`}</li>;
+  //   });
+  // }
+  //
+  // getTimeList() {
+  //   const selecting = this.state.selecting ? '' : 'hidden';
+  //   const timeSlots = this.getTimeSlots();
+  //
+  //   return (
+  //     <ul className='search-list time-list' id={ selecting }>
+  //       { timeSlots }
+  //     </ul>
+  //   )
+  // }
 
-    return slots.map((slot, idx) => {
-      return <li
-        key={ idx+1 }
-        className={ this.targeted(idx+1) }
-        onClick={ this.handleClick }>{`${slot}`}</li>;
-    });
-  }
 
   getTimeList() {
-    const selecting = this.state.selecting ? '' : 'hidden';
-    const timeSlots = this.getTimeSlots();
+    const options = {
+      selecting: this.state.selecting,
+      targetIdx: this.state.targeted,
+      handleClick: this.handleClick,
+      items: this.getSlots(),
+      text: '',
+      listName: ['search', 'time'],
+      type: 'time-item',
+    }
 
-    return (
-      <ul className='search-list time-list' id={ selecting }>
-        { timeSlots }
-      </ul>
-    )
+    return InputSelect(options);
   }
 
   getCurrentTime() {
