@@ -82,7 +82,7 @@ class Manager extends React.Component {
 
 const mapStateToProps = state => ({
   currentUser: state.session.currentUser,
-  restaurant: state.Manager.restaurant,
+  restaurant: state.manager,
 });
 
 const mapDispatchToProps = dispatch => ({

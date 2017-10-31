@@ -10,5 +10,5 @@ export const fetchManagerRestaurant = id => dispatch => {
 
 const receiveManagerRestaurant => restaurant => ({
   type: RECEIVE_MANAGER_RESTAURANT,
-  restaurant
+  restaurant,
 });
