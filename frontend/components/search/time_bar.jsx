@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import * as SearchAPIUtil from '../../util/search_api_util';
 import { setSearchParams } from '../../actions/search_actions';
-import InputSelect from '../input_select.jsx';
+import inputSelect from '../input_select.jsx';
 
 class TimeBar extends React.Component {
   constructor(props) {
@@ -98,7 +98,7 @@ class TimeBar extends React.Component {
       type: 'time-item',
     }
 
-    return InputSelect(options);
+    return inputSelect(options);
   }
 
   getCurrentTime() {

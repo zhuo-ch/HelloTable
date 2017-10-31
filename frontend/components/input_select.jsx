@@ -1,6 +1,6 @@
 import React from 'react';
 
-const InputSelect = ({ selecting, targetIdx, handleClick, items, text, listName, type}) => {
+const inputSelect = ({ selecting, targetIdx, handleClick, items, text, listName, type}) => {
   const listId = selecting ? '' : 'hidden';
 
   const inputs = items.map((item, idx)=> {
@@ -28,4 +28,4 @@ const targeted = (idx, targetIdx, type) => {
   return idx === targetIdx ? `highlight ${ type }` : type;
 }
 
-export default InputSelect;
+export default inputSelect;

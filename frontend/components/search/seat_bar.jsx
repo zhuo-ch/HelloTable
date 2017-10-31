@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import React from 'react';
 import { setSearchParams } from '../../actions/search_actions';
-import InputSelect from '../input_select.jsx';
+import inputSelect from '../input_select.jsx';
 
 class SeatBar extends React.Component {
   constructor(props) {
@@ -72,7 +72,7 @@ class SeatBar extends React.Component {
       type: 'seats-item',
     }
 
-    return InputSelect(options);
+    return inputSelect(options);
   }
 
   getCurrentSeat() {

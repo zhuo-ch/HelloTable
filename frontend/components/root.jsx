@@ -11,6 +11,7 @@ import CityIndex from './city/city_index';
 import CityShow from './city/city_show';
 import UserShow from './user/user_show';
 import ReviewForm from './review/review_form';
+import ManagerShow from './manager/manager';
 import Modal from './modal';
 
 const Root = ({store}) => {
@@ -23,6 +24,7 @@ const Root = ({store}) => {
           <Route path='/restaurant/:restaurantId' component={restaurantContainer} />
           <Route path='/cities/:cityId' component={CityShow} />
           <Route path='/users/:userId' component={UserShow} />
+          <Route path='/manager/:userId' component={ManagerShow} />
         </Route>
       </Router>
     </Provider>

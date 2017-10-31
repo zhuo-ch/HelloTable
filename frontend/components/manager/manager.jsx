@@ -1,15 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Modal from '../modal.jsx';
+import { setCurrentModal, resetCurrentModal } from '../actions/modal_actions';
+import { fetchManagerRestaurant } from '../actions/manager_actions';
 
 class Manager extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      details: false,
-      times: false,
-      limits: false,
-    }
   }
 
   componentWillMount() {
@@ -44,6 +40,23 @@ class Manager extends React.Component {
         { times }
       </ul>
     );
+  }
+
+  getTimesList() {
+    const list = { '12:00AM': 0, '12:30AM': 30 };
+    let hours = 100,
+    let mins = 0,
+
+    while (hours < 2400) {
+      const str = hours.toString();
+      const hour = str.slice(0, -2);
+      const min = str.slice(-2, str.length);
+      const type = hours > 11 ? 'PM' : 'AM';
+      list[`${hour}:${min}${type}`] = hours + min;
+      mins = mins === 30 ? 0 : 30;
+    }
+
+    return list;
   }
 
   getLimits() {
