@@ -1,4 +1,4 @@
-class Api::FavoritesController < ApplicationController
+class Api::ManagerController < ApplicationController
   def show
     @restaurant = Restaurant
       .includes(:rating)
@@ -10,5 +10,6 @@ class Api::FavoritesController < ApplicationController
       render 'api/manager/show'
     else
       render json: @restaurant.errors.full_messages
+    end
   end
 end

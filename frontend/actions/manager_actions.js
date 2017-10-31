@@ -8,7 +8,7 @@ export const fetchManagerRestaurant = id => dispatch => {
     .then(restaurant => dispatch(receiveManagerRestaurant(restaurant)));
 }
 
-const receiveManagerRestaurant => restaurant => ({
+const receiveManagerRestaurant = restaurant => ({
   type: RECEIVE_MANAGER_RESTAURANT,
   restaurant,
 });

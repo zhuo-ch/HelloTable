@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { setCurrentModal, resetCurrentModal } from '../actions/modal_actions';
-import { fetchManagerRestaurant } from '../actions/manager_actions';
+import { setCurrentModal, resetCurrentModal } from '../../actions/modal_actions';
+import { fetchManagerRestaurant } from '../../actions/manager_actions';
 
 class Manager extends React.Component {
   constructor(props) {
@@ -10,9 +10,11 @@ class Manager extends React.Component {
 
   componentWillMount() {
     this.props.fetchManagerRestaurant(this.props.currentUser.id);
+    debugger
   }
 
   getDetails() {
+    debugger
     const restaurant = this.props.restaurant;
 
     return (
@@ -27,11 +29,14 @@ class Manager extends React.Component {
   }
 
   getTimes() {
+    debugger
     const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
     const times = days.map(day => {
       return (
-        <span>{ day }</span>
-        <span>{ open } to { closing }</span>
+        <li>
+          <span>{ day }</span>
+          <span>{ this.restaurant[day].open } to { this.restaurant[day].close }</span>
+        </li>
       );
     });
 
@@ -44,8 +49,8 @@ class Manager extends React.Component {
 
   getTimesList() {
     const list = { '12:00AM': 0, '12:30AM': 30 };
-    let hours = 100,
-    let mins = 0,
+    let hours = 100;
+    let mins = 0;
 
     while (hours < 2400) {
       const str = hours.toString();
@@ -72,9 +77,9 @@ class Manager extends React.Component {
   render() {
     return (
       <div>
-        { getDetails }
-        { getTimes }
-        { getLimits }
+        { this.getDetails() }
+
+        { this.getLimits() }
       </div>
     );
   }
