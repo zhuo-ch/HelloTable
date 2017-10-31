@@ -33,4 +33,6 @@ class Restaurant < ActiveRecord::Base
   has_many :favorites
   has_many :reviews, through: :reservations
   has_many :photos, dependent: :destroy, inverse_of: :restaurant
+  has_many :seatings
+  has_many :hours
 end

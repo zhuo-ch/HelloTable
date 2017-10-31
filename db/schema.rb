@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170926192135) do
+ActiveRecord::Schema.define(version: 20171031224113) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,6 +31,15 @@ ActiveRecord::Schema.define(version: 20170926192135) do
 
   create_table "favorites", force: :cascade do |t|
     t.integer  "user_id",       null: false
+    t.integer  "restaurant_id", null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  create_table "hours", force: :cascade do |t|
+    t.string   "day",           null: false
+    t.integer  "open",          null: false
+    t.integer  "close",         null: false
     t.integer  "restaurant_id", null: false
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
@@ -63,7 +72,7 @@ ActiveRecord::Schema.define(version: 20170926192135) do
     t.integer "restaurant_id", null: false
     t.string  "date",          null: false
     t.integer "time",          null: false
-    t.string  "seats",         null: false
+    t.integer "seating_id",    null: false
   end
 
   create_table "restaurants", force: :cascade do |t|
@@ -71,7 +80,6 @@ ActiveRecord::Schema.define(version: 20170926192135) do
     t.string   "name",        null: false
     t.string   "cuisine"
     t.string   "phone",       null: false
-    t.string   "hours"
     t.string   "site"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
@@ -91,6 +99,14 @@ ActiveRecord::Schema.define(version: 20170926192135) do
     t.integer  "value"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
+  end
+
+  create_table "seatings", force: :cascade do |t|
+    t.integer  "restaurant_id", null: false
+    t.integer  "seats",         null: false
+    t.integer  "max_tables",    null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
   end
 
   create_table "users", force: :cascade do |t|
