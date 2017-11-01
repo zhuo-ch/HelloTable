@@ -23,7 +23,7 @@ def generate_hours(id)
   days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
   hours = [1000, 1030, 1100, 1130]
 
-  days.each { |day| Hour.create(day: day, open: hours.sample, close: hours.sample + 12, restaurant_id: id) }
+  days.each { |day| Hour.create(day: day, open: hours.sample, close: hours.sample + 1200, restaurant_id: id) }
 end
 
 def generate_seating(id)
@@ -37,8 +37,8 @@ end
 
 def generate_restaurant(restaurant, city_id, cuisines, descriptions, users)
 
-  restaurant = Restaurant.create(
-    owner_id: users.sample,
+  res = Restaurant.create(
+    user_id: users.sample,
     city_id: city_id,
     name: restaurant["name"],
     phone: Faker::Number.number(10),
@@ -49,8 +49,8 @@ def generate_restaurant(restaurant, city_id, cuisines, descriptions, users)
     location: restaurant["geometry"]["location"]
     )
 
-  generate_hours(restaurant.id)
-  generate_seating(restaurant.id)
+  generate_hours(res.id)
+  generate_seating(res.id)
 end
 
 def generate_city_restaurants(city, cuisines, descriptions, users)
@@ -131,6 +131,8 @@ end
 # guest
 
 guest = User.create(username: 'Guest', email: 'guest@guest-email.com', password: 'password')
+guest_res = { "formatted_address" => '234 W 56th St, New York, NY 10019', "geometry" => { "location" => "40.7656094,-73.982685" }, "name" => 'Basso 56' }
+generate_restaurant(guest_res, a.id, cuisines, descriptions, [guest.id])
 restaurants = Restaurant.all.map { |res| res.id }
 
 3.times do

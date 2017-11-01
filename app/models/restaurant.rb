@@ -1,5 +1,5 @@
 class Restaurant < ActiveRecord::Base
-  validates :owner_id, :name, :description, :address, :location, :phone, presence: true
+  validates :user_id, :name, :description, :address, :location, :phone, presence: true
   after_initialize :ensure_rating
 
   def ensure_rating
@@ -27,7 +27,7 @@ class Restaurant < ActiveRecord::Base
   end
 
   belongs_to :city
-  belongs_to :owner
+  belongs_to :user
   has_one :rating, inverse_of: :restaurant
   has_many :reservations
   has_many :favorites

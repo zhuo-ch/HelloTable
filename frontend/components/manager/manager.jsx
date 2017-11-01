@@ -10,11 +10,9 @@ class Manager extends React.Component {
 
   componentWillMount() {
     this.props.fetchManagerRestaurant(this.props.currentUser.id);
-    debugger
   }
 
   getDetails() {
-    debugger
     const restaurant = this.props.restaurant;
 
     return (
@@ -29,13 +27,13 @@ class Manager extends React.Component {
   }
 
   getTimes() {
-    debugger
     const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-    const times = days.map(day => {
+
+    const times = this.props.restaurant.hours.map(hour => {
       return (
         <li>
-          <span>{ day }</span>
-          <span>{ this.restaurant[day].open } to { this.restaurant[day].close }</span>
+          <span>{ hour.day }</span>
+          <span>{ hour.open } to { hour.close }</span>
         </li>
       );
     });
@@ -43,6 +41,23 @@ class Manager extends React.Component {
     return (
       <ul>
         { times }
+      </ul>
+    );
+  }
+
+  getSeating() {
+    const seatings = this.props.restaurant.seatings.map(seating => {
+      return (
+        <li>
+          <span>{ seating.seats }</span>
+          <span>{ seating.max_tables }</span>
+        </li>
+      );
+    });
+
+    return (
+      <ul>
+        { seatings }
       </ul>
     );
   }
@@ -64,22 +79,21 @@ class Manager extends React.Component {
     return list;
   }
 
-  getLimits() {
-
-  }
-
   getEditButton() {
 
   }
 
-
-
   render() {
+    const loaded = this.props.restaurant.id ? true : false;
+    const details = loaded ? this.getDetails() : '';
+    const times = loaded ? this.getTimes() : '';
+    const seatings = loaded ? this.getSeating() : '';
+
     return (
       <div>
-        { this.getDetails() }
-
-        { this.getLimits() }
+        { details }
+        { times }
+        { seatings }
       </div>
     );
   }

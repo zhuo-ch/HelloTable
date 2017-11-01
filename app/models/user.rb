@@ -10,6 +10,7 @@ class User < ActiveRecord::Base
   has_many :photos, through: :restaurants
   has_many :ratings, through: :restaurants
   has_many :favorites
+  has_one :restaurant
     # class_name: "Restaurant",
     # primary_key: :id,
     # foreign_key: :owner_id
