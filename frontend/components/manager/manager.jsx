@@ -84,17 +84,15 @@ class Manager extends React.Component {
       const open = this.createSpan({
         key: `${hour.day}-open`,
         text: formatHoursMinutes(hour.open),
-        cName: 'about-description',
       });
       const close = this.createSpan({
         key: `${hour.day}-close`,
         text: formatHoursMinutes(hour.close),
-        cName: 'about-description',
       });
 
       return (
         <li key={ hour.day } className='about-description'>
-          { hour.day } from { open } to { close }
+          { hour.day }  from  { open }  to  { close }
         </li>
       );
     });
@@ -111,9 +109,18 @@ class Manager extends React.Component {
 
   getSeating() {
     const seatings = this.props.restaurant.seatings.map((seating, idx) => {
+      const maxTables = this.createSpan({
+        key: `max${idx}`,
+        text: seating.max_tables,
+      });
+      const seats = this.createSpan({
+        key: `seats${idx}`,
+        text: seating.seats,
+      });
+
       return (
         <li key={idx} className='about-description'>
-          { seating.max_tables + ' tables of ' + seating.seats }
+          { maxTables }  tables of  { seats }
         </li>
       );
     });
