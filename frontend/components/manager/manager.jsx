@@ -34,7 +34,7 @@ class Manager extends React.Component {
 
   getSideBar() {
     const bar = ['Details', 'Hours of Operation', 'Tables'].map((el, idx) =>{
-      return this.createArticle(idx, 'about-text', el, this.handleSideBar);
+      return this.createArticle(idx, 'about-description', el, this.handleSideBar);
     });
 
     return (
@@ -129,7 +129,7 @@ class Manager extends React.Component {
     const times = loaded ? this.getTimes() : '';
     const seatings = loaded ? this.getSeating() : '';
     const sideBar = this.getSideBar();
-
+debugger
     return (
       <StickyContainer className='restaurant-view'>
         <div className='restaurant-body'>
