@@ -10,6 +10,7 @@ class Manager extends React.Component {
     super(props);
     this.state = { selecting: false, type: '', idx: '' }
     this.handleSideBar = this.handleSideBar.bind(this);
+    this.getTimes = this.getTimes.bind(this);
   }
 
   componentWillMount() {
@@ -21,20 +22,27 @@ class Manager extends React.Component {
     reference.scrollIntoView(true);
   }
 
-  createArticle(key, cName, text, clickHandler) {
+  createSpan({key, cName, text, clickHandler}) {
     return (
-      <article
+      <span
         onClick={ clickHandler }
         key={ key }
         className={ cName }>
         { text }
-      </article>
-    )
+      </span>
+    );
   }
 
   getSideBar() {
     const bar = ['Details', 'Hours of Operation', 'Tables'].map((el, idx) =>{
-      return this.createArticle(idx, 'about-description', el, this.handleSideBar);
+      return (
+        <article
+          key={ idx }
+          className='about-description'
+          onClick={ this.handleSideBar }>
+          { el }
+        </article>
+      );
     });
 
     return (
@@ -47,9 +55,16 @@ class Manager extends React.Component {
   getDetails() {
     const restaurant = this.props.restaurant;
     const details = ['name', 'phone', 'address', 'cuisine', 'site'].map((key, idx) => {
+      const detail = this.createSpan({
+        key: idx,
+        cName: 'about-description',
+        text: restaurant[key],
+        clickHandler: this.handleSideBar,
+      });
+
       return (
         <article className='about-description' key={ idx }>
-          { `${key.charAt(0).toUpperCase() + key.slice(1, key.length)}:  ${restaurant[key]}` }
+          { `${key.charAt(0).toUpperCase() + key.slice(1, key.length)}:  ` }{ detail }
         </article>
       );
     });
@@ -66,9 +81,20 @@ class Manager extends React.Component {
     const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
     const times = this.props.restaurant.hours.map(hour => {
+      const open = this.createSpan({
+        key: `${hour.day}-open`,
+        text: formatHoursMinutes(hour.open),
+        cName: 'about-description',
+      });
+      const close = this.createSpan({
+        key: `${hour.day}-close`,
+        text: formatHoursMinutes(hour.close),
+        cName: 'about-description',
+      });
+
       return (
         <li key={ hour.day } className='about-description'>
-          { `${hour.day}  from  ${formatHoursMinutes(hour.open)}  to  ${formatHoursMinutes(hour.close)}` }
+          { hour.day } from { open } to { close }
         </li>
       );
     });
@@ -129,7 +155,7 @@ class Manager extends React.Component {
     const times = loaded ? this.getTimes() : '';
     const seatings = loaded ? this.getSeating() : '';
     const sideBar = this.getSideBar();
-debugger
+
     return (
       <StickyContainer className='restaurant-view'>
         <div className='restaurant-body'>
