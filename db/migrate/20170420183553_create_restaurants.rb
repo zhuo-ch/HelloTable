@@ -1,7 +1,7 @@
 class CreateRestaurants < ActiveRecord::Migration
   def change
     create_table :restaurants do |t|
-      t.integer :owner_id, null: false
+      t.integer :user_id, null: false
       t.string :restaurant_name, null: false
       t.string :cuisine
       t.string :restaurant_number, null: false

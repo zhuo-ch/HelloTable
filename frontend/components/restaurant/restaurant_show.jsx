@@ -15,6 +15,7 @@ import ReviewSnippet from '../review/review_snippet';
 import ReactStars from 'react-stars';
 import FavoriteBox from '../favorite/favorite_box';
 import * as MapUtil from '../../util/map_util';
+import { formatHoursMinutes } from '../../util/search_api_util';
 
 class RestaurantShow extends React.Component {
   constructor(props) {
@@ -105,6 +106,25 @@ class RestaurantShow extends React.Component {
     return this.props.reviews.map(review => <ReviewSnippet key={ review.id } review={ review } />);
   }
 
+  getRestaurantHours() {
+    const hours = this.props.restaurant.hours.map(hour => {
+      const open = formatHoursMinutes(hour.open);
+      const close = formatHoursMinutes(hour.close);
+
+      return (
+        <li key={hour.day}>
+          { hour.day + '  ' + open + ' to ' + close }
+        </li>
+      )
+    });
+
+    return (
+      <ul>
+        { hours }
+      </ul>
+    )
+  }
+
   render() {
     const validReviews = this.props.reviews.length > 0;
     const resSnippet = this.getReservations();
@@ -112,6 +132,7 @@ class RestaurantShow extends React.Component {
     const reviewTopBar = validReviews ? this.getReviewTopBar(averages) : '';
     const reviewSnippets = validReviews ? this.getReviewSnippets() : '';
     const address = this.props.restaurant.id ? MapUtil.parseAddress(this.props.restaurant.address) : '';
+    const hours = this.props.restaurant.id ? this.getRestaurantHours() : '';
 
     return (
       <StickyContainer className='restaurant-view'>
@@ -194,13 +215,7 @@ class RestaurantShow extends React.Component {
             </article>
             <article>
               <h4><FontAwesome name='hours-clock' className="fa fa-clock-o icon" />Hours of Operation:</h4>
-              <ul>
-                {
-                  this.props.restaurant.hours.split(',').map((day, idx) => {
-                      return <li key={idx}>{day}</li>
-                  })
-                }
-              </ul>
+              { hours }
             </article>
             <article>
               <h4><FontAwesome name='phone-mobile' className="fa fa-mobile icon" />Phone Number:</h4>

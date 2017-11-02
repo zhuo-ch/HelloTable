@@ -29,9 +29,12 @@ end
 def generate_seating(id)
   tables = (1..10).to_a
   max = [1, 2]
+  used = []
 
   (rand(4) + 1).times do
-    Seating.create(seats: tables.sample, max_tables: max.sample, restaurant_id: id)
+    seats = tables.sample
+    used.delete(seats)
+    Seating.create(seats: seats, max_tables: max.sample, restaurant_id: id)
   end
 end
 

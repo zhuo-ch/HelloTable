@@ -15,7 +15,7 @@
 | Column Name | Column Type | Requires |
 | --- | --- | --- |
 | id | integer | not null, primary key |
-| owner_id | integer | not null, foreign key |
+| user_id | integer | not null, foreign key |
 | name | string | not null |
 | about | text | not null |
 | hours | string | |

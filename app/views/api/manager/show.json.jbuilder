@@ -1,4 +1,4 @@
-json.extract! @restaurant, :id, :owner_id, :name, :address, :location,
+json.extract! @restaurant, :id, :user_id, :name, :address, :location,
 :phone, :cuisine, :description, :hours, :site, :seatings
 json.ratings @restaurant.rating, :total, :rating, :food, :service, :ambiance, :value
 json.reviews @restaurant.reviews do |review|

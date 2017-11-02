@@ -13,7 +13,7 @@ class User < ActiveRecord::Base
   has_one :restaurant
     # class_name: "Restaurant",
     # primary_key: :id,
-    # foreign_key: :owner_id
+    # foreign_key: :user_id
 
   attr_reader :password
 

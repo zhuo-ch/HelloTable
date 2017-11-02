@@ -4,7 +4,7 @@ class Api::ManagerController < ApplicationController
       .includes(:rating)
       .includes(:reviews)
       .includes(:photos)
-      .find(user_id: params[:id])
+      .find_by(user_id: params[:id])
 
     if @restaurant && logged_in?
       render 'api/manager/show'

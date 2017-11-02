@@ -10,7 +10,7 @@
   }
   restaurants: {
     id: {
-      owner_id: id of owner,
+      user_id: id of owner,
       name: restaurant name,
       about: {
         style: type of dining,

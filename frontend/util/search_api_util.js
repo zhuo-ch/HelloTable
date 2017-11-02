@@ -26,6 +26,15 @@ export const getNewTime = () => {
   return formatTime(hours, date.getMinutes());
 }
 
+export const formatHoursMinutes = (time) => {
+  const str = time.toString();
+  const hour = str.slice(0, -2);
+  const am = parseInt(hour) < 12;
+  const minutes = str.slice(-2, str.length);
+
+  return am ? `${hour}:${minutes}AM` : `${hour - 12}:${minutes}PM`;
+}
+
 export const formatTime = (hours, minutes) => {
   return hours.toString()+":"+formatMinutes(minutes);
 }

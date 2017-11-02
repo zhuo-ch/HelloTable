@@ -19,7 +19,7 @@ class CreateRestaurant extends React.Component {
                       site: '',
                       imageFiles: [],
                       imageUrls: [],
-                      owner_id: this.props.currentUser.id,
+                      user_id: this.props.currentUser.id,
                     }
   this.handleChange = this.handleChange.bind(this);
   this.handleSubmit = this.handleSubmit.bind(this);
@@ -67,7 +67,7 @@ class CreateRestaurant extends React.Component {
     formData.append('restaurant[hours]', this.restaurant.hours);
     formData.append('restaurant[cuisine]', this.restaurant.cuisine);
     formData.append('restaurant[site]', this.restaurant.site);
-    formData.append('restaurant[owner_id]', this.restaurant.owner_id);
+    formData.append('restaurant[user_id]', this.restaurant.user_id);
     this.state.imageFiles.forEach((data, idx) => {
       formData.append('imageFiles[]', data);
     });
