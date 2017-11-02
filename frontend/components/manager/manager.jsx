@@ -8,6 +8,7 @@ import { formatHoursMinutes } from '../../util/search_api_util';
 class Manager extends React.Component {
   constructor(props) {
     super(props);
+    this.state = { selecting: false, type: '', idx: '' }
     this.handleSideBar = this.handleSideBar.bind(this);
   }
 
@@ -20,16 +21,20 @@ class Manager extends React.Component {
     reference.scrollIntoView(true);
   }
 
+  createArticle(key, cName, text, clickHandler) {
+    return (
+      <article
+        onClick={ clickHandler }
+        key={ key }
+        className={ cName }>
+        { text }
+      </article>
+    )
+  }
+
   getSideBar() {
     const bar = ['Details', 'Hours of Operation', 'Tables'].map((el, idx) =>{
-      return (
-        <article
-          onClick={ this.handleSideBar }
-          key={ idx }
-          className='about-text'>
-          { el }
-        </article>
-      );
+      return this.createArticle(idx, 'about-text', el, this.handleSideBar);
     });
 
     return (
