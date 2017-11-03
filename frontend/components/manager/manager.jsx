@@ -8,7 +8,7 @@ import { formatHoursMinutes } from '../../util/search_api_util';
 class Manager extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { selecting: false, type: '', idx: '' }
+    this.state = { selecting: false, type: '', idx: '', val: '' }
     this.handleSideBar = this.handleSideBar.bind(this);
     this.handleClick = this.handleClick.bind(this);
   }
@@ -35,6 +35,17 @@ class Manager extends React.Component {
         className={ cName }>
         { text }
       </span>
+    );
+  }
+
+  createInput({key, cName, text, changeHandler, placeHolder}) {
+    return (
+      <input
+        onChange={ changeHandler }
+        key={ key }
+        className={ cName }
+        placeholder={ placeHolder }>
+      </input>
     );
   }
 
