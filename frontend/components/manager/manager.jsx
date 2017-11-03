@@ -10,7 +10,7 @@ class Manager extends React.Component {
     super(props);
     this.state = { selecting: false, type: '', idx: '' }
     this.handleSideBar = this.handleSideBar.bind(this);
-    this.getTimes = this.getTimes.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   componentWillMount() {
@@ -20,6 +20,11 @@ class Manager extends React.Component {
   handleSideBar(e) {
     const reference = document.getElementById(e.currentTarget.innerText);
     reference.scrollIntoView(true);
+  }
+
+  handleClick(e) {
+    const selecting = this.state.selecting ? false : true;
+    debugger
   }
 
   createSpan({key, cName, text, clickHandler}) {
@@ -59,7 +64,7 @@ class Manager extends React.Component {
         key: idx,
         cName: 'about-description',
         text: restaurant[key],
-        clickHandler: this.handleSideBar,
+        clickHandler: this.handleClick,
       });
 
       return (
@@ -84,10 +89,12 @@ class Manager extends React.Component {
       const open = this.createSpan({
         key: `${hour.day}-open`,
         text: formatHoursMinutes(hour.open),
+        clickHandler: this.handleClick,
       });
       const close = this.createSpan({
         key: `${hour.day}-close`,
         text: formatHoursMinutes(hour.close),
+        handleClick: this.handleClick,
       });
 
       return (
@@ -112,10 +119,12 @@ class Manager extends React.Component {
       const maxTables = this.createSpan({
         key: `max${idx}`,
         text: seating.max_tables,
+        clickHandler: this.handleClick,
       });
       const seats = this.createSpan({
         key: `seats${idx}`,
         text: seating.seats,
+        clickHandler: this.handleClick,
       });
 
       return (
