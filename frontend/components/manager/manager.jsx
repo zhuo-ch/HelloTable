@@ -86,20 +86,17 @@ class Manager extends React.Component {
     const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
     const times = this.props.restaurant.hours.map(hour => {
-      const open = this.createSpan({
-        key: `${hour.day}-open`,
-        text: formatHoursMinutes(hour.open),
-        clickHandler: this.handleClick,
-      });
-      const close = this.createSpan({
-        key: `${hour.day}-close`,
-        text: formatHoursMinutes(hour.close),
-        handleClick: this.handleClick,
+      const openClose = ['open', 'close'].map(el => {
+        return this.createSpan({
+          key: hour.day + '-' + el,
+          text: formatHoursMinutes(hour[el]),
+          clickHandler: this.handleClick,
+        });
       });
 
       return (
         <li key={ hour.day } className='about-description'>
-          { hour.day }  from  { open }  to  { close }
+          { hour.day }  from  { openClose[0] }  to  { openClose[1] }
         </li>
       );
     });
@@ -116,20 +113,17 @@ class Manager extends React.Component {
 
   getSeating() {
     const seatings = this.props.restaurant.seatings.map((seating, idx) => {
-      const maxTables = this.createSpan({
-        key: `max${idx}`,
-        text: seating.max_tables,
-        clickHandler: this.handleClick,
-      });
-      const seats = this.createSpan({
-        key: `seats${idx}`,
-        text: seating.seats,
-        clickHandler: this.handleClick,
+      const maxSeats = ['max_tables', 'seats'].map(el  => {
+        return this.createSpan({
+          key: `${el}${idx}`,
+          text: seating[el],
+          clickHandler: this.handleClick,
+        });
       });
 
       return (
         <li key={idx} className='about-description'>
-          { maxTables }  tables of  { seats }
+          { maxSeats[0] }  tables of  { maxSeats[1] }
         </li>
       );
     });
