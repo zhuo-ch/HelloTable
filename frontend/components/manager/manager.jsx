@@ -8,9 +8,10 @@ import { formatHoursMinutes } from '../../util/search_api_util';
 class Manager extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { selecting: false, type: '', idx: '', val: '' }
+    this.state = { selecting: false, idx: '', val: '' }
     this.handleSideBar = this.handleSideBar.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
   componentWillMount() {
@@ -24,6 +25,11 @@ class Manager extends React.Component {
 
   handleClick(e) {
     const selecting = this.state.selecting ? false : true;
+    this.setState({ selecting: selecting, idx: e.currentTarget.id });
+    debugger
+  }
+
+  handleChange(e) {
     debugger
   }
 
@@ -32,17 +38,19 @@ class Manager extends React.Component {
       <span
         onClick={ clickHandler }
         key={ key }
+        id={ key }
         className={ cName }>
         { text }
       </span>
     );
   }
 
-  createInput({key, cName, text, changeHandler, placeHolder}) {
+  createInput({key, cName, changeHandler, placeHolder}) {
     return (
       <input
         onChange={ changeHandler }
         key={ key }
+        id={ key }
         className={ cName }
         placeholder={ placeHolder }>
       </input>
@@ -125,11 +133,23 @@ class Manager extends React.Component {
   getSeating() {
     const seatings = this.props.restaurant.seatings.map((seating, idx) => {
       const maxSeats = ['max_tables', 'seats'].map(el  => {
-        return this.createSpan({
-          key: `${el}${idx}`,
-          text: seating[el],
-          clickHandler: this.handleClick,
-        });
+        const key = `${el}${idx}`;
+        const text = seating[el];
+
+        if (this.state.selecting && this.state.idx === key) {
+          return this.createInput({
+            cName: 'editable-input',
+            placeHolder: text,
+            changeHandler: this.handleChange,
+            key,
+          });
+        } else {
+          return this.createSpan({
+            clickHandler: this.handleClick,
+            key,
+            text,
+          });
+        }
       });
 
       return (
