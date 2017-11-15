@@ -134,7 +134,7 @@ end
 # guest
 
 guest = User.create(username: 'Guest', email: 'guest@guest-email.com', password: 'password')
-guest_res = { "formatted_address" => '234 W 56th St, New York, NY 10019', "geometry" => { "location" => "40.7656094,-73.982685" }, "name" => 'Basso 56' }
+guest_res = { "formatted_address" => '234 W 56th St, New York, NY 10019', "geometry" => { "location" => "40.7655401,-73.9848306" }, "name" => 'Basso 56' }
 generate_restaurant(guest_res, a.id, cuisines, descriptions, [guest.id])
 restaurants = Restaurant.all.map { |res| res.id }
 
