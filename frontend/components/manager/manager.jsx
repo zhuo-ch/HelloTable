@@ -26,11 +26,9 @@ class Manager extends React.Component {
   handleClick(e) {
     const selecting = this.state.selecting ? false : true;
     this.setState({ selecting: selecting, idx: e.currentTarget.id });
-    debugger
   }
 
   handleChange(e) {
-    debugger
   }
 
   createSpan({key, cName, text, clickHandler}) {
