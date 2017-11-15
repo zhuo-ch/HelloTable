@@ -4,6 +4,7 @@ import { setCurrentModal, resetCurrentModal } from '../../actions/modal_actions'
 import { fetchManagerRestaurant } from '../../actions/manager_actions';
 import { StickyContainer, Sticky } from 'react-sticky';
 import { formatHoursMinutes } from '../../util/search_api_util';
+import RestaurantMap from '../restaurant/restaurant_map';
 
 class Manager extends React.Component {
   constructor(props) {
@@ -76,8 +77,12 @@ class Manager extends React.Component {
 
   getRightBar() {
     return (
-      <section className='manager-right-bar'></section>
-    )
+      <section className='manager-map'>
+        <RestaurantMap
+          location={ this.props.restaurant.location }
+          address={ this.props.location.address } />
+      </section>
+    );
   }
 
   getDetails() {

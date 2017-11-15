@@ -188,7 +188,7 @@ class RestaurantShow extends React.Component {
                   <h2>About {this.props.restaurant.name}</h2>
                 </div>
                 <div className='about-description'>
-                  {this.props.restaurant.description}
+                  { this.props.restaurant.description }
                 </div>
                 <br></br>
                 <RestaurantMap location={ this.props.restaurant.location } address={ this.props.restaurant.address } />
