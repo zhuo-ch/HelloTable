@@ -76,11 +76,12 @@ class Manager extends React.Component {
   }
 
   getRightBar() {
+    debugger
     return (
       <section className='manager-map'>
         <RestaurantMap
           location={ this.props.restaurant.location }
-          address={ this.props.location.address } />
+          address={ this.props.restaurant.address } />
       </section>
     );
   }
