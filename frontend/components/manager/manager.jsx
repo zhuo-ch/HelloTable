@@ -74,6 +74,12 @@ class Manager extends React.Component {
     )
   }
 
+  getRightBar() {
+    return (
+      <section className='manager-right-bar'></section>
+    )
+  }
+
   getDetails() {
     const restaurant = this.props.restaurant;
     const details = ['name', 'phone', 'address', 'cuisine', 'site'].map((key, idx) => {
@@ -194,6 +200,7 @@ class Manager extends React.Component {
     const times = loaded ? this.getTimes() : '';
     const seatings = loaded ? this.getSeating() : '';
     const sideBar = this.getSideBar();
+    const rightBar = this.getRightBar();
 
     return (
       <StickyContainer className='restaurant-view'>
@@ -205,6 +212,9 @@ class Manager extends React.Component {
             { details }
             { times }
             { seatings }
+          </div>
+          <div className='restaurant-right'>
+            { rightBar }
           </div>
         </div>
       </StickyContainer>
