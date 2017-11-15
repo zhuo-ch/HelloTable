@@ -12,9 +12,7 @@ class RestaurantMap extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     const location = this.parseLocation(nextProps.location);
-    debugger
-    const _LatLng = this.props.location ? { lat: location[0], lng: location[1] } : '';
-    const latLng = merge({}, this.latLng, _LatLng);
+    const latLng = this.props.location ? { lat: location[0], lng: location[1] } : this.latLng;
     const map = this.mapNode;
     this.genMap(map, latLng);
     this.genMarker(latLng);
