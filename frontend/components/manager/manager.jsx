@@ -76,7 +76,6 @@ class Manager extends React.Component {
   }
 
   getRightBar() {
-    debugger
     return (
       <section className='manager-map'>
         <RestaurantMap

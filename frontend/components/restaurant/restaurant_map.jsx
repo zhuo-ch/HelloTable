@@ -12,7 +12,7 @@ class RestaurantMap extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     const location = this.parseLocation(nextProps.location);
-    const latLng = this.props.location ? { lat: location[0], lng: location[1] } : this.latLng;
+    const latLng = nextProps.location ? { lat: location[0], lng: location[1] } : this.latLng;
     const map = this.mapNode;
     this.genMap(map, latLng);
     this.genMarker(latLng);
@@ -45,9 +45,14 @@ class RestaurantMap extends React.Component {
     this.popup.open(this.map, this.marker);
   }
 
-  parseLocation(location) {
-    location = location.replace(/[{}]/, '');
-    return location.split(', ').map(el => parseFloat(el.split('>')[1]));
+  parseLocation(loc) {
+    loc = loc.replace(/[{}]/, '');
+    loc = loc.split(',').map(el => {
+      const int = parseFloat(el.split('>')[1]);
+      return int ? int : parseFloat(el);
+    });
+
+    return loc;
   }
 
   render() {
