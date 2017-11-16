@@ -32,6 +32,12 @@ class Manager extends React.Component {
   handleChange(e) {
   }
 
+  createSaveButton() {
+    return (
+        <button className='button'>Save Changes</button>
+    );
+  }
+
   createSpan({key, cName, text, clickHandler}) {
     return (
       <span
@@ -104,7 +110,7 @@ class Manager extends React.Component {
 
     return (
       <section className='restaurant-about about-text' id='Details'>
-        <article className='about-header'><h2>Details</h2></article>
+        <article className='user-show-res-header'><h2>Details</h2></article>
           { details }
       </section>
     );
@@ -131,7 +137,7 @@ class Manager extends React.Component {
 
     return (
       <section className='restaurant-about about-text' id='Hours of Operation'>
-        <article className='about-header'><h2>Restaurant Hours</h2></article>
+        <article className='user-show-res-header'><h2>Restaurant Hours</h2></article>
         <ul>
           { times }
         </ul>
@@ -139,38 +145,46 @@ class Manager extends React.Component {
     );
   }
 
-  getSeating() {
-    const seatings = this.props.restaurant.seatings.map((seating, idx) => {
-      const maxSeats = ['max_tables', 'seats'].map(el  => {
-        const key = `${el}${idx}`;
-        const text = seating[el];
+  getSeat(seating, idx) {
+    let targeted;
+    const maxSeats = ['max_tables', 'seats'].map(el  => {
+      const key = `${el}${idx}`;
+      const text = seating[el];
+      targeted = (this.state.selecting && this.state.idx === key);
 
-        if (this.state.selecting && this.state.idx === key) {
-          return this.createInput({
-            cName: 'editable-input',
-            placeHolder: text,
-            changeHandler: this.handleChange,
-            key,
-          });
-        } else {
-          return this.createSpan({
-            clickHandler: this.handleClick,
-            key,
-            text,
-          });
-        }
-      });
-
-      return (
-        <li key={idx} className='about-description'>
-          { maxSeats[0] }  tables of  { maxSeats[1] }
-        </li>
-      );
+      if (targeted) {
+        return this.createInput({
+          cName: 'editable-input',
+          placeHolder: text,
+          changeHandler: this.handleChange,
+          key,
+        });
+      } else {
+        return this.createSpan({
+          clickHandler: this.handleClick,
+          cName: 'about-description',
+          key,
+          text,
+        });
+      }
     });
 
     return (
+      <li key={idx} className='res-avail-list'>
+        { maxSeats[0] }
+        tables of
+        { maxSeats[1] }
+        { targeted ? this.createSaveButton() : ''}
+      </li>
+    );
+  }
+
+  getSeating() {
+    const seatings = this.props.restaurant.seatings.map((seating, idx) => this.getSeat(seating, idx));
+
+    return (
       <section className='restaurant-about' id='Tables'>
-        <article className='about-header'><h2>Restaurant Tables</h2></article>
+        <article className='user-show-res-header'><h2>Restaurant Tables</h2></article>
         <ul>
           { seatings }
         </ul>
