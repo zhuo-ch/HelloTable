@@ -150,9 +150,10 @@ class Manager extends React.Component {
     const maxSeats = ['max_tables', 'seats'].map(el  => {
       const key = `${el}${idx}`;
       const text = seating[el];
-      targeted = (this.state.selecting && this.state.idx === key);
+      const matched = this.state.idx === key;
+      targeted = targeted ? targeted : (this.state.selecting && matched);
 
-      if (targeted) {
+      if (targeted && matched) {
         return this.createInput({
           cName: 'editable-input',
           placeHolder: text,
@@ -170,9 +171,9 @@ class Manager extends React.Component {
     });
 
     return (
-      <li key={idx} className='res-avail-list'>
+      <li key={idx} className='snippet-section'>
         { maxSeats[0] }
-        tables of
+        <span className='about-description'>tables of</span>
         { maxSeats[1] }
         { targeted ? this.createSaveButton() : ''}
       </li>
