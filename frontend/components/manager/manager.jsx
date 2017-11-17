@@ -114,7 +114,7 @@ class Manager extends React.Component {
       } else {
         detail = this.createSpan({
           key: listKey,
-          cName: 'about-description',
+          cName: 'manager-text',
           text: restaurant[key],
           clickHandler: this.handleClick,
         });
@@ -148,17 +148,41 @@ class Manager extends React.Component {
     const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
     const times = this.props.restaurant.hours.map(hour => {
+      let targeted;
       const openClose = ['open', 'close'].map(el => {
-        return this.createSpan({
-          key: hour.day + '-' + el,
-          text: formatHoursMinutes(hour[el]),
-          clickHandler: this.handleClick,
-        });
+        const listKey = `${hour.day}-${el}-${hour[el]}`;
+        targeted = this.state.selecting && this.state.idx === listKey;
+
+        if (targeted) {
+          return this.createInput({
+            changeHandler: this.handleChange,
+            key: listKey,
+            id: listKey,
+            cName: 'editable-input',
+            placeHolder: formatHoursMinutes(hour[el]),
+          });
+        } else {
+          return this.createSpan({
+            key: listKey,
+            text: formatHoursMinutes(hour[el]),
+            clickHandler: this.handleClick,
+          });
+        }
       });
 
       return (
-        <li key={ hour.day } className='about-description'>
-          { hour.day }  from  { openClose[0] }  to  { openClose[1] }
+        <li key={ hour.day } className='horizontal'>
+          <article className='horizontal'>
+            <span className='manager-text'>{ hour.day }</span>
+            <span className='manager-text'>from</span>
+            { openClose[0] }
+            <span className='manager-text'>to</span>
+            { openClose[1] }
+          </article>
+          <article className='horizontal'>
+            { targeted ? this.createButton('Save', this.handleSave) : ''}
+            { targeted ? this.createButton('Cancel', this.handleClick) : ''}
+          </article>
         </li>
       );
     });
@@ -191,7 +215,7 @@ class Manager extends React.Component {
       } else {
         return this.createSpan({
           clickHandler: this.handleClick,
-          cName: 'about-description',
+          cName: 'manager-text',
           key,
           text,
         });
@@ -202,7 +226,7 @@ class Manager extends React.Component {
       <li key={idx} className='horizontal'>
         <article className='horizontal'>
           { maxSeats[0] }
-          <span className='about-description'>tables of</span>
+          <span className='manager-text'>tables of</span>
           { maxSeats[1] }
         </article>
         <article className='horizontal'>
