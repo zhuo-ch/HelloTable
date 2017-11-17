@@ -99,24 +99,47 @@ class Manager extends React.Component {
   getDetails() {
     const restaurant = this.props.restaurant;
     const details = ['name', 'phone', 'address', 'cuisine', 'site'].map((key, idx) => {
-      const detail = this.createSpan({
-        key: idx,
-        cName: 'about-description',
-        text: restaurant[key],
-        clickHandler: this.handleClick,
-      });
+      const listKey = `${key}${idx}`;
+      const targeted = this.state.selecting && this.state.idx === listKey;
+      let detail;
+
+      if (targeted) {
+        detail = this.createInput({
+          cName: 'editable-input',
+          id: listKey,
+          placeHolder: restaurant[key],
+          changeHandler: this.handleChange,
+          key: listKey,
+        });
+      } else {
+        detail = this.createSpan({
+          key: listKey,
+          cName: 'about-description',
+          text: restaurant[key],
+          clickHandler: this.handleClick,
+        });
+      }
 
       return (
-        <article className='about-description' key={ idx }>
-          { `${key.charAt(0).toUpperCase() + key.slice(1, key.length)}:  ` }{ detail }
-        </article>
+        <li className='horizontal' key={ idx }>
+          <article className='horizontal'>
+            { `${key.charAt(0).toUpperCase() + key.slice(1, key.length)}:  ` }
+            { detail }
+          </article>
+          <article className='horizontal'>
+            { targeted ? this.createButton('Save', this.handleSave) : '' }
+            { targeted ? this.createButton('Cancel', this.handleClick) : '' }
+          </article>
+        </li>
       );
     });
 
     return (
       <section className='restaurant-about about-text' id='Details'>
         <article className='user-show-res-header'><h2>Details</h2></article>
-          { details }
+          <ul>
+            { details }
+          </ul>
       </section>
     );
   }
@@ -176,12 +199,16 @@ class Manager extends React.Component {
     });
 
     return (
-      <li key={idx} className='snippet-section'>
-        { maxSeats[0] }
-        <span className='about-description'>tables of</span>
-        { maxSeats[1] }
-        { targeted ? this.createButton('Save Changes', this.handleSave) : '' }
-        { targeted ? this.createButton('Cancle', this.handleClick) : '' }
+      <li key={idx} className='horizontal'>
+        <article className='horizontal'>
+          { maxSeats[0] }
+          <span className='about-description'>tables of</span>
+          { maxSeats[1] }
+        </article>
+        <article className='horizontal'>
+          { targeted ? this.createButton('Save', this.handleSave) : '' }
+          { targeted ? this.createButton('Cancle', this.handleClick) : '' }
+        </article>
       </li>
     );
   }
