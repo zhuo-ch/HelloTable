@@ -13,6 +13,7 @@ class Manager extends React.Component {
     this.handleSideBar = this.handleSideBar.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.handleSave = this.handleSave.bind(this);
   }
 
   componentWillMount() {
@@ -32,9 +33,13 @@ class Manager extends React.Component {
   handleChange(e) {
   }
 
-  createSaveButton() {
+  handleSave() {
+
+  }
+
+  createButton(text, handler) {
     return (
-        <button className='button'>Save Changes</button>
+        <button className='button' onClick={ handler }>{ text }</button>
     );
   }
 
@@ -175,7 +180,8 @@ class Manager extends React.Component {
         { maxSeats[0] }
         <span className='about-description'>tables of</span>
         { maxSeats[1] }
-        { targeted ? this.createSaveButton() : ''}
+        { targeted ? this.createButton('Save Changes', this.handleSave) : '' }
+        { targeted ? this.createButton('Cancle', this.handleClick) : '' }
       </li>
     );
   }
