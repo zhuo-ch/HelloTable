@@ -31,10 +31,25 @@ class Manager extends React.Component {
   }
 
   handleChange(e) {
+    this.setState({ val: e.currentTarget.value });
   }
 
   handleSave() {
+    const restaurant = this.props.restaurant;
+    const idx = this.state.idx.split('-');
 
+    switch (idx[0]) {
+      case 'hours':
+        restaurant['hours'][idx[1]][idx[2]] = this.state.val;
+        break;
+      case 'seatings':
+        restaurant['seatings'][idx[1]][idx[2]] = parseInt(this.state.val);
+        break;
+      default:
+        restaurant[idx] = this.state.value;
+    }
+
+    debugger
   }
 
   createButton(text, handler) {
@@ -99,7 +114,7 @@ class Manager extends React.Component {
   getDetails() {
     const restaurant = this.props.restaurant;
     const details = ['name', 'phone', 'address', 'cuisine', 'site'].map((key, idx) => {
-      const listKey = `${key}${idx}`;
+      const listKey = `${key}`;
       const targeted = this.state.selecting && this.state.idx === listKey;
       let detail;
 
@@ -147,10 +162,10 @@ class Manager extends React.Component {
   getTimes() {
     const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
-    const times = this.props.restaurant.hours.map(hour => {
+    const times = this.props.restaurant.hours.map((hour, idx) => {
       let targeted;
       const openClose = ['open', 'close'].map(el => {
-        const listKey = `${hour.day}-${el}-${hour[el]}`;
+        const listKey = `hours-${idx}-${el}-${hour[el]}`;
         targeted = this.state.selecting && this.state.idx === listKey;
 
         if (targeted) {
@@ -200,7 +215,7 @@ class Manager extends React.Component {
   getSeat(seating, idx) {
     let targeted;
     const maxSeats = ['max_tables', 'seats'].map(el  => {
-      const key = `${el}${idx}`;
+      const key = `seatings-${idx}-${el}`;
       const text = seating[el];
       const matched = this.state.idx === key;
       targeted = targeted ? targeted : (this.state.selecting && matched);
