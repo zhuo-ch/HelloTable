@@ -8,6 +8,11 @@ export const fetchManagerRestaurant = id => dispatch => {
     .then(restaurant => dispatch(receiveManagerRestaurant(restaurant)));
 }
 
+export const updateRestaurant = restaurant => dispatch => {
+  return ManagerAPIUtil.updateRestaurant(restaurant)
+    .then(updatedRestaurant => dispatch(receiveManagerRestaurant(updatedRestaurant)));
+}
+
 const receiveManagerRestaurant = restaurant => ({
   type: RECEIVE_MANAGER_RESTAURANT,
   restaurant,

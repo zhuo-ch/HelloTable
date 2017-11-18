@@ -1,10 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { setCurrentModal, resetCurrentModal } from '../../actions/modal_actions';
-import { fetchManagerRestaurant } from '../../actions/manager_actions';
+import { fetchManagerRestaurant, updateRestaurant } from '../../actions/manager_actions';
 import { StickyContainer, Sticky } from 'react-sticky';
 import { formatHoursMinutes } from '../../util/search_api_util';
 import RestaurantMap from '../restaurant/restaurant_map';
+import { merge } from 'lodash';
 
 class Manager extends React.Component {
   constructor(props) {
@@ -14,13 +15,19 @@ class Manager extends React.Component {
     this.handleClick = this.handleClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSave = this.handleSave.bind(this);
+    this.handleError = this.handleError.bind(this);
   }
 
   componentWillMount() {
     this.props.fetchManagerRestaurant(this.props.currentUser.id);
   }
 
+  handleError() {
+
+  }
+
   handleSideBar(e) {
+    e.preventDefault();
     const reference = document.getElementById(e.currentTarget.innerText);
     reference.scrollIntoView(true);
   }
@@ -32,25 +39,45 @@ class Manager extends React.Component {
   }
 
   handleChange(e) {
+    e.preventDefault();
     this.setState({ value: e.currentTarget.value });
   }
 
   handleSave() {
     const restaurant = this.props.restaurant;
     const idx = this.state.idx.split('-');
+    const user = { user_id: this.props.currentUser.id };
+    let params;
 
     switch (idx[0]) {
       case 'hours':
         const hour = this.to24(this.state.value);
-        restaurant['hours'][idx[1]][idx[2]] = hour;
+        const dupHour = merge({}, restaurant.hours[idx[1]]);
+        dupHour[idx[2]] = hour;
+        params = merge({}, user, {
+          edit_type: 'hours',
+          edit_obj: dupHour,
+        });
         break;
       case 'seatings':
-        restaurant['seatings'][idx[1]][idx[2]] = parseInt(this.state.value);
+        const dupSeating = merge({}, restaurant.seatings[idx[1]]);
+        dupSeating[idx[2]] = parseInt(this.state.value);
+        params = merge({}, user, {
+          edit_type: 'seatings',
+          edit_obj: dupSeating,
+        });
         break;
       default:
-        restaurant[idx] = this.state.value;
+        const dupRestaurant = Object.assign({}, restaurant);
+        dupRestaurant[idx] = this.state.value;
+        params = merge({}, user, {
+          edit_type: idx,
+          edit_obj: dupRestaurant,
+        });
     }
 
+    this.props.setCurrentModal({ hidden: false, type: 'spinner' });
+    this.props.updateRestaurant(params).then(() => this.props.resetCurrentModal());
     this.handleClick();
   }
 
@@ -337,6 +364,7 @@ const mapDispatchToProps = dispatch => ({
   resetCurrentModal: () => dispatch(resetCurrentModal()),
   setCurrentModal: modal => dispatch(setCurrentModal(modal)),
   fetchManagerRestaurant: id => dispatch(fetchManagerRestaurant(id)),
+  updateRestaurant: restaurant => dispatch(updateRestaurant(restaurant)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Manager);
