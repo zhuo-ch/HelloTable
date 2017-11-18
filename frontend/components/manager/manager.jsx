@@ -27,7 +27,8 @@ class Manager extends React.Component {
 
   handleClick(e) {
     const selecting = this.state.selecting ? false : true;
-    this.setState({ selecting: selecting, idx: e.currentTarget.id });
+    this.setState({ selecting: selecting });
+    e ? this.setState({ idx: e.currentTarget.id }) : '';
   }
 
   handleChange(e) {
@@ -49,6 +50,8 @@ class Manager extends React.Component {
       default:
         restaurant[idx] = this.state.value;
     }
+
+    this.handleClick();
   }
 
   to24(time) {
