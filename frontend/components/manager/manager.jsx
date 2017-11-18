@@ -9,7 +9,7 @@ import RestaurantMap from '../restaurant/restaurant_map';
 class Manager extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { selecting: false, idx: '', val: '' }
+    this.state = { selecting: false, idx: '', value: '' }
     this.handleSideBar = this.handleSideBar.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -31,7 +31,7 @@ class Manager extends React.Component {
   }
 
   handleChange(e) {
-    this.setState({ val: e.currentTarget.value });
+    this.setState({ value: e.currentTarget.value });
   }
 
   handleSave() {
@@ -40,16 +40,26 @@ class Manager extends React.Component {
 
     switch (idx[0]) {
       case 'hours':
-        restaurant['hours'][idx[1]][idx[2]] = this.state.val;
+        const hour = this.to24(this.state.value);
+        restaurant['hours'][idx[1]][idx[2]] = hour;
         break;
       case 'seatings':
-        restaurant['seatings'][idx[1]][idx[2]] = parseInt(this.state.val);
+        restaurant['seatings'][idx[1]][idx[2]] = parseInt(this.state.value);
         break;
       default:
         restaurant[idx] = this.state.value;
     }
+  }
 
-    debugger
+  to24(time) {
+    const type = (time.match(/\D+/g)[1]).toLowerCase();
+    let hoursMins = parseInt(time.match(/\d+/g).join(''));
+
+    if (type === 'pm') {
+      hoursMins += 1200;
+    }
+
+    return hoursMins;
   }
 
   createButton(text, handler) {
@@ -166,9 +176,10 @@ class Manager extends React.Component {
       let targeted;
       const openClose = ['open', 'close'].map(el => {
         const listKey = `hours-${idx}-${el}-${hour[el]}`;
-        targeted = this.state.selecting && this.state.idx === listKey;
+        const matched = this.state.idx === listKey;
+        targeted = targeted ? targeted : (this.state.selecting && matched);
 
-        if (targeted) {
+        if (targeted && matched) {
           return this.createInput({
             changeHandler: this.handleChange,
             key: listKey,
