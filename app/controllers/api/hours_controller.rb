@@ -1,4 +1,4 @@
-class HoursController < ApplicationController
+class Api::HoursController < ApplicationController
   def show
     @hour = Hour.find(params[:id])
     render 'api/hours/show'

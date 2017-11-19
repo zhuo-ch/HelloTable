@@ -1,7 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { setCurrentModal, resetCurrentModal } from '../../actions/modal_actions';
-import { fetchManagerRestaurant, updateRestaurant } from '../../actions/manager_actions';
+import {
+  fetchManagerRestaurant,
+  updateRestaurant,
+  updateHours,
+  updateSeating
+} from '../../actions/manager_actions';
 import { StickyContainer, Sticky } from 'react-sticky';
 import { formatHoursMinutes } from '../../util/search_api_util';
 import RestaurantMap from '../restaurant/restaurant_map';
@@ -53,26 +58,22 @@ class Manager extends React.Component {
 
     switch (idx[0]) {
       case 'hours':
-        const hour = this.to24(this.state.value);
-        const dupHour = merge({}, restaurant.hours[idx[1]]);
-        dupHour[idx[2]] = hour;
-        params = merge({}, user, {
-          edit_type: 'hours',
-          edit_obj: dupHour,
-        });
+        // const hour = this.to24(this.state.value);
+        let hour = merge({}, restaurant.hours[idx[1]]);
+        dupHour[idx[2]] = this.to24(this.state.value);
+        debugger
+        this.props.updateHours(hour);
         break;
       case 'seatings':
-        const seating = merge({}, restaurant.seatings[idx[1]]);
+        let seating = merge({}, restaurant.seatings[idx[1]]);
         seating[idx[2]] = parseInt(this.state.value);
-        params = merge({}, user, {
-          edit_type: 'seatings',
-          edit_obj: dupSeating,
-        });
+        debugger
+        this.props.updateSeating(seating);
         break;
       default:
         const dupRestaurant = Object.assign({}, restaurant);
         dupRestaurant[idx] = this.state.value;
-        this.props.updateRestaurant(restaurant)
+        this.props.updateRestaurant(restaurant);
     }
 
     this.handleClick();
@@ -362,6 +363,8 @@ const mapDispatchToProps = dispatch => ({
   setCurrentModal: modal => dispatch(setCurrentModal(modal)),
   fetchManagerRestaurant: id => dispatch(fetchManagerRestaurant(id)),
   updateRestaurant: restaurant => dispatch(updateRestaurant(restaurant)),
+  updateSeating: seating => dispatch(updateSeating(seating)),
+  updateHours: hour => dispatch(updateHours(hour)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Manager);

@@ -1,4 +1,4 @@
-class SeatingsController < ApplicationController
+class Api::SeatingsController < ApplicationController
   def show
     @seating = Seating.find(params[:id])
     render 'api/seatings/show'
@@ -6,7 +6,7 @@ class SeatingsController < ApplicationController
 
   def update
     @seating = Seating.find(params[:id])
-
+debugger
     if @seating.update(seating_params)
       render 'api/seatings/show'
     else
