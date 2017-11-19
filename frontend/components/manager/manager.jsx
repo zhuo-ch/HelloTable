@@ -49,33 +49,40 @@ class Manager extends React.Component {
   }
 
   handleSave() {
-    const restaurant = this.props.restaurant;
     const idx = this.state.idx.split('-');
-    const user = { user_id: this.props.currentUser.id };
-    let params;
-
     this.props.setCurrentModal({ hidden: false, type: 'spinner' });
 
     switch (idx[0]) {
       case 'hours':
-        let hour = merge({}, restaurant.hours[idx[1]]);
-        hour[idx[2]] = this.to24(this.state.value);
-        debugger
-        this.props.updateHours(hour);
+        this.handleUpdateHour(idx);
         break;
       case 'seatings':
-        let seating = merge({}, restaurant.seatings[idx[1]]);
-        seating[idx[2]] = parseInt(this.state.value);
-        this.props.updateSeating(seating);
+        this.handleUpdateSeating(idx);
         break;
       default:
-        let dupRestaurant = merge({}, restaurant);
-        dupRestaurant[idx] = this.state.value;
-        this.props.updateRestaurant(dupRestaurant);
+        this.handleUpdateRestaurant(idx)
     }
 
     this.handleClick();
-    setTimeout(this.props.resetCurrentModal(), 500);
+    setTimeout(this.props.resetCurrentModal, 300);
+  }
+
+  handleUpdateSeating(idx) {
+    let seating = merge({}, this.props.restaurant.seatings[idx[1]]);
+    seating[idx[2]] = parseInt(this.state.value);
+    this.props.updateSeating(seating);
+  }
+
+  handleUpdateHour(idx) {
+    let hour = merge({}, this.props.restaurant.hours[idx[1]]);
+    hour[idx[2]] = this.to24(this.state.value);
+    this.props.updateHours(hour);
+  }
+
+  handleUpdateRestaurant(idx) {
+    let dupRestaurant = merge({}, this.props.restaurant);
+    dupRestaurant[idx] = this.state.value;
+    this.props.updateRestaurant(dupRestaurant);
   }
 
   to24(time) {
