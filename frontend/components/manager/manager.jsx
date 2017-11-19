@@ -87,6 +87,7 @@ class Manager extends React.Component {
   }
 
 
+
   getSideBar() {
     const bar = ['Details', 'Hours of Operation', 'Tables'].map((el, idx) =>{
       return (
@@ -154,14 +155,11 @@ class Manager extends React.Component {
       );
     });
 
-    return (
-      <section className='restaurant-about about-text' id='Details'>
-        <article className='user-show-res-header'><h2>Details</h2></article>
-          <ul>
-            { details }
-          </ul>
-      </section>
-    );
+    return  ManagerUtil.createSection({
+      id: 'Details',
+      title: 'Details',
+      liElements: details,
+    });
   }
 
   getTimes() {
@@ -208,14 +206,11 @@ class Manager extends React.Component {
       );
     });
 
-    return (
-      <section className='restaurant-about about-text' id='Hours of Operation'>
-        <article className='user-show-res-header'><h2>Restaurant Hours</h2></article>
-        <ul>
-          { times }
-        </ul>
-      </section>
-    );
+    return ManagerUtil.createSection({
+      id: 'Hours of Operation',
+      title: 'Restaurant Hours',
+      liElements: times,
+    });
   }
 
   getSeat(seating, idx) {
@@ -261,14 +256,11 @@ class Manager extends React.Component {
   getSeating() {
     const seatings = this.props.restaurant.seatings.map((seating, idx) => this.getSeat(seating, idx));
 
-    return (
-      <section className='restaurant-about' id='Tables'>
-        <article className='user-show-res-header'><h2>Restaurant Tables</h2></article>
-        <ul>
-          { seatings }
-        </ul>
-      </section>
-    );
+    return ManagerUtil.createSection({
+      id: 'Tables',
+      title: 'Restaurant Tables',
+      liElements: seatings,
+    });
   }
 
   getTimesList() {
@@ -286,10 +278,6 @@ class Manager extends React.Component {
     }
 
     return list;
-  }
-
-  getEditButton() {
-
   }
 
   render() {

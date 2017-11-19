@@ -40,3 +40,18 @@ export const createInput = ({key, cName, changeHandler, placeHolder}) => {
     </input>
   );
 }
+
+export const createSection = ({ id, title, liElements, }) => {
+  return (
+    <section
+      className='restaurant-about about-text'
+      id={ id }>
+      <article className='user-show-res-header'>
+        <h2>{ title }</h2>
+      </article>
+      <ul>
+        { liElements }
+      </ul>
+    </section>
+  );
+}
