@@ -58,9 +58,9 @@ class Api::RestaurantsController < ApplicationController
   end
 
   def update
-    @restaurant = Restaurant.find(params[:id])
+    @restaurant = Restaurant.find(restaurant_params[:id])
 
-    if @restaurant.update(restaurant_params)
+    if logged_in? && @restaurant.update(restaurant_params)
       render 'api/restaurants/show'
     else
       render json: @restaurant.errors.full_messages, status: 422
@@ -75,8 +75,8 @@ class Api::RestaurantsController < ApplicationController
 
   private
   def restaurant_params
-    params.require(:restaurant).permit(:user_id, :name,
-      :phone, :cuisine, :description, :hours, :site, :address, :location, :city_id)
+    params.require(:restaurant).permit(:id, :user_id, :name,
+      :phone, :cuisine, :description, :site, :address, :location, :city_id)
   end
 
   def format_address

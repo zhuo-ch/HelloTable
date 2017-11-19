@@ -9,7 +9,7 @@ export const updateRestaurant = restaurant => {
   return $.ajax({
     method: 'PATCH',
     url: `api/restaurants/${restaurant.id}`,
-    data: restaurant,
+    data: { restaurant },
   });
 }
 

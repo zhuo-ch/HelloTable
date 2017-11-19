@@ -11,7 +11,7 @@ const ManagerReducer = (state = _nullRestaurant, action) => {
   Object.freeze(state);
   switch (action.type) {
     case RECEIVE_MANAGER_RESTAURANT:
-      return action.restaurant;
+      return merge({}, state, action.restaurant);
     case RECEIVE_UPDATED_SEATING:
       const restaurantSeating = Object.assign({}, state);
       restaurantSeating.seatings = ManagerSelector.mergeSeating(restaurantSeating.seatings, action.seating);

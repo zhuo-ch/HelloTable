@@ -58,7 +58,6 @@ class Manager extends React.Component {
 
     switch (idx[0]) {
       case 'hours':
-        // const hour = this.to24(this.state.value);
         let hour = merge({}, restaurant.hours[idx[1]]);
         hour[idx[2]] = this.to24(this.state.value);
         debugger
@@ -70,9 +69,9 @@ class Manager extends React.Component {
         this.props.updateSeating(seating);
         break;
       default:
-        const dupRestaurant = Object.assign({}, restaurant);
+        let dupRestaurant = merge({}, restaurant);
         dupRestaurant[idx] = this.state.value;
-        this.props.updateRestaurant(restaurant);
+        this.props.updateRestaurant(dupRestaurant);
     }
 
     this.handleClick();
