@@ -11,6 +11,7 @@ import { StickyContainer, Sticky } from 'react-sticky';
 import { formatHoursMinutes } from '../../util/search_api_util';
 import RestaurantMap from '../restaurant/restaurant_map';
 import { merge } from 'lodash';
+import * as ManagerUtil from '../../util/manager_util';
 
 class Manager extends React.Component {
   constructor(props) {
@@ -75,7 +76,7 @@ class Manager extends React.Component {
 
   handleUpdateHour(idx) {
     let hour = merge({}, this.props.restaurant.hours[idx[1]]);
-    hour[idx[2]] = this.to24(this.state.value);
+    hour[idx[2]] = ManagerUtil.to24(this.state.value);
     this.props.updateHours(hour);
   }
 
@@ -85,46 +86,6 @@ class Manager extends React.Component {
     this.props.updateRestaurant(dupRestaurant);
   }
 
-  to24(time) {
-    const type = (time.match(/\D+/g)[1]).toLowerCase();
-    let hoursMins = parseInt(time.match(/\d+/g).join(''));
-
-    if (type === 'pm') {
-      hoursMins += 1200;
-    }
-
-    return hoursMins;
-  }
-
-  createButton(text, handler) {
-    return (
-        <button className='button' onClick={ handler }>{ text }</button>
-    );
-  }
-
-  createSpan({key, cName, text, clickHandler}) {
-    return (
-      <span
-        onClick={ clickHandler }
-        key={ key }
-        id={ key }
-        className={ cName }>
-        { text }
-      </span>
-    );
-  }
-
-  createInput({key, cName, changeHandler, placeHolder}) {
-    return (
-      <input
-        onChange={ changeHandler }
-        key={ key }
-        id={ key }
-        className={ cName }
-        placeholder={ placeHolder }>
-      </input>
-    );
-  }
 
   getSideBar() {
     const bar = ['Details', 'Hours of Operation', 'Tables'].map((el, idx) =>{
@@ -163,7 +124,7 @@ class Manager extends React.Component {
       let detail;
 
       if (targeted) {
-        detail = this.createInput({
+        detail = ManagerUtil.createInput({
           cName: 'editable-input',
           id: listKey,
           placeHolder: restaurant[key],
@@ -171,7 +132,7 @@ class Manager extends React.Component {
           key: listKey,
         });
       } else {
-        detail = this.createSpan({
+        detail = ManagerUtil.createSpan({
           key: listKey,
           cName: 'manager-text',
           text: restaurant[key],
@@ -186,8 +147,8 @@ class Manager extends React.Component {
             { detail }
           </article>
           <article className='horizontal'>
-            { targeted ? this.createButton('Save', this.handleSave) : '' }
-            { targeted ? this.createButton('Cancel', this.handleClick) : '' }
+            { targeted ? ManagerUtil.createButton('Save', this.handleSave) : '' }
+            { targeted ? ManagerUtil.createButton('Cancel', this.handleClick) : '' }
           </article>
         </li>
       );
@@ -214,7 +175,7 @@ class Manager extends React.Component {
         targeted = targeted ? targeted : (this.state.selecting && matched);
 
         if (targeted && matched) {
-          return this.createInput({
+          return ManagerUtil.createInput({
             changeHandler: this.handleChange,
             key: listKey,
             id: listKey,
@@ -222,7 +183,7 @@ class Manager extends React.Component {
             placeHolder: formatHoursMinutes(hour[el]),
           });
         } else {
-          return this.createSpan({
+          return ManagerUtil.createSpan({
             key: listKey,
             text: formatHoursMinutes(hour[el]),
             clickHandler: this.handleClick,
@@ -240,8 +201,8 @@ class Manager extends React.Component {
             { openClose[1] }
           </article>
           <article className='horizontal'>
-            { targeted ? this.createButton('Save', this.handleSave) : ''}
-            { targeted ? this.createButton('Cancel', this.handleClick) : ''}
+            { targeted ? ManagerUtil.createButton('Save', this.handleSave) : ''}
+            { targeted ? ManagerUtil.createButton('Cancel', this.handleClick) : ''}
           </article>
         </li>
       );
@@ -266,14 +227,14 @@ class Manager extends React.Component {
       targeted = targeted ? targeted : (this.state.selecting && matched);
 
       if (targeted && matched) {
-        return this.createInput({
+        return ManagerUtil.createInput({
           cName: 'editable-input',
           placeHolder: text,
           changeHandler: this.handleChange,
           key,
         });
       } else {
-        return this.createSpan({
+        return ManagerUtil.createSpan({
           clickHandler: this.handleClick,
           cName: 'manager-text',
           key,
@@ -290,8 +251,8 @@ class Manager extends React.Component {
           { maxSeats[1] }
         </article>
         <article className='horizontal'>
-          { targeted ? this.createButton('Save', this.handleSave) : '' }
-          { targeted ? this.createButton('Cancle', this.handleClick) : '' }
+          { targeted ? ManagerUtil.createButton('Save', this.handleSave) : '' }
+          { targeted ? ManagerUtil.createButton('Cancle', this.handleClick) : '' }
         </article>
       </li>
     );
