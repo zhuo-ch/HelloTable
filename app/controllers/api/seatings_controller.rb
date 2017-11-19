@@ -6,7 +6,7 @@ class Api::SeatingsController < ApplicationController
 
   def update
     @seating = Seating.find(params[:id])
-debugger
+
     if @seating.update(seating_params)
       render 'api/seatings/show'
     else
@@ -16,6 +16,6 @@ debugger
 
   private
   def seating_params
-    params.require(:seating).permit(:restaurant_id, :seats, :max_tables)
+    params.permit(:restaurant_id, :seats, :max_tables)
   end
 end

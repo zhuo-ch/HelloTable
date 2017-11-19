@@ -3,6 +3,7 @@ import { RECEIVE_MANAGER_RESTAURANT,
   RECEIVE_UPDATED_HOURS,
   RECEIVE_UPDATED_SEATING
 } from '../actions/manager_actions';
+import * as ManagerSelector from '../selectors/manager_selectors';
 
 const _nullRestaurant = Object.freeze({});
 
@@ -13,9 +14,14 @@ const ManagerReducer = (state = _nullRestaurant, action) => {
       return action.restaurant;
     case RECEIVE_UPDATED_SEATING:
       const restaurantSeating = Object.assign({}, state);
-      debugger
-    case RECEIVE_UPDATED_HOURS:
+      restaurantSeating.seatings = ManagerSelector.mergeSeating(restaurantSeating.seatings, action.seating);
 
+      return restaurantSeating;
+    case RECEIVE_UPDATED_HOURS:
+      const restaurantHours = Object.assign({}, state);
+      restaurantHours.hours = ManagerSelector.mergeHours(restaurantHours.hours, action.hour);
+
+      return restaurantHours;
     default:
       return state;
   }

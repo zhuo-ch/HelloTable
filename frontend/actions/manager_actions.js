@@ -1,5 +1,6 @@
 import { merge } from 'lodash';
 import * as ManagerAPIUtil from '../util/manager_api_util';
+import { resetCurrentModal } from '../actions/modal_actions';
 
 export const RECEIVE_MANAGER_RESTAURANT = 'RECEIVE_MANAGER_RESTAURANT';
 export const RECEIVE_UPDATED_HOURS = 'RECEIVE_UPDATED_HOURS';
@@ -30,9 +31,9 @@ const receiveManagerRestaurant = restaurant => ({
   restaurant,
 });
 
-const receiveUpdatedHours = hours => ({
+const receiveUpdatedHours = hour => ({
   type: RECEIVE_UPDATED_HOURS,
-  hours
+  hour
 });
 
 const receiveUpdatedSeating = seating => ({

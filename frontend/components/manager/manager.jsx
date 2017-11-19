@@ -60,14 +60,13 @@ class Manager extends React.Component {
       case 'hours':
         // const hour = this.to24(this.state.value);
         let hour = merge({}, restaurant.hours[idx[1]]);
-        dupHour[idx[2]] = this.to24(this.state.value);
+        hour[idx[2]] = this.to24(this.state.value);
         debugger
         this.props.updateHours(hour);
         break;
       case 'seatings':
         let seating = merge({}, restaurant.seatings[idx[1]]);
         seating[idx[2]] = parseInt(this.state.value);
-        debugger
         this.props.updateSeating(seating);
         break;
       default:
@@ -77,6 +76,7 @@ class Manager extends React.Component {
     }
 
     this.handleClick();
+    setTimeout(this.props.resetCurrentModal(), 500);
   }
 
   to24(time) {

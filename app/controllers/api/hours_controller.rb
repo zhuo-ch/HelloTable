@@ -16,6 +16,6 @@ class Api::HoursController < ApplicationController
 
   private
   def hour_params
-    params.require(:hour).permit(:day, :open, :close, :restaurant_id)
+    params.permit(:day, :open, :close, :restaurant_id)
   end
 end
