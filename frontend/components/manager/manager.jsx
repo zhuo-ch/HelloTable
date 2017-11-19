@@ -86,8 +86,6 @@ class Manager extends React.Component {
     this.props.updateRestaurant(dupRestaurant);
   }
 
-
-
   getSideBar() {
     const bar = ['Details', 'Hours of Operation', 'Tables'].map((el, idx) =>{
       return (
