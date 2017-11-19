@@ -49,6 +49,8 @@ class Manager extends React.Component {
     const user = { user_id: this.props.currentUser.id };
     let params;
 
+    this.props.setCurrentModal({ hidden: false, type: 'spinner' });
+
     switch (idx[0]) {
       case 'hours':
         const hour = this.to24(this.state.value);
@@ -60,8 +62,8 @@ class Manager extends React.Component {
         });
         break;
       case 'seatings':
-        const dupSeating = merge({}, restaurant.seatings[idx[1]]);
-        dupSeating[idx[2]] = parseInt(this.state.value);
+        const seating = merge({}, restaurant.seatings[idx[1]]);
+        seating[idx[2]] = parseInt(this.state.value);
         params = merge({}, user, {
           edit_type: 'seatings',
           edit_obj: dupSeating,
@@ -70,14 +72,9 @@ class Manager extends React.Component {
       default:
         const dupRestaurant = Object.assign({}, restaurant);
         dupRestaurant[idx] = this.state.value;
-        params = merge({}, user, {
-          edit_type: idx,
-          edit_obj: dupRestaurant,
-        });
+        this.props.updateRestaurant(restaurant)
     }
 
-    this.props.setCurrentModal({ hidden: false, type: 'spinner' });
-    this.props.updateRestaurant(params).then(() => this.props.resetCurrentModal());
     this.handleClick();
   }
 

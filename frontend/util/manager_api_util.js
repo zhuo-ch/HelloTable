@@ -5,12 +5,26 @@ export const getManagerRestaurant = id => {
   });
 }
 
-export const updateRestaurant = params => {
-  const id = params.user_id;
-
+export const updateRestaurant = restaurant => {
   return $.ajax({
     method: 'PATCH',
-    url: `api/users/${id}/manager/${id}`,
-    data: params,
+    url: `api/restaurants/${restaurant.id}`,
+    data: restaurant,
+  });
+}
+
+export const updateHours = hours => {
+  return $.ajax({
+    method: 'PATCH',
+    url: `api/hours/${hours.id}`,
+    data: hours,
+  });
+}
+
+export const updateSeating = seating => {
+  return $.ajax({
+    method: 'Patch',
+    url: `api/seatings/${seating.id}`,
+    data: seating,
   });
 }

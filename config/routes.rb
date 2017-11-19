@@ -5,6 +5,8 @@ Rails.application.routes.draw do
       resources :favorites, only: [:create, :show, :destroy]
       resources :manager, only: [:show, :update]
     end
+    resources :hours, only: [:show, :update]
+    resources :seatings, only: [:show, :update]
     resource :session, only: [:create, :destroy]
     resources :restaurants, only: [:index, :create, :show, :update, :destroy] do
       get "search", on: :collection
