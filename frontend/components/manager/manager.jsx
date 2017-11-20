@@ -21,6 +21,7 @@ class Manager extends React.Component {
     this.handleClick = this.handleClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSave = this.handleSave.bind(this);
+    this.handleAddTables = this.handleAddTables.bind(this);
     this.handleError = this.handleError.bind(this);
   }
 
@@ -84,6 +85,10 @@ class Manager extends React.Component {
     let dupRestaurant = merge({}, this.props.restaurant);
     dupRestaurant[idx] = this.state.value;
     this.props.updateRestaurant(dupRestaurant);
+  }
+
+  handleAddTables() {
+    this.props.setCurrentModal({ hidden: false, type: 'addTable'});
   }
 
   getSideBar() {
@@ -238,6 +243,7 @@ class Manager extends React.Component {
       id: 'Tables',
       title: 'Restaurant Tables',
       liElements: seatings,
+      titleAddon: ManagerUtil.createButton('Add Tables', this.handleAddTables),
     });
   }
 

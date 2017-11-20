@@ -1,6 +1,10 @@
 export const mergeSeating = (seatings, newSeating) => {
   let newSeatings = Object.assign([], seatings);
-  newSeatings = newSeatings.map(el => el.id === newSeating.id ? newSeating : el);
+  if (newSeating.id) {
+    newSeatings = newSeatings.map(el => el.id === newSeating.id ? newSeating : el);
+  } else {
+    newSeatings.push(newSeating);
+  }
 
   return newSeatings;
 }

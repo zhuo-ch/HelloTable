@@ -22,8 +22,12 @@ export const updateHours = hours => dispatch => {
 }
 
 export const updateSeating = seating => dispatch => {
-  return ManagerAPIUtil.updateSeating(seating)
+  if (seating.id) {
+    return ManagerAPIUtil.updateSeating(seating)
     .then(updatedSeating => dispatch(receiveUpdatedSeating(updatedSeating)));
+  } else {
+    dispatch(receiveUpdatedSeating(seating));
+  }
 }
 
 const receiveManagerRestaurant = restaurant => ({
