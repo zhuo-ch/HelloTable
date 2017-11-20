@@ -56,6 +56,18 @@ export const createSection = ({ id, title, liElements, }) => {
   );
 }
 
+export const getBlankArticle = (cName) => {
+  return <article className={ cName }></article>;
+}
+
+export const getEditButtons = ({ onSave, onCancel, cName }) => {
+  return (
+    <article className={ cName }>
+      { createButton('Save', onSave) }
+      { createButton('Cancel', onCancel)}
+    </article>
+  )
+}
 
 export const getTimesList = () => {
   const list = { '12:00AM': 0, '12:30AM': 30 };

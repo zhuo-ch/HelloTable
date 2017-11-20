@@ -145,10 +145,13 @@ class Manager extends React.Component {
             { `${key.charAt(0).toUpperCase() + key.slice(1, key.length)}:  ` }
             { detail }
           </article>
-          <article className='horizontal'>
-            { targeted ? ManagerUtil.createButton('Save', this.handleSave) : '' }
-            { targeted ? ManagerUtil.createButton('Cancel', this.handleClick) : '' }
-          </article>
+          { targeted ?
+            ManagerUtil.getEditButtons({
+              onSave: this.handleSave,
+              onCancel: this.handleClick,
+              cName: 'horizontal'}) :
+            ManagerUtil.getBlankArticle('horizontal')
+          }
         </li>
       );
     });
@@ -196,10 +199,13 @@ class Manager extends React.Component {
             <span className='manager-text'>to</span>
             { openClose[1] }
           </article>
-          <article className='horizontal'>
-            { targeted ? ManagerUtil.createButton('Save', this.handleSave) : ''}
-            { targeted ? ManagerUtil.createButton('Cancel', this.handleClick) : ''}
-          </article>
+          { targeted ?
+            ManagerUtil.getEditButtons({
+              onSave: this.handleSave,
+              onCancel: this.handleClick,
+              cName: 'horizontal'}) :
+            ManagerUtil.getBlankArticle('horizontal')
+          }
         </li>
       );
     });
@@ -243,10 +249,13 @@ class Manager extends React.Component {
           <span className='manager-text'>tables of</span>
           { maxSeats[1] }
         </article>
-        <article className='horizontal'>
-          { targeted ? ManagerUtil.createButton('Save', this.handleSave) : '' }
-          { targeted ? ManagerUtil.createButton('Cancle', this.handleClick) : '' }
-        </article>
+        { targeted ?
+          ManagerUtil.getEditButtons({
+            onSave: this.handleSave,
+            onCancel: this.handleClick,
+            cName: 'horizontal'}) :
+          ManagerUtil.getBlankArticle('horizontal')
+        }
       </li>
     );
   }
