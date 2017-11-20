@@ -115,45 +115,54 @@ class Manager extends React.Component {
     );
   }
 
+  getField(targeted, id, text) {
+    if (targeted) {
+      return ManagerUtil.createInput({
+        cName: 'editable-input',
+        placeHolder: text,
+        changeHandler: this.handleChange,
+        key: id,
+        id
+      });
+    } else {
+      return ManagerUtil.createSpan({
+        key: id,
+        cName: 'manager-text',
+        text: text,
+        clickHandler: this.handleClick,
+      });
+    }
+  }
+
+  getLi(article, key, targeted, cName) {
+    return (
+      <li key={ key } className={ cName }>
+        { article }
+        { targeted ?
+          ManagerUtil.getEditButtons({
+            onSave: this.handleSave,
+            onCancel: this.handleClick,
+            cName: 'horizontal'}) :
+          ManagerUtil.getBlankArticle('horizontal')
+        }
+      </li>
+    )
+  }
+
   getDetails() {
     const restaurant = this.props.restaurant;
     const details = ['name', 'phone', 'address', 'cuisine', 'site'].map((key, idx) => {
       const listKey = `${key}`;
       const targeted = this.state.selecting && this.state.idx === listKey;
-      let detail;
-
-      if (targeted) {
-        detail = ManagerUtil.createInput({
-          cName: 'editable-input',
-          id: listKey,
-          placeHolder: restaurant[key],
-          changeHandler: this.handleChange,
-          key: listKey,
-        });
-      } else {
-        detail = ManagerUtil.createSpan({
-          key: listKey,
-          cName: 'manager-text',
-          text: restaurant[key],
-          clickHandler: this.handleClick,
-        });
-      }
-
-      return (
-        <li className='horizontal' key={ idx }>
-          <article className='horizontal'>
-            { `${key.charAt(0).toUpperCase() + key.slice(1, key.length)}:  ` }
-            { detail }
-          </article>
-          { targeted ?
-            ManagerUtil.getEditButtons({
-              onSave: this.handleSave,
-              onCancel: this.handleClick,
-              cName: 'horizontal'}) :
-            ManagerUtil.getBlankArticle('horizontal')
-          }
-        </li>
+      const detail = this.getField(targeted, listKey, restaurant[key]);
+      const article = (
+        <article className='horizontal'>
+          { `${key.charAt(0).toUpperCase() + key.slice(1, key.length)}:  ` }
+          { detail }
+        </article>
       );
+
+      return this.getLi(article, listKey, targeted, 'horizontal');
     });
 
     return  ManagerUtil.createSection({
@@ -163,51 +172,34 @@ class Manager extends React.Component {
     });
   }
 
+  getHour(hour, idx) {
+    let targeted;
+    const openClose = ['open', 'close'].map(el => {
+      const listKey = `hours-${idx}-${el}-${hour[el]}`;
+      const matched = this.state.idx === listKey;
+      const text = formatHoursMinutes(hour[el]);
+      targeted = targeted ? targeted : (this.state.selecting && matched);
+
+      return this.getField(targeted && matched, listKey, text);
+    });
+
+    const article = (
+      <article className='horizontal'>
+        <span className='manager-text'>{ hour.day }</span>
+        <span className='manager-text'>from</span>
+        { openClose[0] }
+        <span className='manager-text'>to</span>
+        { openClose[1] }
+      </article>
+    );
+
+    return this.getLi(article, hour.day, targeted, 'horizontal');
+  }
+
   getTimes() {
     const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-
     const times = this.props.restaurant.hours.map((hour, idx) => {
-      let targeted;
-      const openClose = ['open', 'close'].map(el => {
-        const listKey = `hours-${idx}-${el}-${hour[el]}`;
-        const matched = this.state.idx === listKey;
-        targeted = targeted ? targeted : (this.state.selecting && matched);
-
-        if (targeted && matched) {
-          return ManagerUtil.createInput({
-            changeHandler: this.handleChange,
-            key: listKey,
-            id: listKey,
-            cName: 'editable-input',
-            placeHolder: formatHoursMinutes(hour[el]),
-          });
-        } else {
-          return ManagerUtil.createSpan({
-            key: listKey,
-            text: formatHoursMinutes(hour[el]),
-            clickHandler: this.handleClick,
-          });
-        }
-      });
-
-      return (
-        <li key={ hour.day } className='horizontal'>
-          <article className='horizontal'>
-            <span className='manager-text'>{ hour.day }</span>
-            <span className='manager-text'>from</span>
-            { openClose[0] }
-            <span className='manager-text'>to</span>
-            { openClose[1] }
-          </article>
-          { targeted ?
-            ManagerUtil.getEditButtons({
-              onSave: this.handleSave,
-              onCancel: this.handleClick,
-              cName: 'horizontal'}) :
-            ManagerUtil.getBlankArticle('horizontal')
-          }
-        </li>
-      );
+      return this.getHour(hour, idx);
     });
 
     return ManagerUtil.createSection({
@@ -225,39 +217,18 @@ class Manager extends React.Component {
       const matched = this.state.idx === key;
       targeted = targeted ? targeted : (this.state.selecting && matched);
 
-      if (targeted && matched) {
-        return ManagerUtil.createInput({
-          cName: 'editable-input',
-          placeHolder: text,
-          changeHandler: this.handleChange,
-          key,
-        });
-      } else {
-        return ManagerUtil.createSpan({
-          clickHandler: this.handleClick,
-          cName: 'manager-text',
-          key,
-          text,
-        });
-      }
+      return this.getField(targeted && matched, key, text);
     });
 
-    return (
-      <li key={idx} className='horizontal'>
+    const article = (
         <article className='horizontal'>
           { maxSeats[0] }
           <span className='manager-text'>tables of</span>
           { maxSeats[1] }
         </article>
-        { targeted ?
-          ManagerUtil.getEditButtons({
-            onSave: this.handleSave,
-            onCancel: this.handleClick,
-            cName: 'horizontal'}) :
-          ManagerUtil.getBlankArticle('horizontal')
-        }
-      </li>
     );
+
+    return this.getLi(article, idx, targeted, 'horizontal');
   }
 
   getSeating() {
