@@ -90,10 +90,17 @@ class Manager extends React.Component {
   }
 
   handleAddTables() {
-    this.props.setCurrentModal({ hidden: false, type: 'addTable', clickHandler: this.handleAddTableSave });
+    this.props.setCurrentModal({
+      hidden: false,
+      type: 'addTable',
+      clickHandler: this.handleAddTableSave,
+      changeHandler: this.handleAddTablesChange,
+    });
   }
 
   handleAddTablesChange(e) {
+    e.preventDefault();
+    this.setState({ [e.currentTarget.id]: e.currentTarget.value });
     debugger
   }
 

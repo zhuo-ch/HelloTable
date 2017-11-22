@@ -15,3 +15,8 @@
 .manager-text {
   margin: 0px 5px;
 }
+
+.manager-add-table {
+  align-items: center;
+  justify-content: space-between;
+}

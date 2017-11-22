@@ -3,7 +3,7 @@ import * as ManagerUtil from '../../util/manager_util';
 
 const AddTable = ({ saveHandler, cancelHandler, changeHandler }) => {
   return (
-    <div className='review-form-container'>
+    <div className='review-form-container manager-add-table'>
       <section className='user-show-res-header horizontal'><h2>Add Tables</h2></section>
       <section>
         Number of seats:
@@ -11,10 +11,10 @@ const AddTable = ({ saveHandler, cancelHandler, changeHandler }) => {
       <section>
         {
           ManagerUtil.createInput({
-            key: 'newSeats',
-            id: 'newSeats',
+            key: 'seats',
+            id: 'seats',
             cName: 'editable-input',
-            onChange: changeHandler,
+            changeHandler,
           })
         }
       </section>
@@ -24,10 +24,10 @@ const AddTable = ({ saveHandler, cancelHandler, changeHandler }) => {
       <section>
         {
           ManagerUtil.createInput({
-            key: 'newTables',
-            id: 'newTables',
+            key: 'max_tables',
+            id: 'max_tables',
             cName: 'editable-input',
-            onChange: changeHandler,
+            changeHandler,
           })
         }
       </section>
