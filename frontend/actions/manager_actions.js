@@ -6,6 +6,7 @@ export const RECEIVE_MANAGER_RESTAURANT = 'RECEIVE_MANAGER_RESTAURANT';
 export const RECEIVE_UPDATED_HOURS = 'RECEIVE_UPDATED_HOURS';
 export const RECEIVE_UPDATED_SEATING = 'RECEIVE_UPDATED_SEATING';
 export const RECEIVE_SEATING = 'RECEIVE_SEATING';
+export const RECEIVE_ERRORS = 'RECEIVE_ERRORS';
 
 export const fetchManagerRestaurant = id => dispatch => {
   return ManagerAPIUtil.getManagerRestaurant(id)
@@ -33,7 +34,8 @@ export const updateSeating = seating => dispatch => {
 
 export const createSeating = seating => dispatch => {
   return ManagerAPIUtil.createSeating(seating)
-    .then(newSeating => dispatch(receiveSeating(newSeating)))
+    .then(newSeating => dispatch(receiveSeating(newSeating)),
+    err => dispatch(receiveErrors(err)))
     .then(() => dispatch(resetCurrentModal()));
 }
 
@@ -55,4 +57,9 @@ const receiveUpdatedSeating = seating => ({
 const receiveSeating = seating => ({
   type: RECEIVE_SEATING,
   seating,
+});
+
+const receiveErrors = err => ({
+  type: RECEIVE_ERRORS,
+  err,
 });

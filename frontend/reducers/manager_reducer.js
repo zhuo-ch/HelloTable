@@ -24,6 +24,7 @@ const ManagerReducer = (state = _nullRestaurant, action) => {
 
       return restaurantHours;
     case RECEIVE_SEATING:
+    debugger
       const newState = Object.assign({}, state);
       state.seatings.push(action.seating);
       return newState;
