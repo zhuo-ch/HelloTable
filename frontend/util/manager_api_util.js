@@ -28,3 +28,11 @@ export const updateSeating = seating => {
     data: seating,
   });
 }
+
+export const createSeating = seating => {
+  return $.ajax({
+    method: 'POST',
+    url: 'api/seatings',
+    data: seating,
+  })
+}

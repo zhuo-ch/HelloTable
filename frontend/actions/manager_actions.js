@@ -5,6 +5,7 @@ import { resetCurrentModal } from '../actions/modal_actions';
 export const RECEIVE_MANAGER_RESTAURANT = 'RECEIVE_MANAGER_RESTAURANT';
 export const RECEIVE_UPDATED_HOURS = 'RECEIVE_UPDATED_HOURS';
 export const RECEIVE_UPDATED_SEATING = 'RECEIVE_UPDATED_SEATING';
+export const RECEIVE_SEATING = 'RECEIVE_SEATING';
 
 export const fetchManagerRestaurant = id => dispatch => {
   return ManagerAPIUtil.getManagerRestaurant(id)
@@ -30,6 +31,12 @@ export const updateSeating = seating => dispatch => {
   }
 }
 
+export const createSeating = seating => dispatch => {
+  return ManagerAPIUtil.createSeating(seating)
+    .then(newSeating => dispatch(receiveSeating(newSeating)))
+    .then(() => dispatch(resetCurrentModal()));
+}
+
 const receiveManagerRestaurant = restaurant => ({
   type: RECEIVE_MANAGER_RESTAURANT,
   restaurant,
@@ -42,5 +49,10 @@ const receiveUpdatedHours = hour => ({
 
 const receiveUpdatedSeating = seating => ({
   type: RECEIVE_UPDATED_SEATING,
+  seating,
+});
+
+const receiveSeating = seating => ({
+  type: RECEIVE_SEATING,
   seating,
 });

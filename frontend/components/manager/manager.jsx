@@ -5,7 +5,8 @@ import {
   fetchManagerRestaurant,
   updateRestaurant,
   updateHours,
-  updateSeating
+  updateSeating,
+  createSeating,
 } from '../../actions/manager_actions';
 import { StickyContainer, Sticky } from 'react-sticky';
 import { formatHoursMinutes } from '../../util/search_api_util';
@@ -101,11 +102,15 @@ class Manager extends React.Component {
   handleAddTablesChange(e) {
     e.preventDefault();
     this.setState({ [e.currentTarget.id]: e.currentTarget.value });
-    debugger
   }
 
   handleAddTableSave(e) {
-    debugger
+    e.preventDefault();
+    this.props.createSeating({
+      restaurant_id: this.props.restaurant.id,
+      seats: this.state.seats,
+      max_tables: this.state.max_tables,
+    });
   }
 
   getSideBar() {
@@ -304,6 +309,7 @@ const mapDispatchToProps = dispatch => ({
   updateRestaurant: restaurant => dispatch(updateRestaurant(restaurant)),
   updateSeating: seating => dispatch(updateSeating(seating)),
   updateHours: hour => dispatch(updateHours(hour)),
+  createSeating: seating => dispatch(createSeating(seating)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Manager);

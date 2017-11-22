@@ -1,4 +1,14 @@
 class Api::SeatingsController < ApplicationController
+  def create
+    @seating = Seating.new(seating_params)
+
+    if @seating.save
+      render 'api/seatings/show'
+    else
+      render json: @seating.errors.full_messages
+    end
+  end
+
   def show
     @seating = Seating.find(params[:id])
     render 'api/seatings/show'

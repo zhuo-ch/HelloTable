@@ -1,7 +1,8 @@
 import { merge } from 'lodash';
 import { RECEIVE_MANAGER_RESTAURANT,
   RECEIVE_UPDATED_HOURS,
-  RECEIVE_UPDATED_SEATING
+  RECEIVE_UPDATED_SEATING,
+  RECEIVE_SEATING,
 } from '../actions/manager_actions';
 import * as ManagerSelector from '../selectors/manager_selectors';
 
@@ -22,6 +23,10 @@ const ManagerReducer = (state = _nullRestaurant, action) => {
       restaurantHours.hours = ManagerSelector.mergeHours(restaurantHours.hours, action.hour);
 
       return restaurantHours;
+    case RECEIVE_SEATING:
+      const newState = Object.assign({}, state);
+      state.seatings.push(action.seating);
+      return newState;
     default:
       return state;
   }
