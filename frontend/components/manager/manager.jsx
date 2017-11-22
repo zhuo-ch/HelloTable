@@ -22,6 +22,8 @@ class Manager extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleSave = this.handleSave.bind(this);
     this.handleAddTables = this.handleAddTables.bind(this);
+    this.handleAddTableSave = this.handleAddTableSave.bind(this);
+    this.handleAddTablesChange = this.handleAddTablesChange.bind(this);
     this.handleError = this.handleError.bind(this);
   }
 
@@ -88,7 +90,15 @@ class Manager extends React.Component {
   }
 
   handleAddTables() {
-    this.props.setCurrentModal({ hidden: false, type: 'addTable'});
+    this.props.setCurrentModal({ hidden: false, type: 'addTable', clickHandler: this.handleAddTableSave });
+  }
+
+  handleAddTablesChange(e) {
+    debugger
+  }
+
+  handleAddTableSave(e) {
+    debugger
   }
 
   getSideBar() {

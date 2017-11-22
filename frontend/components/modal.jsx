@@ -6,6 +6,7 @@ import SessionForm from './session/session_form_container';
 import { merge } from 'lodash';
 import { resetCurrentModal } from '../actions/modal_actions';
 import CreateRestaurant from './restaurant/restaurant_create';
+import AddTable from './manager/add_table';
 
 class Modal extends React.Component {
   constructor(props) {
@@ -43,6 +44,11 @@ class Modal extends React.Component {
         return <CreateRestaurant />
       case 'spinner':
         return this.getSpinner();
+      case 'addTable':
+        return <AddTable
+          saveHandler={ this.props.modal.clickHandler }
+          cancelHandler={ this.props.resetCurrentModal }
+          changeHandler={ this.props.modal.changeHandler }/>
       default:
         return '';
     }
