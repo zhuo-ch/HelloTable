@@ -25,15 +25,10 @@ class Manager extends React.Component {
     this.handleAddTables = this.handleAddTables.bind(this);
     this.handleAddTableSave = this.handleAddTableSave.bind(this);
     this.handleAddTablesChange = this.handleAddTablesChange.bind(this);
-    this.handleError = this.handleError.bind(this);
   }
 
   componentWillMount() {
     this.props.fetchManagerRestaurant(this.props.currentUser.id);
-  }
-
-  handleError() {
-
   }
 
   handleSideBar(e) {
@@ -94,9 +89,6 @@ class Manager extends React.Component {
     this.props.setCurrentModal({
       hidden: false,
       type: 'addTable',
-      clickHandler: this.handleAddTableSave,
-      changeHandler: this.handleAddTablesChange,
-      errors: this.props.restaurant.errors.join('. '),
     });
   }
 

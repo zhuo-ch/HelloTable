@@ -42,14 +42,10 @@ class Modal extends React.Component {
         return <SessionForm />
       case 'create':
         return <CreateRestaurant />
+      case 'addTable':
+        return <AddTable />
       case 'spinner':
         return this.getSpinner();
-      case 'addTable':
-        return <AddTable
-          saveHandler={ this.props.modal.clickHandler }
-          cancelHandler={ this.props.resetCurrentModal }
-          changeHandler={ this.props.modal.changeHandler }
-          errors={ this.props.modal.errors }/>
       default:
         return '';
     }
