@@ -24,6 +24,12 @@ class Api::SeatingsController < ApplicationController
     end
   end
 
+  def destroy
+    @seating = Seating.find(params["id"])
+    Seating.destroy(params["id"])
+    render 'api/seatings/show'
+  end
+
   private
   def seating_params
     params.permit(:restaurant_id, :seats, :max_tables)

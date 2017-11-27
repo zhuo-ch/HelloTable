@@ -6,6 +6,7 @@ export const RECEIVE_MANAGER_RESTAURANT = 'RECEIVE_MANAGER_RESTAURANT';
 export const RECEIVE_UPDATED_HOURS = 'RECEIVE_UPDATED_HOURS';
 export const RECEIVE_UPDATED_SEATING = 'RECEIVE_UPDATED_SEATING';
 export const RECEIVE_SEATING = 'RECEIVE_SEATING';
+export const RECEIVE_REMOVE_SEATING = 'RECEIVE_REMOVE_SEATING';
 export const RECEIVE_ERRORS = 'RECEIVE_ERRORS';
 export const CLEAR_ERRORS = 'CLEAR_ERRORS';
 
@@ -38,6 +39,11 @@ export const createSeating = seating => dispatch => {
     .then(() => dispatch(resetCurrentModal()));
 }
 
+export const removeSeating = id => dispatch => {
+  return ManagerAPIUtil.removeSeating(id)
+    .then(seating => dispatch(receiveRemoveSeating(seating)));
+}
+
 export const clearErrors = () => dispatch => {
   return dispatch(receiveClearErrrors());
 }
@@ -59,6 +65,11 @@ const receiveUpdatedSeating = seating => ({
 
 const receiveSeating = seating => ({
   type: RECEIVE_SEATING,
+  seating,
+});
+
+const receiveRemoveSeating = seating => ({
+  type: RECEIVE_REMOVE_SEATING,
   seating,
 });
 

@@ -36,3 +36,10 @@ export const createSeating = seating => {
     data: seating,
   })
 }
+
+export const removeSeating = id => {
+  return $.ajax({
+    method: 'DELETE',
+    url: `api/seatings/${id}`,
+  });
+}

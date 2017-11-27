@@ -4,6 +4,7 @@ import {
   RECEIVE_UPDATED_HOURS,
   RECEIVE_UPDATED_SEATING,
   RECEIVE_SEATING,
+  RECEIVE_REMOVE_SEATING,
   RECEIVE_ERRORS,
   CLEAR_ERRORS,
 } from '../actions/manager_actions';
@@ -30,6 +31,10 @@ const ManagerReducer = (state = _nullRestaurant, action) => {
       const newState = Object.assign({}, state);
       state.seatings.push(action.seating);
       return newState;
+    case RECEIVE_REMOVE_SEATING:
+      const removeState = Object.assign({}, state);
+      removeState.seatings = state.seatings.filter(el => el.id !== action.seating.id);
+      return removeState;
     case RECEIVE_ERRORS:
       return merge({}, state, { errors: action.errors.responseJSON });
     case CLEAR_ERRORS:

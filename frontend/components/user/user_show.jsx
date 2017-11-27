@@ -43,7 +43,7 @@ class UserShow extends React.Component {
 
   getUpcoming() {
     const reservations = this.props.reservations.filter(reservation => this.setUpcoming(reservation));
-debugger
+
     return (
       reservations.map((reservation) => {
         return (

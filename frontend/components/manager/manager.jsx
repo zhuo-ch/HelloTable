@@ -7,6 +7,7 @@ import {
   updateHours,
   updateSeating,
   createSeating,
+  removeSeating,
 } from '../../actions/manager_actions';
 import { StickyContainer, Sticky } from 'react-sticky';
 import { formatHoursMinutes } from '../../util/search_api_util';
@@ -23,8 +24,7 @@ class Manager extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleSave = this.handleSave.bind(this);
     this.handleAddTables = this.handleAddTables.bind(this);
-    this.handleAddTableSave = this.handleAddTableSave.bind(this);
-    this.handleAddTablesChange = this.handleAddTablesChange.bind(this);
+    this.handleRemoveTable = this.handleRemoveTable.bind(this);
   }
 
   componentWillMount() {
@@ -92,6 +92,12 @@ class Manager extends React.Component {
     });
   }
 
+  handleRemoveTable(e) {
+    e.preventDefault();
+    const id = e.currentTarget.parentElement.id;
+    this.props.removeSeating(this.props.restaurant.seatings[id].id);
+  }
+
   getSideBar() {
     const bar = ['Details', 'Hours of Operation', 'Tables'].map((el, idx) =>{
       return (
@@ -140,17 +146,27 @@ class Manager extends React.Component {
     }
   }
 
-  getLi(article, key, targeted, cName) {
+  getLi(article, key, targeted, cName, remove) {
+    let alternate;
+
+    if (targeted) {
+      alternate = ManagerUtil.getEditButtons({
+        onSave: this.handleSave,
+        onCancel: this.handleClick,
+        cName: 'horizontal'});
+    } else if (remove) {
+      alternate = (
+        <article className='horizontal' id={ key }>
+          { ManagerUtil.createButton('Remove', this.handleRemoveTable) }
+        </article>);
+    } else {
+      alternate = ManagerUtil.getBlankArticle('horizontal');
+    }
+
     return (
       <li key={ key } className={ cName }>
         { article }
-        { targeted ?
-          ManagerUtil.getEditButtons({
-            onSave: this.handleSave,
-            onCancel: this.handleClick,
-            cName: 'horizontal'}) :
-          ManagerUtil.getBlankArticle('horizontal')
-        }
+        { alternate }
       </li>
     )
   }
@@ -234,7 +250,9 @@ class Manager extends React.Component {
         </article>
     );
 
-    return this.getLi(article, idx, targeted, 'horizontal');
+    const remove = targeted ? false : true;
+
+    return this.getLi(article, idx, targeted, 'horizontal', remove);
   }
 
   getSeating() {
@@ -289,6 +307,7 @@ const mapDispatchToProps = dispatch => ({
   updateSeating: seating => dispatch(updateSeating(seating)),
   updateHours: hour => dispatch(updateHours(hour)),
   createSeating: seating => dispatch(createSeating(seating)),
+  removeSeating: id => dispatch(removeSeating(id)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Manager);
