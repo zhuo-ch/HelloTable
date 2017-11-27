@@ -26,7 +26,8 @@ export const updateHours = hours => dispatch => {
 
 export const updateSeating = seating => dispatch => {
   return ManagerAPIUtil.updateSeating(seating)
-    .then(updatedSeating => dispatch(receiveUpdatedSeating(updatedSeating)));
+    .then(updatedSeating => dispatch(receiveUpdatedSeating(updatedSeating)),
+    err => dispatch(receiveErrors(err)));
 
 }
 
@@ -61,9 +62,9 @@ const receiveSeating = seating => ({
   seating,
 });
 
-const receiveErrors = err => ({
+const receiveErrors = errors => ({
   type: RECEIVE_ERRORS,
-  err,
+  errors,
 });
 
 const receiveClearErrrors = () => ({

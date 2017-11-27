@@ -5,7 +5,7 @@ class Api::SeatingsController < ApplicationController
     if @seating.save
       render 'api/seatings/show'
     else
-      render json: @seating.errors.full_messages
+      render json: @seating.errors.full_messages, status: 409
     end
   end
 
@@ -20,7 +20,7 @@ class Api::SeatingsController < ApplicationController
     if @seating.update(seating_params)
       render 'api/seatings/show'
     else
-      render json: @seating.errors.full_messages
+      render json: @seating.errors.full_messages, status: 422
     end
   end
 

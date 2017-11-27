@@ -10,7 +10,7 @@ import {
 import * as ManagerSelector from '../selectors/manager_selectors';
 
 const _nullRestaurant = Object.freeze({
-  errors: {},
+  errors: [],
 });
 
 const ManagerReducer = (state = _nullRestaurant, action) => {
@@ -31,10 +31,11 @@ const ManagerReducer = (state = _nullRestaurant, action) => {
       state.seatings.push(action.seating);
       return newState;
     case RECEIVE_ERRORS:
-      return merge({}, state, { errors: action.errors });
+    debugger
+      return merge({}, state, { errors: action.errors.responseJSON });
     case CLEAR_ERRORS:
       const _nullErrors = merge({}, state);
-      _nullErrors.errors = {};
+      _nullErrors.errors = [];
       return _nullErrors;
     default:
       return state;

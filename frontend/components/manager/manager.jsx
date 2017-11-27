@@ -96,6 +96,7 @@ class Manager extends React.Component {
       type: 'addTable',
       clickHandler: this.handleAddTableSave,
       changeHandler: this.handleAddTablesChange,
+      errors: this.props.restaurant.errors.join('. '),
     });
   }
 

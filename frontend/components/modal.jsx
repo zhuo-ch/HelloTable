@@ -48,7 +48,8 @@ class Modal extends React.Component {
         return <AddTable
           saveHandler={ this.props.modal.clickHandler }
           cancelHandler={ this.props.resetCurrentModal }
-          changeHandler={ this.props.modal.changeHandler }/>
+          changeHandler={ this.props.modal.changeHandler }
+          errors={ this.props.modal.errors }/>
       default:
         return '';
     }
