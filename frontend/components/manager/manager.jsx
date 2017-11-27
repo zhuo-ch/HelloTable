@@ -139,7 +139,7 @@ class Manager extends React.Component {
     } else {
       return ManagerUtil.createSpan({
         key: id,
-        cName: 'manager-text',
+        cName: 'editable-text',
         text: text,
         clickHandler: this.handleClick,
       });

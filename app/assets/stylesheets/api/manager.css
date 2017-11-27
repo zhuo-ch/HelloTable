@@ -16,6 +16,20 @@
   margin: 0px 5px;
 }
 
+.editable-text {
+  margin: 0px 5px;
+  padding: 2px;
+  border: 1px solid gainsboro;
+  border-radius: 3px;
+  color: #D41010;
+  background-color: whitesmoke;
+}
+
+.editable-text:hover {
+  cursor: pointer;
+  border: 1px solid #D41010;
+}
+
 .manager-add-table {
   align-items: center;
   justify-content: space-between;
