@@ -21,12 +21,14 @@ const ReservationsReducer = (state = _nullReservations, action) => {
     case RECEIVE_RESTAURANT_RESERVATIONS:
       return merge({}, state, { restaurantReservations: action.reservations });
     case RECEIVE_USER_RESERVATIONS:
+    debugger
       return Object.assign({}, state, { userReservations: action.reservations })
     case RECEIVE_RESERVATION:
       return merge({}, state, { currentReservation: action.reservation });
     case RECEIVE_ADD_USER_RESERVATION:
       const newUserState = merge({}, state);
       newUserState.userReservations.push(action.reservation);
+      debugger
       return newUserState;
     case CLEAR_RESERVATION:
       const newState = merge({}, state);

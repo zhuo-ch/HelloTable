@@ -43,14 +43,14 @@ class UserShow extends React.Component {
 
   getUpcoming() {
     const reservations = this.props.reservations.filter(reservation => this.setUpcoming(reservation));
-
+debugger
     return (
       reservations.map((reservation) => {
         return (
-          <section className='show-res' key={reservation.id}>
+          <section className='show-res' key={ reservation.id }>
             <article className='user-res'>
               <h4>
-                A table for {reservation.seats} will be set at {this.props.formatTime(reservation.time)} on {this.props.formatDate(reservation.date)}
+                A table for { reservation.seats } will be set at { this.props.formatTime(reservation.time)} on {this.props.formatDate(reservation.date)}
               </h4>
               <button onClick={ this.handleCancel } className='button' value={reservation.id}>Cancel</button>
             </article>
