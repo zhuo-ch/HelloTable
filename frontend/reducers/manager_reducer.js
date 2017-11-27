@@ -31,7 +31,6 @@ const ManagerReducer = (state = _nullRestaurant, action) => {
       state.seatings.push(action.seating);
       return newState;
     case RECEIVE_ERRORS:
-    debugger
       return merge({}, state, { errors: action.errors.responseJSON });
     case CLEAR_ERRORS:
       const _nullErrors = merge({}, state);

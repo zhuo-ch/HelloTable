@@ -9,6 +9,7 @@ class AddTable extends React.Component {
     super(props);
     this.handleChange = this.handleChange.bind(this);
     this.handleSave = this.handleSave.bind(this);
+    this.handleCancel = this.handleCancel.bind(this);
   }
 
   componentWillUnmount() {

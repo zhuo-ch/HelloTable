@@ -12,15 +12,4 @@ class Api::ManagerController < ApplicationController
       render json: @restaurant.errors.full_messages
     end
   end
-
-  def update
-    type = params["edit_type"]
-debugger
-    case type
-    when "seatings"
-
-
-    end
-
-  end
 end

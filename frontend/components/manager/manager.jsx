@@ -92,20 +92,6 @@ class Manager extends React.Component {
     });
   }
 
-  handleAddTablesChange(e) {
-    e.preventDefault();
-    this.setState({ [e.currentTarget.id]: e.currentTarget.value });
-  }
-
-  handleAddTableSave(e) {
-    e.preventDefault();
-    this.props.createSeating({
-      restaurant_id: this.props.restaurant.id,
-      seats: this.state.seats,
-      max_tables: this.state.max_tables,
-    });
-  }
-
   getSideBar() {
     const bar = ['Details', 'Hours of Operation', 'Tables'].map((el, idx) =>{
       return (
