@@ -7,6 +7,7 @@ export const RECEIVE_UPDATED_HOURS = 'RECEIVE_UPDATED_HOURS';
 export const RECEIVE_UPDATED_SEATING = 'RECEIVE_UPDATED_SEATING';
 export const RECEIVE_SEATING = 'RECEIVE_SEATING';
 export const RECEIVE_ERRORS = 'RECEIVE_ERRORS';
+export const CLEAR_ERRORS = 'CLEAR_ERRORS';
 
 export const fetchManagerRestaurant = id => dispatch => {
   return ManagerAPIUtil.getManagerRestaurant(id)
@@ -24,12 +25,9 @@ export const updateHours = hours => dispatch => {
 }
 
 export const updateSeating = seating => dispatch => {
-  if (seating.id) {
-    return ManagerAPIUtil.updateSeating(seating)
+  return ManagerAPIUtil.updateSeating(seating)
     .then(updatedSeating => dispatch(receiveUpdatedSeating(updatedSeating)));
-  } else {
-    dispatch(receiveUpdatedSeating(seating));
-  }
+
 }
 
 export const createSeating = seating => dispatch => {
@@ -37,6 +35,10 @@ export const createSeating = seating => dispatch => {
     .then(newSeating => dispatch(receiveSeating(newSeating)),
     err => dispatch(receiveErrors(err)))
     .then(() => dispatch(resetCurrentModal()));
+}
+
+export const clearErrors = () => dispatch => {
+  return dispatch(receiveClearErrrors());
 }
 
 const receiveManagerRestaurant = restaurant => ({
@@ -62,4 +64,8 @@ const receiveSeating = seating => ({
 const receiveErrors = err => ({
   type: RECEIVE_ERRORS,
   err,
+});
+
+const receiveClearErrrors = () => ({
+  type: CLEAR_ERRORS,
 });
