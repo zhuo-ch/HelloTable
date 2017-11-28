@@ -79,7 +79,6 @@ class Manager extends React.Component {
   handleUpdateHour(idx) {
     let hour = merge({}, this.props.restaurant.hours[idx[1]]);
     hour[idx[2]] = ManagerUtil.to24(this.state.value);
-    debugger
     hour[idx[2]] ? this.props.updateHours(hour).then(() => this.handleClick()) : this.handleHourError();
 
   }
@@ -90,9 +89,13 @@ class Manager extends React.Component {
   }
 
   handleUpdateRestaurant(idx) {
-    let dupRestaurant = merge({}, this.props.restaurant);
-    dupRestaurant[idx] = this.state.value;
-    this.props.updateRestaurant(dupRestaurant);
+    if (idx[0] === 'phone' && ManagerUtil.invalidPhone(this.state.value)) {
+      this.props.setError({ responseJSON: ['Please enter valid number i.e. (XXX)XXX-XXXX or XXX-XXXX-XXXX']});
+    } else {
+      let dupRestaurant = merge({}, this.props.restaurant);
+      dupRestaurant[idx] = this.state.value;
+      this.props.updateRestaurant(dupRestaurant).then(() => this.handleClick());
+    }
   }
 
   handleAddTables() {
@@ -106,6 +109,10 @@ class Manager extends React.Component {
     e.preventDefault();
     const id = e.currentTarget.parentElement.id;
     this.props.removeSeating(this.props.restaurant.seatings[id].id);
+  }
+
+  checkTarget() {
+    return this.state.idx ? this.state.idx.split('-')[0] : false;
   }
 
   getSideBar() {
@@ -197,7 +204,11 @@ class Manager extends React.Component {
       return this.getLi(article, listKey, targeted, 'horizontal');
     });
 
+    const check = this.checkTarget();
+    const errors = (check && check !== 'hours' && check !== 'seating') ? this.props.restaurant.errors : '';
+
     return  ManagerUtil.createSection({
+      errors,
       id: 'Details',
       title: 'Details',
       liElements: details,
@@ -234,8 +245,11 @@ class Manager extends React.Component {
       return this.getHour(hour, idx);
     });
 
+    const check = this.checkTarget();
+    const errors = (check && check === 'hours') ? this.props.restaurant.errors : '';
+
     return ManagerUtil.createSection({
-      errors: this.props.restaurant.errors,
+      errors,
       id: 'Hours of Operation',
       title: 'Restaurant Hours',
       liElements: times,
@@ -268,9 +282,11 @@ class Manager extends React.Component {
 
   getSeating() {
     const seatings = this.props.restaurant.seatings.map((seating, idx) => this.getSeat(seating, idx));
+    const check = this.checkTarget();
+    const errors = (check && check === 'seating') ? this.props.restaurant.errors : '';
 
     return ManagerUtil.createSection({
-      errors: this.props.restaurant.errors,
+      errors,
       id: 'Tables',
       title: 'Restaurant Tables',
       liElements: seatings,

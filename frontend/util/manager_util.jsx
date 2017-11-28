@@ -1,5 +1,20 @@
 import React from 'react';
 
+export const invalidPhone = num => {
+  const reg = /^(\([0-9]{3}\)\s*|[0-9]{3}\-)[0-9]{3}-[0-9]{4}$/;
+
+  if (num.match(reg)) {
+    return false;
+  } else if(Number.isInteger(parseInt(num))) {
+    if (num.length > 11 || num.length < 10) {
+      return true
+    }
+    return false;
+  } else {
+    return true;
+  }
+}
+
 export const to24 = time => {
   if (valid24(time)) {
     const type = (time.match(/\D+/g)[1]).toLowerCase();
