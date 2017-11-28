@@ -12,18 +12,6 @@ class Api::RestaurantsController < ApplicationController
 
   def create
     @restaurant = Restaurant.new(restaurant_params)
-    # address = format_address
-    #
-    # url = "https://maps.googleapis.com/maps/api/geocode/json?address="
-    # response = RestClient::Request.execute(
-    #   method: :get,
-    #   url: "#{url}#{address}&key=#{ENV['google_places_key']}"
-    # )
-    #
-    # response_address = JSON.parse(response)["results"][0]
-    # @restaurant.location = response_address["geometry"]["location"]
-    # @restaurant.address = response_address["formatted_address"]
-    # @restaurant.city_id = City.in_bounds(response_address["geometry"]["location"])
 
     if @restaurant.save
       @restaurant.set_address(format_address)
@@ -60,7 +48,9 @@ class Api::RestaurantsController < ApplicationController
   def update
     @restaurant = Restaurant.find(restaurant_params[:id])
 
-    if logged_in? && @restaurant.update(restaurant_params)
+    if @restaurant.invalid_address?(format_address)
+      render json: @restaurant.errors.full_messages, status: 422
+    elsif logged_in? && @restaurant.update(restaurant_params)
       render 'api/restaurants/show'
     else
       render json: @restaurant.errors.full_messages, status: 422
@@ -80,6 +70,7 @@ class Api::RestaurantsController < ApplicationController
   end
 
   def format_address
-    restaurant_params[:address].split(', ').each { |el| el.gsub(" ", "+")}
+    formatted = restaurant_params[:address].gsub(", ", "+")
+    formatted.gsub(" ", "+")
   end
 end
