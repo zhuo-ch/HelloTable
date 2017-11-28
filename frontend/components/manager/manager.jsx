@@ -8,6 +8,8 @@ import {
   updateSeating,
   createSeating,
   removeSeating,
+  setError,
+  clearErrors,
 } from '../../actions/manager_actions';
 import { StickyContainer, Sticky } from 'react-sticky';
 import { formatHoursMinutes } from '../../util/search_api_util';
@@ -38,6 +40,8 @@ class Manager extends React.Component {
   }
 
   handleClick(e) {
+    e ? e.preventDefault() : '';
+    this.props.clearErrors();
     const selecting = this.state.selecting ? false : true;
     this.setState({ selecting: selecting });
     e ? this.setState({ idx: e.currentTarget.id }) : '';
@@ -76,7 +80,12 @@ class Manager extends React.Component {
   handleUpdateHour(idx) {
     let hour = merge({}, this.props.restaurant.hours[idx[1]]);
     hour[idx[2]] = ManagerUtil.to24(this.state.value);
-    this.props.updateHours(hour);
+    hour[idx[2]] ? this.props.updateHours(hour) : this.handleHourError();
+  }
+
+  handleHourError() {
+    const error = { responseJSON: ['Please use 12 hour format (example: 10:30AM, 3:45PM)']};
+    this.props.setError(error);
   }
 
   handleUpdateRestaurant(idx) {
@@ -225,6 +234,7 @@ class Manager extends React.Component {
     });
 
     return ManagerUtil.createSection({
+      errors: this.props.restaurant.errors,
       id: 'Hours of Operation',
       title: 'Restaurant Hours',
       liElements: times,
@@ -259,6 +269,7 @@ class Manager extends React.Component {
     const seatings = this.props.restaurant.seatings.map((seating, idx) => this.getSeat(seating, idx));
 
     return ManagerUtil.createSection({
+      errors: this.props.restaurant.errors,
       id: 'Tables',
       title: 'Restaurant Tables',
       liElements: seatings,
@@ -308,6 +319,8 @@ const mapDispatchToProps = dispatch => ({
   updateHours: hour => dispatch(updateHours(hour)),
   createSeating: seating => dispatch(createSeating(seating)),
   removeSeating: id => dispatch(removeSeating(id)),
+  setError: error => dispatch(setError(error)),
+  clearErrors: () => dispatch(clearErrors()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Manager);

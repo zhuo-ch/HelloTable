@@ -9,7 +9,11 @@ class Seating < ActiveRecord::Base
   end
 
   def ensure_unique
-    if self.restaurant.seatings.where(["seats = ?", self.seats]).length == 0
+    entries = self.restaurant.seatings.where(["seats = ?", self.seats])
+
+    if entries.length == 0
+      return true
+    elsif entries.length == 1 && entries.first.id == self.id
       return true
     else
       errors.add(:base, "Table already exists")

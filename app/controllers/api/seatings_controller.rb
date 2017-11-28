@@ -32,6 +32,6 @@ class Api::SeatingsController < ApplicationController
 
   private
   def seating_params
-    params.permit(:restaurant_id, :seats, :max_tables)
+    params.permit(:restaurant_id, :id, :seats, :max_tables)
   end
 end

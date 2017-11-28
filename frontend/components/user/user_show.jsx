@@ -9,17 +9,22 @@ import RestaurantSnippet from '../restaurant/restaurant_snippet';
 import { StickyContainer, Sticky } from 'react-sticky';
 import { setCurrentModal, resetCurrentModal } from '../../actions/modal_actions';
 import { formatTime, formatDate } from '../../selectors/date_selectors';
+import { fetchManagerRestaurant } from '../../actions/manager_actions';
+import * as ManagerUtil from '../../util/manager_util';
 
 class UserShow extends React.Component {
   constructor(props) {
     super(props)
     this.handleCancel = this.handleCancel.bind(this);
     this.handleAddReview = this.handleAddReview.bind(this);
+    this.handleManager = this.handleManager.bind(this);
   }
 
   componentWillMount() {
     if (parseInt(this.props.routeParams.userId) !== this.props.currentUser.id) {
       this.props.router.push('/');
+    } else {
+      this.props.fetchManagerRestaurant(this.props.currentUser.id)
     }
   }
 
@@ -31,6 +36,10 @@ class UserShow extends React.Component {
   handleAddReview(e) {
     e.preventDefault();
     this.props.setCurrentModal({hidden: false, type:'reviewForm', reservation: e.currentTarget.value});
+  }
+
+  handleManager(e) {
+    this.props.router.push(`/manager/${this.props.currentUser.id}`);
   }
 
   setUpcoming(reservation) {
@@ -93,10 +102,15 @@ class UserShow extends React.Component {
     });
   }
 
+  getManager() {
+    return this.props.manager.id ? ManagerUtil.createButton(`Manage ${this.props.manager.name}`, this.handleManager) : '';
+  }
+
   render() {
     const Upcoming = this.getUpcoming();
     const Previous = this.getPrevious();
     const Favorites = this.getFavorites();
+    const manager = this.getManager();
 
     return(
       <StickyContainer className='user-show'>
@@ -118,6 +132,7 @@ class UserShow extends React.Component {
                   <Scrollchor to='#favorites'><h3>Favorites</h3></Scrollchor>
                 </li>
               </ul>
+              { manager }
             </Sticky>
           </div>
 
@@ -146,6 +161,7 @@ const mapStateToProps = state => {
     currentUser: state.session.currentUser,
     favorites: state.favorites,
     reservations: state.reservations.userReservations,
+    manager: state.manager,
   });
 }
 
@@ -156,6 +172,7 @@ const mapDispatchToProps = dispatch => {
     resetCurrentModal: () => dispatch(resetCurrentModal()),
     formatDate: date => formatDate(date),
     formatTime: time => formatTime(time),
+    fetchManagerRestaurant: id => dispatch(fetchManagerRestaurant(id)),
   });
 }
 

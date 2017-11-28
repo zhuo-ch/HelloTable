@@ -41,7 +41,7 @@ export const createInput = ({key, cName, changeHandler, placeHolder}) => {
   );
 }
 
-export const createSection = ({ id, title, liElements, titleAddon }) => {
+export const createSection = ({ id, title, liElements, titleAddon, errors }) => {
   return (
     <section
       className='restaurant-about about-text'
@@ -50,6 +50,7 @@ export const createSection = ({ id, title, liElements, titleAddon }) => {
         <h2>{ title }</h2>
         { titleAddon }
       </article>
+      <article className='horizontal errors'>{ errors }</article>
       <ul>
         { liElements }
       </ul>
