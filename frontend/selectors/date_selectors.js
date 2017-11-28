@@ -19,3 +19,12 @@ export const revertDate = (date, time) => {
 
   return new Date(dateArray[2], dateArray[0] - 1, dateArray[1], timeString.slice(0,2) - 1, timeString.slice(2, 4));
 }
+
+export const setUpcoming = reservation => {
+  const curDate = new Date();
+  const resDate = reservation.date.split("-").map((str) => parseInt(str));
+  const resTime = formatTime(reservation.time).split(':').map((str) => parseInt(str));
+  const newDate = new Date(resDate[2], resDate[0]-1, resDate[1], resTime[0]+12, resTime[1]);
+
+  return newDate > curDate;
+}

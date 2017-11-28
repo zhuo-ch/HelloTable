@@ -1,10 +1,10 @@
 class Api::ReservationsController < ApplicationController
 
   def create
+    @reservation = Reservation.new(reservation_params)
     seating = Seating.find_by_params(
       params["reservation"]["restaurant_id"],
       params["reservation"]["seats"])
-    @reservation = Reservation.new(reservation_params)
     @reservation.seating_id = seating.first.id
 
     if @reservation.save

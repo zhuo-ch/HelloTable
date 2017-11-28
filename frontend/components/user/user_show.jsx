@@ -8,8 +8,8 @@ import Scrollchor from 'react-scrollchor';
 import RestaurantSnippet from '../restaurant/restaurant_snippet';
 import { StickyContainer, Sticky } from 'react-sticky';
 import { setCurrentModal, resetCurrentModal } from '../../actions/modal_actions';
-import { formatTime, formatDate } from '../../selectors/date_selectors';
 import { fetchManagerRestaurant } from '../../actions/manager_actions';
+import * as DateSelectors from '../../selectors/date_selectors';
 import * as ManagerUtil from '../../util/manager_util';
 
 class UserShow extends React.Component {
@@ -42,16 +42,17 @@ class UserShow extends React.Component {
     this.props.router.push(`/manager/${this.props.currentUser.id}`);
   }
 
-  setUpcoming(reservation) {
-    const curDate = new Date();
-    const resDate = reservation.date.split("-").map((str) => parseInt(str));
-    const resTime = this.props.formatTime(reservation.time).split(':').map((str) => parseInt(str));
-    const newDate = new Date(resDate[2], resDate[0]-1, resDate[1], resTime[0]+12, resTime[1]);
-    return newDate > curDate;
-  }
+  // setUpcoming(reservation) {
+  //   const curDate = new Date();
+  //   const resDate = reservation.date.split("-").map((str) => parseInt(str));
+  //   const resTime = this.props.formatTime(reservation.time).split(':').map((str) => parseInt(str));
+  //   const newDate = new Date(resDate[2], resDate[0]-1, resDate[1], resTime[0]+12, resTime[1]);
+  //
+  //   return newDate > curDate;
+  // }
 
   getUpcoming() {
-    const reservations = this.props.reservations.filter(reservation => this.setUpcoming(reservation));
+    const reservations = this.props.reservations.filter(reservation => DateSelectors.setUpcoming(reservation));
 
     return (
       reservations.map((reservation) => {
@@ -59,7 +60,7 @@ class UserShow extends React.Component {
           <section className='show-res' key={ reservation.id }>
             <article className='user-res'>
               <h4>
-                A table for { reservation.seats } will be set at { this.props.formatTime(reservation.time)} on {this.props.formatDate(reservation.date)}
+                A table for { reservation.seats } will be set at { DateSelectors.formatTime(reservation.time)} on {DateSelectors.formatDate(reservation.date)}
               </h4>
               <button onClick={ this.handleCancel } className='button' value={reservation.id}>Cancel</button>
             </article>
@@ -70,7 +71,7 @@ class UserShow extends React.Component {
   }
 
   getPrevious() {
-    const previous = this.props.reservations.filter(reservation => !this.setUpcoming(reservation));
+    const previous = this.props.reservations.filter(reservation => !DateSelectors.setUpcoming(reservation));
 
     return (
       previous.map((reservation) => {
@@ -81,7 +82,7 @@ class UserShow extends React.Component {
           <section className='show-res' key={reservation.id}>
             <article className='user-res'>
               <h4>
-                We hope you enjoyed your visit on {this.props.formatDate(reservation.date)}
+                We hope you enjoyed your visit on {DateSelectors.formatDate(reservation.date)}
               </h4>
               {leaveReviewButton}
             </article>
@@ -170,8 +171,6 @@ const mapDispatchToProps = dispatch => {
     destroyReservation: id => dispatch(destroyReservation(id)),
     setCurrentModal: modal => dispatch(setCurrentModal(modal)),
     resetCurrentModal: () => dispatch(resetCurrentModal()),
-    formatDate: date => formatDate(date),
-    formatTime: time => formatTime(time),
     fetchManagerRestaurant: id => dispatch(fetchManagerRestaurant(id)),
   });
 }

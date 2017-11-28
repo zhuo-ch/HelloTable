@@ -1,14 +1,19 @@
 import React from 'react';
 
 export const to24 = time => {
-  const type = (time.match(/\D+/g)[1]).toLowerCase();
-  let hoursMins = parseInt(time.match(/\d+/g).join(''));
+  if (valid24(time)) {
+    const type = (time.match(/\D+/g)[1]).toLowerCase();
+    let hoursMins = parseInt(time.match(/\d+/g).join(''));
 
-  if (type === 'pm') {
-    hoursMins += 1200;
+    if (type === 'pm') {
+      hoursMins = parseInt(hoursMins);
+      hoursMins += 1200;
+    }
+
+    return hoursMins;
+  } else {
+    return false;
   }
-
-  return hoursMins;
 }
 
 export const createButton = (text, handler) => {
@@ -86,4 +91,24 @@ export const getTimesList = () => {
   }
 
   return list;
+}
+
+const valid24 = num => {
+  num = num.split(':');
+
+  if (num.length < 2 || num[0].length > 2 || num[1].length > 4) {
+    return false;
+  } else {
+    const mins = num[1].slice(0, 2);
+    const type = num[1].slice(2, num[1].length);
+    const time = new Date();
+    time.setHours(num[0]);
+    time.setMinutes(mins);
+
+    if (isNaN(time.getTime())) {
+      return false;
+    } else if (type.toLowerCase() === 'am' || type.toLowerCase() === 'pm') {
+      return true;
+    }
+  }
 }

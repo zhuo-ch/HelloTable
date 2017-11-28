@@ -67,20 +67,21 @@ class Manager extends React.Component {
         this.handleUpdateRestaurant(idx)
     }
 
-    this.handleClick();
     setTimeout(this.props.resetCurrentModal, 300);
   }
 
   handleUpdateSeating(idx) {
     let seating = merge({}, this.props.restaurant.seatings[idx[1]]);
     seating[idx[2]] = parseInt(this.state.value);
-    this.props.updateSeating(seating);
+    this.props.updateSeating(seating).then(() => this.handleClick());
   }
 
   handleUpdateHour(idx) {
     let hour = merge({}, this.props.restaurant.hours[idx[1]]);
     hour[idx[2]] = ManagerUtil.to24(this.state.value);
-    hour[idx[2]] ? this.props.updateHours(hour) : this.handleHourError();
+    debugger
+    hour[idx[2]] ? this.props.updateHours(hour).then(() => this.handleClick()) : this.handleHourError();
+
   }
 
   handleHourError() {
