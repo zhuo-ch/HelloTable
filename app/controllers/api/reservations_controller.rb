@@ -5,6 +5,7 @@ class Api::ReservationsController < ApplicationController
     seating = Seating.find_by_params(
       params["reservation"]["restaurant_id"],
       params["reservation"]["seats"])
+      debugger
     @reservation.seating_id = seating.first.id
 
     if @reservation.save
