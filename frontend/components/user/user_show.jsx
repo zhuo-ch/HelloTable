@@ -42,15 +42,6 @@ class UserShow extends React.Component {
     this.props.router.push(`/manager/${this.props.currentUser.id}`);
   }
 
-  // setUpcoming(reservation) {
-  //   const curDate = new Date();
-  //   const resDate = reservation.date.split("-").map((str) => parseInt(str));
-  //   const resTime = this.props.formatTime(reservation.time).split(':').map((str) => parseInt(str));
-  //   const newDate = new Date(resDate[2], resDate[0]-1, resDate[1], resTime[0]+12, resTime[1]);
-  //
-  //   return newDate > curDate;
-  // }
-
   getUpcoming() {
     const reservations = this.props.reservations.filter(reservation => DateSelectors.setUpcoming(reservation));
 
@@ -162,7 +153,7 @@ const mapStateToProps = state => {
     currentUser: state.session.currentUser,
     favorites: state.favorites,
     reservations: state.reservations.userReservations,
-    manager: state.manager,
+    manager: state.restaurants.restaurant,
   });
 }
 

@@ -2,7 +2,7 @@ import { merge } from 'lodash';
 import * as ManagerAPIUtil from '../util/manager_api_util';
 import { resetCurrentModal } from '../actions/modal_actions';
 
-export const RECEIVE_MANAGER_RESTAURANT = 'RECEIVE_MANAGER_RESTAURANT';
+export const RECEIVE_RESTAURANT = 'RECEIVE_RESTAURANT';
 export const RECEIVE_UPDATED_HOURS = 'RECEIVE_UPDATED_HOURS';
 export const RECEIVE_UPDATED_SEATING = 'RECEIVE_UPDATED_SEATING';
 export const RECEIVE_SEATING = 'RECEIVE_SEATING';
@@ -12,12 +12,12 @@ export const CLEAR_ERRORS = 'CLEAR_ERRORS';
 
 export const fetchManagerRestaurant = id => dispatch => {
   return ManagerAPIUtil.getManagerRestaurant(id)
-    .then(restaurant => dispatch(receiveManagerRestaurant(restaurant)));
+    .then(restaurant => dispatch(receiveRestaurant(restaurant)));
 }
 
 export const updateRestaurant = restaurant => dispatch => {
   return ManagerAPIUtil.updateRestaurant(restaurant)
-    .then(updatedRestaurant => dispatch(receiveManagerRestaurant(updatedRestaurant)),
+    .then(updatedRestaurant => dispatch(receiveRestaurant(updatedRestaurant)),
     errors => dispatch(receiveErrors(errors)));
 }
 
@@ -51,8 +51,8 @@ export const clearErrors = () => dispatch => {
   return dispatch(receiveClearErrrors());
 }
 
-const receiveManagerRestaurant = restaurant => ({
-  type: RECEIVE_MANAGER_RESTAURANT,
+const receiveRestaurant = restaurant => ({
+  type: RECEIVE_RESTAURANT,
   restaurant,
 });
 
