@@ -1,18 +1,26 @@
 import React from 'react';
 import { merge } from 'lodash';
+import { connect } from 'react-redux';
 
 class RestaurantMap extends React.Component {
   constructor(props) {
     super(props);
-    this.location = props.location;
-    this.address = props.address;
     this.latLng = { lat: 40.730610, lng: -73.935242 };
     this.handleClick = this.handleClick.bind(this);
   }
 
+  componentDidMount() {
+    const location = this.parseLocation(this.props.restaurant.location);
+    const latLng = this.props.restaurant.location ? { lat: location[0], lng: location[1] } : this.latLng;
+    const map = this.mapNode;
+
+    this.genMap(map, latLng);
+    this.genMarker(latLng);
+  }
+
   componentWillReceiveProps(nextProps) {
-    const location = this.parseLocation(nextProps.location);
-    const latLng = nextProps.location ? { lat: location[0], lng: location[1] } : this.latLng;
+    const location = this.parseLocation(nextProps.restaurant.location);
+    const latLng = nextProps.restaurant.location ? { lat: location[0], lng: location[1] } : this.latLng;
     const map = this.mapNode;
     this.genMap(map, latLng);
     this.genMarker(latLng);
@@ -36,7 +44,7 @@ class RestaurantMap extends React.Component {
       map: this.map,
     });
     this.popup = new google.maps.InfoWindow({
-      content: this.props.address,
+      content: this.props.restaurant.address,
     });
     this.marker.addListener('click', this.handleClick);
   }
@@ -63,4 +71,8 @@ class RestaurantMap extends React.Component {
   }
 }
 
-export default RestaurantMap;
+const mapStateToProps = state => ({
+  restaurant: state.restaurants.restaurant,
+});
+
+export default connect(mapStateToProps)(RestaurantMap);
