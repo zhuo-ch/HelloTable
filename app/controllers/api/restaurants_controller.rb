@@ -48,9 +48,6 @@ class Api::RestaurantsController < ApplicationController
   def update
     @restaurant = Restaurant.find(restaurant_params[:id])
 
-    # if @restaurant.invalid_address?(format_address)
-    #   render json: @restaurant.errors.full_messages, status: 422
-    # els
     if logged_in? && @restaurant.update(restaurant_params)
       render 'api/restaurants/show'
     else

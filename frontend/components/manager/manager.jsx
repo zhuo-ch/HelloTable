@@ -31,6 +31,11 @@ class Manager extends React.Component {
 
   componentWillMount() {
     this.props.fetchManagerRestaurant(this.props.currentUser.id);
+    debugger
+  }
+
+  componentDidMount() {
+    debugger
   }
 
   handleSideBar(e) {
@@ -301,7 +306,7 @@ class Manager extends React.Component {
     const seatings = loaded ? this.getSeating() : '';
     const sideBar = this.getSideBar();
     const rightBar = this.getRightBar();
-
+debugger
     return (
       <StickyContainer className='restaurant-view'>
         <div className='restaurant-body'>

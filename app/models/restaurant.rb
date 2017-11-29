@@ -39,22 +39,6 @@ class Restaurant < ActiveRecord::Base
     end
   end
 
-  # def invalid_address?(address)
-  #   url = "https://maps.googleapis.com/maps/api/geocode/json?address="
-  #   response = RestClient::Request.execute(
-  #     method: :get,
-  #     url: "#{url}#{address}&key=#{ENV['google_places_key']}")
-  #
-  #   response_address = JSON.parse(response)
-  #   if response_address["results"].length < 1 || response_address["results"][0]["partial_match"]
-  #     errors.add(:base, "Unable to find address.")
-  #     return true
-  #   else
-  #     self.set_address(address)
-  #     return false
-  #   end
-  # end
-
   belongs_to :city
   belongs_to :user
   has_one :rating, inverse_of: :restaurant
