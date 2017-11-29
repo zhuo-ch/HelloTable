@@ -1,6 +1,11 @@
 class Restaurant < ActiveRecord::Base
   validates :user_id, :name, :description, :address, :location, :phone, presence: true
   after_initialize :ensure_rating
+  before_save :set_address
+
+  def format_address
+    self.address.gsub(/\W+/, "+")
+  end
 
   def ensure_rating
     Rating.create(restaurant: self) unless self.rating
@@ -13,28 +18,42 @@ class Restaurant < ActiveRecord::Base
     self.reservations.where(["time > ? and time < ? and date = ?", start_hour, end_hour, date])
   end
 
-  def set_address(address)
+  def set_address
+    address = self.format_address
     url = "https://maps.googleapis.com/maps/api/geocode/json?address="
-    response = RestClient::Request.execute(
-      method: :get,
-      url: "#{url}#{address}&key=#{ENV['google_places_key']}"
-    )
 
-    response_address = JSON.parse(response)["results"][0]
-    self.location = response_address["geometry"]["location"]
-    self.address = response_address["formatted_address"]
-    self.city_id = City.in_bounds(response_address["geometry"]["location"])
-  end
-
-  def invalid_address?(address)
-    url = "https://maps.googleapis.com/maps/api/geocode/json?address="
     response = RestClient::Request.execute(
       method: :get,
       url: "#{url}#{address}&key=#{ENV['google_places_key']}")
-debugger
+
     response_address = JSON.parse(response)
-    debugger
+
+    if response_address["results"].length < 1 || response_address["results"][0]["partial_match"]
+      errors.add(:base, "Unable to find address.")
+      return false
+    else
+      result = response_address["results"][0]
+      self.location = result["geometry"]["location"]
+      self.address = result["formatted_address"]
+      self.city_id = self.city_id ? self.city_id : City.in_bounds(result["geometry"]["location"])
+    end
   end
+
+  # def invalid_address?(address)
+  #   url = "https://maps.googleapis.com/maps/api/geocode/json?address="
+  #   response = RestClient::Request.execute(
+  #     method: :get,
+  #     url: "#{url}#{address}&key=#{ENV['google_places_key']}")
+  #
+  #   response_address = JSON.parse(response)
+  #   if response_address["results"].length < 1 || response_address["results"][0]["partial_match"]
+  #     errors.add(:base, "Unable to find address.")
+  #     return true
+  #   else
+  #     self.set_address(address)
+  #     return false
+  #   end
+  # end
 
   belongs_to :city
   belongs_to :user

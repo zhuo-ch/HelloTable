@@ -17,7 +17,8 @@ export const fetchManagerRestaurant = id => dispatch => {
 
 export const updateRestaurant = restaurant => dispatch => {
   return ManagerAPIUtil.updateRestaurant(restaurant)
-    .then(updatedRestaurant => dispatch(receiveManagerRestaurant(updatedRestaurant)));
+    .then(updatedRestaurant => dispatch(receiveManagerRestaurant(updatedRestaurant)),
+    errors => dispatch(receiveErrors(errors)));
 }
 
 export const updateHours = hours => dispatch => {

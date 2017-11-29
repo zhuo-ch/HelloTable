@@ -48,9 +48,10 @@ class Api::RestaurantsController < ApplicationController
   def update
     @restaurant = Restaurant.find(restaurant_params[:id])
 
-    if @restaurant.invalid_address?(format_address)
-      render json: @restaurant.errors.full_messages, status: 422
-    elsif logged_in? && @restaurant.update(restaurant_params)
+    # if @restaurant.invalid_address?(format_address)
+    #   render json: @restaurant.errors.full_messages, status: 422
+    # els
+    if logged_in? && @restaurant.update(restaurant_params)
       render 'api/restaurants/show'
     else
       render json: @restaurant.errors.full_messages, status: 422
@@ -70,7 +71,6 @@ class Api::RestaurantsController < ApplicationController
   end
 
   def format_address
-    formatted = restaurant_params[:address].gsub(", ", "+")
-    formatted.gsub(" ", "+")
+    formatted = restaurant_params[:address].gsub(/\W+/, "+")
   end
 end
