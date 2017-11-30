@@ -2,7 +2,7 @@ class Seating < ActiveRecord::Base
   before_save :ensure_unique
 
   belongs_to :restaurant
-  has_many :reservations, inverse_of: :seating
+  has_many :reservations
 
   def self.find_by_params(restaurant_id, seats)
       Seating.where(["restaurant_id = ? and seats = ?", restaurant_id, seats])
