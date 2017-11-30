@@ -1,7 +1,7 @@
 export const fetchRestaurantReservations = (query) => {
   return $.ajax({
     method: 'GET',
-    url: 'api/reservations/search',
+    url: 'api/seatings/search',
     data: { query }
   });
 }

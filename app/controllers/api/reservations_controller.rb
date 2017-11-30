@@ -34,7 +34,7 @@ class Api::ReservationsController < ApplicationController
       .where("seats = ?", query[:seats])
       .where("seatings.restaurant_id = ?", query[:restaurantId])
       .references(:seatings)
-
+debugger
     render 'api/reservations/search'
   end
 
