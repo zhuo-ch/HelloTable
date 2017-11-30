@@ -15,17 +15,8 @@ class Api::SeatingsController < ApplicationController
   end
 
   def search
-    query = params[:query]
-    time = query[:time].to_i
-    @seatings = Seating.where(restaurant_id: query[:restaurantId]).where.not(id: (Seating.joins(:reservations)
-      .where("reservations.date = ?", query[:date])
-      .where("reservations.time BETWEEN ? AND ?", (time - 200), (time + 200))
-      .where("seats = ?", query[:seats])
-      .where("seatings.restaurant_id = ?", query[:restaurantId])
-      .references(:reservations, :seatings)
-      .group(:id)
-      .having("count(seatings.id) >= max_tables")))
-debugger
+    @seatings = Seating.availabilities(params[:query])
+
     render 'api/seatings/search'
   end
 
