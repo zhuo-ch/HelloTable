@@ -14,19 +14,16 @@ class Seating < ActiveRecord::Base
       .select(:time, "seating_id")
       .where("date = ?", query[:date])
       .where("time BETWEEN ? AND ?", (time - 101), (time + 101))
-      .where("seats = ?", query[:seats])
+      .where("seating_id = ?", query[:seats])
       .where("seatings.restaurant_id = ?", query[:restaurantId])
       .references(:seatings)
       .group(:time, :seating_id, :max_tables)
       .having("count(reservations.id) >= seatings.max_tables")
 
     arr = Seating.get_times(time)
-    results = {}
+    results = { seating_id: query["seats"] }
     arr.each { |a| results[a] = true }
     seating.each { |seat| results[seat.time] = false }
-    results["seating_id"] = seating.first ?
-      seating.first.seating_id :
-      Seating.find_by(restaurant_id: query[:restaurantId], seats: query[:seats]).id
 
     results
   end

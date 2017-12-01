@@ -33,8 +33,7 @@ const RestaurantsReducer = (state = _nullRestaurants, action) => {
       const newState = merge({}, state, { restaurant: action.restaurant });
       return newState;
     case RECEIVE_RESET_RESTAURANT:
-      const restaurant = _nullRestaurants.restaurant;
-      return merge({}, state, { restaurant })
+      return _nullRestaurants
     case RECEIVE_DESTROY:
       return _nullRestaurants;
     case RECEIVE_ERRORS:

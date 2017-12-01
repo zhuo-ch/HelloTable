@@ -18,6 +18,13 @@ class SeatBar extends React.Component {
     this.handleOutsideClick = this.handleOutsideClick.bind(this);
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.restaurant.id !== this.props.restaurant.id) {
+      const seats = SearchUtil.getClosestSeating(nextProps.restaurant.seatings, this.props);
+      this.props.setSearchParams({ seats });
+    }
+  }
+
   handleOutsideClick(e) {
     e.preventDefault();
     this.setState({ selecting: false });
@@ -60,24 +67,6 @@ class SeatBar extends React.Component {
       document.removeEventListener('keydown', this.handleKey);
     }
   }
-
-  // fillList(list) {
-  //   const newList = [];
-  //
-  //   for (let i = list.length - 1; i > -1; i--) {
-  //     const curr = list[i];
-  //     const next = list[i -1];
-  //     newList.unshift(curr);
-  //     if (next < curr - 2) {
-  //       newList.unshift(curr - 1);
-  //       newList.unshift(curr - 2);
-  //     } else if (next < curr - 1) {
-  //       newList.unshift(curr - 1);
-  //     }
-  //   }
-  //
-  //   return newList;
-  // }
 
   getSeatList() {
     const seatings = this.props.restaurant.seatings;

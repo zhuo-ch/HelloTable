@@ -23,12 +23,24 @@ export const getSeatsObj = (searchParams, seatings) => {
   let seats = searchParams.seats;
   let item = seatings.find(el => el.seats === seats);
 
-  while (!item) {
+  while (!item && seats < searchParams.seats + 3) {
     seats += 1
     item = seatings.find(el => el.seats === seats);
   }
 
   return item;
+}
+
+export const getClosestSeating = (seatings, params) => {
+  let seats = params.seats;
+  let item = seatings.find(el => el.seats === seats);
+
+  while(!item && seats > 0) {
+    seats -= 1;
+    item = seatings.find(el => el.seats === seats);
+  }
+
+  return item.seats;
 }
 
 export const inputSelect = ({ selecting, targetIdx, handleClick, items, text, listName, type}) => {
