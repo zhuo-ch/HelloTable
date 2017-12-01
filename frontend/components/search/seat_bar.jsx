@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import React from 'react';
 import { setSearchParams } from '../../actions/search_actions';
-import inputSelect from '../input_select.jsx';
+import inputSelect from '../../util/search_util';
 
 class SeatBar extends React.Component {
   constructor(props) {
@@ -61,12 +61,24 @@ class SeatBar extends React.Component {
     }
   }
 
+  getSeatList() {
+    const seatings = this.props.restaurant.seatings;
+
+    return seatings.map(seat => seat.seats);
+  }
+
   getSeats() {
+    if (!this.props.restaurant.hasOwnProperty('seatings')) {
+      return ;
+    }
+
+    const items = this.getSeatList();
+    debugger
     const options = {
       selecting: this.state.selecting,
       targetIdx: this.state.targeted,
       handleClick: this.handleClick,
-      items: Array.from(Array(10)).map((el, idx) => idx + 1),
+      items,
       text: 'Patrons',
       listName: ['search', 'seat'],
       type: 'seats-item',
@@ -101,7 +113,8 @@ class SeatBar extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    seats: state.search.searchParams.seats,
+  restaurant: state.restaurants.restaurant,
+  seats: state.search.searchParams.seats,
 });
 
 const mapDispatchToProps = dispatch => ({
