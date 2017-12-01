@@ -20,11 +20,7 @@ class Api::ReservationsController < ApplicationController
       .includes(:photos)
       .includes(:ratings)
   end
-# Reservation.joins(:seating)
-# .where("date = ?", query[:date])
-# .where("seats = ?", 2)
-# .where("seatings.restaurant_id = ?", 2)
-# .references(:seatings)
+
   def search
     query = params[:query]
     time = query[:time].to_i

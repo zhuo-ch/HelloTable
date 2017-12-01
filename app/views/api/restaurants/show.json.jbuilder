@@ -7,3 +7,6 @@ json.reviews @restaurant.reviews do |review|
   json.date review.reservation.date
 end
 json.images @restaurant.photos.map { |photo| asset_path(photo.image.url) }
+json.seatings do
+  json.array! @restaurant.seatings, :id, :seats
+end

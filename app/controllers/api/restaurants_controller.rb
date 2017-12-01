@@ -28,7 +28,7 @@ class Api::RestaurantsController < ApplicationController
   end
 
   def show
-    @restaurant = Restaurant.includes(:rating).includes(:reviews).includes(:photos).find(params[:id])
+    @restaurant = Restaurant.includes(:rating, :reviews, :photos, :seatings).find(params[:id])
     render 'api/restaurants/show'
   end
 
