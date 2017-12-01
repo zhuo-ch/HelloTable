@@ -13,7 +13,7 @@ class Seating < ActiveRecord::Base
     seating = Reservation.joins(:seating)
       .select(:time, "seating_id")
       .where("date = ?", query[:date])
-      .where("time BETWEEN ? AND ?", (time - 200), (time + 200))
+      .where("time BETWEEN ? AND ?", (time - 101), (time + 101))
       .where("seats = ?", query[:seats])
       .where("seatings.restaurant_id = ?", query[:restaurantId])
       .references(:seatings)
