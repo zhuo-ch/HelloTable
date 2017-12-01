@@ -17,9 +17,18 @@ class ReservationsSnippet extends React.Component {
   }
 
   componentWillMount() {
-    const time = parseInt(this.props.searchParams.time.split(':').join(''));
-    const query = merge({}, this.props.searchParams, { restaurantId: this.props.restaurant.id, time })
+    // const time = parseInt(this.props.searchParams.time.split(':').join(''));
+    // const query = merge({}, this.props.searchParams, { restaurantId: this.props.restaurant.id, time })
+    const query = this.getQuery(this.props.searchParams);
     this.props.fetchRestaurantReservations(query);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (this.props.searchParams !== nextProps.searchParams) {
+      const query = this.getQuery(nextProps.searchParams);
+      this.props.fetchRestaurantReservations(query);
+      debugger
+    }
   }
 
   componentWillUnmount() {
@@ -48,6 +57,11 @@ class ReservationsSnippet extends React.Component {
   handleShow(e) {
     e.preventDefault();
     this.props.router.push(`/users/${this.props.currentUser.id}`);
+  }
+
+  getQuery(params) {
+    const time = parseInt(params.time.split(':').join(''));
+    return merge({}, params, { restaurantId: this.props.restaurant.id, time });
   }
 
   getTimeSlots() {

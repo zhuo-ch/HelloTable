@@ -32,6 +32,7 @@ class SearchBar extends React.Component {
 
   handleDateChange(e) {
     e.preventDefault();
+    debugger
     const newDate = e.currentTarget.value.split('-');
     const date = newDate[1]+'-'+newDate[2]+'-'+newDate[0];
     this.props.setSearchParams({ date });
@@ -42,8 +43,26 @@ class SearchBar extends React.Component {
     return `${date[2]}-${date[0]}-${date[1]}`;
   }
 
+  getCurrentDate() {
+    const currDate = new Date();
+    return currDate;
+  }
+
+  getDateBox() {
+    return (
+      <input type='date'
+        required='required'
+        name='date'
+        min = { this.getCurrentDate() }
+        defaultValue={ this.getDefaultDate() }
+        className='input bar-date'
+        onChange={ this.handleDateChange }
+        ></input>
+    );
+  }
+
   render() {
-    const defaultDate = this.getDefaultDate();
+    const dateBox = this.getDateBox();
     const head = this.props.header ? this.props.header : "";
     const searchBox = this.props.restaurantId ? '' : <SearchBox nullSearch={ this.state.nullSearch } />;
     const searchButton = this.props.restaurantId ? '' : <input type='submit' className='bar-submit' value='Search' onClick={ this.handleSubmit }></input>;
@@ -54,14 +73,7 @@ class SearchBar extends React.Component {
         <div className='search-fields'>
           <form className='seats-form' onSubmit={ this.handleSubmit }>
             <SeatBar />
-            <input type='date'
-              required='required'
-              name='date'
-              min = { defaultDate }
-              defaultValue={ defaultDate }
-              className='input bar-date'
-              onChange={ this.handleDateChange }
-              ></input>
+            { dateBox }
             <TimeBar />
             { searchBox }
             { searchButton }
