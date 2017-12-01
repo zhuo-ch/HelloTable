@@ -75,12 +75,12 @@ class SeatBar extends React.Component {
     return SearchUtil.fillList(list);
   }
 
-  getSeats() {
-    if (!this.props.restaurant.hasOwnProperty('seatings')) {
-      return ;
-    }
+  genSeatList() {
+    return new Array(10).fill('').map((el, idx) => idx + 1);
+  }
 
-    const items = this.getSeatList();
+  getSeats() {
+    const items = this.props.restaurant.hasOwnProperty('seatings') ? this.getSeatList() : this.genSeatList();
 
     const options = {
       selecting: this.state.selecting,
