@@ -1,6 +1,7 @@
 import React from 'react';
 
 export const fillList = list => {
+  list = list.sort((a, b) => a - b);
   const newList = [];
 
   for (let i = list.length - 1; i > -1; i--) {
@@ -14,7 +15,7 @@ export const fillList = list => {
       newList.unshift(curr - 1);
     }
   }
-debugger
+
   return newList;
 }
 
