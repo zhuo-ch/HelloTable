@@ -70,35 +70,8 @@ class ReservationsSnippet extends React.Component {
 
     return slots;
   }
-  //
-  // getTimeSlots(baseTime) {
-  //   const baseStr = baseTime.toString();
-  //   const timeEnd = baseTime+100;
-  //   let timeStart = baseTime-100;
-  //   let minutes = parseInt(baseStr.slice(baseStr.length-2, baseStr.length));
-  //   let slots = {};
-  //
-  //   while (timeStart <= timeEnd) {
-  //     slots[timeStart] = 0;
-  //     minutes += 30;
-  //
-  //     if (minutes >= 60) {
-  //       minutes = 0;
-  //       timeStart += 100;
-  //       timeStart -= 30;
-  //     } else {
-  //       timeStart += minutes;
-  //     }
-  //   }
-  //
-  //   return slots;
-  // }
 
-  reservationItems() {
-    if (!this.props.reservations.hasOwnProperty('seatings')) {
-      return ;
-    }
-
+  getReservationsList() {
     const seatings = merge({}, this.props.reservations.seatings);
     delete seatings.seating_id;
 
@@ -116,6 +89,15 @@ class ReservationsSnippet extends React.Component {
       }
     });
 
+    return availList;
+  }
+
+  reservationItems() {
+    if (!this.props.reservations.hasOwnProperty('seatings')) {
+      return ;
+    }
+
+    const availList = this.getReservationsList();
     const date = DateSelectors.formatDate(this.props.searchParams.date);
 
     return (
@@ -126,62 +108,6 @@ class ReservationsSnippet extends React.Component {
       </ul>
     )
   }
-  //
-  // reservationItems() {
-  //   if (!this.props.reservations.hasOwnProperty('seatings')) {
-  //     return ;
-  //   }
-  //
-  //   debugger
-  //   let baseTime = parseInt(this.props.searchParams.time.split(':').join(''));
-  //   let slots = this.getTimeSlots(baseTime);
-  //   const reservations = Object.keys(this.props.reservations).map(key => {
-  //     return this.props.reservations[key];
-  //   });
-  //
-  //   reservations.forEach(reservation => {
-  //     const resTime = reservation.time;
-  //     slots[resTime] += 1;
-  //   });
-  //
-  //   const availList = Object.keys(slots).map((slot) => {
-  //     if (slots[slot] > 1) {
-  //       return (<li
-  //         className='not-reservable res-button'
-  //         key={ slot }>{ slot }</li>)
-  //     } else {
-  //       return (<li
-  //         className='reservable button res-button'
-  //         onClick={ this.handleReserve }
-  //         value={ slot }
-  //         key={ slot }>{ slot }</li>)
-  //     }
-  //   });
-  //
-  //   const date = DateSelectors.formatDate(this.props.searchParams.date);
-  //
-  //   return (
-  //     <ul className='res-avail-list'>
-  //       <li
-  //         className='reserve-date'>{date}</li>
-  //       { availList }
-  //     </ul>
-  //   )
-  // }
-
-  // formatDate(date) {
-  //   const newDate = date.split('-');
-  //   const newObj = new Date(newDate[2], parseInt(newDate[0])-1, newDate[1]);
-  //   const week = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
-  //   const month = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
-  //                   'August', 'September','October', 'November', 'December'];
-  //   return week[newObj.getDay()] + ", " + month[newObj.getMonth()] + " " + newObj.getDate();
-  // }
-  //
-  // formatTime(time) {
-  //   const newTime = time.toString();
-  //   return newTime.slice(0, newTime.length-2) + ":" + newTime.slice(newTime.length-2, newTime.length);
-  // }
 
   showReservation() {
     const resDate = DateSelectors.formatDate(this.props.currentReservation.date);
