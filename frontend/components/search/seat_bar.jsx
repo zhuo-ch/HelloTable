@@ -92,7 +92,7 @@ class SeatBar extends React.Component {
     }
 
     const items = this.getSeatList();
-    debugger
+
     const options = {
       selecting: this.state.selecting,
       targetIdx: this.state.targeted,

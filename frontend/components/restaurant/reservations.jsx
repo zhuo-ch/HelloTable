@@ -7,6 +7,7 @@ import { merge } from 'lodash';
 import { setCurrentModal } from '../../actions/modal_actions';
 import * as SearchAPIUtil from '../../util/search_api_util';
 import * as DateSelectors from '../../selectors/date_selectors';
+import * as SearchUtil from '../../util/search_util';
 
 class ReservationsSnippet extends React.Component {
   constructor(props) {
@@ -58,7 +59,9 @@ class ReservationsSnippet extends React.Component {
 
   getQuery(params) {
     const time = parseInt(params.time.split(':').join(''));
-    return merge({}, params, { restaurantId: this.props.restaurant.id, time });
+    const seats = SearchUtil.getSeatsObj(params, this.props.restaurant.seatings);
+    debugger
+    return merge({}, params, { restaurantId: this.props.restaurant.id, time, seats });
   }
 
   getTimeSlots() {
