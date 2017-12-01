@@ -24,8 +24,9 @@ class Seating < ActiveRecord::Base
     results = {}
     arr.each { |a| results[a] = true }
     seating.each { |seat| results[seat.time] = false }
-    results["seating_id"] = seating.first ? seating.first.seating_id : Seating.find_by(restaurant_id: query[:restaurantId], seats: query[:seats]).id
-    debugger
+    results["seating_id"] = seating.first ?
+      seating.first.seating_id :
+      Seating.find_by(restaurant_id: query[:restaurantId], seats: query[:seats]).id
 
     results
   end

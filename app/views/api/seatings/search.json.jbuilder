@@ -1,1 +1,1 @@
-@seatings
+json.seatings @seatings

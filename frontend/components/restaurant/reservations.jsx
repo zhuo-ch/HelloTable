@@ -6,6 +6,7 @@ import FontAwesome from 'react-fontawesome';
 import { merge } from 'lodash';
 import { setCurrentModal } from '../../actions/modal_actions';
 import * as SearchAPIUtil from '../../util/search_api_util';
+import * as DateSelectors from '../../selectors/date_selectors';
 
 class ReservationsSnippet extends React.Component {
   constructor(props) {
@@ -49,10 +50,8 @@ class ReservationsSnippet extends React.Component {
     this.props.router.push(`/users/${this.props.currentUser.id}`);
   }
 
-  getTimeSlots(baseTime) {
-    const baseStr = baseTime.toString();
-    const timeEnd = baseTime+100;
-    let timeStart = baseTime-100;
+  getTimeSlots() {
+    const seatings = this.props.reservations.seatings;
     let minutes = parseInt(baseStr.slice(baseStr.length-2, baseStr.length));
     let slots = {};
 
@@ -71,37 +70,53 @@ class ReservationsSnippet extends React.Component {
 
     return slots;
   }
+  //
+  // getTimeSlots(baseTime) {
+  //   const baseStr = baseTime.toString();
+  //   const timeEnd = baseTime+100;
+  //   let timeStart = baseTime-100;
+  //   let minutes = parseInt(baseStr.slice(baseStr.length-2, baseStr.length));
+  //   let slots = {};
+  //
+  //   while (timeStart <= timeEnd) {
+  //     slots[timeStart] = 0;
+  //     minutes += 30;
+  //
+  //     if (minutes >= 60) {
+  //       minutes = 0;
+  //       timeStart += 100;
+  //       timeStart -= 30;
+  //     } else {
+  //       timeStart += minutes;
+  //     }
+  //   }
+  //
+  //   return slots;
+  // }
 
   reservationItems() {
-    if (this.props.reservations === undefined) {
+    if (!this.props.reservations.hasOwnProperty('seatings')) {
       return ;
     }
-    let baseTime = parseInt(this.props.searchParams.time.split(':').join(''));
-    let slots = this.getTimeSlots(baseTime);
-    const reservations = Object.keys(this.props.reservations).map(key => {
-      return this.props.reservations[key];
-    });
 
-    reservations.forEach(reservation => {
-      const resTime = reservation.time;
-      slots[resTime] += 1;
-    });
+    const seatings = merge({}, this.props.reservations.seatings);
+    delete seatings.seating_id;
 
-    const availList = Object.keys(slots).map((slot) => {
-      if (slots[slot] > 1) {
-        return (<li
-          className='not-reservable res-button'
-          key={ slot }>{ slot }</li>)
-      } else {
+    const availList = Object.keys(seatings).map(key => {
+      if (seatings[key]) {
         return (<li
           className='reservable button res-button'
           onClick={ this.handleReserve }
-          value={ slot }
-          key={ slot }>{ slot }</li>)
+          value={ key }
+          key={ key }>{ DateSelectors.formatTime(key) }</li>)
+      } else {
+        return (<li
+          className='not-reservable res-button'
+          key={ key }>{ DateSelectors.formatTime(key) }</li>)
       }
     });
 
-    const date = this.formatDate(this.props.searchParams.date);
+    const date = DateSelectors.formatDate(this.props.searchParams.date);
 
     return (
       <ul className='res-avail-list'>
@@ -111,24 +126,66 @@ class ReservationsSnippet extends React.Component {
       </ul>
     )
   }
+  //
+  // reservationItems() {
+  //   if (!this.props.reservations.hasOwnProperty('seatings')) {
+  //     return ;
+  //   }
+  //
+  //   debugger
+  //   let baseTime = parseInt(this.props.searchParams.time.split(':').join(''));
+  //   let slots = this.getTimeSlots(baseTime);
+  //   const reservations = Object.keys(this.props.reservations).map(key => {
+  //     return this.props.reservations[key];
+  //   });
+  //
+  //   reservations.forEach(reservation => {
+  //     const resTime = reservation.time;
+  //     slots[resTime] += 1;
+  //   });
+  //
+  //   const availList = Object.keys(slots).map((slot) => {
+  //     if (slots[slot] > 1) {
+  //       return (<li
+  //         className='not-reservable res-button'
+  //         key={ slot }>{ slot }</li>)
+  //     } else {
+  //       return (<li
+  //         className='reservable button res-button'
+  //         onClick={ this.handleReserve }
+  //         value={ slot }
+  //         key={ slot }>{ slot }</li>)
+  //     }
+  //   });
+  //
+  //   const date = DateSelectors.formatDate(this.props.searchParams.date);
+  //
+  //   return (
+  //     <ul className='res-avail-list'>
+  //       <li
+  //         className='reserve-date'>{date}</li>
+  //       { availList }
+  //     </ul>
+  //   )
+  // }
 
-  formatDate(date) {
-    const newDate = date.split('-');
-    const newObj = new Date(newDate[2], parseInt(newDate[0])-1, newDate[1]);
-    const week = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
-    const month = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
-                    'August', 'September','October', 'November', 'December'];
-    return week[newObj.getDay()] + ", " + month[newObj.getMonth()] + " " + newObj.getDate();
-  }
-
-  formatTime(time) {
-    const newTime = time.toString();
-    return newTime.slice(0, newTime.length-2) + ":" + newTime.slice(newTime.length-2, newTime.length);
-  }
+  // formatDate(date) {
+  //   const newDate = date.split('-');
+  //   const newObj = new Date(newDate[2], parseInt(newDate[0])-1, newDate[1]);
+  //   const week = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+  //   const month = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
+  //                   'August', 'September','October', 'November', 'December'];
+  //   return week[newObj.getDay()] + ", " + month[newObj.getMonth()] + " " + newObj.getDate();
+  // }
+  //
+  // formatTime(time) {
+  //   const newTime = time.toString();
+  //   return newTime.slice(0, newTime.length-2) + ":" + newTime.slice(newTime.length-2, newTime.length);
+  // }
 
   showReservation() {
-    const resDate = this.formatDate(this.props.currentReservation.date);
-    const resTime = this.formatTime(this.props.currentReservation.time);
+    const resDate = DateSelectors.formatDate(this.props.currentReservation.date);
+    const resTime = DateSelectors.formatTime(this.props.currentReservation.time);
 
     return (
       <ul className='new-res'>
