@@ -16,7 +16,7 @@ class Api::SeatingsController < ApplicationController
 
   def search
     @seatings = Seating.availabilities(params[:query])
-debugger
+
     render 'api/seatings/search'
   end
 

@@ -19,14 +19,13 @@ class Seating < ActiveRecord::Base
       .references(:seatings)
       .group(:time, :seating_id, :max_tables)
       .having("count(reservations.id) >= seatings.max_tables")
-      # .where.not(time: [time - 130, time - 100, time - 30, time, time +70, time + 100, time + 170])
 
     arr = Seating.get_times(time)
     results = {}
     arr.each { |a| results[a] = true }
     seating.each { |seat| results[seat.time] = false }
     results["seating_id"] = seating.first.seating_id
-debugger
+
     results
   end
 
@@ -45,14 +44,6 @@ debugger
 
     time_arr
   end
-  # Seating.where(restaurant_id: query[:restaurantId]).where.not(id: (Seating.joins(:reservations)
-  #   .where("reservations.date = ?", query[:date])
-  #   .where("reservations.time BETWEEN ? AND ?", (time - 200), (time + 200))
-  #   .where("seats = ?", query[:seats])
-  #   .where("seatings.restaurant_id = ?", query[:restaurantId])
-  #   .references(:reservations, :seatings)
-  #   .group(:id, :time)
-  #   .having("count(seatings.id) > max_tables")))
 
   def ensure_unique
     entries = self.restaurant.seatings.where(["seats = ?", self.seats])
