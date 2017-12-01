@@ -11,16 +11,39 @@ class Seating < ActiveRecord::Base
   def self.availabilities(query)
     time = query[:time].to_i
     seating = Reservation.joins(:seating)
-      .select(:time)
+      .select(:time, "seating_id")
       .where("date = ?", query[:date])
       .where("time BETWEEN ? AND ?", (time - 200), (time + 200))
       .where("seats = ?", query[:seats])
       .where("seatings.restaurant_id = ?", query[:restaurantId])
       .references(:seatings)
-      .group(:time, :max_tables)
-      .having("count(reservations.id) < seatings.max_tables")
-      .where.not(time: [time - 130, time - 100, time - 30, time, time +30, time + 100, time + 130, time + 200])
-    debugger
+      .group(:time, :seating_id, :max_tables)
+      .having("count(reservations.id) >= seatings.max_tables")
+      # .where.not(time: [time - 130, time - 100, time - 30, time, time +70, time + 100, time + 170])
+
+    arr = Seating.get_times(time)
+    results = {}
+    arr.each { |a| results[a] = true }
+    seating.each { |seat| results[seat.time] = false }
+    results["seating_id"] = seating.first.seating_id
+debugger
+    results
+  end
+
+  def self.get_times(time)
+    time_arr = []
+    start_time = time - 100
+
+    while start_time <= time + 100
+      time_arr.push(start_time)
+      start_time += 30
+
+      if start_time.to_s.slice(-2, 2).to_i > 30
+        start_time += 40
+      end
+    end
+
+    time_arr
   end
   # Seating.where(restaurant_id: query[:restaurantId]).where.not(id: (Seating.joins(:reservations)
   #   .where("reservations.date = ?", query[:date])
