@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import React from 'react';
 import { setSearchParams } from '../../actions/search_actions';
-import inputSelect from '../../util/search_util';
+import * as SearchUtil from '../../util/search_util';
 
 class SeatBar extends React.Component {
   constructor(props) {
@@ -61,10 +61,29 @@ class SeatBar extends React.Component {
     }
   }
 
+  // fillList(list) {
+  //   const newList = [];
+  //
+  //   for (let i = list.length - 1; i > -1; i--) {
+  //     const curr = list[i];
+  //     const next = list[i -1];
+  //     newList.unshift(curr);
+  //     if (next < curr - 2) {
+  //       newList.unshift(curr - 1);
+  //       newList.unshift(curr - 2);
+  //     } else if (next < curr - 1) {
+  //       newList.unshift(curr - 1);
+  //     }
+  //   }
+  //
+  //   return newList;
+  // }
+
   getSeatList() {
     const seatings = this.props.restaurant.seatings;
+    const list = seatings.map(seat => seat.seats);
 
-    return seatings.map(seat => seat.seats);
+    return SearchUtil.fillList(list);
   }
 
   getSeats() {
@@ -84,7 +103,7 @@ class SeatBar extends React.Component {
       type: 'seats-item',
     }
 
-    return inputSelect(options);
+    return SearchUtil.inputSelect(options);
   }
 
   getCurrentSeat() {
