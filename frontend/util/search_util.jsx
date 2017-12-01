@@ -32,6 +32,12 @@ export const getSeatsObj = (searchParams, seatings) => {
 }
 
 export const getClosestSeating = (seatings, params) => {
+  const seatsObj = getSeatsObj(params, seatings);
+
+  if (seatsObj) {
+    return seatsObj.seats;
+  }
+
   let seats = params.seats;
   let item = seatings.find(el => el.seats === seats);
 
