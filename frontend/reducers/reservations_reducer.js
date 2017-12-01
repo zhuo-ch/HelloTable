@@ -19,7 +19,8 @@ const _nullReservations = Object.freeze({
 const ReservationsReducer = (state = _nullReservations, action) => {
   switch(action.type) {
     case RECEIVE_RESTAURANT_RESERVATIONS:
-      return merge({}, state, { restaurantReservations: action.reservations });
+    debugger
+      return Object.assign({}, state, { restaurantReservations: action.reservations });
     case RECEIVE_USER_RESERVATIONS:
       return Object.assign({}, state, { userReservations: action.reservations })
     case RECEIVE_RESERVATION:

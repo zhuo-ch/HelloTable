@@ -21,13 +21,14 @@ class ReservationsSnippet extends React.Component {
     // const query = merge({}, this.props.searchParams, { restaurantId: this.props.restaurant.id, time })
     const query = this.getQuery(this.props.searchParams);
     this.props.fetchRestaurantReservations(query);
+    // debugger
   }
 
   componentWillReceiveProps(nextProps) {
     if (this.props.searchParams !== nextProps.searchParams) {
       const query = this.getQuery(nextProps.searchParams);
-      this.props.fetchRestaurantReservations(query);
       debugger
+      this.props.fetchRestaurantReservations(query);
     }
   }
 

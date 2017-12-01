@@ -26,7 +26,6 @@ export const fetchRestaurant = id => dispatch => {
   return RestaurantAPIUtil.fetchRestaurant(id)
     .then(restaurant => {
       dispatch(receiveRestaurant(restaurant));
-      dispatch(receiveRestaurantReservations(restaurant.reservations));
       dispatch(receiveAllReviews(restaurant));
     });
 }
