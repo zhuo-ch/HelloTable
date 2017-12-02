@@ -2,11 +2,7 @@ class Api::ReservationsController < ApplicationController
 
   def create
     @reservation = Reservation.new(reservation_params)
-    seating = Seating.find_by_params(
-      params["reservation"]["restaurant_id"],
-      params["reservation"]["seats"])
-    @reservation.seating_id = seating.first.id
-
+debugger
     if @reservation.save
       render 'api/reservations/show'
     else
@@ -42,6 +38,6 @@ class Api::ReservationsController < ApplicationController
 
   private
   def reservation_params
-    params.require(:reservation).permit(:user_id, :restaurant_id, :time, :date)
+    params.require(:reservation).permit(:user_id, :restaurant_id, :time, :date, :seating_id, :seats)
   end
 end

@@ -38,11 +38,13 @@ class ReservationsSnippet extends React.Component {
 
     if (this.props.currentUser.id) {
       const time = parseInt(e.currentTarget.innerText.split(":").join(""));
+      const seating_id = SearchUtil.getSeatsObj(this.props.searchParams, this.props.restaurant.seatings).id;
       const reservation = {
         user_id: this.props.currentUser.id,
         restaurant_id: this.props.restaurant.id,
         date: this.props.searchParams.date,
         seats: this.props.searchParams.seats,
+        seating_id,
         time: time,
       };
 

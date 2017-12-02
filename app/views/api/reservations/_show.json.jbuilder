@@ -7,6 +7,6 @@ json.restaurant do
   json.extract! reservation.restaurant, :id, :name, :cuisine, :address, :location
   json.ratings do
     json.extract! reservation.restaurant.rating, :total, :rating, :food, :service, :ambiance, :value
-    json.details reservation.restaurant.reviews.sample.details
+    json.details reservation.restaurant.reviews.length > 0 ? reservation.restaurant.reviews.sample.details : "Be the first to leave a review!"
   end
 end
