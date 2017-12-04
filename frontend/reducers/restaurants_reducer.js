@@ -39,8 +39,6 @@ const RestaurantsReducer = (state = _nullRestaurants, action) => {
     case RECEIVE_ALL_RESTAURANTS:
       return action.restaurants;
     case RECEIVE_RESTAURANT:
-      // const newState = merge({}, state, { restaurant: action.restaurant });
-      debugger
       return Object.assign({}, state, { restaurant: action.restaurant });
     case RECEIVE_RESET_RESTAURANT:
       return _nullRestaurants
