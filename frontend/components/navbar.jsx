@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, Router, Route, hashHistory } from 'react-router';
+import { Link, Router, Route, hashHistory, withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import { logout } from '../actions/session_actions';
 import FontAwesome from 'react-fontawesome';
@@ -24,15 +24,21 @@ class Navbar extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (!(nextProps.currentUser.id)) {
+    const noUser = !nextProps.currentUser.id;
+    const diffRes = this.props.reservations !== nextProps.reservations;
+    const diffFav = this.props.favorites !== nextProps.favorites;
+    if (noUser || diffRes || diffFav) {
       this.stopScroll();
     }
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const hasScrollItems = (this.props.reservations.length > 0) || (Object.keys(this.props.favorites).length > 0);
+    const hasScrollItems = (this.props.reservations > 0) || (Object.keys(this.props.favorites).length > 0);
+    const x = hasScrollItems && this.state.type === ''
+    const y = prevProps.reservations !== this.props.reservations;
+    const z = prevProps.favorites !== this.props.favorites;
 
-    if (hasScrollItems && this.state.type === '') {
+    if (x || y || z) {
       this.stopScroll();
       this.startScroll();
     }
@@ -44,7 +50,9 @@ class Navbar extends React.Component {
   }
 
   handleLogOut() {
-    hashHistory.push('/');
+    if (this.props.location.pathname !== '/') {
+      this.props.location === '/' ? '' : hashHistory.push('/');
+    }
     this.props.logout();
   }
 
@@ -71,14 +79,16 @@ class Navbar extends React.Component {
   }
 
   setScrollType() {
-    const favorites = this.props.favorites !== undefined ? Object.keys(this.props.favorites) : [];
+    const favorites = Object.keys(this.props.favorites);
+    let reservations;
+
     if (this.props.reservations) {
-      var reservations = this.filterUpcomingReservations();
+      reservations = this.filterUpcomingReservations();
     }
 
-    if (this.props.reservations && reservations.length > 0) {
+    if (reservations.length > 0) {
       this.setState({ type: 'reservations', reservations, max: reservations.length });
-    } else if (this.props.favorites) {
+    } else if (favorites.length > 0) {
       this.setState({ type: 'favorites', favorites, max: favorites.length });
     }
   }
@@ -215,4 +225,4 @@ const mapDispatchToProps = dispatch => ({
   revertDate: (date, time) => revertDate(date, time),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Navbar);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Navbar));

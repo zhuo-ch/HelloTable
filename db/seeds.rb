@@ -168,5 +168,5 @@ end
   id = restaurants.sample
   seating = Restaurant.find(id).seatings.sample
   Reservation.create(user_id: guest.id, restaurant_id: id,
-    date: "#{rand(12)}-" + "#{rand(1..30)}" + "-2017", time: times.sample, seating_id: seating.id, seats: seating.seats)
+    date: "#{12}-" + "#{rand(1..30)}" + "-2017", time: times.sample, seating_id: seating.id, seats: seating.seats)
 end
