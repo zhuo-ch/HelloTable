@@ -15,6 +15,7 @@ e = City.create(name: "Houston", state: "TX", lat: 29.761993, lng: -95.366302, i
 f = City.create(name: "Miami", state: "FL", lat: 25.761681, lng: -80.191788, image: File.new("app/assets/images/miami.jpg"))
 
 # restaurants
+
 cuisines = File.open("app/assets/cuisine.txt", "r").readlines.map { |line| line.chomp }
 descriptions = File.open("app/assets/descriptions.txt").readlines.map { |line| line.chomp }
 users = User.all.map { |user| user.id }
@@ -54,6 +55,8 @@ def generate_restaurant(restaurant, city_id, cuisines, descriptions, users)
 
   generate_hours(res.id)
   generate_seating(res.id)
+
+  res
 end
 
 def generate_city_restaurants(city, cuisines, descriptions, users)
@@ -86,9 +89,31 @@ end
 
 City.all.each { |city| generate_city_restaurants(city, cuisines, descriptions, users)}
 
-# photos
+# set Guest, Guest restaurant, variables for reservations
 
 photos = Dir["app/assets/images/*"]
+times = [500, 530, 600, 630, 700, 730, 800, 830, 900]
+reviews = File.open("app/assets/reviews.txt", "r").readlines.map { |line| line.chomp }
+
+guest = User.create(username: 'Guest', email: 'guest@guest-email.com', password: 'password')
+guest_res = { "formatted_address" => '234 W 56th St, New York, NY 10019', "geometry" => { "location" => "40.7655401,-73.9848306" }, "name" => 'Basso 56' }
+generate_restaurant(guest_res, a.id, cuisines, descriptions, [guest.id])
+restaurants = Restaurant.all.map { |res| res.id }
+
+# set initial Guest reservations and favorites
+
+3.times do
+  id = restaurants.sample
+  seating = Restaurant.find(id).seatings.sample
+  Reservation.create(user_id: guest.id, restaurant_id: id,
+    date: "#{rand(3..8)}-" + "#{rand(1..30)}" + "-2017", time: times.sample, seating_id: seating.id, seats: seating.seats)
+end
+
+5.times do |user|
+  Favorite.create(user_id: guest.id, restaurant_id: restaurants.sample)
+end
+
+# photos
 
 Restaurant.all.each do |res|
   6.times do
@@ -97,8 +122,6 @@ Restaurant.all.each do |res|
 end
 
 # reservations
-
-times = [500, 530, 600, 630, 700, 730, 800, 830, 900]
 
 Restaurant.all.each do |restaurant|
   available_seats = restaurant.seatings.map { |seating| seating }
@@ -110,8 +133,6 @@ Restaurant.all.each do |restaurant|
 end
 
 # reviews
-
-reviews = File.open("app/assets/reviews.txt", "r").readlines.map { |line| line.chomp }
 
 Reservation.all.each do |reservation|
   def get_rating
@@ -132,39 +153,20 @@ Reservation.all.each do |reservation|
     ambiance: get_rating, value: get_rating, details: reviews.sample)
 end
 
-# guest
-
-guest = User.create(username: 'Guest', email: 'guest@guest-email.com', password: 'password')
-guest_res = { "formatted_address" => '234 W 56th St, New York, NY 10019', "geometry" => { "location" => "40.7655401,-73.9848306" }, "name" => 'Basso 56' }
-generate_restaurant(guest_res, a.id, cuisines, descriptions, [guest.id])
-restaurants = Restaurant.all.map { |res| res.id }
+# set reviewable reservations and upcoming reservations for Guest
 
 3.times do
   id = restaurants.sample
   seating = Restaurant.find(id).seatings.sample
   Reservation.create(user_id: guest.id, restaurant_id: id,
-    date: "#{rand(3..8)}-" + "#{rand(1..30)}" + "-2017", time: times.sample, seating_id: seating.id, seats: seating.seats)
+    date: "#{rand(3..11)}-" + "#{rand(1..30)}" + "-2017", time: times.sample, seating_id: seating.id, seats: seating.seats)
 end
 
-guest.reservations.each do |reservation|
-  Review.create(reservation: reservation, rating: rand(1..5), food: rand(1..5), service: rand(1..5),
-    ambiance: rand(1..5), value: rand(1..5), details: reviews.sample)
-end
-
-3.times do
-  id = restaurants.sample
-  seating = Restaurant.find(id).seatings.sample
-  Reservation.create(user_id: guest.id, restaurant_id: id,
-  date: "#{rand(3..8)}-" + "#{rand(1..30)}" + "-2017", time: times.sample, seating_id: seating.id, seats: seating.seats)
-end
+# set upcoming reservations
 
 5.times do
   id = restaurants.sample
   seating = Restaurant.find(id).seatings.sample
   Reservation.create(user_id: guest.id, restaurant_id: id,
-    date: "#{rand(10..11)}-" + "#{rand(1..30)}" + "-2017", time: times.sample, seating_id: seating.id, seats: seating.seats)
-end
-
-5.times do |user|
-  Favorite.create(user_id: guest.id, restaurant_id: restaurants.sample)
+    date: "#{rand(12)}-" + "#{rand(1..30)}" + "-2017", time: times.sample, seating_id: seating.id, seats: seating.seats)
 end
