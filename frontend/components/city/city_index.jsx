@@ -24,7 +24,22 @@ class CityIndex extends React.Component {
     }
   }
 
+  getButton() {
+    return (
+      <button className='button' onClick={this.handleCreate}>Add your Table</button>
+    );
+  }
+
+  checkManager() {
+    return this.props.currentUser.hasOwnProperty('manager') && this.props.currentUser.manager;
+  }
+
+  addButton() {
+    return this.checkManager() ? '' : this.getButton();
+  }
+
   render () {
+    const addButton = this.addButton();
     const cities = [];
 
     Object.keys(this.props.cities).slice(0,6).forEach((id) => {
@@ -63,7 +78,7 @@ class CityIndex extends React.Component {
           </ul>
           <div className='create-splash'>
             <section>
-              <button className='button' onClick={this.handleCreate}>Add your Table</button>
+              { addButton }
             </section>
           </div>
         </div>

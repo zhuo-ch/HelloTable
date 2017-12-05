@@ -34,6 +34,8 @@ export const updateHours = hours => dispatch => {
 }
 
 export const setError = error => dispatch => {
+  dispatch(resetCurrentModal());
+  
   return dispatch(receiveErrors(error));
 }
 
@@ -49,12 +51,14 @@ export const updateSeating = seating => dispatch => {
 export const createSeating = seating => dispatch => {
   return ManagerAPIUtil.createSeating(seating)
     .then(newSeating => dispatch(receiveSeating(newSeating)),
-    err => dispatch(receiveErrors(err)));
+    err => dispatch(receiveErrors(err)))
+    .then(() => dispatch(resetCurrentModal()));
 }
 
 export const removeSeating = id => dispatch => {
   return ManagerAPIUtil.removeSeating(id)
     .then(seating => dispatch(receiveRemoveSeating(seating)));
+    // .then(() => dispatch(resetCurrentModal()));
 }
 
 export const clearErrors = () => dispatch => {

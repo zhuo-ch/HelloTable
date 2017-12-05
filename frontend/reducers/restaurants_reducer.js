@@ -31,10 +31,12 @@ const _nullRestaurants = Object.freeze({
     location: "",
     city_id: "",
     errors: [],
-  }
+  },
+  errors: [],
 });
 
 const RestaurantsReducer = (state = _nullRestaurants, action) => {
+  Object.freeze(state);
   switch(action.type) {
     case RECEIVE_ALL_RESTAURANTS:
       return action.restaurants;
@@ -45,21 +47,13 @@ const RestaurantsReducer = (state = _nullRestaurants, action) => {
     case RECEIVE_DESTROY:
       return _nullRestaurants;
     case RECEIVE_UPDATED_SEATING:
-      const restaurantSeating = Object.assign({}, state);
-      restaurantSeating.restaurant.seatings = ManagerSelector.mergeSeating(restaurantSeating.restaurant.seatings, action.seating);
-      return restaurantSeating;
+      return ManagerSelector.mergeSeating(state, action.seating);
     case RECEIVE_UPDATED_HOURS:
-      const restaurantHours = Object.assign({}, state);
-      restaurantHours.restaurant.hours = ManagerSelector.mergeHours(restaurantHours.restaurant.hours, action.hour);
-      return restaurantHours;
+      return ManagerSelector.mergeHours(state, action.hour);
     case RECEIVE_SEATING:
-      const newSeating = Object.assign({}, state);
-      state.seatings.push(action.seating);
-      return newSeating;
+      return ManagerSelector.mergeSeating(state, action.seating);
     case RECEIVE_REMOVE_SEATING:
-      const removeSeating = Object.assign({}, state);
-      removeSeating.restaurant.seatings = removeSeating.restaurant.seatings.filter(el => el.id !== action.seating.id);
-      return removeSeating;
+      return ManagerSelector.removeSeating(state, action.seating);
     case RECEIVE_ERRORS:
       const errorsRes = merge({}, state);
       errorsRes.restaurant.errors = action.errors.responseJSON;

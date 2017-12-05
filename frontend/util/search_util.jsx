@@ -27,23 +27,20 @@ export const getSeatsObj = (searchParams, seatings) => {
     seats += 1
     item = seatings.find(el => el.seats === seats);
   }
-
+debugger
   return item;
 }
 
 export const getClosestSeating = (seatings, params) => {
-  const seatsObj = getSeatsObj(params, seatings);
-
-  if (seatsObj) {
-    return seatsObj.seats;
-  }
-
   let seats = params.seats;
   let item = seatings.find(el => el.seats === seats);
+  let idx = 0;
+  let toggle = 1;
 
-  while(!item && seats > 0) {
-    seats -= 1;
-    item = seatings.find(el => el.seats === seats);
+  while(!item) {
+    item = seatings.find(el => el.seats === seats + (idx * toggle));
+    idx = toggle === Math.abs(toggle) ? idx + 1 : idx;
+    toggle = toggle === Math.abs(toggle) ? -1 : 1;
   }
 
   return item.seats;

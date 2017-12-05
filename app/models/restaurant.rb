@@ -1,7 +1,7 @@
 class Restaurant < ActiveRecord::Base
   validates :user_id, :name, :description, :address, :location, :phone, presence: true
   after_initialize :ensure_rating
-  # before_save :set_address
+  before_save :set_address
 
   def format_address
     self.address.gsub(/\W+/, "+")

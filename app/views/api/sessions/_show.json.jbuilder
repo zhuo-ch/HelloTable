@@ -1,5 +1,5 @@
 json.extract! user, :username, :id
-
+json.manager user.restaurant ? true : false
 json.favorites do
   json.array! user.favorites do |favorite|
     json.partial! 'api/favorites/show.json.jbuilder', favorite: favorite
