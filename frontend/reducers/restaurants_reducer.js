@@ -30,8 +30,8 @@ const _nullRestaurants = Object.freeze({
     images: [],
     location: "",
     city_id: "",
-  },
-  errors: [],
+    errors: [],
+  }
 });
 
 const RestaurantsReducer = (state = _nullRestaurants, action) => {
@@ -46,7 +46,7 @@ const RestaurantsReducer = (state = _nullRestaurants, action) => {
       return _nullRestaurants;
     case RECEIVE_UPDATED_SEATING:
       const restaurantSeating = Object.assign({}, state);
-      restaurantSeating.seatings = ManagerSelector.mergeSeating(restaurantSeating.seatings, action.seating);
+      restaurantSeating.restaurant.seatings = ManagerSelector.mergeSeating(restaurantSeating.restaurant.seatings, action.seating);
       return restaurantSeating;
     case RECEIVE_UPDATED_HOURS:
       const restaurantHours = Object.assign({}, state);
@@ -58,13 +58,15 @@ const RestaurantsReducer = (state = _nullRestaurants, action) => {
       return newSeating;
     case RECEIVE_REMOVE_SEATING:
       const removeSeating = Object.assign({}, state);
-      removeSeating.seatings = state.seatings.filter(el => el.id !== action.seating.id);
+      removeSeating.restaurant.seatings = removeSeating.restaurant.seatings.filter(el => el.id !== action.seating.id);
       return removeSeating;
     case RECEIVE_ERRORS:
-      return Object.assign({}, state, { errors: action.errors});
+      const errorsRes = merge({}, state);
+      errorsRes.restaurant.errors = action.errors.responseJSON;
+      return errorsRes;
     case CLEAR_ERRORS:
       const _nullErrors = merge({}, state);
-      _nullErrors.errors = [];
+      _nullErrors.restaurant.errors = [];
       return _nullErrors;
     default:
       return state;

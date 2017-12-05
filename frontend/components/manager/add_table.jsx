@@ -64,7 +64,7 @@ class AddTable extends React.Component {
   render() {
     const inputs = this.getInputs();
     const buttons = this.getButtons();
-    const errors = this.props.errors;
+    const errors = this.props.restaurant.errors;
 
     return (
       <div className='review-form-container manager-add-table'>
@@ -82,8 +82,7 @@ class AddTable extends React.Component {
 
 const mapStateToProps = state => ({
   modal: state.modal,
-  restaurant: state.manager,
-  errors: state.manager.errors,
+  restaurant: state.restaurants.restaurant,
 });
 
 const mapDispatchToProps = dispatch => ({

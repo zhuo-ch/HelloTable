@@ -42,6 +42,7 @@ class Manager extends React.Component {
   handleClick(e) {
     e ? e.preventDefault() : '';
     this.props.clearErrors();
+    setTimeout(this.props.resetCurrentModal, 300);
     const selecting = this.state.selecting ? false : true;
     this.setState({ selecting: selecting });
     e ? this.setState({ idx: e.currentTarget.id }) : '';
@@ -66,8 +67,6 @@ class Manager extends React.Component {
       default:
         this.handleUpdateRestaurant(idx)
     }
-
-    setTimeout(this.props.resetCurrentModal, 300);
   }
 
   handleUpdateSeating(idx) {
@@ -80,10 +79,10 @@ class Manager extends React.Component {
     let hour = merge({}, this.props.restaurant.hours[idx[1]]);
     hour[idx[2]] = ManagerUtil.to24(this.state.value);
     hour[idx[2]] ? this.props.updateHours(hour).then(() => this.handleClick()) : this.handleHourError();
-
   }
 
   handleHourError() {
+    this.props.resetCurrentModal();
     const error = { responseJSON: ['Please use 12 hour format (example: 10:30AM, 3:45PM)']};
     this.props.setError(error);
   }
@@ -283,7 +282,7 @@ class Manager extends React.Component {
   getSeating() {
     const seatings = this.props.restaurant.seatings.map((seating, idx) => this.getSeat(seating, idx));
     const check = this.checkTarget();
-    const errors = (check && check === 'seating') ? this.props.restaurant.errors : '';
+    const errors = (check && check === 'seatings') ? this.props.restaurant.errors : '';
 
     return ManagerUtil.createSection({
       errors,
@@ -301,7 +300,7 @@ class Manager extends React.Component {
     const seatings = loaded ? this.getSeating() : '';
     const sideBar = this.getSideBar();
     const rightBar = this.getRightBar();
-debugger
+
     return (
       <StickyContainer className='restaurant-view'>
         <div className='restaurant-body'>

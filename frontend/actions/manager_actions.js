@@ -18,12 +18,19 @@ export const fetchManagerRestaurant = id => dispatch => {
 export const updateRestaurant = restaurant => dispatch => {
   return ManagerAPIUtil.updateRestaurant(restaurant)
     .then(updatedRestaurant => dispatch(receiveRestaurant(updatedRestaurant)),
-    errors => dispatch(receiveErrors(errors)));
+    errors => {
+      dispatch(resetCurrentModal());
+      dispatch(receiveErrors(errors))
+    });
 }
 
 export const updateHours = hours => dispatch => {
   return ManagerAPIUtil.updateHours(hours)
-    .then(updatedHours => dispatch(receiveUpdatedHours(updatedHours)));
+    .then(updatedHours => dispatch(receiveUpdatedHours(updatedHours)),
+    error => {
+      dispatch(resetCurrentModal());
+      dispatch(receiveErrors(error))
+    });
 }
 
 export const setError = error => dispatch => {
@@ -33,7 +40,10 @@ export const setError = error => dispatch => {
 export const updateSeating = seating => dispatch => {
   return ManagerAPIUtil.updateSeating(seating)
     .then(updatedSeating => dispatch(receiveUpdatedSeating(updatedSeating)),
-    err => dispatch(receiveErrors(err)));
+    err => {
+      dispatch(resetCurrentModal());
+      dispatch(receiveErrors(err))
+    });
 }
 
 export const createSeating = seating => dispatch => {

@@ -1,4 +1,5 @@
 class Seating < ActiveRecord::Base
+  validates :seats, :max_tables, numericality: { only_integer: true, greater_than: 0 }
   before_save :ensure_unique
 
   belongs_to :restaurant
