@@ -64,7 +64,7 @@ class AddTable extends React.Component {
   render() {
     const inputs = this.getInputs();
     const buttons = this.getButtons();
-    const errors = this.props.restaurant.errors;
+    const errors = this.props.restaurant.errors ? this.props.restaurant.errors.join('. ') : '';
 
     return (
       <div className='review-form-container manager-add-table'>
