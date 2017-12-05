@@ -27,7 +27,7 @@ export const getSeatsObj = (searchParams, seatings) => {
     seats += 1
     item = seatings.find(el => el.seats === seats);
   }
-debugger
+
   return item;
 }
 

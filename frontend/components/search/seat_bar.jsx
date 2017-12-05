@@ -21,7 +21,6 @@ class SeatBar extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.restaurant.id !== this.props.restaurant.id) {
-      debugger
       const seats = SearchUtil.getClosestSeating(nextProps.restaurant.seatings, this.props);
       this.props.setSearchParams({ seats });
     }
