@@ -1,4 +1,5 @@
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
 import React from 'react';
 import { setSearchParams } from '../../actions/search_actions';
 import * as SearchUtil from '../../util/search_util';
@@ -80,7 +81,9 @@ class SeatBar extends React.Component {
   }
 
   getSeats() {
-    const items = this.props.restaurant.hasOwnProperty('seatings') ? this.getSeatList() : this.genSeatList();
+    // const location = this.props.location.pathname ;
+    // const restaurantPage = location.startsWith('restaurant/') || location.startsWith('/restaurant/')
+    const items = this.props.restaurant.seats ? this.getSeatList() : this.genSeatList();
 
     const options = {
       selecting: this.state.selecting,
@@ -130,4 +133,4 @@ const mapDispatchToProps = dispatch => ({
   inputSelect: options => dispatch(inputSelect(options)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(SeatBar);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SeatBar));

@@ -204,7 +204,7 @@ class Manager extends React.Component {
     });
 
     const check = this.checkTarget();
-    const errors = (check && check !== 'hours' && check !== 'seating') ? this.props.restaurant.errors : '';
+    const errors = (check && check !== 'hours' && check !== 'seatings') ? this.props.restaurant.errors : '';
 
     return  ManagerUtil.createSection({
       errors,
