@@ -81,9 +81,9 @@ class SeatBar extends React.Component {
   }
 
   getSeats() {
-    // const location = this.props.location.pathname ;
-    // const restaurantPage = location.startsWith('restaurant/') || location.startsWith('/restaurant/')
-    const items = this.props.restaurant.seats ? this.getSeatList() : this.genSeatList();
+    const location = this.props.location.pathname;
+    const restaurantPage = location.startsWith('restaurant/') || location.startsWith('/restaurant/');
+    const items = (restaurantPage && this.props.restaurant.hasOwnProperty('seatings')) ? this.getSeatList() : this.genSeatList();
 
     const options = {
       selecting: this.state.selecting,

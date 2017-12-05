@@ -18,7 +18,6 @@ const ManagerReducer = (state = _nullRestaurant, action) => {
   Object.freeze(state);
   switch (action.type) {
     case RECEIVE_MANAGER_RESTAURANT:
-    debugger
       return merge({}, state, action.restaurant);
     default:
       return state;
