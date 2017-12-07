@@ -1,9 +1,8 @@
 # users
-100.times do
-  User.create(username: Faker::Name.unique.name,
-    email: Faker::Internet.email,
-    password: Faker::Internet.password(8,10))
-end
+
+User.create(username: Faker::Name.unique.name,
+  email: Faker::Internet.email,
+  password: Faker::Internet.password(8,10))
 
 # cities
 
@@ -18,7 +17,7 @@ f = City.create(name: "Miami", state: "FL", lat: 25.761681, lng: -80.191788, ima
 
 cuisines = File.open("app/assets/cuisine.txt", "r").readlines.map { |line| line.chomp }
 descriptions = File.open("app/assets/descriptions.txt").readlines.map { |line| line.chomp }
-users = User.all.map { |user| user.id }
+user = User.first.id
 
 def generate_hours(id)
   days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
@@ -29,20 +28,18 @@ end
 
 def generate_seating(id)
   tables = (1..10).to_a
-  max = [1, 2]
-  used = []
 
-  (rand(4) + 1).times do
+  (rand(3) + 1).times do
     seats = tables.sample
-    used.delete(seats)
-    Seating.create(seats: seats, max_tables: max.sample, restaurant_id: id)
+    tables.delete(seats)
+    Seating.create(seats: seats, max_tables: 1, restaurant_id: id)
   end
 end
 
-def generate_restaurant(restaurant, city_id, cuisines, descriptions, users)
+def generate_restaurant(restaurant, city_id, cuisines, descriptions, user)
 
   res = Restaurant.create(
-    user_id: users.sample,
+    user_id: user,
     city_id: city_id,
     name: restaurant["name"],
     phone: Faker::Number.number(10),
@@ -59,7 +56,7 @@ def generate_restaurant(restaurant, city_id, cuisines, descriptions, users)
   res
 end
 
-def generate_city_restaurants(city, cuisines, descriptions, users)
+def generate_city_restaurants(city, cuisines, descriptions, user)
   page_token = ""
   idx = 0
 
@@ -83,11 +80,11 @@ def generate_city_restaurants(city, cuisines, descriptions, users)
     response = JSON.parse(response)
     page_token = response["next_page_token"]
     idx += 1
-    response["results"].each { |res| generate_restaurant(res, city.id, cuisines, descriptions, users)}
+    response["results"].each { |res| generate_restaurant(res, city.id, cuisines, descriptions, user)}
   end
 end
 
-City.all.each { |city| generate_city_restaurants(city, cuisines, descriptions, users)}
+City.all.each { |city| generate_city_restaurants(city, cuisines, descriptions, user)}
 
 # set Guest, Guest restaurant, variables for reservations
 
@@ -127,7 +124,7 @@ Restaurant.all.each do |restaurant|
   available_seats = restaurant.seatings.map { |seating| seating }
   5.times do
     seating = available_seats.sample
-    Reservation.create(user_id: users.sample, restaurant_id: restaurant.id,
+    Reservation.create(user_id: user, restaurant_id: restaurant.id,
       date: "#{12}-#{rand(1..30)}-2017", time: times.sample, seating_id: seating.id, seats: seating.seats)
   end
 end
