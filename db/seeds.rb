@@ -128,7 +128,7 @@ Restaurant.all.each do |restaurant|
   12.times do
     seating = available_seats.sample
     Reservation.create(user_id: users.sample, restaurant_id: restaurant.id,
-      date: "#{rand(10..11)}-#{rand(1..30)}-2017", time: times.sample, seating_id: seating.id, seats: seating.seats)
+      date: "#{12}-#{rand(1..30)}-2017", time: times.sample, seating_id: seating.id, seats: seating.seats)
   end
 end
 
