@@ -84,6 +84,7 @@ def generate_city_restaurants(city, cuisines, descriptions, user)
     page_token = response["next_page_token"]
     idx += 1
     response["results"].each { |res| generate_restaurant(res, city.id, cuisines, descriptions, user)}
+    sleep 3
   end
 end
 

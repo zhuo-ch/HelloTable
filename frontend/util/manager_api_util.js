@@ -5,6 +5,14 @@ export const getManagerRestaurant = id => {
   });
 }
 
+export const getManagerRestaurantReservations = query => {
+  return $.ajax({
+    method: 'GET',
+    url: 'api/restaurants/search',
+    data: { query },
+  });
+}
+
 export const updateRestaurant = restaurant => {
   return $.ajax({
     method: 'PATCH',
