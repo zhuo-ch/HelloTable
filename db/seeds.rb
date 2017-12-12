@@ -1,8 +1,8 @@
 # users
 
-User.create(username: Faker::Name.unique.name,
+user = User.create(username: Faker::Name.unique.name,
   email: Faker::Internet.email,
-  password: Faker::Internet.password(8,10))
+  password: Faker::Internet.password(8,10)).id
 
 # cities
 
@@ -17,7 +17,7 @@ f = City.create(name: "Miami", state: "FL", lat: 25.761681, lng: -80.191788, ima
 
 cuisines = File.open("app/assets/cuisine.txt", "r").readlines.map { |line| line.chomp }
 descriptions = File.open("app/assets/descriptions.txt").readlines.map { |line| line.chomp }
-user = User.first.id
+
 
 def generate_hours(id)
   days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
@@ -50,6 +50,9 @@ def generate_restaurant(restaurant, city_id, cuisines, descriptions, user)
     location: restaurant["geometry"]["location"]
     )
 
+    if !res.id
+      debugger
+    end
   generate_hours(res.id)
   generate_seating(res.id)
 
@@ -94,7 +97,7 @@ reviews = File.open("app/assets/reviews.txt", "r").readlines.map { |line| line.c
 
 guest = User.create(username: 'Guest', email: 'guest@guest-email.com', password: 'password')
 guest_res = { "formatted_address" => '234 W 56th St, New York, NY 10019', "geometry" => { "location" => "40.7655401,-73.9848306" }, "name" => 'Basso 56' }
-generate_restaurant(guest_res, a.id, cuisines, descriptions, [guest.id])
+generate_restaurant(guest_res, a.id, cuisines, descriptions, guest.id)
 restaurants = Restaurant.all.map { |res| res.id }
 
 # set initial Guest reservations and favorites
@@ -103,7 +106,7 @@ restaurants = Restaurant.all.map { |res| res.id }
   id = restaurants.sample
   seating = Restaurant.find(id).seatings.sample
   Reservation.create(user_id: guest.id, restaurant_id: id,
-    date: "#{rand(3..8)}-" + "#{rand(1..30)}" + "-2017", time: times.sample, seating_id: seating.id, seats: seating.seats)
+    date: "#{rand(3..11)}-" + "#{rand(1..30)}" + "-2017", time: times.sample, seating_id: seating.id, seats: seating.seats)
 end
 
 5.times do |user|
@@ -122,7 +125,7 @@ end
 
 Restaurant.all.each do |restaurant|
   available_seats = restaurant.seatings.map { |seating| seating }
-  5.times do
+  6.times do
     seating = available_seats.sample
     Reservation.create(user_id: user, restaurant_id: restaurant.id,
       date: "#{12}-#{rand(1..30)}-2017", time: times.sample, seating_id: seating.id, seats: seating.seats)
