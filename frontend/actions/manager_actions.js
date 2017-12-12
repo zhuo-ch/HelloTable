@@ -16,7 +16,7 @@ export const fetchManagerRestaurant = id => dispatch => {
     .then(restaurant => dispatch(receiveRestaurant(restaurant)));
 }
 
-export const fetchManagerRestaurantReservations = query => dispatch {
+export const fetchManagerRestaurantReservations = query => dispatch => {
   return ManagerAPIUtil.getManagerRestaurantReservations(query)
     .then(reservations => dispatch(receiveReservations(reservations)));
 }
@@ -64,7 +64,6 @@ export const createSeating = seating => dispatch => {
 export const removeSeating = id => dispatch => {
   return ManagerAPIUtil.removeSeating(id)
     .then(seating => dispatch(receiveRemoveSeating(seating)));
-    // .then(() => dispatch(resetCurrentModal()));
 }
 
 export const clearErrors = () => dispatch => {

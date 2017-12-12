@@ -1,8 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { withRouter, hashHistory } from 'react-router';
 import { setCurrentModal, resetCurrentModal } from '../../actions/modal_actions';
 import {
   fetchManagerRestaurant,
+  fetchManagerRestaurantReservations,
   updateRestaurant,
   updateHours,
   updateSeating,
@@ -31,7 +33,23 @@ class Manager extends React.Component {
   }
 
   componentWillMount() {
-    this.props.fetchManagerRestaurant(this.props.currentUser.id);
+    if (!this.props.currentUser.id) {
+      hashHistory.push('/');
+    } else {
+      this.props.fetchManagerRestaurant(this.props.currentUser.id);
+      this.props.fetchManagerRestaurantReservations({ id: this.props.currentUser.id, date: new Date() });
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    debugger
+    if (!nextProps.currentUser.id) {
+      hashHistory.push('/');
+    }
+  }
+
+  componentWillUnmount() {
+    this.props.resetReservation();
   }
 
   handleSideBar(e) {
@@ -330,12 +348,15 @@ class Manager extends React.Component {
 const mapStateToProps = state => ({
   currentUser: state.session.currentUser,
   restaurant: state.restaurants.restaurant,
+  reservations: state.reservations.restaurantReservations,
 });
 
 const mapDispatchToProps = dispatch => ({
   resetCurrentModal: () => dispatch(resetCurrentModal()),
   setCurrentModal: modal => dispatch(setCurrentModal(modal)),
   fetchManagerRestaurant: id => dispatch(fetchManagerRestaurant(id)),
+  fetchManagerRestaurantReservations: query => dispatch(fetchManagerRestaurantReservations(query)),
+  resetReservation: () => dispatch(resetReservation()),
   updateRestaurant: restaurant => dispatch(updateRestaurant(restaurant)),
   updateSeating: seating => dispatch(updateSeating(seating)),
   updateHours: hour => dispatch(updateHours(hour)),
@@ -345,4 +366,4 @@ const mapDispatchToProps = dispatch => ({
   clearErrors: () => dispatch(clearErrors()),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Manager);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Manager))
