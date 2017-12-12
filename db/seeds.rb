@@ -116,7 +116,7 @@ end
 # photos
 
 Restaurant.all.each do |res|
-  6.times do
+  8.times do
     Photo.create(restaurant_id: res.id, image: File.new(photos.sample))
   end
 end

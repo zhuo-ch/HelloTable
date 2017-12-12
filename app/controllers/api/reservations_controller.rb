@@ -1,4 +1,8 @@
 class Api::ReservationsController < ApplicationController
+  def index
+    debugger
+    @reservations = Reservation.where(date: params[:query][:date]).find_by(restaurant_id: params[:query][:id])
+  end
 
   def create
     @reservation = Reservation.new(reservation_params)

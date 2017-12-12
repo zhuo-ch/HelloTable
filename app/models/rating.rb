@@ -1,5 +1,6 @@
 class Rating < ActiveRecord::Base
   validates :restaurant, presence: true
+  validates :restaurant, uniqueness: true
   before_create :set_defaults
 
   def set_defaults

@@ -1,6 +1,6 @@
 class Restaurant < ActiveRecord::Base
   validates :user_id, :name, :description, :address, :location, :phone, presence: true
-  after_initialize :ensure_rating
+  before_save :ensure_rating
   # before_save :set_address
 
   def format_address
@@ -8,7 +8,9 @@ class Restaurant < ActiveRecord::Base
   end
 
   def ensure_rating
-    Rating.create(restaurant: self) unless self.rating
+    if self.rating.nil?
+      Rating.create(restaurant: self)
+    end
   end
 
   def get_reservations(date, time)

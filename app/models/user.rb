@@ -11,9 +11,6 @@ class User < ActiveRecord::Base
   has_many :ratings, through: :restaurants
   has_many :favorites
   has_one :restaurant
-    # class_name: "Restaurant",
-    # primary_key: :id,
-    # foreign_key: :user_id
 
   attr_reader :password
 

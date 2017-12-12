@@ -15,7 +15,7 @@ Rails.application.routes.draw do
     end
     resources :reviews, only: [:index, :create, :show, :destroy]
     resources :cities, only: [:index, :show]
-    resources :reservations, only: [:create, :show, :destroy] do
+    resources :reservations, only: [:index, :create, :show, :destroy] do
       get "search", on: :collection
     end
   end

@@ -77,9 +77,13 @@
   padding: 0;
 }
 
+.user-res h4 {
+  flex: 3;
+}
+
 .user-res button {
   align-self: center;
-  width: 20%;
+  flex: 1;
 }
 
 .show-res {

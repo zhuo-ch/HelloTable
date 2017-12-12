@@ -11,6 +11,7 @@ import {
   setError,
   clearErrors,
 } from '../../actions/manager_actions';
+import { resetReservation } from '../../actions/reservations_actions';
 import { StickyContainer, Sticky } from 'react-sticky';
 import { formatHoursMinutes } from '../../util/search_api_util';
 import RestaurantMap from '../restaurant/restaurant_map';
@@ -115,7 +116,7 @@ class Manager extends React.Component {
   }
 
   getSideBar() {
-    const bar = ['Details', 'Hours of Operation', 'Tables'].map((el, idx) =>{
+    const bar = ['Details', 'Hours of Operation', 'Tables', 'Reservations'].map((el, idx) =>{
       return (
         <article
           key={ idx }
@@ -280,7 +281,8 @@ class Manager extends React.Component {
   }
 
   getSeating() {
-    const seatings = this.props.restaurant.seatings.map((seating, idx) => this.getSeat(seating, idx));
+    const seatings = this.props.restaurant.seatings.sort(el => el.seats)
+      .map((seating, idx) => this.getSeat(seating, idx));
     const check = this.checkTarget();
     const errors = (check && check === 'seatings') ? this.props.restaurant.errors : '';
 
@@ -291,6 +293,10 @@ class Manager extends React.Component {
       liElements: seatings,
       titleAddon: ManagerUtil.createButton('Add Tables', this.handleAddTables),
     });
+  }
+
+  getReservations() {
+
   }
 
   render() {
