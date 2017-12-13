@@ -100,6 +100,7 @@
 .bar-time {
   flex: 2;
   position: relative;
+  border-radius: 0px;
 }
 
 .time:hover {
@@ -204,14 +205,14 @@ input[type=date]::-webkit-calendar-picker-indicator {
 .seats-list {
   z-index: 8;
   left: auto;
-  right: -1px;
+  right: 0px;
 }
 
 .seats-form .res-present {
   border-radius: 7px;
   border: 1px solid gainsboro;
-  border-top-left-radius: none;
-  border-bottom-left-radius: none;
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
   border-top: none;
   border-bottom: none;
   border-left: none;
