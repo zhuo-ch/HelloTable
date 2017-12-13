@@ -114,7 +114,7 @@ end
 # photos
 
 Restaurant.all.each do |res|
-  8.times do
+  6.times do
     Photo.create(restaurant_id: res.id, image: File.new(photos.sample))
   end
 end
@@ -123,10 +123,10 @@ end
 
 Restaurant.all.each do |restaurant|
   available_seats = restaurant.seatings.map { |seating| seating }
-  6.times do
+  8.times do
     seating = available_seats.sample
     Reservation.create(user_id: user, restaurant_id: restaurant.id,
-      date: "#{12}-#{rand(1..30)}-2017", time: times.sample, seating_id: seating.id, seats: seating.seats)
+      date: "#{12}-#{rand(1..30)}-2017", time: times.sample + 12, seating_id: seating.id, seats: seating.seats)
   end
 end
 
@@ -157,7 +157,7 @@ end
   id = restaurants.sample
   seating = Restaurant.find(id).seatings.sample
   Reservation.create(user_id: guest.id, restaurant_id: id,
-    date: "#{rand(3..11)}-" + "#{rand(1..30)}" + "-2017", time: times.sample,
+    date: "#{rand(3..11)}-" + "#{rand(1..30)}" + "-2017", time: times.sample + 12,
     seating_id: seating.id, seats: seating.seats)
 end
 
@@ -166,7 +166,7 @@ end
 30.times do |i|
   seating = Restaurant.last.seatings.sample
   Reservation.create(user_id: user, restaurant_id: Restaurant.last.id,
-    date: "12-#{i + 1}-2017", time: times.sample, seating_id: seating.id,
+    date: "12-#{i + 1}-2017", time: times.sample + 12, seating_id: seating.id,
     seats: seating.seats)
 end
 
@@ -174,5 +174,5 @@ end
   id = restaurants.sample
   seating = Restaurant.find(id).seatings.sample
   Reservation.create(user_id: guest.id, restaurant_id: id,
-    date: "#{12}-" + "#{rand(1..30)}" + "-2017", time: times.sample, seating_id: seating.id, seats: seating.seats)
+    date: "#{12}-" + "#{rand(1..30)}" + "-2017", time: times.sample + 12, seating_id: seating.id, seats: seating.seats)
 end
