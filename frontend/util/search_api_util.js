@@ -7,18 +7,19 @@ export const searchRestaurants = (query) => {
 }
 
 export const formatDate = (date) => {
-    let currentDate = `${date.getMonth()+1}-${date.getDate()}-${date.getFullYear()}`;
+  date = date ? date : new Date();
+  let currentDate = `${date.getMonth()+1}-${date.getDate()}-${date.getFullYear()}`;
 
-    return (
-      currentDate.split("-").map((num) => {
-        if (parseInt(num) < 10) {
-          return "0"+num;
-        } else {
-          return num;
-        }
-      }).join('-')
-    );
-  }
+  return (
+    currentDate.split("-").map((num) => {
+      if (parseInt(num) < 10) {
+        return "0"+num;
+      } else {
+        return num;
+      }
+    }).join('-')
+  );
+}
 
 export const getNewTime = () => {
   const date = new Date();

@@ -15,7 +15,7 @@ import {
 } from '../../actions/manager_actions';
 import { resetReservation } from '../../actions/reservations_actions';
 import { StickyContainer, Sticky } from 'react-sticky';
-import { formatHoursMinutes } from '../../util/search_api_util';
+import { formatHoursMinutes, formatDate } from '../../util/search_api_util';
 import RestaurantMap from '../restaurant/restaurant_map';
 import { merge } from 'lodash';
 import * as ManagerUtil from '../../util/manager_util';
@@ -37,14 +37,6 @@ class Manager extends React.Component {
       hashHistory.push('/');
     } else {
       this.props.fetchManagerRestaurant(this.props.currentUser.id);
-      this.props.fetchManagerRestaurantReservations({ id: this.props.currentUser.id, date: new Date() });
-    }
-  }
-
-  componentWillReceiveProps(nextProps) {
-    debugger
-    if (!nextProps.currentUser.id) {
-      hashHistory.push('/');
     }
   }
 
@@ -314,7 +306,27 @@ class Manager extends React.Component {
   }
 
   getReservations() {
+    let reservations = this.props.reservations.sort((a, b) => a.time - b.time);
+    reservations = reservations.map((reservation, idx) => {
+      const time = formatHoursMinutes(reservation.time);
+      // const text = `${time}  ${reservation.client}  Table for ${reservation.seats}`;
 
+      return (
+        <li className='horizontal' key={ idx }>
+          <span className='manager-text'>{ time }</span>
+          <span className='manager-text'>Table for</span>
+          <span className='manager-highlight'>{ reservation.seats }</span>
+          <span className='manager-text'>for</span>
+          <span className='manager-highlight'>{ reservation.client }</span>
+        </li>
+      );
+    });
+
+    return ManagerUtil.createSection({
+      id: 'Reservations',
+      title: 'Reservations',
+      liElements: reservations,
+    });
   }
 
   render() {
@@ -324,6 +336,7 @@ class Manager extends React.Component {
     const seatings = loaded ? this.getSeating() : '';
     const sideBar = this.getSideBar();
     const rightBar = this.getRightBar();
+    const reservations = Object.keys(this.props.reservations).length > 0 ? this.getReservations() : '';
 
     return (
       <StickyContainer className='restaurant-view'>
@@ -335,6 +348,7 @@ class Manager extends React.Component {
             { details }
             { times }
             { seatings }
+            { reservations }
           </div>
           <div className='restaurant-right'>
             { rightBar }
@@ -366,4 +380,4 @@ const mapDispatchToProps = dispatch => ({
   clearErrors: () => dispatch(clearErrors()),
 });
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Manager))
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Manager));

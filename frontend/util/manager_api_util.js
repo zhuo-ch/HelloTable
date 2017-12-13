@@ -8,7 +8,7 @@ export const getManagerRestaurant = id => {
 export const getManagerRestaurantReservations = query => {
   return $.ajax({
     method: 'GET',
-    url: 'api/restaurants/search',
+    url: 'api/reservations',
     data: { query },
   });
 }
