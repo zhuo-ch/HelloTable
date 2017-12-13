@@ -129,7 +129,7 @@
   width: 90%;
   max-height: 300px;
   top: 55px;
-  left: -1px;
+  left: 0px;
   overflow: hidden;
   z-index: 9;
   font-size: 14px;
@@ -203,6 +203,7 @@ input[type=date]::-webkit-calendar-picker-indicator {
 }
 
 .seats-list {
+  position: absolute;
   z-index: 8;
   left: auto;
   right: 0px;
