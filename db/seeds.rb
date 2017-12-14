@@ -123,7 +123,7 @@ end
 
 Restaurant.all.each do |restaurant|
   available_seats = restaurant.seatings.map { |seating| seating }
-  8.times do
+  5.times do
     seating = available_seats.sample
     Reservation.create(user_id: user, restaurant_id: restaurant.id,
       date: "#{12}-#{rand(1..30)}-2017", time: times.sample + 12, seating_id: seating.id, seats: seating.seats)
