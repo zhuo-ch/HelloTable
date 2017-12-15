@@ -21,7 +21,9 @@ import DateBar from '../search/date_bar';
 import ManagerDetails from './manager_details';
 import ManagerHours from './manager_hours';
 import ManagerSeating from './manager_seats';
+import ManagerReservation from './manager_reservations';
 import ManagerLi from './manager_li';
+import ManagerField from './field';
 import { merge } from 'lodash';
 import * as ManagerUtil from '../../util/manager_util';
 
@@ -128,12 +130,17 @@ class Manager extends React.Component {
 
   handleRemoveTable(e) {
     e.preventDefault();
+    debugger
     const id = e.currentTarget.parentElement.id;
     this.props.removeSeating(this.props.restaurant.seatings[id].id);
   }
 
-  checkTarget() {
-    return this.state.idx ? this.state.idx.split('-')[0] : false;
+  handleDateChange(e) {
+    e.preventDefault();
+    const newDate = e.currentTarget.value.split('-');
+    const date = newDate[1]+'-'+newDate[2]+'-'+newDate[0];
+    this.setState({ date });
+    this.props.fetchManagerRestaurantReservations({ id: this.props.restaurant.id, date });
   }
 
   getSideBar() {
@@ -165,50 +172,6 @@ class Manager extends React.Component {
     );
   }
 
-  getField(targeted, id, text) {
-    if (targeted) {
-      return ManagerUtil.createInput({
-        cName: 'editable-input',
-        placeHolder: text,
-        changeHandler: this.handleChange,
-        key: id,
-        id
-      });
-    } else {
-      return ManagerUtil.createSpan({
-        key: id,
-        cName: 'editable-text',
-        text: text,
-        clickHandler: this.handleClick,
-      });
-    }
-  }
-
-  getLi(article, key, targeted, cName, remove) {
-    let alternate;
-
-    if (targeted) {
-      alternate = ManagerUtil.getEditButtons({
-        onSave: this.handleSave,
-        onCancel: this.handleClick,
-        cName: 'horizontal'});
-    } else if (remove) {
-      alternate = (
-        <article className='horizontal' id={ key }>
-          { ManagerUtil.createButton('Remove', this.handleRemoveTable) }
-        </article>);
-    } else {
-      alternate = ManagerUtil.getBlankArticle('horizontal');
-    }
-
-    return (
-      <li key={ key } className={ cName }>
-        { article }
-        { alternate }
-      </li>
-    )
-  }
-
   getDetails() {
     return (
       <ManagerDetails
@@ -220,83 +183,6 @@ class Manager extends React.Component {
           />
     );
   }
-
-  // getDetails() {
-  //   const restaurant = this.props.restaurant;
-  //   const details = ['name', 'phone', 'address', 'cuisine', 'site'].map((key, idx) => {
-  //     const listKey = `${key}`;
-  //     const targeted = this.state.selecting && this.state.idx === listKey;
-  //     const detail = this.getField(targeted, listKey, restaurant[key]);
-  //     const article = (
-  //       <article className='horizontal'>
-  //         { `${key.charAt(0).toUpperCase() + key.slice(1, key.length)}:  ` }
-  //         { detail }
-  //       </article>
-  //     );
-  //
-  //     return (
-  //       <ManagerLi
-  //         article={ article}
-  //         key={ listKey }
-  //         targeted={ targeted}
-  //         cName='horizontal'
-  //         save={ this.handleSave }
-  //         click={ this.handleClick }
-  //         />
-  //     );
-  //   });
-  //
-  //   const check = this.checkTarget();
-  //   const errors = (check && check !== 'hours' && check !== 'seatings') ? this.props.restaurant.errors : '';
-  //
-  //   return  ManagerUtil.createSection({
-  //     errors,
-  //     id: 'Details',
-  //     title: 'Details',
-  //     liElements: details,
-  //   });
-  // }
-
-  // getHour(hour, idx) {
-  //   let targeted;
-  //   const openClose = ['open', 'close'].map(el => {
-  //     const listKey = `hours-${idx}-${el}-${hour[el]}`;
-  //     const matched = this.state.idx === listKey;
-  //     const text = formatHoursMinutes(hour[el]);
-  //     targeted = targeted ? targeted : (this.state.selecting && matched);
-  //
-  //     return this.getField(targeted && matched, listKey, text);
-  //   });
-  //
-  //   const article = (
-  //     <article className='horizontal'>
-  //       <span className='manager-text'>{ hour.day }</span>
-  //       <span className='manager-text'>from</span>
-  //       { openClose[0] }
-  //       <span className='manager-text'>to</span>
-  //       { openClose[1] }
-  //     </article>
-  //   );
-  //
-  //   return this.getLi(article, hour.day, targeted, 'horizontal');
-  // }
-  //
-  // getTimes() {
-  //   const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-  //   const times = this.props.restaurant.hours.map((hour, idx) => {
-  //     return this.getHour(hour, idx);
-  //   });
-  //
-  //   const check = this.checkTarget();
-  //   const errors = (check && check === 'hours') ? this.props.restaurant.errors : '';
-  //
-  //   return ManagerUtil.createSection({
-  //     errors,
-  //     id: 'Hours of Operation',
-  //     title: 'Restaurant Hours',
-  //     liElements: times,
-  //   });
-  // }
 
   getTimes() {
     return (
@@ -310,46 +196,6 @@ class Manager extends React.Component {
     );
   }
 
-  // getSeat(seating, idx) {
-  //   let targeted;
-  //   const maxSeats = ['max_tables', 'seats'].map(el  => {
-  //     const key = `seatings-${idx}-${el}`;
-  //     const text = seating[el];
-  //     const matched = this.state.idx === key;
-  //     targeted = targeted ? targeted : (this.state.selecting && matched);
-  //
-  //     return this.getField(targeted && matched, key, text);
-  //   });
-  //
-  //   const article = (
-  //       <article className='horizontal'>
-  //         { maxSeats[0] }
-  //         <span className='manager-text'>tables of</span>
-  //         { maxSeats[1] }
-  //       </article>
-  //   );
-  //
-  //   const remove = targeted ? false : true;
-  //
-  //   return this.getLi(article, idx, targeted, 'horizontal', remove);
-  // }
-  //
-  // getSeating() {
-  //   const seatings = this.props.restaurant.seatings.sort(el => el.seats)
-  //     .map((seating, idx) => this.getSeat(seating, idx));
-  //   const check = this.checkTarget();
-  //   const errors = (check && check === 'seatings') ? this.props.restaurant.errors : '';
-  //   const addOn = ManagerUtil.createButton('Add Tables', this.handleAddTables);
-  //
-  //   return ManagerUtil.createSection({
-  //     errors,
-  //     id: 'Tables',
-  //     title: 'Restaurant Tables',
-  //     liElements: seatings,
-  //     titleAddon: addOn,
-  //   });
-  // }
-
   getSeating() {
     return (
       <ManagerSeating
@@ -359,58 +205,26 @@ class Manager extends React.Component {
         click={ this.handleClick }
         save={ this.handleSave }
         addTables={ this.handleAddTables }
-        />
-    );
-  }
-
-  handleDateChange(e) {
-    e.preventDefault();
-    const newDate = e.currentTarget.value.split('-');
-    const date = newDate[1]+'-'+newDate[2]+'-'+newDate[0];
-    this.setState({ date });
-    this.props.fetchManagerRestaurantReservations({ id: this.props.restaurant.id, date });
-  }
-
-  getDateBox() {
-    return (
-      <DateBar
-        defaultDate={ this.state.date ? this.state.date : formatDate() }
-        handleChange={ this.handleDateChange }
+        handleRemove={ this.handleRemoveTable }
         />
     );
   }
 
   getReservations() {
-    let reservations = this.props.reservations.sort((a, b) => a.time - b.time);
-    reservations = reservations.map((reservation, idx) => {
-      const time = formatHoursMinutes(reservation.time);
-
-      return (
-        <li className='horizontal' key={ idx }>
-          <span className='manager-text'>{ time }</span>
-          <span className='manager-text'>Table for</span>
-          <span className='manager-highlight'>{ reservation.seats }</span>
-          <span className='manager-text'>for</span>
-          <span className='manager-highlight'>{ reservation.client }</span>
-        </li>
-      );
-    });
-    const dateBox = this.getDateBox();
-    const addOn = <article className='manager-date'>{ dateBox }</article>;
-
-    return ManagerUtil.createSection({
-      id: 'Reservations',
-      title: 'Reservations',
-      liElements: reservations,
-      titleAddon: addOn,
-    });
+    return (
+      <ManagerReservation
+        reservations={ this.props.reservations }
+        state={ this.state }
+        handleChange={ this.handleDateChange }
+        />
+    );
   }
 
   render() {
     const loaded = this.props.restaurant.id ? true : false;
     const details = loaded ? this.getDetails() : '';
     const times = loaded ? this.getTimes() : '';
-    const seatings = loaded ? this.getSeating() : '';
+    // const seatings = loaded ? this.getSeating() : '';
     const sideBar = this.getSideBar();
     const rightBar = this.getRightBar();
     const reservations = Object.keys(this.props.reservations).length > 0 ? this.getReservations() : '';
@@ -424,7 +238,6 @@ class Manager extends React.Component {
           <div className='restaurant-mid'>
             { details }
             { times }
-            { seatings }
             { reservations }
           </div>
           <div className='restaurant-right'>

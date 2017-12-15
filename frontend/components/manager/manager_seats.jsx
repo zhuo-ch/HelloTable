@@ -5,8 +5,9 @@ import ManagerField from './field';
 import ManagerLi from './manager_li';
 import AddTable from './add_table';
 
-export default ({ restaurant, state, change, click, save, addTables }) => {
+export default ({ restaurant, state, change, click, save, addTables, handleRemove }) => {
   const getSeat = (seating, idx) => {
+    idx = idx;
     let targeted;
     const maxSeats = ['max_tables', 'seats'].map(el  => {
       const key = `seatings-${idx}-${el}`;
@@ -14,7 +15,6 @@ export default ({ restaurant, state, change, click, save, addTables }) => {
       const matched = state.idx === key;
       targeted = targeted ? targeted : (state.selecting && matched);
 
-      // return this.getField(targeted && matched, key, text);
       return (
         <ManagerField
           targeted={ targeted }
@@ -26,6 +26,7 @@ export default ({ restaurant, state, change, click, save, addTables }) => {
       );
     });
 
+    const remove = targeted ? false : handleRemove;
     const article = (
         <article className='horizontal'>
           { maxSeats[0] }
@@ -33,11 +34,7 @@ export default ({ restaurant, state, change, click, save, addTables }) => {
           { maxSeats[1] }
         </article>
     );
-
-    const remove = targeted ? false : true;
-
-    // return this.getLi(article, idx, targeted, 'horizontal', remove);
-    return (
+    const newLi = (
       <ManagerLi
         article={ article }
         key={ idx }
@@ -48,10 +45,12 @@ export default ({ restaurant, state, change, click, save, addTables }) => {
         click={ click }
         />
     );
+    debugger
+    return newLi;
   }
 
-  const seatings = restaurant.seatings.sort(el => el.seats)
-    .map((seating, idx) => getSeat(seating, idx));
+  const seatings = restaurant.seatings.map((seating, idx) => getSeat(seating, idx));
+  debugger
   const check = ManagerUtil.checkTarget(state);
   const errors = (check && check === 'seatings') ? restaurant.errors : '';
   const addOn = ManagerUtil.createButton('Add Tables', addTables);

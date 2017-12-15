@@ -10,10 +10,12 @@ export default ({ article, key, targeted, cName, remove, save, click }) => {
       onCancel: click,
       cName: 'horizontal'});
   } else if (remove) {
+    debugger
     alternate = (
       <article className='horizontal' id={ key }>
         { ManagerUtil.createButton('Remove', remove) }
-      </article>);
+      </article>
+    );
   } else {
     alternate = ManagerUtil.getBlankArticle('horizontal');
   }
@@ -23,5 +25,5 @@ export default ({ article, key, targeted, cName, remove, save, click }) => {
       { article }
       { alternate }
     </li>
-  )
+  );
 }
