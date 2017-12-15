@@ -19,6 +19,7 @@ import { formatHoursMinutes, formatDate } from '../../util/search_util';
 import RestaurantMap from '../restaurant/restaurant_map';
 import DateBar from '../search/date_bar';
 import ManagerDetails from './manager_details';
+import ManagerHours from './manager_hours';
 import ManagerLi from './manager_li';
 import { merge } from 'lodash';
 import * as ManagerUtil from '../../util/manager_util';
@@ -255,45 +256,57 @@ class Manager extends React.Component {
   //   });
   // }
 
-  getHour(hour, idx) {
-    let targeted;
-    const openClose = ['open', 'close'].map(el => {
-      const listKey = `hours-${idx}-${el}-${hour[el]}`;
-      const matched = this.state.idx === listKey;
-      const text = formatHoursMinutes(hour[el]);
-      targeted = targeted ? targeted : (this.state.selecting && matched);
-
-      return this.getField(targeted && matched, listKey, text);
-    });
-
-    const article = (
-      <article className='horizontal'>
-        <span className='manager-text'>{ hour.day }</span>
-        <span className='manager-text'>from</span>
-        { openClose[0] }
-        <span className='manager-text'>to</span>
-        { openClose[1] }
-      </article>
-    );
-
-    return this.getLi(article, hour.day, targeted, 'horizontal');
-  }
+  // getHour(hour, idx) {
+  //   let targeted;
+  //   const openClose = ['open', 'close'].map(el => {
+  //     const listKey = `hours-${idx}-${el}-${hour[el]}`;
+  //     const matched = this.state.idx === listKey;
+  //     const text = formatHoursMinutes(hour[el]);
+  //     targeted = targeted ? targeted : (this.state.selecting && matched);
+  //
+  //     return this.getField(targeted && matched, listKey, text);
+  //   });
+  //
+  //   const article = (
+  //     <article className='horizontal'>
+  //       <span className='manager-text'>{ hour.day }</span>
+  //       <span className='manager-text'>from</span>
+  //       { openClose[0] }
+  //       <span className='manager-text'>to</span>
+  //       { openClose[1] }
+  //     </article>
+  //   );
+  //
+  //   return this.getLi(article, hour.day, targeted, 'horizontal');
+  // }
+  //
+  // getTimes() {
+  //   const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+  //   const times = this.props.restaurant.hours.map((hour, idx) => {
+  //     return this.getHour(hour, idx);
+  //   });
+  //
+  //   const check = this.checkTarget();
+  //   const errors = (check && check === 'hours') ? this.props.restaurant.errors : '';
+  //
+  //   return ManagerUtil.createSection({
+  //     errors,
+  //     id: 'Hours of Operation',
+  //     title: 'Restaurant Hours',
+  //     liElements: times,
+  //   });
+  // }
 
   getTimes() {
-    const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-    const times = this.props.restaurant.hours.map((hour, idx) => {
-      return this.getHour(hour, idx);
-    });
-
-    const check = this.checkTarget();
-    const errors = (check && check === 'hours') ? this.props.restaurant.errors : '';
-
-    return ManagerUtil.createSection({
-      errors,
-      id: 'Hours of Operation',
-      title: 'Restaurant Hours',
-      liElements: times,
-    });
+    return (
+      <ManagerHours
+        restaurant={ this.props.restaurant }
+        state={ this.state }
+        change={ this.handleChange }
+        click={ this.handleClick }
+        save={ this.handleSave }
+        />
+    );
   }
 
   getSeat(seating, idx) {
