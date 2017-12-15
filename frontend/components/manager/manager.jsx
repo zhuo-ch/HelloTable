@@ -18,6 +18,7 @@ import { StickyContainer, Sticky } from 'react-sticky';
 import { formatHoursMinutes, formatDate } from '../../util/search_util';
 import RestaurantMap from '../restaurant/restaurant_map';
 import DateBar from '../search/date_bar';
+import ManagerLi from './manager_li';
 import { merge } from 'lodash';
 import * as ManagerUtil from '../../util/manager_util';
 
@@ -218,7 +219,16 @@ class Manager extends React.Component {
         </article>
       );
 
-      return this.getLi(article, listKey, targeted, 'horizontal');
+      return (
+        <ManagerLi
+          article={ article}
+          key={ listKey }
+          targeted={ targeted}
+          cName='horizontal'
+          save={ this.handleSave }
+          click={ this.handleClick }
+          />
+      );
     });
 
     const check = this.checkTarget();
