@@ -3,14 +3,13 @@ import * as ManagerUtil from '../../util/manager_util';
 
 export default ({ article, key, targeted, cName, remove, save, click }) => {
   let alternate;
-
+debugger
   if (targeted) {
     alternate = ManagerUtil.getEditButtons({
       onSave: save,
       onCancel: click,
       cName: 'horizontal'});
   } else if (remove) {
-    debugger
     alternate = (
       <article className='horizontal' id={ key }>
         { ManagerUtil.createButton('Remove', remove) }

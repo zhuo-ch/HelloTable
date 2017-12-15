@@ -23,8 +23,6 @@ import ManagerDetails from './manager_details';
 import ManagerHours from './manager_hours';
 import ManagerSeating from './manager_seats';
 import ManagerReservation from './manager_reservations';
-import ManagerLi from './manager_li';
-import ManagerField from './field';
 import { merge } from 'lodash';
 import * as ManagerUtil from '../../util/manager_util';
 
@@ -143,25 +141,6 @@ class Manager extends React.Component {
     this.setState({ date });
     this.props.fetchManagerRestaurantReservations({ id: this.props.restaurant.id, date });
   }
-
-  // getSideBar() {
-  //   const bar = ['Details', 'Hours of Operation', 'Tables', 'Reservations'].map((el, idx) =>{
-  //     return (
-  //       <article
-  //         key={ idx }
-  //         className='about-description'
-  //         onClick={ this.handleSideBar }>
-  //         { el }
-  //       </article>
-  //     );
-  //   });
-  //
-  //   return (
-  //     <Sticky>
-  //       { bar }
-  //     </Sticky>
-  //   )
-  // }
 
   getSideBar() {
     return (

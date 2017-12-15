@@ -6,8 +6,7 @@ import ManagerLi from './manager_li';
 import AddTable from './add_table';
 
 export default ({ restaurant, state, change, click, save, addTables, handleRemove }) => {
-  const getSeat = (seating, idx) => {
-    idx = idx;
+  const seatings = restaurant.seatings.map((seating, idx) => {
     let targeted;
     const maxSeats = ['max_tables', 'seats'].map(el  => {
       const key = `seatings-${idx}-${el}`;
@@ -25,7 +24,7 @@ export default ({ restaurant, state, change, click, save, addTables, handleRemov
           />
       );
     });
-
+debugger
     const remove = targeted ? false : handleRemove;
     const article = (
         <article className='horizontal'>
@@ -47,9 +46,7 @@ export default ({ restaurant, state, change, click, save, addTables, handleRemov
     );
     debugger
     return newLi;
-  }
-
-  const seatings = restaurant.seatings.map((seating, idx) => getSeat(seating, idx));
+  });
   debugger
   const check = ManagerUtil.checkTarget(state);
   const errors = (check && check === 'seatings') ? restaurant.errors : '';
