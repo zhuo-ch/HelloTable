@@ -16,6 +16,7 @@ import {
 import { resetReservation } from '../../actions/reservations_actions';
 import { StickyContainer, Sticky } from 'react-sticky';
 import { formatHoursMinutes, formatDate } from '../../util/search_util';
+import ManagerSideBar from './manager_side_bar';
 import RestaurantMap from '../restaurant/restaurant_map';
 import DateBar from '../search/date_bar';
 import ManagerDetails from './manager_details';
@@ -143,23 +144,32 @@ class Manager extends React.Component {
     this.props.fetchManagerRestaurantReservations({ id: this.props.restaurant.id, date });
   }
 
-  getSideBar() {
-    const bar = ['Details', 'Hours of Operation', 'Tables', 'Reservations'].map((el, idx) =>{
-      return (
-        <article
-          key={ idx }
-          className='about-description'
-          onClick={ this.handleSideBar }>
-          { el }
-        </article>
-      );
-    });
+  // getSideBar() {
+  //   const bar = ['Details', 'Hours of Operation', 'Tables', 'Reservations'].map((el, idx) =>{
+  //     return (
+  //       <article
+  //         key={ idx }
+  //         className='about-description'
+  //         onClick={ this.handleSideBar }>
+  //         { el }
+  //       </article>
+  //     );
+  //   });
+  //
+  //   return (
+  //     <Sticky>
+  //       { bar }
+  //     </Sticky>
+  //   )
+  // }
 
+  getSideBar() {
     return (
-      <Sticky>
-        { bar }
-      </Sticky>
-    )
+      <ManagerSideBar
+        sections={ ['Details', 'Hours of Operation', 'Tables', 'Reservations'] }
+        handleClick={ this.handleSideBar }
+        />
+    );
   }
 
   getRightBar() {
@@ -224,7 +234,7 @@ class Manager extends React.Component {
     const loaded = this.props.restaurant.id ? true : false;
     const details = loaded ? this.getDetails() : '';
     const times = loaded ? this.getTimes() : '';
-    // const seatings = loaded ? this.getSeating() : '';
+    const seatings = loaded ? this.getSeating() : '';
     const sideBar = this.getSideBar();
     const rightBar = this.getRightBar();
     const reservations = Object.keys(this.props.reservations).length > 0 ? this.getReservations() : '';
@@ -238,6 +248,7 @@ class Manager extends React.Component {
           <div className='restaurant-mid'>
             { details }
             { times }
+            { seatings }
             { reservations }
           </div>
           <div className='restaurant-right'>
