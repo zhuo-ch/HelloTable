@@ -15,7 +15,7 @@ import ReviewSnippet from '../review/review_snippet';
 import ReactStars from 'react-stars';
 import FavoriteBox from '../favorite/favorite_box';
 import * as MapUtil from '../../util/map_util';
-import { formatHoursMinutes } from '../../util/search_api_util';
+import { formatHoursMinutes } from '../../util/search_util';
 
 class RestaurantShow extends React.Component {
   constructor(props) {

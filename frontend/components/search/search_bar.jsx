@@ -7,7 +7,6 @@ import SearchBox from './search_box';
 import SeatBar from './seat_bar';
 import TimeBar from './time_bar';
 import DateBar from './date_bar';
-import * as SearchAPIUtil from '../../util/search_api_util';
 
 class SearchBar extends React.Component {
   constructor(props) {

@@ -10,15 +10,15 @@ import {
   cityFilter,
   restaurantFilter,
 } from '../selectors/search_selector';
-import * as SearchAPIUtil from '../util/search_api_util';
+import * as SearchUtil from '../util/search_util';
 
 const _nullSearch = Object.freeze ({
   cities: [],
   restaurants: [],
   searchParams: {
     seats: 2,
-    date: SearchAPIUtil.formatDate(new Date()),
-    time: SearchAPIUtil.getNewTime(),
+    date: SearchUtil.formatDate(new Date()),
+    time: SearchUtil.getNewTime(),
     timeSlots: [],
   },
   searchBoxParams: {

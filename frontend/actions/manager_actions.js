@@ -1,7 +1,7 @@
 import { merge } from 'lodash';
 import * as ManagerAPIUtil from '../util/manager_api_util';
 import { resetCurrentModal } from '../actions/modal_actions';
-import { formatDate } from '../util/search_api_util';
+import { formatDate } from '../util/search_util';
 
 export const RECEIVE_RESTAURANT = 'RECEIVE_RESTAURANT';
 export const RECEIVE_RESTAURANT_RESERVATIONS = 'RECEIVE_RESTAURANT_RESERVATIONS';

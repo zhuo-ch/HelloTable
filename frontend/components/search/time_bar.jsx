@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import * as SearchAPIUtil from '../../util/search_api_util';
 import { setSearchParams } from '../../actions/search_actions';
 import * as SearchUtil from '../../util/search_util.jsx';
 
@@ -70,12 +69,12 @@ class TimeBar extends React.Component {
     let minutes = time[1] < 30 ? 0 : 30;
     let slots = new Array();
 
-    if ((this.props.date === SearchAPIUtil.formatDate(new Date())) && (new Date().getHours() > 12)) {
+    if ((this.props.date === SearchUtil.formatDate(new Date())) && (new Date().getHours() > 12)) {
       startTime = (new Date().getHours() % 12) + 1;
     }
 
     while (startTime < endTime) {
-      slots.push(SearchAPIUtil.formatTime(startTime, minutes));
+      slots.push(SearchUtil.formatTime(startTime, minutes));
       minutes += 30;
 
       if (minutes === 60) {

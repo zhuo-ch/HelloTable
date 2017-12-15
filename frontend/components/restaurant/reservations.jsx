@@ -5,7 +5,6 @@ import { fetchRestaurantReservations, createReservation, resetReservation } from
 import FontAwesome from 'react-fontawesome';
 import { merge } from 'lodash';
 import { setCurrentModal } from '../../actions/modal_actions';
-import * as SearchAPIUtil from '../../util/search_api_util';
 import * as DateSelectors from '../../selectors/date_selectors';
 import * as SearchUtil from '../../util/search_util';
 

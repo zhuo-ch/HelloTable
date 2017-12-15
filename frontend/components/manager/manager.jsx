@@ -15,7 +15,7 @@ import {
 } from '../../actions/manager_actions';
 import { resetReservation } from '../../actions/reservations_actions';
 import { StickyContainer, Sticky } from 'react-sticky';
-import { formatHoursMinutes, formatDate } from '../../util/search_api_util';
+import { formatHoursMinutes, formatDate } from '../../util/search_util';
 import RestaurantMap from '../restaurant/restaurant_map';
 import DateBar from '../search/date_bar';
 import { merge } from 'lodash';
