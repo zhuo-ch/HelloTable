@@ -321,7 +321,7 @@ class Manager extends React.Component {
   }
 
   getDefaultDate() {
-    const date = this.state.date ? this.state.date.split('-') : formatDate();
+    const date = this.state.date ? this.state.date.split('-') : (formatDate()).split('-');
     return `${date[2]}-${date[0]}-${date[1]}`;
   }
 
@@ -342,7 +342,6 @@ class Manager extends React.Component {
     let reservations = this.props.reservations.sort((a, b) => a.time - b.time);
     reservations = reservations.map((reservation, idx) => {
       const time = formatHoursMinutes(reservation.time);
-      // const text = `${time}  ${reservation.client}  Table for ${reservation.seats}`;
 
       return (
         <li className='horizontal' key={ idx }>
