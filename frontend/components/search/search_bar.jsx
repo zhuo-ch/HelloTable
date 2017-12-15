@@ -6,6 +6,7 @@ import FontAwesome from 'react-fontawesome';
 import SearchBox from './search_box';
 import SeatBar from './seat_bar';
 import TimeBar from './time_bar';
+import DateBar from './date_bar';
 import * as SearchAPIUtil from '../../util/search_api_util';
 
 class SearchBar extends React.Component {
@@ -15,7 +16,6 @@ class SearchBar extends React.Component {
       nullSearch: false,
     }
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.getDefaultDate = this.getDefaultDate.bind(this);
     this.handleDateChange = this.handleDateChange.bind(this);
   }
 
@@ -36,28 +36,36 @@ class SearchBar extends React.Component {
     const date = newDate[1]+'-'+newDate[2]+'-'+newDate[0];
     this.props.setSearchParams({ date });
   }
-
-  getDefaultDate() {
-    const date = this.props.searchParams.date.split('-');
-    return `${date[2]}-${date[0]}-${date[1]}`;
-  }
-
-  getCurrentDate() {
-    const currDate = new Date();
-    return currDate;
-  }
+  //
+  // getDefaultDate() {
+  //   const date = this.props.searchParams.date.split('-');
+  //   return `${date[2]}-${date[0]}-${date[1]}`;
+  // }
+  //
+  // getCurrentDate() {
+  //   const currDate = new Date();
+  //   return currDate;
+  // }
+  //
+  // getDateBox() {
+  //   return (
+  //     <input type='date'
+  //       required='required'
+  //       name='date'
+  //       min = { new Date() }
+  //       defaultValue={ this.getDefaultDate() }
+  //       className='input bar-date'
+  //       onChange={ this.handleDateChange }
+  //       ></input>
+  //   );
+  // }
 
   getDateBox() {
-    return (
-      <input type='date'
-        required='required'
-        name='date'
-        min = { this.getCurrentDate() }
-        defaultValue={ this.getDefaultDate() }
-        className='input bar-date'
-        onChange={ this.handleDateChange }
-        ></input>
-    );
+    return (<DateBar
+      minValue={ new Date() }
+      defaultDate={ this.props.searchParams.date }
+      handleChange={ this.handleDateChange }
+      />);
   }
 
   render() {
