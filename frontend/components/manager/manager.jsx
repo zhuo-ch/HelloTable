@@ -129,7 +129,6 @@ class Manager extends React.Component {
 
   handleRemoveTable(e) {
     e.preventDefault();
-    debugger
     const id = e.currentTarget.parentElement.id;
     this.props.removeSeating(this.props.restaurant.seatings[id].id);
   }
