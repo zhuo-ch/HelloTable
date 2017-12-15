@@ -1,7 +1,7 @@
 import React from 'react';
 import * as ManagerUtil from '../../util/manager_util';
 
-export default ({article, key, targeted, cName, remove, save, click,}) => {
+export default ({ article, key, targeted, cName, remove, save, click }) => {
   let alternate;
 
   if (targeted) {

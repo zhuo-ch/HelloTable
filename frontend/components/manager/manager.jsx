@@ -20,6 +20,7 @@ import RestaurantMap from '../restaurant/restaurant_map';
 import DateBar from '../search/date_bar';
 import ManagerDetails from './manager_details';
 import ManagerHours from './manager_hours';
+import ManagerSeating from './manager_seats';
 import ManagerLi from './manager_li';
 import { merge } from 'lodash';
 import * as ManagerUtil from '../../util/manager_util';
@@ -309,44 +310,57 @@ class Manager extends React.Component {
     );
   }
 
-  getSeat(seating, idx) {
-    let targeted;
-    const maxSeats = ['max_tables', 'seats'].map(el  => {
-      const key = `seatings-${idx}-${el}`;
-      const text = seating[el];
-      const matched = this.state.idx === key;
-      targeted = targeted ? targeted : (this.state.selecting && matched);
-
-      return this.getField(targeted && matched, key, text);
-    });
-
-    const article = (
-        <article className='horizontal'>
-          { maxSeats[0] }
-          <span className='manager-text'>tables of</span>
-          { maxSeats[1] }
-        </article>
-    );
-
-    const remove = targeted ? false : true;
-
-    return this.getLi(article, idx, targeted, 'horizontal', remove);
-  }
+  // getSeat(seating, idx) {
+  //   let targeted;
+  //   const maxSeats = ['max_tables', 'seats'].map(el  => {
+  //     const key = `seatings-${idx}-${el}`;
+  //     const text = seating[el];
+  //     const matched = this.state.idx === key;
+  //     targeted = targeted ? targeted : (this.state.selecting && matched);
+  //
+  //     return this.getField(targeted && matched, key, text);
+  //   });
+  //
+  //   const article = (
+  //       <article className='horizontal'>
+  //         { maxSeats[0] }
+  //         <span className='manager-text'>tables of</span>
+  //         { maxSeats[1] }
+  //       </article>
+  //   );
+  //
+  //   const remove = targeted ? false : true;
+  //
+  //   return this.getLi(article, idx, targeted, 'horizontal', remove);
+  // }
+  //
+  // getSeating() {
+  //   const seatings = this.props.restaurant.seatings.sort(el => el.seats)
+  //     .map((seating, idx) => this.getSeat(seating, idx));
+  //   const check = this.checkTarget();
+  //   const errors = (check && check === 'seatings') ? this.props.restaurant.errors : '';
+  //   const addOn = ManagerUtil.createButton('Add Tables', this.handleAddTables);
+  //
+  //   return ManagerUtil.createSection({
+  //     errors,
+  //     id: 'Tables',
+  //     title: 'Restaurant Tables',
+  //     liElements: seatings,
+  //     titleAddon: addOn,
+  //   });
+  // }
 
   getSeating() {
-    const seatings = this.props.restaurant.seatings.sort(el => el.seats)
-      .map((seating, idx) => this.getSeat(seating, idx));
-    const check = this.checkTarget();
-    const errors = (check && check === 'seatings') ? this.props.restaurant.errors : '';
-    const addOn = ManagerUtil.createButton('Add Tables', this.handleAddTables);
-
-    return ManagerUtil.createSection({
-      errors,
-      id: 'Tables',
-      title: 'Restaurant Tables',
-      liElements: seatings,
-      titleAddon: addOn,
-    });
+    return (
+      <ManagerSeating
+        restaurant={ this.props.restaurant }
+        state={ this.state }
+        change={ this.handleChange }
+        click={ this.handleClick }
+        save={ this.handleSave }
+        addTables={ this.handleAddTables }
+        />
+    );
   }
 
   handleDateChange(e) {
