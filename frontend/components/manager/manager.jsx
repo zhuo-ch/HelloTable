@@ -17,6 +17,7 @@ import { resetReservation } from '../../actions/reservations_actions';
 import { StickyContainer, Sticky } from 'react-sticky';
 import { formatHoursMinutes, formatDate } from '../../util/search_api_util';
 import RestaurantMap from '../restaurant/restaurant_map';
+import DateBar from '../search/date_bar';
 import { merge } from 'lodash';
 import * as ManagerUtil from '../../util/manager_util';
 
@@ -320,21 +321,12 @@ class Manager extends React.Component {
     this.props.fetchManagerRestaurantReservations({ id: this.props.restaurant.id, date });
   }
 
-  getDefaultDate() {
-    const date = this.state.date ? this.state.date.split('-') : (formatDate()).split('-');
-    return `${date[2]}-${date[0]}-${date[1]}`;
-  }
-
   getDateBox() {
     return (
-      <input
-        type='date'
-        required='required'
-        name='date'
-        className='input bar-date'
-        defaultValue={ this.getDefaultDate() }
-        onChange={ this.handleDateChange }
-        ></input>
+      <DateBar
+        defaultDate={ this.state.date ? this.state.date : formatDate() }
+        handleChange={ this.handleDateChange }
+        />
     );
   }
 

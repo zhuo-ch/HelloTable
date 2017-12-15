@@ -36,29 +36,6 @@ class SearchBar extends React.Component {
     const date = newDate[1]+'-'+newDate[2]+'-'+newDate[0];
     this.props.setSearchParams({ date });
   }
-  //
-  // getDefaultDate() {
-  //   const date = this.props.searchParams.date.split('-');
-  //   return `${date[2]}-${date[0]}-${date[1]}`;
-  // }
-  //
-  // getCurrentDate() {
-  //   const currDate = new Date();
-  //   return currDate;
-  // }
-  //
-  // getDateBox() {
-  //   return (
-  //     <input type='date'
-  //       required='required'
-  //       name='date'
-  //       min = { new Date() }
-  //       defaultValue={ this.getDefaultDate() }
-  //       className='input bar-date'
-  //       onChange={ this.handleDateChange }
-  //       ></input>
-  //   );
-  // }
 
   getDateBox() {
     return (<DateBar
