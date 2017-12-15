@@ -18,6 +18,7 @@ import { StickyContainer, Sticky } from 'react-sticky';
 import { formatHoursMinutes, formatDate } from '../../util/search_util';
 import RestaurantMap from '../restaurant/restaurant_map';
 import DateBar from '../search/date_bar';
+import ManagerDetails from './manager_details';
 import ManagerLi from './manager_li';
 import { merge } from 'lodash';
 import * as ManagerUtil from '../../util/manager_util';
@@ -207,40 +208,52 @@ class Manager extends React.Component {
   }
 
   getDetails() {
-    const restaurant = this.props.restaurant;
-    const details = ['name', 'phone', 'address', 'cuisine', 'site'].map((key, idx) => {
-      const listKey = `${key}`;
-      const targeted = this.state.selecting && this.state.idx === listKey;
-      const detail = this.getField(targeted, listKey, restaurant[key]);
-      const article = (
-        <article className='horizontal'>
-          { `${key.charAt(0).toUpperCase() + key.slice(1, key.length)}:  ` }
-          { detail }
-        </article>
-      );
-
-      return (
-        <ManagerLi
-          article={ article}
-          key={ listKey }
-          targeted={ targeted}
-          cName='horizontal'
+    return (
+      <ManagerDetails
+          restaurant={ this.props.restaurant }
+          state={ this.state }
+          change={ this.handleChange }
           save={ this.handleSave }
           click={ this.handleClick }
           />
-      );
-    });
-
-    const check = this.checkTarget();
-    const errors = (check && check !== 'hours' && check !== 'seatings') ? this.props.restaurant.errors : '';
-
-    return  ManagerUtil.createSection({
-      errors,
-      id: 'Details',
-      title: 'Details',
-      liElements: details,
-    });
+    );
   }
+
+  // getDetails() {
+  //   const restaurant = this.props.restaurant;
+  //   const details = ['name', 'phone', 'address', 'cuisine', 'site'].map((key, idx) => {
+  //     const listKey = `${key}`;
+  //     const targeted = this.state.selecting && this.state.idx === listKey;
+  //     const detail = this.getField(targeted, listKey, restaurant[key]);
+  //     const article = (
+  //       <article className='horizontal'>
+  //         { `${key.charAt(0).toUpperCase() + key.slice(1, key.length)}:  ` }
+  //         { detail }
+  //       </article>
+  //     );
+  //
+  //     return (
+  //       <ManagerLi
+  //         article={ article}
+  //         key={ listKey }
+  //         targeted={ targeted}
+  //         cName='horizontal'
+  //         save={ this.handleSave }
+  //         click={ this.handleClick }
+  //         />
+  //     );
+  //   });
+  //
+  //   const check = this.checkTarget();
+  //   const errors = (check && check !== 'hours' && check !== 'seatings') ? this.props.restaurant.errors : '';
+  //
+  //   return  ManagerUtil.createSection({
+  //     errors,
+  //     id: 'Details',
+  //     title: 'Details',
+  //     liElements: details,
+  //   });
+  // }
 
   getHour(hour, idx) {
     let targeted;

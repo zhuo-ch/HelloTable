@@ -127,3 +127,7 @@ const valid24 = num => {
     }
   }
 }
+
+export const checkTarget = state => {
+  return state.idx ? state.idx.split('-')[0] : false;
+}
