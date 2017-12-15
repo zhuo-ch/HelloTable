@@ -1,9 +1,9 @@
 import React from 'react';
 import * as ManagerUtil from '../../util/manager_util';
 
-export default ({ article, key, targeted, cName, remove, save, click }) => {
+export default ({ article, id, targeted, cName, remove, save, click }) => {
   let alternate;
-debugger
+
   if (targeted) {
     alternate = ManagerUtil.getEditButtons({
       onSave: save,
@@ -11,7 +11,7 @@ debugger
       cName: 'horizontal'});
   } else if (remove) {
     alternate = (
-      <article className='horizontal' id={ key }>
+      <article className='horizontal' id={ id }>
         { ManagerUtil.createButton('Remove', remove) }
       </article>
     );
@@ -19,10 +19,12 @@ debugger
     alternate = ManagerUtil.getBlankArticle('horizontal');
   }
 
-  return (
-    <li key={ key } className={ cName }>
+  const newLi = (
+    <li key={ id } className={ cName }>
       { article }
       { alternate }
     </li>
   );
+
+  return newLi;
 }

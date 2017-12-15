@@ -13,16 +13,13 @@ export default ({ restaurant, state, change, click, save }) => {
       const text = SearchUtil.formatHoursMinutes(hour[el]);
       targeted = targeted ? targeted : (state.selecting && matched);
 
-      // return this.getField(targeted && matched, listKey, text);
-      return (
-        <ManagerField
-          targeted={ targeted && matched }
-          id={ listKey }
-          text={ text }
-          change={ change }
-          click={ click }
-          />
-      );
+      return ManagerField({
+          targeted: targeted && matched,
+          id: listKey,
+          text: text,
+          change: change,
+          click: click,
+        });
     });
 
     const article = (
@@ -35,17 +32,14 @@ export default ({ restaurant, state, change, click, save }) => {
       </article>
     );
 
-    // return this.getLi(article, hour.day, targeted, 'horizontal');
-    return (
-      <ManagerLi
-        article={ article }
-        key={ hour.day }
-        targeted={ targeted }
-        cName='horizontal'
-        click={ click }
-        save={ save }
-        />
-    );
+    return ManagerLi({
+        article: article,
+        id: hour.day,
+        targeted: targeted,
+        cName: 'horizontal',
+        click: click,
+        save: save,
+      });
   }
 
   const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];

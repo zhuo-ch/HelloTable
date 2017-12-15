@@ -14,17 +14,15 @@ export default ({ restaurant, state, change, click, save, addTables, handleRemov
       const matched = state.idx === key;
       targeted = targeted ? targeted : (state.selecting && matched);
 
-      return (
-        <ManagerField
-          targeted={ targeted }
-          id={ key }
-          text={ text }
-          change={ change }
-          click={ click }
-          />
-      );
+      return ManagerField({
+          targeted: targeted,
+          id: key,
+          text: text,
+          change: change,
+          click: click,
+        });
     });
-debugger
+
     const remove = targeted ? false : handleRemove;
     const article = (
         <article className='horizontal'>
@@ -33,21 +31,19 @@ debugger
           { maxSeats[1] }
         </article>
     );
-    const newLi = (
-      <ManagerLi
-        article={ article }
-        key={ idx }
-        targeted={ targeted }
-        cName='horizontal'
-        remove={ remove }
-        save={ save }
-        click={ click }
-        />
-    );
-    debugger
+    const newLi = ManagerLi({
+        article: article,
+        id: idx,
+        targeted: targeted,
+        cName: 'horizontal',
+        remove: remove,
+        save: save,
+        click: click,
+      });
+
     return newLi;
   });
-  debugger
+
   const check = ManagerUtil.checkTarget(state);
   const errors = (check && check === 'seatings') ? restaurant.errors : '';
   const addOn = ManagerUtil.createButton('Add Tables', addTables);
