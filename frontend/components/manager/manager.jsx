@@ -23,13 +23,14 @@ import * as ManagerUtil from '../../util/manager_util';
 class Manager extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { selecting: false, idx: '', value: '' }
+    this.state = { selecting: false, idx: '', value: '', };
     this.handleSideBar = this.handleSideBar.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSave = this.handleSave.bind(this);
     this.handleAddTables = this.handleAddTables.bind(this);
     this.handleRemoveTable = this.handleRemoveTable.bind(this);
+    this.handleDateChange = this.handleDateChange.bind(this);
   }
 
   componentWillMount() {
@@ -38,6 +39,11 @@ class Manager extends React.Component {
     } else {
       this.props.fetchManagerRestaurant(this.props.currentUser.id);
     }
+  }
+
+  componentDidMount() {
+    const date = formatDate();
+    this.setState({ date });
   }
 
   componentWillUnmount() {
@@ -295,14 +301,41 @@ class Manager extends React.Component {
       .map((seating, idx) => this.getSeat(seating, idx));
     const check = this.checkTarget();
     const errors = (check && check === 'seatings') ? this.props.restaurant.errors : '';
+    const addOn = ManagerUtil.createButton('Add Tables', this.handleAddTables);
 
     return ManagerUtil.createSection({
       errors,
       id: 'Tables',
       title: 'Restaurant Tables',
       liElements: seatings,
-      titleAddon: ManagerUtil.createButton('Add Tables', this.handleAddTables),
+      titleAddon: addOn,
     });
+  }
+
+  handleDateChange(e) {
+    e.preventDefault();
+    const newDate = e.currentTarget.value.split('-');
+    const date = newDate[1]+'-'+newDate[2]+'-'+newDate[0];
+    this.setState({ date });
+    this.props.fetchManagerRestaurantReservations({ id: this.props.restaurant.id, date });
+  }
+
+  getDefaultDate() {
+    const date = this.state.date ? this.state.date.split('-') : formatDate();
+    return `${date[2]}-${date[0]}-${date[1]}`;
+  }
+
+  getDateBox() {
+    return (
+      <input
+        type='date'
+        required='required'
+        name='date'
+        className='input bar-date'
+        defaultValue={ this.getDefaultDate() }
+        onChange={ this.handleDateChange }
+        ></input>
+    );
   }
 
   getReservations() {
@@ -321,11 +354,14 @@ class Manager extends React.Component {
         </li>
       );
     });
+    const dateBox = this.getDateBox();
+    const addOn = <article className='manager-date'>{ dateBox }</article>;
 
     return ManagerUtil.createSection({
       id: 'Reservations',
       title: 'Reservations',
       liElements: reservations,
+      titleAddon: addOn,
     });
   }
 

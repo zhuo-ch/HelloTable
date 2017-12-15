@@ -43,3 +43,7 @@
   width: fit-content;
   height: fit-content;
 }
+
+.manager-date {
+  padding: 0px 15px;
+}
