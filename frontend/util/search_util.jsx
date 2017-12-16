@@ -23,7 +23,7 @@ export const getSeatsObj = (searchParams, seatings) => {
   let seats = searchParams.seats;
   let item = seatings.find(el => el.seats === seats);
 
-  while (!item && seats < searchParams.seats + 3) {
+  while (!item) {
     seats += 1
     item = seatings.find(el => el.seats === seats);
   }

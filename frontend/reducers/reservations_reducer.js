@@ -31,7 +31,7 @@ const ReservationsReducer = (state = _nullReservations, action) => {
     case CLEAR_RESERVATION:
       const newState = merge({}, state);
       newState.currentReservation = {};
-      newState.restaurantReservations = [];
+      newState.restaurantReservations = {};
       return newState;
     case DESTROY_RESERVATION:
       let newReservations = merge({}, state);
