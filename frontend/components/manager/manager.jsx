@@ -60,7 +60,7 @@ class Manager extends React.Component {
   handleSideBar(e) {
     e.preventDefault();
     const reference = document.getElementById(e.currentTarget.innerText);
-    reference.scrollIntoView({ behavior: 'smooth' });
+    reference.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
   handleClick(e) {
