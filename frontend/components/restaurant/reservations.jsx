@@ -18,6 +18,7 @@ class ReservationsSnippet extends React.Component {
 
   componentWillMount() {
     const query = this.getQuery(this.props.searchParams);
+    debugger
     this.props.fetchRestaurantReservations(query);
   }
 
@@ -44,7 +45,7 @@ class ReservationsSnippet extends React.Component {
         date: this.props.searchParams.date,
         seats: this.props.searchParams.seats,
         seating_id,
-        time: time,
+        time: time + 1200,
       };
 
       this.props.createReservation(reservation);
@@ -60,9 +61,9 @@ class ReservationsSnippet extends React.Component {
 
   getQuery(params) {
     const time = parseInt(params.time.split(':').join(''));
-    const seats = SearchUtil.getSeatsObj(params, this.props.restaurant.seatings).id;
+    const seats_id = SearchUtil.getSeatsObj(params, this.props.restaurant.seatings).id;
 
-    return merge({}, params, { restaurantId: this.props.restaurant.id, time, seats });
+    return merge({}, params, { restaurantId: this.props.restaurant.id, time, seats_id });
   }
 
   getTimeSlots() {
@@ -126,7 +127,7 @@ class ReservationsSnippet extends React.Component {
 
   showReservation() {
     const resDate = DateSelectors.formatDate(this.props.currentReservation.date);
-    const resTime = DateSelectors.formatTime(this.props.currentReservation.time);
+    const resTime = DateSelectors.formatTime(this.props.currentReservation.time - 1200);
 
     return (
       <ul className='new-res'>
@@ -144,7 +145,7 @@ class ReservationsSnippet extends React.Component {
 
   render() {
     const availReservations = this.props.currentReservation.id ? this.showReservation() : this.reservationItems();
-
+debugger
     return (
       <div className='reservations-index'>
         <section className='reservation-show'>

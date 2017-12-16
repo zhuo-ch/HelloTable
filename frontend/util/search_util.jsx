@@ -1,4 +1,5 @@
 import React from 'react';
+import { merge } from 'lodash';
 
 export const fillList = list => {
   list = list.sort((a, b) => a - b);
@@ -32,15 +33,20 @@ export const getSeatsObj = (searchParams, seatings) => {
 }
 
 export const getClosestSeating = (seatings, params) => {
+  const max = seatings.reduce((accum, val) => accum > val.seats ? accum : val.seats, 0);
   let seats = params.seats;
   let item = seatings.find(el => el.seats === seats);
   let idx = 0;
   let toggle = 1;
 
-  while(!item) {
+  while(!item && idx <= max) {
     item = seatings.find(el => el.seats === seats + (idx * toggle));
     idx = toggle === Math.abs(toggle) ? idx + 1 : idx;
     toggle = toggle === Math.abs(toggle) ? -1 : 1;
+  }
+
+  if (item.seats > seats && item.seats - seats < 3) {
+    item = merge({}, item, { seats });
   }
 
   return item.seats;

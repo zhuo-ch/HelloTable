@@ -9,3 +9,6 @@ json.restaurant do
     json.details reservation.restaurant.reviews.length > 0 ? reservation.restaurant.reviews.sample.details : "Be the first to leave a review!"
   end
 end
+
+json.ignore_nil!
+json.username reservation.user.username

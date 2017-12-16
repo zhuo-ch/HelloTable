@@ -51,7 +51,7 @@ class UserShow extends React.Component {
           <section className='show-res' key={ reservation.id }>
             <article className='user-res'>
               <h4>
-                A table for { reservation.seats } will be set at { DateSelectors.formatTime(reservation.time)} on {DateSelectors.formatDate(reservation.date)}
+                A table for { reservation.seats } will be set at { DateSelectors.formatTime(reservation.time - 1200)} on {DateSelectors.formatDate(reservation.date)}
               </h4>
               <button onClick={ this.handleCancel } className='button' value={reservation.id}>Cancel</button>
             </article>

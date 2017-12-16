@@ -27,7 +27,7 @@ class Api::ReservationsController < ApplicationController
     @reservations = Reservation.joins(:seating)
       .where("date = ?", query[:date])
       .where("time BETWEEN ? AND ?", (time - 200), (time + 200))
-      .where("seats = ?", query[:seats])
+      .where("seating_id = ?", query[:seats_id])
       .where("seatings.restaurant_id = ?", query[:restaurantId])
       .references(:seatings)
 
