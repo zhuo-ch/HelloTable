@@ -23,6 +23,7 @@ import ManagerDetails from './manager_details';
 import ManagerHours from './manager_hours';
 import ManagerSeating from './manager_seats';
 import ManagerReservation from './manager_reservations';
+import ManagerReviews from './manager_reviews';
 import { merge } from 'lodash';
 import * as ManagerUtil from '../../util/manager_util';
 
@@ -144,7 +145,7 @@ class Manager extends React.Component {
   getSideBar() {
     return (
       <ManagerSideBar
-        sections={ ['Details', 'Hours of Operation', 'Tables', 'Reservations'] }
+        sections={ ['Details', 'Hours of Operation', 'Tables', 'Reservations', 'Reviews'] }
         handleClick={ this.handleSideBar }
         />
     );
@@ -208,6 +209,10 @@ class Manager extends React.Component {
     );
   }
 
+  getReviews() {
+    return <ManagerReviews reviews={ this.props.restaurant.reviews } />;
+  }
+
   render() {
     const loaded = this.props.restaurant.id ? true : false;
     const details = loaded ? this.getDetails() : '';
@@ -216,6 +221,7 @@ class Manager extends React.Component {
     const sideBar = this.getSideBar();
     const rightBar = this.getRightBar();
     const reservations = Object.keys(this.props.reservations).length > 0 ? this.getReservations() : '';
+    const reviews = loaded ? this.getReviews() : '';
 
     return (
       <StickyContainer className='restaurant-view'>
@@ -228,6 +234,7 @@ class Manager extends React.Component {
             { times }
             { seatings }
             { reservations }
+            { reviews }
           </div>
           <div className='restaurant-right'>
             { rightBar }
