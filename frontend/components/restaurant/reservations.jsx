@@ -18,7 +18,6 @@ class ReservationsSnippet extends React.Component {
 
   componentWillMount() {
     const query = this.getQuery(this.props.searchParams);
-    debugger
     this.props.fetchRestaurantReservations(query);
   }
 
@@ -145,7 +144,7 @@ class ReservationsSnippet extends React.Component {
 
   render() {
     const availReservations = this.props.currentReservation.id ? this.showReservation() : this.reservationItems();
-debugger
+
     return (
       <div className='reservations-index'>
         <section className='reservation-show'>

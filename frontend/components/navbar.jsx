@@ -121,7 +121,7 @@ class Navbar extends React.Component {
     const idx = this.state.reservations[this.state.idx];
     const item = this.props.reservations[idx];
     const date = this.props.formatDate(item.date);
-    const time = this.props.formatTime(item.time);
+    const time = this.props.formatTime(item.time - 1200);
     const text = `${time} on ${date} at ${item.restaurant.name}`;
     const link = `/users/${this.props.currentUser.id}`;
 
