@@ -1,6 +1,5 @@
 import React from 'react';
 import * as ManagerUtil from '../../util/manager_util';
-import { formatHoursMinutes, formatDate } from '../../util/search_util';
 import ReviewSnippet from '../review/review_snippet';
 
 export default ({ reviews }) => {

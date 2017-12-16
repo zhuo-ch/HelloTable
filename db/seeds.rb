@@ -1,8 +1,10 @@
 # users
 
-user = User.create(username: Faker::Name.unique.name,
+5.times do
+  User.create(username: Faker::Name.unique.name,
   email: Faker::Internet.email,
-  password: Faker::Internet.password(8,10)).id
+  password: Faker::Internet.password(8,10))
+end
 
 # cities
 
@@ -17,7 +19,7 @@ f = City.create(name: "Miami", state: "FL", lat: 25.761681, lng: -80.191788, ima
 
 cuisines = File.open("app/assets/cuisine.txt", "r").readlines.map { |line| line.chomp }
 descriptions = File.open("app/assets/descriptions.txt").readlines.map { |line| line.chomp }
-
+users = User.all.map { |user| user.id }
 
 def generate_hours(id)
   days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
@@ -56,7 +58,7 @@ def generate_restaurant(restaurant, city_id, cuisines, descriptions, user)
   res
 end
 
-def generate_city_restaurants(city, cuisines, descriptions, user)
+def generate_city_restaurants(city, cuisines, descriptions, users)
   page_token = ""
   idx = 0
 
@@ -80,12 +82,12 @@ def generate_city_restaurants(city, cuisines, descriptions, user)
     response = JSON.parse(response)
     page_token = response["next_page_token"]
     idx += 1
-    response["results"].each { |res| generate_restaurant(res, city.id, cuisines, descriptions, user)}
+    response["results"].each { |res| generate_restaurant(res, city.id, cuisines, descriptions, users.sample)}
     sleep 3
   end
 end
 
-City.all.each { |city| generate_city_restaurants(city, cuisines, descriptions, user)}
+City.all.each { |city| generate_city_restaurants(city, cuisines, descriptions, users)}
 
 # set Guest, Guest restaurant, variables for reservations
 
@@ -125,7 +127,7 @@ Restaurant.all.each do |restaurant|
   available_seats = restaurant.seatings.map { |seating| seating }
   5.times do
     seating = available_seats.sample
-    Reservation.create(user_id: user, restaurant_id: restaurant.id,
+    Reservation.create(user_id: users.sample, restaurant_id: restaurant.id,
       date: "#{12}-#{rand(1..30)}-2017", time: times.sample + 1200, seating_id: seating.id, seats: seating.seats)
   end
 end
@@ -165,7 +167,7 @@ end
 
 30.times do |i|
   seating = Restaurant.last.seatings.sample
-  Reservation.create(user_id: user, restaurant_id: Restaurant.last.id,
+  Reservation.create(user_id: users.sample, restaurant_id: Restaurant.last.id,
     date: "12-#{i + 1}-2017", time: times.sample + 1200, seating_id: seating.id,
     seats: seating.seats)
 end
