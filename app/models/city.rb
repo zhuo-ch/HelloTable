@@ -1,6 +1,12 @@
 class City < ActiveRecord::Base
   validates :name, presence: true, uniqueness: true
 
+  def self.find_city(id)
+    city = City
+    .includes(restaurants: [:photos, :rating, :reviews])
+    .find(id)
+  end
+
   def self.in_bounds(latLng)
     x = where("lat + 2 > ?
       AND lat - 2 < ?

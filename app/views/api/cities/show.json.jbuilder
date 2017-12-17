@@ -1,5 +1,4 @@
-json.id @city.id
-json.name @city.name
+json.extract! @city, :id, :name
 json.image_url asset_path(@city.image.url)
 json.restaurants @city.restaurants.map do |restaurant|
     json.extract! restaurant, :id, :name, :cuisine, :address, :location
