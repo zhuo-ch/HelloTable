@@ -81,8 +81,9 @@ class RestaurantShow extends React.Component {
           <article className='rating'>{averages.rating}</article>
           <article className='rating-stars'>
             <span className='overall'>Overall Rating</span>
-            <div className='overall-stars'>{ starRating }
-              <span>{ `  based on ${ this.props.ratings.total } ratings` }</span>
+            <div className='overall-stars'>
+              { starRating }
+              <span>{ `based on ${ this.props.ratings.total } ratings` }</span>
             </div>
           </article>
         </section>

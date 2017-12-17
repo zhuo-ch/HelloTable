@@ -1,12 +1,7 @@
 class Api::SessionsController < ApplicationController
 
   def create
-    @user = User.includes(:restaurants)
-      .includes(:photos)
-      .includes(:ratings)
-      .includes(:reservations)
-      .includes(:reviews)
-      .includes(:favorites)
+    @user = User
       .find_by_credentials(
       params[:user][:email],
       params[:user][:password])
