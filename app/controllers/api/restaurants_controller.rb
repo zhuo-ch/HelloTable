@@ -1,15 +1,4 @@
 class Api::RestaurantsController < ApplicationController
-
-  def index
-    if params[:cityId]
-      @restaurants = Restaurant.includes(:rating).includes(:reviews).includes(:photos).where("state = ?", City.find(params[:cityId]).state)
-    elsif params[:query]
-      @restaurants = Restaurant.includes(:rating).includes(:reviews).includes(:photos).where("name ~ ?", params[:query]);
-    else
-      render json: ['No results found'], status: 422
-    end
-  end
-
   def create
     @restaurant = Restaurant.new(restaurant_params)
 

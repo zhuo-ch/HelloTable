@@ -3,8 +3,8 @@ class City < ActiveRecord::Base
 
   def self.find_city(id)
     city = City
-    .includes(restaurants: [:photos, :rating, :reviews])
-    .find(id)
+      .includes(restaurants: [:photos, :rating, :reviews])
+      .find(id)
   end
 
   def self.in_bounds(latLng)

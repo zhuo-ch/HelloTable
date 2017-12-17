@@ -1,6 +1,9 @@
 class Api::ReservationsController < ApplicationController
   def index
-    @reservations = Reservation.includes(:user).where(date: params[:query][:date]).where(restaurant_id: params[:query][:id])
+    @reservations = Reservation
+      .includes(:user)
+      .where(date: params[:query][:date])
+      .where(restaurant_id: params[:query][:id])
     render 'api/reservations/index'
   end
 
