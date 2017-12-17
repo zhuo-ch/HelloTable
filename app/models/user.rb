@@ -16,12 +16,9 @@ class User < ActiveRecord::Base
 
   def self.find_by_credentials(email, password)
     user = User
-      .includes(:restaurants)
-      .includes(:photos)
-      .includes(:ratings)
-      .includes(reservations: [:review])
-      .includes(:reviews)
-      .includes(:favorites)
+      .includes(:restaurant)
+      .includes(reservations: [:review, :user, restaurant: [:photos, :rating, :reviews]])
+      .includes(favorites: [restaurant: [:photos, :rating, :reviews]])
       .find_by(email: email)
 
     return user if user && user.is_password?(password)
@@ -30,22 +27,16 @@ class User < ActiveRecord::Base
 
   def self.find_user(id)
     user = User
-      .includes(:restaurants)
-      .includes(:photos)
-      .includes(:ratings)
-      .includes(reservations: [:review])
-      .includes(:reviews)
-      .includes(:favorites)
+      .includes(:restaurant)
+      .includes(reservations: [:review, :user, restaurant: [:photos, :rating, :reviews]])
+      .includes(favorites: [restaurant: [:photos, :rating, :reviews]])
       .find(params[:id])
   end
 
   def self.find_session(session_token)
     user = User
-      .includes(:restaurants)
-      .includes(:photos)
-      .includes(:ratings)
+      .includes(:restaurant)
       .includes(reservations: [:review, :user, restaurant: [:photos, :rating, :reviews]])
-      .includes(:reviews)
       .includes(favorites: [restaurant: [:photos, :rating, :reviews]])
       .find_by(session_token: session_token)
   end
