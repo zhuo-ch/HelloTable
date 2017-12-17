@@ -19,13 +19,35 @@ class User < ActiveRecord::Base
       .includes(:restaurants)
       .includes(:photos)
       .includes(:ratings)
-      .includes(:reservations)
+      .includes(reservations: [:review])
       .includes(:reviews)
       .includes(:favorites)
       .find_by(email: email)
 
     return user if user && user.is_password?(password)
     nil
+  end
+
+  def self.find_user(id)
+    user = User
+      .includes(:restaurants)
+      .includes(:photos)
+      .includes(:ratings)
+      .includes(reservations: [:review])
+      .includes(:reviews)
+      .includes(:favorites)
+      .find(params[:id])
+  end
+
+  def self.find_session(session_token)
+    user = User
+      .includes(:restaurants)
+      .includes(:photos)
+      .includes(:ratings)
+      .includes(reservations: [:review, :user, restaurant: [:photos, :rating, :reviews]])
+      .includes(:reviews)
+      .includes(favorites: [restaurant: [:photos, :rating, :reviews]])
+      .find_by(session_token: session_token)
   end
 
   def password=(password)
