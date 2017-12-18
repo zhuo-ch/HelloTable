@@ -23,7 +23,7 @@ class Seating < ActiveRecord::Base
     results = { seating_id: query["seating_id"] }
     arr.each { |a| results[a] = true }
     seating.each { |seat| results[seat.time] = false }
-debugger
+
     results
   end
 

@@ -22,7 +22,6 @@ class Api::ReviewsController < ApplicationController
     @review = Review
     .includes(:rating, :user, :reservation)
     .find(params[:id])
-    debugger
   end
 
   def destroy
