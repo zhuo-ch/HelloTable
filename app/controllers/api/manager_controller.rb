@@ -1,11 +1,8 @@
 class Api::ManagerController < ApplicationController
   def show
     @restaurant = Restaurant
-      .includes(:rating)
-      .includes(:reviews)
-      .includes(:photos)
-      .includes(:seatings)
-      .includes(:hours)
+      .includes(:hours, :seatings, :rating, :photos)
+      .includes(reviews: [:user, :reservation])
       .find_by(user_id: params[:id])
 
     if @restaurant && logged_in?

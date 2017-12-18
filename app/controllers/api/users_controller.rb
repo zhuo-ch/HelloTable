@@ -14,6 +14,7 @@ class Api::UsersController < ApplicationController
 
   def show
     @user = User.find_user(params[:id])
+    
     if @user && @user == current_user
       render "api/users/show"
     else
