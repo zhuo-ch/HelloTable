@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import { destroyReservation } from '../../actions/reservations_actions';
+import { resetRestaurant } from '../../actions/restaurant_actions';
 import FontAwesome from 'react-fontawesome';
 import ReservationsSnippet from '../restaurant/reservations';
 import Scrollchor from 'react-scrollchor';
@@ -26,6 +27,10 @@ class UserShow extends React.Component {
     } else {
       this.props.fetchManagerRestaurant(this.props.currentUser.id)
     }
+  }
+
+  componentWillUnmount() {
+    this.props.resetRestaurant();
   }
 
   handleCancel(e) {
@@ -163,6 +168,7 @@ const mapDispatchToProps = dispatch => {
     setCurrentModal: modal => dispatch(setCurrentModal(modal)),
     resetCurrentModal: () => dispatch(resetCurrentModal()),
     fetchManagerRestaurant: id => dispatch(fetchManagerRestaurant(id)),
+    resetRestaurant: () => dispatch(resetRestaurant()),
   });
 }
 

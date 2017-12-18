@@ -60,9 +60,9 @@ class ReservationsSnippet extends React.Component {
 
   getQuery(params) {
     const time = parseInt(params.time.split(':').join(''));
-    const seats_id = SearchUtil.getSeatsObj(params, this.props.restaurant.seatings).id;
+    const seating_id = SearchUtil.getSeatsObj(params, this.props.restaurant.seatings).id;
 
-    return merge({}, params, { restaurantId: this.props.restaurant.id, time, seats_id });
+    return merge({}, params, { restaurantId: this.props.restaurant.id, time, seating_id });
   }
 
   getTimeSlots() {
@@ -96,11 +96,11 @@ class ReservationsSnippet extends React.Component {
           className='reservable button res-button'
           onClick={ this.handleReserve }
           value={ key }
-          key={ key }>{ DateSelectors.formatTime(key) }</li>)
+          key={ key }>{ DateSelectors.formatTime(key - 1200) }</li>)
       } else {
         return (<li
           className='not-reservable res-button'
-          key={ key }>{ DateSelectors.formatTime(key) }</li>)
+          key={ key }>{ DateSelectors.formatTime(key - 1200) }</li>)
       }
     });
 

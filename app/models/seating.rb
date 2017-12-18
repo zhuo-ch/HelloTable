@@ -10,22 +10,20 @@ class Seating < ActiveRecord::Base
   end
 
   def self.availabilities(query)
-    time = query[:time].to_i
+    time = query[:time].to_i + 1200
     seating = Reservation.joins(:seating)
       .select(:time, "seating_id")
       .where("date = ?", query[:date])
       .where("time BETWEEN ? AND ?", (time - 101), (time + 101))
-      .where("seating_id = ?", query[:seats])
-      .where("seatings.restaurant_id = ?", query[:restaurantId])
-      .references(:seatings)
+      .where("seating_id = ?", query[:seating_id])
       .group(:time, :seating_id, :max_tables)
       .having("count(reservations.id) >= seatings.max_tables")
 
     arr = Seating.get_times(time)
-    results = { seating_id: query["seats"] }
+    results = { seating_id: query["seating_id"] }
     arr.each { |a| results[a] = true }
     seating.each { |seat| results[seat.time] = false }
-
+debugger
     results
   end
 
