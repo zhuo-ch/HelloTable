@@ -14,6 +14,7 @@ import {
   clearErrors,
 } from '../../actions/manager_actions';
 import { resetReservation } from '../../actions/reservations_actions';
+import { resetRestaurant } from '../../actions/restaurant_actions';
 import { StickyContainer, Sticky } from 'react-sticky';
 import { formatHoursMinutes, formatDate } from '../../util/search_util';
 import ManagerSideBar from './manager_side_bar';
@@ -55,6 +56,7 @@ class Manager extends React.Component {
 
   componentWillUnmount() {
     this.props.resetReservation();
+    this.props.resetRestaurant();
   }
 
   handleSideBar(e) {
@@ -257,6 +259,7 @@ const mapDispatchToProps = dispatch => ({
   fetchManagerRestaurant: id => dispatch(fetchManagerRestaurant(id)),
   fetchManagerRestaurantReservations: query => dispatch(fetchManagerRestaurantReservations(query)),
   resetReservation: () => dispatch(resetReservation()),
+  resetRestaurant: () => dispatch(resetRestaurant()),
   updateRestaurant: restaurant => dispatch(updateRestaurant(restaurant)),
   updateSeating: seating => dispatch(updateSeating(seating)),
   updateHours: hour => dispatch(updateHours(hour)),

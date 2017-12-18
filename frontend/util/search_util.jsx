@@ -20,18 +20,6 @@ export const fillList = list => {
   return newList;
 }
 
-export const getSeatsObj = (searchParams, seatings) => {
-  let seats = searchParams.seats;
-  let item = seatings.find(el => el.seats === seats);
-
-  while (!item) {
-    seats += 1
-    item = seatings.find(el => el.seats === seats);
-  }
-
-  return item;
-}
-
 export const getClosestSeating = (seatings, params) => {
   const max = seatings.reduce((accum, val) => accum > val.seats ? accum : val.seats, 0);
   let seats = params.seats;
@@ -50,6 +38,19 @@ export const getClosestSeating = (seatings, params) => {
   }
 
   return item.seats;
+}
+
+export const getSeatsObj = (searchParams, seatings) => {
+  const max = seatings.reduce((accum, val) => accum > val.seats ? accum : val.seats, 0);
+  let seats = searchParams.seats;
+  let item = seatings.find(el => el.seats === seats);
+
+  while (!item && seats < max) {
+    seats += 1
+    item = seatings.find(el => el.seats === seats);
+  }
+
+  return item ? item : getClosestSeating(seatings, searchParams);
 }
 
 export const inputSelect = ({ selecting, targetIdx, handleClick, items, text, listName, type}) => {
