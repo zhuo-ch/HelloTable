@@ -30,7 +30,7 @@ class User < ActiveRecord::Base
       .includes(:restaurant)
       .includes(reservations: [:review, :user, restaurant: [:photos, :rating, :reviews]])
       .includes(favorites: [restaurant: [:photos, :rating, :reviews]])
-      .find(params[:id])
+      .find(id)
   end
 
   def self.find_session(session_token)

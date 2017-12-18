@@ -6,7 +6,6 @@ class Api::ReviewsController < ApplicationController
       .reviews
       .all
       .includes(:user, :reservation, :restaurant)
-      debugger
   end
 
   def create
@@ -20,7 +19,10 @@ class Api::ReviewsController < ApplicationController
   end
 
   def show
-    @review = Review.find(params[:id])
+    @review = Review
+    .includes(:rating, :user, :reservation)
+    .find(params[:id])
+    debugger
   end
 
   def destroy
