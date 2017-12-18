@@ -3,6 +3,12 @@ class Restaurant < ActiveRecord::Base
   before_save :ensure_rating
   # , :set_address
 
+  def self.find_res(id)
+    @restaurant = Restaurant
+      .includes(:rating, :photos, :hours, :seatings, reviews: [:user, :reservation])
+      .find(id)
+  end
+
   def format_address
     self.address.gsub(/\W+/, "+")
   end
