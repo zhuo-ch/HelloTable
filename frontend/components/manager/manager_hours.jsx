@@ -5,10 +5,10 @@ import ManagerField from './field';
 import ManagerLi from './manager_li';
 
 export default ({ restaurant, state, change, click, save }) => {
-  const getHour = (hour, idx) => {
+  const getHour = hour => {
     let targeted;
     const openClose = ['open', 'close'].map(el => {
-      const listKey = `hours-${idx}-${el}-${hour[el]}`;
+      const listKey = `hours-${hour.day}-${el}-${hour[el]}`;
       const matched = state.idx === listKey;
       const text = SearchUtil.formatHoursMinutes(hour[el]);
       targeted = targeted ? targeted : (state.selecting && matched);
@@ -43,9 +43,7 @@ export default ({ restaurant, state, change, click, save }) => {
   }
 
   const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-  const times = restaurant.hours.map((hour, idx) => {
-    return getHour(hour, idx);
-  });
+  const times = days.map(day => getHour(restaurant.hours.find(el => el.day === day)));
 
   const check = ManagerUtil.checkTarget(state);
   const errors = (check && check === 'hours') ? restaurant.errors : '';

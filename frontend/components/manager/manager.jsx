@@ -102,7 +102,7 @@ class Manager extends React.Component {
   }
 
   handleUpdateHour(idx) {
-    let hour = merge({}, this.props.restaurant.hours[idx[1]]);
+    let hour = merge({}, this.props.restaurant.hours.find(el => el.day === idx[1]));
     hour[idx[2]] = ManagerUtil.to24(this.state.value);
     hour[idx[2]] ? this.props.updateHours(hour).then(() => this.handleClick()) : this.handleHourError();
   }
@@ -191,7 +191,7 @@ class Manager extends React.Component {
     const restaurant = merge({}, this.props.restaurant);
     const seatings = this.props.restaurant.seatings.sort((a, b) => a.seats - b.seats);
     restaurant.seatings = seatings;
-    
+
     return (
       <ManagerSeating
         restaurant={ restaurant }
