@@ -6,9 +6,9 @@ export default ({ sections, handleClick }) => {
     return (
       <article
         key={ idx }
-        className='about-description'
+        className='bold'
         onClick={ handleClick }>
-        { el }
+        <h3>{ el }</h3>
       </article>
     );
   });
