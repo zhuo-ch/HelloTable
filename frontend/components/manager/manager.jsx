@@ -188,9 +188,13 @@ class Manager extends React.Component {
   }
 
   getSeating() {
+    const restaurant = merge({}, this.props.restaurant);
+    const seatings = this.props.restaurant.seatings.sort((a, b) => a.seats - b.seats);
+    restaurant.seatings = seatings;
+    
     return (
       <ManagerSeating
-        restaurant={ this.props.restaurant }
+        restaurant={ restaurant }
         state={ this.state }
         change={ this.handleChange }
         click={ this.handleClick }
