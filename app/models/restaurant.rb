@@ -3,9 +3,15 @@ class Restaurant < ActiveRecord::Base
   before_save :ensure_rating, :set_address
 
   def self.find_res(id)
-    @restaurant = Restaurant
-      .includes(:rating, :photos, :hours, :seatings, reviews: [:user, :reservation])
+    restaurant = Restaurant
+      .includes(
+        :rating,
+        :photos,
+        :hours,
+        :seatings)
+      .includes(reviews: [ :user, :reservation ])
       .find(id)
+        # reservations: [ review: [ :user, :reservation ] ])
   end
 
   def format_address

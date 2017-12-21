@@ -30,8 +30,9 @@ export const updateRestaurant = restaurant => dispatch => {
     .then(updatedRestaurant => dispatch(receiveRestaurant(updatedRestaurant)),
     errors => {
       dispatch(resetCurrentModal());
-      dispatch(receiveErrors(errors))
-    });
+      dispatch(receiveErrors(errors));
+    })
+    .then(() => dispatch(resetCurrentModal()));
 }
 
 export const updateHours = hours => dispatch => {
