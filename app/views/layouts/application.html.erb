@@ -12,7 +12,7 @@
   <script>
     <% if logged_in? %>
       window.currentUser = <%= render("api/sessions/show.json.jbuilder",
-      user: current_user).html_safe %>
+      user: current_session).html_safe %>
     <% end %>
   </script>
 </head>
