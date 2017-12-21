@@ -1,6 +1,7 @@
 class Restaurant < ActiveRecord::Base
   validates :user_id, :name, :description, :address, :location, :phone, presence: true
-  before_save :ensure_rating, :set_address
+  before_create :ensure_rating
+  after_update :ensure_address
 
   def self.find_res(id)
     restaurant = Restaurant
@@ -11,7 +12,6 @@ class Restaurant < ActiveRecord::Base
         :seatings)
       .includes(reviews: [ :user, :reservation ])
       .find(id)
-        # reservations: [ review: [ :user, :reservation ] ])
   end
 
   def format_address
@@ -31,10 +31,16 @@ class Restaurant < ActiveRecord::Base
     self.reservations.where(["time > ? and time < ? and date = ?", start_hour, end_hour, date])
   end
 
+  def ensure_address
+    if address_changed?
+      self.set_address
+    end
+  end
+
   def set_address
     address = self.format_address
     url = "https://maps.googleapis.com/maps/api/geocode/json?address="
-
+debugger
     response = RestClient::Request.execute(
       method: :get,
       url: "#{url}#{address}&key=#{ENV['google_places_key']}")

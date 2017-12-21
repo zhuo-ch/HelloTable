@@ -42,10 +42,24 @@ class ManagerDetails extends React.Component {
     if (idx[0] === 'phone' && ManagerUtil.invalidPhone(this.state.value)) {
       this.props.setError({ responseJSON: ['Please enter valid number i.e. (XXX)XXX-XXXX or XXX-XXXX-XXXX']});
     } else {
-      let dupRestaurant = merge({}, this.props.restaurant);
+      let dupRestaurant = this.getRestaurantDup();
       dupRestaurant[idx] = this.state.value;
       this.props.updateRestaurant(dupRestaurant).then(() => this.handleClick());
     }
+  }
+
+  getRestaurantDup() {
+    const restaurant = this.props.restaurant;
+
+    return ({
+      id: restaurant.id,
+      user_id: restaurant.user_id,
+      name: restaurant.name,
+      phone: restaurant.phone,
+      cuisine: restaurant.cuisine,
+      site: restaurant.site,
+      address: restaurant.address,
+    });
   }
 
   getField(key, targeted) {

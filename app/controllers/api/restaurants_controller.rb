@@ -35,10 +35,10 @@ class Api::RestaurantsController < ApplicationController
   end
 
   def update
-    @restaurant = Restaurant.find_res(restaurant_params[:id])
+    @restaurant = Restaurant.find(restaurant_params[:id])
 
     if logged_in? && @restaurant.update(restaurant_params)
-      render 'api/restaurants/show'
+      render 'api/restaurants/update'
     else
       render json: @restaurant.errors.full_messages, status: 422
     end
