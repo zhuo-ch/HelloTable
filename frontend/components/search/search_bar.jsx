@@ -67,20 +67,16 @@ class SearchBar extends React.Component {
   }
 }
 
-const mapStateToProps = (state, ownProps) => {
-  return ({
+const mapStateToProps = (state, ownProps) => ({
     searchBoxParams: state.search.searchBoxParams,
     searchParams: state.search.searchParams,
     header: ownProps.header,
     restaurantId: ownProps.restaurantId
-  })
-}
+  });
 
-const mapDispatchToProps = dispatch => {
-  return ({
+const mapDispatchToProps = dispatch => ({
     searchRestaurants: query => dispatch(searchRestaurants(query)),
     setSearchParams: query => dispatch(setSearchParams(query)),
-  })
-}
+  });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(SearchBar));

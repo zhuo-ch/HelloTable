@@ -113,15 +113,15 @@ class Manager extends React.Component {
     this.props.setError(error);
   }
 
-  handleUpdateRestaurant(idx) {
-    if (idx[0] === 'phone' && ManagerUtil.invalidPhone(this.state.value)) {
-      this.props.setError({ responseJSON: ['Please enter valid number i.e. (XXX)XXX-XXXX or XXX-XXXX-XXXX']});
-    } else {
-      let dupRestaurant = merge({}, this.props.restaurant);
-      dupRestaurant[idx] = this.state.value;
-      this.props.updateRestaurant(dupRestaurant).then(() => this.handleClick());
-    }
-  }
+  // handleUpdateRestaurant(idx) {
+  //   if (idx[0] === 'phone' && ManagerUtil.invalidPhone(this.state.value)) {
+  //     this.props.setError({ responseJSON: ['Please enter valid number i.e. (XXX)XXX-XXXX or XXX-XXXX-XXXX']});
+  //   } else {
+  //     let dupRestaurant = merge({}, this.props.restaurant);
+  //     dupRestaurant[idx] = this.state.value;
+  //     this.props.updateRestaurant(dupRestaurant).then(() => this.handleClick());
+  //   }
+  // }
 
   handleAddTables() {
     this.props.setCurrentModal({
@@ -221,7 +221,7 @@ class Manager extends React.Component {
 
   render() {
     const loaded = this.props.restaurant.id ? true : false;
-    const details = loaded ? this.getDetails() : '';
+    // const details = loaded ? this.getDetails() : '';
     const times = loaded ? this.getTimes() : '';
     const seatings = loaded ? this.getSeating() : '';
     const sideBar = this.getSideBar();
@@ -236,7 +236,7 @@ class Manager extends React.Component {
             { sideBar }
           </div>
           <div className='restaurant-mid'>
-            { details }
+            <ManagerDetails />
             { times }
             { seatings }
             { reservations }
