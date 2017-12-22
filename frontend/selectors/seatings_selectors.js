@@ -2,14 +2,14 @@ import { merge } from 'lodash';
 
 export const mergeSeating = (state, seating) => {
   let newState = merge([], state);
-debugger
+
   if (newState.find(el => el.id === seating.id)) {
     newState = newState.map(el => el.id === seating.id ? seating : el);
   } else {
     newState.push(seating);
   }
 
-  return newState.sort((a, b) => a.seats - b.seats);
+  return sortSeating(newState);
 }
 
 export const removeSeating = (state, seating) => {
@@ -18,3 +18,5 @@ export const removeSeating = (state, seating) => {
 
   return newState;
 }
+
+export const sortSeating = seating => seating.sort((a, b) => a.seats - b.seats);

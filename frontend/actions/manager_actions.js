@@ -7,7 +7,7 @@ export const RECEIVE_RESTAURANT = 'RECEIVE_RESTAURANT';
 export const RECEIVE_RESTAURANT_RESERVATIONS = 'RECEIVE_RESTAURANT_RESERVATIONS';
 export const RECEIVE_UPDATED_HOURS = 'RECEIVE_UPDATED_HOURS';
 // export const RECEIVE_UPDATED_SEATING = 'RECEIVE_UPDATED_SEATING';
-export const RECEIVE_SEATING = 'RECEIVE_SEATING';
+export const RECEIVE_SEATINGS = 'RECEIVE_SEATINGS';
 // export const RECEIVE_REMOVE_SEATING = 'RECEIVE_REMOVE_SEATING';
 export const RECEIVE_ERRORS = 'RECEIVE_ERRORS';
 export const CLEAR_ERRORS = 'CLEAR_ERRORS';
@@ -17,7 +17,7 @@ export const fetchManagerRestaurant = id => dispatch => {
     .then(restaurant => {
       dispatch(fetchManagerRestaurantReservations({ id: restaurant.id, date: formatDate() }));
       dispatch(receiveRestaurant(restaurant));
-      dispatch(receiveSeating(restaurant.seatings));
+      dispatch(receiveSeatings(restaurant.seatings));
     });
 }
 
@@ -60,8 +60,8 @@ const receiveRestaurant = restaurant => ({
   restaurant,
 });
 
-const receiveSeating = seating => ({
-  type: RECEIVE_SEATING,
+const receiveSeatings = seating => ({
+  type: RECEIVE_SEATINGS,
   seating,
 });
 

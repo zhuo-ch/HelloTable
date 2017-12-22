@@ -56,7 +56,7 @@ class ManagerSeatings extends React.Component {
     const id = e.currentTarget.parentElement.id;
     this.props.removeSeating(this.props.restaurant.seatings[id].id);
   }
-// export default ({ restaurant, state, change, click, save, addTables, handleRemove }) => {
+
   getField(text, key, targeted) {
     return ManagerField({
         targeted: targeted,
@@ -69,23 +69,20 @@ class ManagerSeatings extends React.Component {
 
   getFields(item, idx) {
     let targeted;
-    debugger
     const seating = ['max_tables', 'seats'].map(el  => {
       const key = `seatings-${idx}-${el}`;
       const text = item[el];
       const matched = this.state.idx === key;
       targeted = targeted ? targeted : (this.state.selecting && matched);
-      debugger
+
       return this.getField(text, key, targeted);
     });
-    debugger
     seating.targeted = targeted;
 
     return seating;
   }
 
   getArticle(seating) {
-    debugger
     return (
       <article className='horizontal'>
         { seating[0] }
@@ -98,7 +95,6 @@ class ManagerSeatings extends React.Component {
   getSeatingsItem(item, idx) {
     const seating = this.getFields(item, idx);
     const article = this.getArticle(seating);
-debugger
     const newLi = ManagerLi({
         article,
         id: idx,
@@ -108,20 +104,20 @@ debugger
         save: this.handleSave,
         click: this.handleClick,
       });
-debugger
+
     return newLi;
   }
 
   getSeatingsList() {
     const seatingsList = this.props.seatings.map((el, idx) => this.getSeatingsItem(el, idx));
-debugger
+
     return seatingsList;
   }
 
   getSeatingsSection() {
     const seatings = this.getSeatingsList();
     const addOn = ManagerUtil.createButton('Add Tables', this.handleAddTables);
-debugger
+
     return ManagerUtil.createSection({
       errors: this.props.seatings.errors,
       id: 'Tables',
@@ -132,8 +128,8 @@ debugger
   }
 
   render() {
-    const seatingsSection = this.getSeatingsSection();
-debugger
+    const seatingsSection = this.props.seatings.lenght > 0 ? this.getSeatingsSection() : '';
+
     return seatingsSection;
   }
 }
