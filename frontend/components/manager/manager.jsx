@@ -223,7 +223,7 @@ class Manager extends React.Component {
     const loaded = this.props.restaurant.id ? true : false;
     // const details = loaded ? this.getDetails() : '';
     const times = loaded ? this.getTimes() : '';
-    const seatings = loaded ? this.getSeating() : '';
+    // const seatings = loaded ? this.getSeating() : '';
     const sideBar = this.getSideBar();
     const rightBar = this.getRightBar();
     const reservations = Object.keys(this.props.reservations).length > 0 ? this.getReservations() : '';
@@ -238,7 +238,7 @@ class Manager extends React.Component {
           <div className='restaurant-mid'>
             <ManagerDetails />
             { times }
-            { seatings }
+            <ManagerSeating />
             { reservations }
             { reviews }
           </div>

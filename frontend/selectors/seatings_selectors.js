@@ -1,13 +1,15 @@
+import { merge } from 'lodash';
+
 export const mergeSeating = (state, seating) => {
   let newState = merge([], state);
-
+debugger
   if (newState.find(el => el.id === seating.id)) {
     newState = newState.map(el => el.id === seating.id ? seating : el);
   } else {
     newState.push(seating);
   }
 
-  return newState;
+  return newState.sort((a, b) => a.seats - b.seats);
 }
 
 export const removeSeating = (state, seating) => {
