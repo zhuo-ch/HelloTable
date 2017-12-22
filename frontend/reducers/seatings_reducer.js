@@ -1,5 +1,5 @@
 import { merge } from 'lodash';
-import { RECEIVE_SEATING } from '../actions/manager_actions';
+import { RECEIVE_SEATING, RECEIVE_REMOVE_SEATING } from '../actions/manager_actions';
 import { RECEIVE_SEARCH } from '../actions/search_actions';
 import * as SeatingsSelector from '../selectors/seatings_selectors';
 const _nullSeatings = Object.freeze({});
