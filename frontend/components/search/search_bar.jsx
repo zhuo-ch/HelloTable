@@ -2,6 +2,7 @@ import React from 'react';
 import { Link, hashHistory, withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import { searchRestaurants, setSearchParams } from '../../actions/search_actions';
+import { getNewDate } from '../../util/search_util';
 import FontAwesome from 'react-fontawesome';
 import SearchBox from './search_box';
 import SeatBar from './seat_bar';
@@ -38,7 +39,7 @@ class SearchBar extends React.Component {
 
   getDateBox() {
     return (<DateBar
-      minValue={ new Date() }
+      minValue={ getNewDate() }
       defaultDate={ this.props.searchParams.date }
       handleChange={ this.handleDateChange }
       />);

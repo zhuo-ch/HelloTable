@@ -116,6 +116,11 @@ export const formatTime = (hours, minutes) => {
   return hours.toString()+":"+formatMinutes(minutes);
 }
 
+export const getNewDate = () => {
+  const date = new Date();
+  return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
+}
+
 const formatMinutes = (minute) => {
   if (minute === 0) {
     return '00';
