@@ -17,6 +17,7 @@ export const fetchManagerRestaurant = id => dispatch => {
     .then(restaurant => {
       dispatch(fetchManagerRestaurantReservations({ id: restaurant.id, date: formatDate() }));
       dispatch(receiveRestaurant(restaurant));
+      dispatch(receiveSeating(restaurant.seating));
     });
 }
 

@@ -46,14 +46,14 @@ const RestaurantsReducer = (state = _nullRestaurants, action) => {
       return _nullRestaurants
     case RECEIVE_DESTROY:
       return _nullRestaurants;
-    case RECEIVE_UPDATED_SEATING:
-      return ManagerSelector.mergeSeating(state, action.seating);
+    // case RECEIVE_UPDATED_SEATING:
+    //   return ManagerSelector.mergeSeating(state, action.seating);
     case RECEIVE_UPDATED_HOURS:
       return ManagerSelector.mergeHours(state, action.hour);
-    case RECEIVE_SEATING:
-      return ManagerSelector.mergeSeating(state, action.seating);
-    case RECEIVE_REMOVE_SEATING:
-      return ManagerSelector.removeSeating(state, action.seating);
+    // case RECEIVE_SEATING:
+    //   return ManagerSelector.mergeSeating(state, action.seating);
+    // case RECEIVE_REMOVE_SEATING:
+    //   return ManagerSelector.removeSeating(state, action.seating);
     case RECEIVE_ERRORS:
       const errorsRes = merge({}, state);
       errorsRes.restaurant.errors = action.errors.responseJSON;
