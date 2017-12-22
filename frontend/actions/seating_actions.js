@@ -2,7 +2,6 @@ import { merge } from 'lodash';
 import { resetCurrentModal } from '../actions/modal_actions';
 import * as SeatingsAPIUtil from '../util/seatings_api_util';
 
-export const RECEIVE_UPDATED_SEATING = 'RECEIVE_UPDATED_SEATING';
 export const RECEIVE_SEATING = 'RECEIVE_SEATING';
 export const RECEIVE_REMOVE_SEATING = 'RECEIVE_REMOVE_SEATING';
 export const CLEAR_ERRORS = 'CLEAR_ERRORS';
@@ -10,16 +9,14 @@ export const CLEAR_ERRORS = 'CLEAR_ERRORS';
 export const updateSeating = seating => dispatch => {
   return SeatingsAPIUtil.updateSeating(seating)
     .then(updatedSeating => dispatch(receiveSeating(updatedSeating)),
-    err => {
-      dispatch(resetCurrentModal());
-      dispatch(receiveErrors(err))
-    });
+      err => dispatch(receiveErrors(err)))
+    .then(() => dispatch(resetCurrentModal()));
 }
 
 export const createSeating = seating => dispatch => {
   return SeatingsAPIUtil.createSeating(seating)
     .then(newSeating => dispatch(receiveSeating(newSeating)),
-    err => dispatch(receiveErrors(err)))
+      err => dispatch(receiveErrors(err)))
     .then(() => dispatch(resetCurrentModal()));
 }
 
@@ -27,12 +24,10 @@ export const removeSeating = id => dispatch => {
   return SeatingsAPIUtil.removeSeating(id)
     .then(seating => dispatch(receiveRemoveSeating(seating)));
 }
-//
-//
-// const receiveUpdatedSeating = seating => ({
-//   type: RECEIVE_UPDATED_SEATING,
-//   seating,
-// });
+
+export const clearErrors = () => dispatch => {
+  return dispatch(receiveClearErrrors());
+}
 
 const receiveSeating = seating => ({
   type: RECEIVE_SEATING,

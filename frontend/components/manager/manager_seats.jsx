@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { merge } from 'lodash';
 import { setCurrentModal } from '../../actions/modal_actions';
-import { createSeating, updateSeating, removeSeating } from '../../actions/seating_actions';
+import { createSeating, updateSeating, removeSeating, clearErrors } from '../../actions/seating_actions';
 import * as ManagerUtil from '../../util/manager_util';
 import * as SearchUtil from '../../util/search_util';
 import ManagerField from './field';
@@ -145,6 +145,7 @@ const mapDispatchToProps = dispatch => ({
   updateSeating: seating => dispatch(updateSeating(seating)),
   removeSeating: seating => dispatch(removeSeating(seating)),
   setCurrentModal: modal => dispatch(setCurrentModal(modal)),
+  clearErrors: () => dispatch(clearErrors()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ManagerSeatings);

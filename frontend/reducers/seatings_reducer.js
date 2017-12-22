@@ -1,13 +1,13 @@
 import { merge } from 'lodash';
 import {
-  RECEIVE_SEATINGS,
   RECEIVE_SEATING,
   RECEIVE_REMOVE_SEATING,
   RECEIVE_ERRORS,
   CLEAR_ERRORS
-} from '../actions/manager_actions';
-import { RECEIVE_SEARCH } from '../actions/search_actions';
+} from '../actions/seating_actions';
+import { RECEIVE_SEATINGS } from '../actions/manager_actions';
 import * as SeatingsSelector from '../selectors/seatings_selectors';
+
 const _nullSeatings = Object.freeze([]);
 
 const SeatingsReducer = (state = _nullSeatings, action) => {
