@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { merge } from 'lodash';
 import { setCurrentModal } from '../../actions/modal_actions';
 import { createSeating, updateSeating, removeSeating } from '../../actions/seating_actions';
 import * as ManagerUtil from '../../util/manager_util';
@@ -38,9 +39,11 @@ class ManagerSeatings extends React.Component {
 
   handleSave() {
     const idx = this.state.idx.split('-');
+    const i = idx[1];
+    const type = idx[2];
     this.props.setCurrentModal({ hidden: false, type: 'spinner' });
-    let seating = merge({}, this.props.restaurant.seatings[idx[1]]);
-    seating[idx[2]] = parseInt(this.state.value);
+    let seating = merge({}, this.props.seatings[i]);
+    seating[type] = parseInt(this.state.value);
     this.props.updateSeating(seating).then(() => this.handleClick());
   }
 
@@ -54,7 +57,7 @@ class ManagerSeatings extends React.Component {
   handleRemoveTable(e) {
     e.preventDefault();
     const id = e.currentTarget.parentElement.id;
-    this.props.removeSeating(this.props.restaurant.seatings[id].id);
+    this.props.removeSeating(this.props.seatings[id].id);
   }
 
   getField(text, key, targeted) {
@@ -128,7 +131,7 @@ class ManagerSeatings extends React.Component {
   }
 
   render() {
-    const seatingsSection = this.props.seatings.lenght > 0 ? this.getSeatingsSection() : '';
+    const seatingsSection = this.getSeatingsSection();
 
     return seatingsSection;
   }

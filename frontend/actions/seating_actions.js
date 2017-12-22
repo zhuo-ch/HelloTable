@@ -8,7 +8,7 @@ export const RECEIVE_REMOVE_SEATING = 'RECEIVE_REMOVE_SEATING';
 export const CLEAR_ERRORS = 'CLEAR_ERRORS';
 
 export const updateSeating = seating => dispatch => {
-  return ManagerAPIUtil.updateSeating(seating)
+  return SeatingsAPIUtil.updateSeating(seating)
     .then(updatedSeating => dispatch(receiveSeating(updatedSeating)),
     err => {
       dispatch(resetCurrentModal());
@@ -17,14 +17,14 @@ export const updateSeating = seating => dispatch => {
 }
 
 export const createSeating = seating => dispatch => {
-  return ManagerAPIUtil.createSeating(seating)
+  return SeatingsAPIUtil.createSeating(seating)
     .then(newSeating => dispatch(receiveSeating(newSeating)),
     err => dispatch(receiveErrors(err)))
     .then(() => dispatch(resetCurrentModal()));
 }
 
 export const removeSeating = id => dispatch => {
-  return ManagerAPIUtil.removeSeating(id)
+  return SeatingsAPIUtil.removeSeating(id)
     .then(seating => dispatch(receiveRemoveSeating(seating)));
 }
 //

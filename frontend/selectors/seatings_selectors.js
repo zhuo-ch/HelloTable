@@ -20,3 +20,10 @@ export const removeSeating = (state, seating) => {
 }
 
 export const sortSeating = seating => seating.sort((a, b) => a.seats - b.seats);
+
+export const mergeErrors = (seating, errors) => {
+  const newSeating = merge([], seating);
+  newSeating.errors = errors;
+
+  return newSeating;
+}
