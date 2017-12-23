@@ -8,9 +8,6 @@ import {
 } from '../actions/restaurant_actions';
 import {
   RECEIVE_UPDATED_HOURS,
-  RECEIVE_UPDATED_SEATING,
-  RECEIVE_SEATING,
-  RECEIVE_REMOVE_SEATING,
   CLEAR_ERRORS,
 } from '../actions/manager_actions';
 import { RECEIVE_SEARCH } from '../actions/search_actions';
@@ -46,14 +43,8 @@ const RestaurantsReducer = (state = _nullRestaurants, action) => {
       return _nullRestaurants
     case RECEIVE_DESTROY:
       return _nullRestaurants;
-    // case RECEIVE_UPDATED_SEATING:
-    //   return ManagerSelector.mergeSeating(state, action.seating);
     case RECEIVE_UPDATED_HOURS:
       return ManagerSelector.mergeHours(state, action.hour);
-    // case RECEIVE_SEATING:
-    //   return ManagerSelector.mergeSeating(state, action.seating);
-    // case RECEIVE_REMOVE_SEATING:
-    //   return ManagerSelector.removeSeating(state, action.seating);
     case RECEIVE_ERRORS:
       const errorsRes = merge({}, state);
       errorsRes.restaurant.errors = action.errors.responseJSON;

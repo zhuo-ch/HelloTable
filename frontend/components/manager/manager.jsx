@@ -95,12 +95,6 @@ class Manager extends React.Component {
     }
   }
 
-  handleUpdateSeating(idx) {
-    let seating = merge({}, this.props.restaurant.seatings[idx[1]]);
-    seating[idx[2]] = parseInt(this.state.value);
-    this.props.updateSeating(seating).then(() => this.handleClick());
-  }
-
   handleUpdateHour(idx) {
     let hour = merge({}, this.props.restaurant.hours.find(el => el.day === idx[1]));
     hour[idx[2]] = ManagerUtil.to24(this.state.value);
@@ -111,29 +105,6 @@ class Manager extends React.Component {
     this.props.resetCurrentModal();
     const error = { responseJSON: ['Please use 12 hour format (example: 10:30AM, 3:45PM)']};
     this.props.setError(error);
-  }
-
-  // handleUpdateRestaurant(idx) {
-  //   if (idx[0] === 'phone' && ManagerUtil.invalidPhone(this.state.value)) {
-  //     this.props.setError({ responseJSON: ['Please enter valid number i.e. (XXX)XXX-XXXX or XXX-XXXX-XXXX']});
-  //   } else {
-  //     let dupRestaurant = merge({}, this.props.restaurant);
-  //     dupRestaurant[idx] = this.state.value;
-  //     this.props.updateRestaurant(dupRestaurant).then(() => this.handleClick());
-  //   }
-  // }
-
-  handleAddTables() {
-    this.props.setCurrentModal({
-      hidden: false,
-      type: 'addTable',
-    });
-  }
-
-  handleRemoveTable(e) {
-    e.preventDefault();
-    const id = e.currentTarget.parentElement.id;
-    this.props.removeSeating(this.props.restaurant.seatings[id].id);
   }
 
   handleDateChange(e) {
@@ -163,18 +134,6 @@ class Manager extends React.Component {
     );
   }
 
-  getDetails() {
-    return (
-      <ManagerDetails
-          restaurant={ this.props.restaurant }
-          state={ this.state }
-          change={ this.handleChange }
-          save={ this.handleSave }
-          click={ this.handleClick }
-          />
-    );
-  }
-
   getTimes() {
     return (
       <ManagerHours
@@ -183,24 +142,6 @@ class Manager extends React.Component {
         change={ this.handleChange }
         click={ this.handleClick }
         save={ this.handleSave }
-        />
-    );
-  }
-
-  getSeating() {
-    const restaurant = merge({}, this.props.restaurant);
-    const seatings = this.props.restaurant.seatings.sort((a, b) => a.seats - b.seats);
-    restaurant.seatings = seatings;
-
-    return (
-      <ManagerSeating
-        restaurant={ restaurant }
-        state={ this.state }
-        change={ this.handleChange }
-        click={ this.handleClick }
-        save={ this.handleSave }
-        addTables={ this.handleAddTables }
-        handleRemove={ this.handleRemoveTable }
         />
     );
   }
@@ -221,9 +162,7 @@ class Manager extends React.Component {
 
   render() {
     const loaded = this.props.restaurant.id ? true : false;
-    // const details = loaded ? this.getDetails() : '';
     const times = loaded ? this.getTimes() : '';
-    // const seatings = loaded ? this.getSeating() : '';
     const sideBar = this.getSideBar();
     const rightBar = this.getRightBar();
     const reservations = Object.keys(this.props.reservations).length > 0 ? this.getReservations() : '';

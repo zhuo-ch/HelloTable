@@ -7,7 +7,6 @@ import * as ManagerUtil from '../../util/manager_util';
 import ManagerLi from './manager_li';
 import ManagerField from './field';
 
-// export default ({ restaurant, state, change, save, click }) => {
 class ManagerDetails extends React.Component {
   constructor(props) {
     super(props);
@@ -37,7 +36,6 @@ class ManagerDetails extends React.Component {
   handleSave() {
     const idx = this.state.idx.split('-');
     this.props.setCurrentModal({ hidden: false, type: 'spinner' });
-    // setTimeout(this.props.resetCurrentModal, 300);
 
     if (idx[0] === 'phone' && ManagerUtil.invalidPhone(this.state.value)) {
       this.props.setError({ responseJSON: ['Please enter valid number i.e. (XXX)XXX-XXXX or XXX-XXXX-XXXX']});
