@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import * as ManagerUtil from '../../util/manager_util';
-import { createSeating, clearErrors } from '../../actions/manager_actions';
+import { createSeating, clearErrors } from '../../actions/seating_actions';
 import { resetCurrentModal } from '../../actions/modal_actions';
 
 class AddTable extends React.Component {

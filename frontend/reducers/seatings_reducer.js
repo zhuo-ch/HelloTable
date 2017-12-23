@@ -18,7 +18,7 @@ const SeatingsReducer = (state = _nullSeatings, action) => {
     case RECEIVE_SEATING:
       return SeatingsSelector.mergeSeating(state, action.seating);
     case RECEIVE_REMOVE_SEATING:
-      return SeatingsSelector.mergeSeating(state, action.seating);
+      return SeatingsSelector.removeSeating(state, action.seating);
     case RECEIVE_ERRORS:
       return SeatingsSelector.mergeErrors(state, action.errors);
     case CLEAR_ERRORS:

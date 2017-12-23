@@ -78,7 +78,7 @@ class ManagerSeatings extends React.Component {
       const matched = this.state.idx === key;
       targeted = targeted ? targeted : (this.state.selecting && matched);
 
-      return this.getField(text, key, targeted);
+      return this.getField(text, key, targeted && matched);
     });
     seating.targeted = targeted;
 
