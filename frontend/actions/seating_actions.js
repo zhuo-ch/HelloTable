@@ -4,7 +4,7 @@ import * as SeatingsAPIUtil from '../util/seatings_api_util';
 
 export const RECEIVE_SEATING = 'RECEIVE_SEATING';
 export const RECEIVE_REMOVE_SEATING = 'RECEIVE_REMOVE_SEATING';
-export const RECEIVE_ERRORS = 'RECEIVE_ERRORS';
+export const RECEIVE_SEATING_ERRORS = 'RECEIVE_SEATING_ERRORS';
 export const CLEAR_ERRORS = 'CLEAR_ERRORS';
 
 export const updateSeating = seating => dispatch => {
@@ -41,7 +41,7 @@ const receiveRemoveSeating = seating => ({
 });
 
 const receiveErrors = errors => ({
-  type: RECEIVE_ERRORS,
+  type: RECEIVE_SEATING_ERRORS,
   errors,
 });
 

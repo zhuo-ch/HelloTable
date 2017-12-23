@@ -2,7 +2,7 @@ import { merge } from 'lodash';
 import {
   RECEIVE_SEATING,
   RECEIVE_REMOVE_SEATING,
-  RECEIVE_ERRORS,
+  RECEIVE_SEATING_ERRORS,
   CLEAR_ERRORS
 } from '../actions/seating_actions';
 import { RECEIVE_SEATINGS } from '../actions/manager_actions';
@@ -19,7 +19,7 @@ const SeatingsReducer = (state = _nullSeatings, action) => {
       return SeatingsSelector.mergeSeating(state, action.seating);
     case RECEIVE_REMOVE_SEATING:
       return SeatingsSelector.removeSeating(state, action.seating);
-    case RECEIVE_ERRORS:
+    case RECEIVE_SEATING_ERRORS:
       return SeatingsSelector.mergeErrors(state, action.errors);
     case CLEAR_ERRORS:
       return SeatingsSelector.mergeErrors(state, []);

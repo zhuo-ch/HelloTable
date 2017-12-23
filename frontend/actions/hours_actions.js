@@ -2,7 +2,7 @@ import { resetCurrentModal } from './modal_actions';
 import * as HoursAPIUtil from '../util/hours_api_util';
 
 export const RECEIVE_HOUR = 'RECEIVE_HOUR';
-export const RECEIVE_ERRORS = 'RECEIVE_ERRORS';
+export const RECEIVE_HOUR_ERRORS = 'RECEIVE_HOUR_ERRORS';
 export const CLEAR_ERRORS = 'CLEAR_ERRORS';
 
 export const updateHour = hours => dispatch => {
@@ -14,7 +14,6 @@ export const updateHour = hours => dispatch => {
 
 export const setError = error => dispatch => {
   dispatch(resetCurrentModal());
-
   return dispatch(receiveErrors(error));
 }
 
@@ -28,7 +27,7 @@ const receiveHour = hour => ({
 });
 
 const receiveErrors = errors => ({
-  type: RECEIVE_ERRORS,
+  type: RECEIVE_HOUR_ERRORS,
   errors,
 });
 
