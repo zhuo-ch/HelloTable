@@ -6,10 +6,7 @@ import {
   RECEIVE_DESTROY,
   RECEIVE_ERRORS,
 } from '../actions/restaurant_actions';
-import {
-  RECEIVE_UPDATED_HOURS,
-  CLEAR_ERRORS,
-} from '../actions/manager_actions';
+import { CLEAR_ERRORS } from '../actions/manager_actions';
 import { RECEIVE_SEARCH } from '../actions/search_actions';
 import * as ManagerSelector from '../selectors/manager_selectors';
 
@@ -43,8 +40,6 @@ const RestaurantsReducer = (state = _nullRestaurants, action) => {
       return _nullRestaurants
     case RECEIVE_DESTROY:
       return _nullRestaurants;
-    case RECEIVE_UPDATED_HOURS:
-      return ManagerSelector.mergeHours(state, action.hour);
     case RECEIVE_ERRORS:
       const errorsRes = merge({}, state);
       errorsRes.restaurant.errors = action.errors.responseJSON;
