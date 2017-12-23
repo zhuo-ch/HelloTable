@@ -5,6 +5,7 @@ import { resetCurrentModal } from './modal_actions';
 import { formatDate } from '../util/search_util';
 
 export const RECEIVE_RESTAURANT = 'RECEIVE_RESTAURANT';
+export const RECEIVE_ALL_REVIEWS = 'RECEIVE_ALL_REVIEWS';
 export const RECEIVE_UPDATED_HOURS = 'RECEIVE_UPDATED_HOURS';
 export const RECEIVE_SEATINGS = 'RECEIVE_SEATINGS';
 export const RECEIVE_ERRORS = 'RECEIVE_ERRORS';
@@ -13,8 +14,8 @@ export const CLEAR_ERRORS = 'CLEAR_ERRORS';
 export const fetchManagerRestaurant = id => dispatch => {
   return ManagerAPIUtil.getManagerRestaurant(id)
     .then(restaurant => {
-      // dispatch(fetchManagerRestaurantReservations({ id: restaurant.user_id, date: formatDate() }));
       dispatch(receiveRestaurant(restaurant));
+      dispatch(receiveReviews(restaurant));
       dispatch(receiveSeatings(restaurant.seatings));
     });
 }
@@ -52,6 +53,11 @@ const receiveRestaurant = restaurant => ({
   type: RECEIVE_RESTAURANT,
   restaurant,
 });
+
+const receiveReviews = restaurant => ({
+  type: RECEIVE_ALL_REVIEWS,
+  restaurant,
+})
 
 const receiveSeatings = seating => ({
   type: RECEIVE_SEATINGS,

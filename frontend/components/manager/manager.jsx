@@ -10,6 +10,7 @@ import {
   clearErrors,
 } from '../../actions/manager_actions';
 import { resetRestaurant } from '../../actions/restaurant_actions';
+import { formatDate } from '../../util/search_util';
 import { StickyContainer, Sticky } from 'react-sticky';
 import ManagerSideBar from './manager_side_bar';
 import RestaurantMap from '../restaurant/restaurant_map';
@@ -140,7 +141,7 @@ class Manager extends React.Component {
     const times = loaded ? this.getTimes() : '';
     const sideBar = this.getSideBar();
     const rightBar = this.getRightBar();
-    const reviews = loaded ? this.getReviews() : '';
+    // const reviews = loaded ? this.getReviews() : '';
 
     return (
       <StickyContainer className='restaurant-view'>
@@ -153,7 +154,7 @@ class Manager extends React.Component {
             { times }
             <ManagerSeating />
             <ManagerReservations />
-            { reviews }
+            <ManagerReviews />
           </div>
           <div className='restaurant-right'>
             { rightBar }
