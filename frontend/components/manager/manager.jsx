@@ -99,8 +99,6 @@ class Manager extends React.Component {
     this.props.setError(error);
   }
 
-
-
   getSideBar() {
     return (
       <ManagerSideBar
@@ -132,16 +130,11 @@ class Manager extends React.Component {
     );
   }
 
-  getReviews() {
-    return <ManagerReviews reviews={ this.props.restaurant.reviews } />;
-  }
-
   render() {
     const loaded = this.props.restaurant.id ? true : false;
     const times = loaded ? this.getTimes() : '';
     const sideBar = this.getSideBar();
     const rightBar = this.getRightBar();
-    // const reviews = loaded ? this.getReviews() : '';
 
     return (
       <StickyContainer className='restaurant-view'>
@@ -174,7 +167,6 @@ const mapDispatchToProps = dispatch => ({
   resetCurrentModal: () => dispatch(resetCurrentModal()),
   setCurrentModal: modal => dispatch(setCurrentModal(modal)),
   fetchManagerRestaurant: id => dispatch(fetchManagerRestaurant(id)),
-  resetReservation: () => dispatch(resetReservation()),
   resetRestaurant: () => dispatch(resetRestaurant()),
   updateRestaurant: restaurant => dispatch(updateRestaurant(restaurant)),
   updateHours: hour => dispatch(updateHours(hour)),
