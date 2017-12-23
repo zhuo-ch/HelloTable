@@ -1,6 +1,7 @@
 import { merge } from 'lodash';
-import { RECEIVE_HOURS } from '../actions/manager_actions';
+import { RECEIVE_HOURS, RECEIVE_ERRORS, CLEAR_ERRORS } from '../actions/manager_actions';
 import { RECEIVE_HOUR } from '../actions/hours_actions';
+import * as ManagerSelector from '../selectors/manager_selectors';
 
 const _nullHours = Object.freeze([]);
 
@@ -9,11 +10,22 @@ const HoursReducer = (state = _nullHours, action) => {
   switch (action.type) {
     case RECEIVE_HOURS:
       return action.hours;
+
     case RECEIVE_HOUR:
-      const newHours = merge([], state);
-      const idx = newHours.indexOf(el => el.id === action.hour.id);
-      newHours[idx] = action.hour;
-      return newHours;
+      return ManagerSelector.mergeHours(state, action.hour);
+    // case RECEIVE_HOUR:
+    //   const newHours = merge([], state);
+    //   const idx = newHours.indexOf(el => el.id === action.hour.id);
+    //   newHours[idx] = action.hour;
+    //   return newHours;
+    case RECEIVE_ERRORS:
+      const hourErrors = merge([], state);
+      hourErrors.errors = action.errors;
+      return hourErrors;
+    case CLEAR_ERRORS:
+      const clearErrors = merge([], state);
+      clearErrors.errors = [];
+      return clearErrors;
     default:
       return state;
   }

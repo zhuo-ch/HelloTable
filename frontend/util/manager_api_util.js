@@ -12,11 +12,3 @@ export const updateRestaurant = restaurant => {
     data: { restaurant },
   });
 }
-
-export const updateHours = hours => {
-  return $.ajax({
-    method: 'PATCH',
-    url: `api/hours/${hours.id}`,
-    data: hours,
-  });
-}

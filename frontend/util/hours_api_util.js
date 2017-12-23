@@ -8,6 +8,7 @@ export const fetchHour = id => {
 export const updateHour = hour => {
   return $.ajax({
     method: 'PATCH',
+    url: `api/hours/${hour.id}`,
     data: { hour },
   });
 }

@@ -1,7 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { merge } from 'lodash';
 import { updateHour } from '../../actions/hours_actions';
-import { resetCurrentModal } from '../../actions/modal_actions';
+import { setError, clearErrors } from '../../actions/manager_actions';
+import { setCurrentModal, resetCurrentModal } from '../../actions/modal_actions';
 import * as ManagerUtil from '../../util/manager_util';
 import * as SearchUtil from '../../util/search_util';
 import ManagerField from './field';
@@ -33,9 +35,11 @@ class ManagerHours extends React.Component {
     this.setState({ value: e.currentTarget.value });
   }
 
-  handleSave(idx) {
+  handleSave() {
+    const idx = this.state.idx.split('-');
     this.props.setCurrentModal({ hidden: false, type: 'spinner' });
     let hour = merge({}, this.props.hours.find(el => el.day === idx[1]));
+    debugger
     hour[idx[2]] = ManagerUtil.to24(this.state.value);
     hour[idx[2]] ? this.props.updateHour(hour).then(() => this.handleClick()) : this.handleHourError();
   }
@@ -66,26 +70,26 @@ class ManagerHours extends React.Component {
 
       return this.getField(listKey, text, targeted && matched);
     });
-    openClose.targeted = targeted && matched;
+    openClose.targeted = targeted;
 
     return openClose;
   }
 
-  getArticle(hour) {
+  getArticle(hour, item) {
     return (
       <article className='horizontal'>
         <span className='manager-text'>{ hour.day }</span>
         <span className='manager-text'>from</span>
-        { hour[0] }
+        { item[0] }
         <span className='manager-text'>to</span>
-        { hour[1] }
+        { item[1] }
       </article>
     );
   }
 
   getHoursItem(hour) {
     const item = this.getFields(hour);
-    const article = this.getArticle(item);
+    const article = this.getArticle(hour, item);
 
     return ManagerLi({
         article: article,
@@ -97,11 +101,21 @@ class ManagerHours extends React.Component {
       });
   }
 
-  getHoursList() {
-    const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-    const times = days.map(day => getHour(this.props.hours.find(el => el.day === day)));
+  getDays() {
+    let times = [];
 
-    return times.map(time => this.getHoursItem(time));
+    if (this.props.hours.length > 0) {
+      const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+      times = days.map(day => this.props.hours.find(el => el.day === day));
+    }
+
+    return times;
+  }
+
+  getHoursList() {
+    const days = this.getDays();
+
+    return days.map(day => this.getHoursItem(day));
   }
 
   getHoursSection() {
@@ -128,7 +142,10 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   updateHour: hour => dispatch(updateHour(hour)),
+  setCurrentModal: modal => dispatch(setCurrentModal(modal)),
   resetCurrentModal: () => dispatch(resetCurrentModal()),
+  setError: error => dispatch(setError(error)),
+  clearErrors: () => dispatch(clearErrors()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ManagerHours);
