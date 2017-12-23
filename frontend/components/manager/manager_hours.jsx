@@ -1,8 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { merge } from 'lodash';
-import { updateHour } from '../../actions/hours_actions';
-import { setError, clearErrors } from '../../actions/manager_actions';
+import { updateHour, setError, clearErrors } from '../../actions/hours_actions';
 import { setCurrentModal, resetCurrentModal } from '../../actions/modal_actions';
 import * as ManagerUtil from '../../util/manager_util';
 import * as SearchUtil from '../../util/search_util';
@@ -17,7 +16,7 @@ class ManagerHours extends React.Component {
     this.handleSave = this.handleSave.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
-// export default ({ restaurant, state, change, click, save }) => {
+
   handleClick(e) {
     if (e) {
       e.preventDefault();
@@ -39,7 +38,6 @@ class ManagerHours extends React.Component {
     const idx = this.state.idx.split('-');
     this.props.setCurrentModal({ hidden: false, type: 'spinner' });
     let hour = merge({}, this.props.hours.find(el => el.day === idx[1]));
-    debugger
     hour[idx[2]] = ManagerUtil.to24(this.state.value);
     hour[idx[2]] ? this.props.updateHour(hour).then(() => this.handleClick()) : this.handleHourError();
   }

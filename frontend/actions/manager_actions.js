@@ -31,12 +31,6 @@ export const updateRestaurant = restaurant => dispatch => {
     .then(() => dispatch(resetCurrentModal()));
 }
 
-export const setError = error => dispatch => {
-  dispatch(resetCurrentModal());
-
-  return dispatch(receiveErrors(error));
-}
-
 export const clearErrors = () => dispatch => {
   return dispatch(receiveClearErrrors());
 }

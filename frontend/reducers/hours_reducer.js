@@ -10,17 +10,11 @@ const HoursReducer = (state = _nullHours, action) => {
   switch (action.type) {
     case RECEIVE_HOURS:
       return action.hours;
-
     case RECEIVE_HOUR:
       return ManagerSelector.mergeHours(state, action.hour);
-    // case RECEIVE_HOUR:
-    //   const newHours = merge([], state);
-    //   const idx = newHours.indexOf(el => el.id === action.hour.id);
-    //   newHours[idx] = action.hour;
-    //   return newHours;
     case RECEIVE_ERRORS:
       const hourErrors = merge([], state);
-      hourErrors.errors = action.errors;
+      hourErrors.errors = action.errors.responseJSON;
       return hourErrors;
     case CLEAR_ERRORS:
       const clearErrors = merge([], state);

@@ -6,7 +6,7 @@ class Api::HoursController < ApplicationController
 
   def update
     @hour = Hour.find(params[:hour][:id])
-debugger
+
     if @hour.update(hour_params)
       render 'api/hours/show'
     else
