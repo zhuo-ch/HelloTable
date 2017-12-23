@@ -6,6 +6,14 @@ export const fetchRestaurantReservations = (query) => {
   });
 }
 
+export const fetchManagerRestaurantReservations = query => {
+  return $.ajax({
+    method: 'GET',
+    url: 'api/reservations',
+    data: { query },
+  });
+}
+
 export const createReservation = (reservation) => {
   return $.ajax({
     method: 'POST',

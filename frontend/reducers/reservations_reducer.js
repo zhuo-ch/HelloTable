@@ -12,13 +12,15 @@ import { filterReservation } from '../selectors/reservation_selectors';
 
 const _nullReservations = Object.freeze({
   userReservations: {},
-  restaurantReservations: {},
+  restaurantReservations: [],
   currentReservation: {},
 });
 
 const ReservationsReducer = (state = _nullReservations, action) => {
+  Object.freeze(state);
   switch(action.type) {
     case RECEIVE_RESTAURANT_RESERVATIONS:
+    debugger
       return Object.assign({}, state, { restaurantReservations: action.reservations });
     case RECEIVE_USER_RESERVATIONS:
       return Object.assign({}, state, { userReservations: action.reservations })

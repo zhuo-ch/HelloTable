@@ -8,7 +8,7 @@ import { faves } from './selectors/favorites_selector';
 document.addEventListener('DOMContentLoaded', () => {
   let preloadedState = {
     session: { currentUser: {}, errors: [] },
-    reservations: { userReservations: [], restaurantReservations: {}, currentReservation: {}},
+    reservations: { userReservations: [], restaurantReservations: [], currentReservation: {}},
   };
 
     if (window.currentUser) {

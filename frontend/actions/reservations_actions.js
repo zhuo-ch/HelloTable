@@ -13,6 +13,11 @@ export const fetchRestaurantReservations = (query) => dispatch => {
     .then(reservations => dispatch(receiveRestaurantReservations(reservations)));
 }
 
+export const fetchManagerRestaurantReservations = query => dispatch => {
+  return ReservationsAPIUtil.fetchManagerRestaurantReservations(query)
+    .then(reservations => dispatch(receiveRestaurantReservations(reservations)));
+}
+
 export const createReservation = reservation => dispatch => {
   return ReservationsAPIUtil.createReservation(reservation)
     .then(newReservation => {

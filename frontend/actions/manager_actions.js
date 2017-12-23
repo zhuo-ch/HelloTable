@@ -1,10 +1,10 @@
 import { merge } from 'lodash';
 import * as ManagerAPIUtil from '../util/manager_api_util';
-import { resetCurrentModal } from '../actions/modal_actions';
+import { fetchManagerRestaurantReservations } from './reservations_actions';
+import { resetCurrentModal } from './modal_actions';
 import { formatDate } from '../util/search_util';
 
 export const RECEIVE_RESTAURANT = 'RECEIVE_RESTAURANT';
-export const RECEIVE_RESTAURANT_RESERVATIONS = 'RECEIVE_RESTAURANT_RESERVATIONS';
 export const RECEIVE_UPDATED_HOURS = 'RECEIVE_UPDATED_HOURS';
 export const RECEIVE_SEATINGS = 'RECEIVE_SEATINGS';
 export const RECEIVE_ERRORS = 'RECEIVE_ERRORS';
@@ -13,15 +13,10 @@ export const CLEAR_ERRORS = 'CLEAR_ERRORS';
 export const fetchManagerRestaurant = id => dispatch => {
   return ManagerAPIUtil.getManagerRestaurant(id)
     .then(restaurant => {
-      dispatch(fetchManagerRestaurantReservations({ id: restaurant.id, date: formatDate() }));
+      // dispatch(fetchManagerRestaurantReservations({ id: restaurant.user_id, date: formatDate() }));
       dispatch(receiveRestaurant(restaurant));
       dispatch(receiveSeatings(restaurant.seatings));
     });
-}
-
-export const fetchManagerRestaurantReservations = query => dispatch => {
-  return ManagerAPIUtil.getManagerRestaurantReservations(query)
-    .then(reservations => dispatch(receiveRestaurantReservations(reservations)));
 }
 
 export const updateRestaurant = restaurant => dispatch => {
@@ -61,11 +56,6 @@ const receiveRestaurant = restaurant => ({
 const receiveSeatings = seating => ({
   type: RECEIVE_SEATINGS,
   seating,
-});
-
-const receiveRestaurantReservations = reservations => ({
-  type: RECEIVE_RESTAURANT_RESERVATIONS,
-  reservations,
 });
 
 const receiveUpdatedHours = hour => ({

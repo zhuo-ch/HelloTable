@@ -23,7 +23,7 @@ import DateBar from '../search/date_bar';
 import ManagerDetails from './manager_details';
 import ManagerHours from './manager_hours';
 import ManagerSeating from './manager_seats';
-import ManagerReservation from './manager_reservations';
+import ManagerReservations from './manager_reservations';
 import ManagerReviews from './manager_reviews';
 import { merge } from 'lodash';
 import * as ManagerUtil from '../../util/manager_util';
@@ -36,9 +36,9 @@ class Manager extends React.Component {
     this.handleClick = this.handleClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSave = this.handleSave.bind(this);
-    this.handleAddTables = this.handleAddTables.bind(this);
-    this.handleRemoveTable = this.handleRemoveTable.bind(this);
-    this.handleDateChange = this.handleDateChange.bind(this);
+    // this.handleAddTables = this.handleAddTables.bind(this);
+    // this.handleRemoveTable = this.handleRemoveTable.bind(this);
+    // this.handleDateChange = this.handleDateChange.bind(this);
   }
 
   componentWillMount() {
@@ -107,13 +107,7 @@ class Manager extends React.Component {
     this.props.setError(error);
   }
 
-  handleDateChange(e) {
-    e.preventDefault();
-    const newDate = e.currentTarget.value.split('-');
-    const date = newDate[1]+'-'+newDate[2]+'-'+newDate[0];
-    this.setState({ date });
-    this.props.fetchManagerRestaurantReservations({ id: this.props.restaurant.id, date });
-  }
+
 
   getSideBar() {
     return (
@@ -165,7 +159,7 @@ class Manager extends React.Component {
     const times = loaded ? this.getTimes() : '';
     const sideBar = this.getSideBar();
     const rightBar = this.getRightBar();
-    const reservations = Object.keys(this.props.reservations).length > 0 ? this.getReservations() : '';
+    // const reservations = Object.keys(this.props.reservations).length > 0 ? this.getReservations() : '';
     const reviews = loaded ? this.getReviews() : '';
 
     return (
@@ -178,7 +172,7 @@ class Manager extends React.Component {
             <ManagerDetails />
             { times }
             <ManagerSeating />
-            { reservations }
+            <ManagerReservations />
             { reviews }
           </div>
           <div className='restaurant-right'>
@@ -193,21 +187,18 @@ class Manager extends React.Component {
 const mapStateToProps = state => ({
   currentUser: state.session.currentUser,
   restaurant: state.restaurants.restaurant,
-  reservations: state.reservations.restaurantReservations,
+  // reservations: state.reservations.restaurantReservations,
 });
 
 const mapDispatchToProps = dispatch => ({
   resetCurrentModal: () => dispatch(resetCurrentModal()),
   setCurrentModal: modal => dispatch(setCurrentModal(modal)),
   fetchManagerRestaurant: id => dispatch(fetchManagerRestaurant(id)),
-  fetchManagerRestaurantReservations: query => dispatch(fetchManagerRestaurantReservations(query)),
+  // fetchManagerRestaurantReservations: query => dispatch(fetchManagerRestaurantReservations(query)),
   resetReservation: () => dispatch(resetReservation()),
   resetRestaurant: () => dispatch(resetRestaurant()),
   updateRestaurant: restaurant => dispatch(updateRestaurant(restaurant)),
-  updateSeating: seating => dispatch(updateSeating(seating)),
   updateHours: hour => dispatch(updateHours(hour)),
-  createSeating: seating => dispatch(createSeating(seating)),
-  removeSeating: id => dispatch(removeSeating(id)),
   setError: error => dispatch(setError(error)),
   clearErrors: () => dispatch(clearErrors()),
 });
