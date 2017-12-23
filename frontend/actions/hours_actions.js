@@ -1,4 +1,4 @@
-import * as HoursAPIUtil from '../util/hous_api_util';
+import * as HoursAPIUtil from '../util/hours_api_util';
 
 export const RECEIVE_HOUR = 'RECEIVE_HOUR';
 

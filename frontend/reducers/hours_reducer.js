@@ -4,7 +4,7 @@ import { RECEIVE_HOUR } from '../actions/hours_actions';
 
 const _nullHours = Object.freeze([]);
 
-const HoursReducer = (state, action) => {
+const HoursReducer = (state = _nullHours, action) => {
   Object.freeze(state);
   switch (action.type) {
     case RECEIVE_HOURS:

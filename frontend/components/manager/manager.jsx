@@ -5,7 +5,6 @@ import { setCurrentModal, resetCurrentModal } from '../../actions/modal_actions'
 import {
   fetchManagerRestaurant,
   updateRestaurant,
-  updateHours,
   setError,
   clearErrors,
 } from '../../actions/manager_actions';
@@ -87,17 +86,17 @@ class Manager extends React.Component {
     }
   }
 
-  handleUpdateHour(idx) {
-    let hour = merge({}, this.props.restaurant.hours.find(el => el.day === idx[1]));
-    hour[idx[2]] = ManagerUtil.to24(this.state.value);
-    hour[idx[2]] ? this.props.updateHours(hour).then(() => this.handleClick()) : this.handleHourError();
-  }
-
-  handleHourError() {
-    this.props.resetCurrentModal();
-    const error = { responseJSON: ['Please use 12 hour format (example: 10:30AM, 3:45PM)']};
-    this.props.setError(error);
-  }
+  // handleUpdateHour(idx) {
+  //   let hour = merge({}, this.props.restaurant.hours.find(el => el.day === idx[1]));
+  //   hour[idx[2]] = ManagerUtil.to24(this.state.value);
+  //   hour[idx[2]] ? this.props.updateHours(hour).then(() => this.handleClick()) : this.handleHourError();
+  // }
+  //
+  // handleHourError() {
+  //   this.props.resetCurrentModal();
+  //   const error = { responseJSON: ['Please use 12 hour format (example: 10:30AM, 3:45PM)']};
+  //   this.props.setError(error);
+  // }
 
   getSideBar() {
     return (
@@ -117,22 +116,22 @@ class Manager extends React.Component {
       </section>
     );
   }
-
-  getTimes() {
-    return (
-      <ManagerHours
-        restaurant={ this.props.restaurant }
-        state={ this.state }
-        change={ this.handleChange }
-        click={ this.handleClick }
-        save={ this.handleSave }
-        />
-    );
-  }
+  //
+  // getTimes() {
+  //   return (
+  //     <ManagerHours
+  //       restaurant={ this.props.restaurant }
+  //       state={ this.state }
+  //       change={ this.handleChange }
+  //       click={ this.handleClick }
+  //       save={ this.handleSave }
+  //       />
+  //   );
+  // }
 
   render() {
-    const loaded = this.props.restaurant.id ? true : false;
-    const times = loaded ? this.getTimes() : '';
+    // const loaded = this.props.restaurant.id ? true : false;
+    // const times = loaded ? this.getTimes() : '';
     const sideBar = this.getSideBar();
     const rightBar = this.getRightBar();
 
@@ -144,7 +143,7 @@ class Manager extends React.Component {
           </div>
           <div className='restaurant-mid'>
             <ManagerDetails />
-            { times }
+            <ManagerHours />
             <ManagerSeating />
             <ManagerReservations />
             <ManagerReviews />
@@ -169,7 +168,7 @@ const mapDispatchToProps = dispatch => ({
   fetchManagerRestaurant: id => dispatch(fetchManagerRestaurant(id)),
   resetRestaurant: () => dispatch(resetRestaurant()),
   updateRestaurant: restaurant => dispatch(updateRestaurant(restaurant)),
-  updateHours: hour => dispatch(updateHours(hour)),
+  // updateHours: hour => dispatch(updateHours(hour)),
   setError: error => dispatch(setError(error)),
   clearErrors: () => dispatch(clearErrors()),
 });
