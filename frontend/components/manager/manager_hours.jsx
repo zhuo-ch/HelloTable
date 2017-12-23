@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import * as ManagerUtil from '../../util/manager_util';
 import * as SearchUtil from '../../util/search_util';
 import ManagerField from './field';

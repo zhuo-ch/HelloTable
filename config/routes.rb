@@ -18,5 +18,6 @@ Rails.application.routes.draw do
     resources :reservations, only: [:index, :create, :show, :destroy] do
       get "search", on: :collection
     end
+    resources :hours, only: [:show, :update]
   end
 end
