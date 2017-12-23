@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import * as ManagerUtil from '../../util/manager_util';
 import { formatHoursMinutes, formatDate } from '../../util/search_util';
-import { fetchManagerRestaurantReservations } from '../../actions/reservations_actions';
+import { fetchManagerRestaurantReservations, resetReservation } from '../../actions/reservations_actions';
 import DateBar from '../search/date_bar';
 
 class ManagerReservations extends React.Component {
@@ -21,12 +21,16 @@ class ManagerReservations extends React.Component {
     this.setState({ date });
   }
 
+  componentWillUnmount() {
+    this.props.resetReservation();
+  }
+
   handleChange(e) {
     e.preventDefault();
     const newDate = e.currentTarget.value.split('-');
     const date = newDate[1]+'-'+newDate[2]+'-'+newDate[0];
     this.setState({ date });
-    this.props.fetchManagerRestaurantReservations({ id: this.props.currentUser.id, date });
+    this.props.fetchManagerRestaurantReservations({ id: this.props.currentUser.manager, date });
   }
 
   getDateBox() {
@@ -70,7 +74,6 @@ class ManagerReservations extends React.Component {
   }
 
   render() {
-    debugger
     const reservationsSection = this.getReservationsSections();
 
     return reservationsSection;
@@ -84,6 +87,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   fetchManagerRestaurantReservations: query => dispatch(fetchManagerRestaurantReservations(query)),
+  resetReservation: () => dispatch(resetReservation()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ManagerReservations);

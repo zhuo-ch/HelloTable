@@ -4,19 +4,13 @@ import { withRouter, hashHistory } from 'react-router';
 import { setCurrentModal, resetCurrentModal } from '../../actions/modal_actions';
 import {
   fetchManagerRestaurant,
-  fetchManagerRestaurantReservations,
   updateRestaurant,
   updateHours,
-  updateSeating,
-  createSeating,
-  removeSeating,
   setError,
   clearErrors,
 } from '../../actions/manager_actions';
-import { resetReservation } from '../../actions/reservations_actions';
 import { resetRestaurant } from '../../actions/restaurant_actions';
 import { StickyContainer, Sticky } from 'react-sticky';
-import { formatHoursMinutes, formatDate } from '../../util/search_util';
 import ManagerSideBar from './manager_side_bar';
 import RestaurantMap from '../restaurant/restaurant_map';
 import DateBar from '../search/date_bar';
@@ -36,9 +30,6 @@ class Manager extends React.Component {
     this.handleClick = this.handleClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSave = this.handleSave.bind(this);
-    // this.handleAddTables = this.handleAddTables.bind(this);
-    // this.handleRemoveTable = this.handleRemoveTable.bind(this);
-    // this.handleDateChange = this.handleDateChange.bind(this);
   }
 
   componentWillMount() {
@@ -140,16 +131,6 @@ class Manager extends React.Component {
     );
   }
 
-  getReservations() {
-    return (
-      <ManagerReservation
-        reservations={ this.props.reservations }
-        state={ this.state }
-        handleChange={ this.handleDateChange }
-        />
-    );
-  }
-
   getReviews() {
     return <ManagerReviews reviews={ this.props.restaurant.reviews } />;
   }
@@ -159,7 +140,6 @@ class Manager extends React.Component {
     const times = loaded ? this.getTimes() : '';
     const sideBar = this.getSideBar();
     const rightBar = this.getRightBar();
-    // const reservations = Object.keys(this.props.reservations).length > 0 ? this.getReservations() : '';
     const reviews = loaded ? this.getReviews() : '';
 
     return (
@@ -187,14 +167,12 @@ class Manager extends React.Component {
 const mapStateToProps = state => ({
   currentUser: state.session.currentUser,
   restaurant: state.restaurants.restaurant,
-  // reservations: state.reservations.restaurantReservations,
 });
 
 const mapDispatchToProps = dispatch => ({
   resetCurrentModal: () => dispatch(resetCurrentModal()),
   setCurrentModal: modal => dispatch(setCurrentModal(modal)),
   fetchManagerRestaurant: id => dispatch(fetchManagerRestaurant(id)),
-  // fetchManagerRestaurantReservations: query => dispatch(fetchManagerRestaurantReservations(query)),
   resetReservation: () => dispatch(resetReservation()),
   resetRestaurant: () => dispatch(resetRestaurant()),
   updateRestaurant: restaurant => dispatch(updateRestaurant(restaurant)),

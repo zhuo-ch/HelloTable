@@ -4,7 +4,6 @@ class Api::ReservationsController < ApplicationController
       .includes(:user)
       .where(date: params[:query][:date])
       .where(restaurant_id: params[:query][:id])
-      debugger
     render 'api/reservations/index'
   end
 
