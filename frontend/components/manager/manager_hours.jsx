@@ -5,7 +5,8 @@ import * as SearchUtil from '../../util/search_util';
 import ManagerField from './field';
 import ManagerLi from './manager_li';
 
-export default ({ restaurant, state, change, click, save }) => {
+class ManagerHours extends React.Component {
+// export default ({ restaurant, state, change, click, save }) => {
   const getHour = hour => {
     let targeted;
     const openClose = ['open', 'close'].map(el => {
@@ -56,3 +57,13 @@ export default ({ restaurant, state, change, click, save }) => {
     liElements: times,
   });
 }
+
+const mapStateToProps = state => ({
+  hours: state.restaurant.hours
+});
+
+const mapDispatchToProps = dispatch => ({
+  updateHour: hour => dispatch(updateHour(hour)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ManagerHours);

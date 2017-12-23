@@ -6,7 +6,7 @@ import { formatDate } from '../util/search_util';
 
 export const RECEIVE_RESTAURANT = 'RECEIVE_RESTAURANT';
 export const RECEIVE_ALL_REVIEWS = 'RECEIVE_ALL_REVIEWS';
-export const RECEIVE_UPDATED_HOURS = 'RECEIVE_UPDATED_HOURS';
+export const RECEIVE_HOURS = 'RECEIVE_HOURS';
 export const RECEIVE_SEATINGS = 'RECEIVE_SEATINGS';
 export const RECEIVE_ERRORS = 'RECEIVE_ERRORS';
 export const CLEAR_ERRORS = 'CLEAR_ERRORS';
@@ -15,7 +15,8 @@ export const fetchManagerRestaurant = id => dispatch => {
   return ManagerAPIUtil.getManagerRestaurant(id)
     .then(restaurant => {
       dispatch(receiveRestaurant(restaurant));
-      dispatch(receiveReviews(restaurant));
+      dispatch(receiveReviews(restaurant))
+      dispatch(receiveHours(restaurant.hours));
       dispatch(receiveSeatings(restaurant.seatings));
     });
 }
@@ -28,15 +29,6 @@ export const updateRestaurant = restaurant => dispatch => {
       dispatch(receiveErrors(errors));
     })
     .then(() => dispatch(resetCurrentModal()));
-}
-
-export const updateHours = hours => dispatch => {
-  return ManagerAPIUtil.updateHours(hours)
-    .then(updatedHours => dispatch(receiveUpdatedHours(updatedHours)),
-    error => {
-      dispatch(resetCurrentModal());
-      dispatch(receiveErrors(error))
-    });
 }
 
 export const setError = error => dispatch => {
@@ -64,9 +56,9 @@ const receiveSeatings = seating => ({
   seating,
 });
 
-const receiveUpdatedHours = hour => ({
-  type: RECEIVE_UPDATED_HOURS,
-  hour
+const receiveHours = hours => ({
+  type: RECEIVE_HOURS,
+  hours,
 });
 
 const receiveErrors = errors => ({

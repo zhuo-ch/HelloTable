@@ -9,6 +9,7 @@ import ModalReducer from './modal_reducer';
 import FavoritesReducer from './favorites_reducer';
 import ManagerReducer from './manager_reducer';
 import SeatingsReducer from './seatings_reducer';
+import HoursReducer from './hours_reducer';
 
 export default combineReducers({
   session: SessionReducer,
@@ -21,4 +22,5 @@ export default combineReducers({
   favorites: FavoritesReducer,
   manager: ManagerReducer,
   seatings: SeatingsReducer,
+  hours: HoursReducer,
 });
