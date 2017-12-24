@@ -21,9 +21,8 @@ class ManagerDetails extends React.Component {
       e.preventDefault();
       this.setState({ idx: e.currentTarget.id });
     }
-
     this.setState({ selecting: this.state.selecting ? false : true });
-    this.props.restaurant.errors
+    this.props.restaurant.errors.length > 0
       ? this.props.clearErrors()
       : '';
   }
