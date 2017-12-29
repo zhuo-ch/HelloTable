@@ -75,7 +75,7 @@ class ManagerReservations extends React.Component {
 
   render() {
     const reservationsSection = this.getReservationsSections();
-
+    
     return reservationsSection;
   }
 }
