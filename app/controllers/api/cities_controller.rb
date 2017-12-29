@@ -5,7 +5,12 @@ class Api::CitiesController < ApplicationController
   end
 
   def show
-    @city = City.find_city(params[:id])
+    @city = City.find_city(city_params)
     render "api/cities/show"
+  end
+
+  private
+  def city_params
+    params.permit(:id, :page, :per_page)
   end
 end

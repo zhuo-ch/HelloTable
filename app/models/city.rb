@@ -1,10 +1,19 @@
 class City < ActiveRecord::Base
   validates :name, presence: true, uniqueness: true
 
-  def self.find_city(id)
+  attr_accessor :pages, :page, :per_page
+
+  def self.find_city(params)
     city = City
       .includes(restaurants: [:photos, :rating, :reviews])
-      .find(id)
+      .find(params[:id])
+    city.per_page = params[:per_page] ? params[:per_page] : 10
+
+    if params[:page]
+      city.page = params[:page]
+    end
+
+    city
   end
 
   def self.in_bounds(latLng)

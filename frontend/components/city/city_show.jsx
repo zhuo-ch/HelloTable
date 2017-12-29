@@ -73,7 +73,7 @@ class CityShow extends React.Component {
     const filterBar = this.getFilter();
     const restaurants = this.filterRestaurants();
     const snippets = this.getSnippets(restaurants);
-
+debugger
     return (
       <div className='restaurants-index'>
         <section className='restaurants-index-splash'>
@@ -93,13 +93,13 @@ const mapStateToProps = (state, ownProps) => {
     cityId: ownProps.params.cityId,
     city: state.cities.city,
     restaurants: state.cities.city.restaurants,
-  })
+  });
 }
 
 const mapDispatchToProps = dispatch => ({
   fetchCity: cityId => dispatch(fetchCity(cityId)),
   setCurrentModal: modal => dispatch(setCurrentModal(modal)),
   resetCurrentModal: () => dispatch(resetCurrentModal()),
-})
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(CityShow);
