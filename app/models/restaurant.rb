@@ -3,6 +3,8 @@ class Restaurant < ActiveRecord::Base
   before_create :ensure_rating
   before_update :ensure_address
 
+  attr_accessor :pages, :page, :per_page
+
   def self.find_res(id)
     restaurant = Restaurant
       .includes(
