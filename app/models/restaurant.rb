@@ -5,6 +5,22 @@ class Restaurant < ActiveRecord::Base
 
   attr_accessor :pages, :page, :per_page
 
+  def self.find_by_params(params)
+    restaurants = Restaurant
+      .includes(:photos, :rating, :reviews)
+      .where(city_id: params[:id])
+    restaurants.per_page = params[:per_page] ? params[:per_page] : 10
+
+    if params[:page]
+      restaurants.page = params[:page]
+      restaurants.limit(params[:per_page]).offset(params[:per_page] * (params[:page] - 1))
+    else
+      restaurants.page = 1
+    end
+
+    restaurants
+  end
+
   def self.find_res(id)
     restaurant = Restaurant
       .includes(
