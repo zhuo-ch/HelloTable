@@ -1,4 +1,9 @@
 class Api::RestaurantsController < ApplicationController
+  def index
+    @restaurants = Restaurants.find_all(params)
+    render 'api/restaurants/index'
+  end
+
   def create
     @restaurant = Restaurant.new(restaurant_params)
 
