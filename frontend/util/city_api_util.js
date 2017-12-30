@@ -5,10 +5,10 @@ export const fetchAllCities = () => {
   });
 }
 
-export const fetchCity = (cityId) => {
+export const fetchCity = (query) => {
   return $.ajax({
     method: 'GET',
-    url: `api/cities/${cityId}`,
-    data: { page: 1, per_page: 5},
+    url: `api/restaurants`,
+    data: query,
   });
 }

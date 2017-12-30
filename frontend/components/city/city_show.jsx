@@ -17,7 +17,7 @@ class CityShow extends React.Component {
 
   componentWillMount() {
     this.props.setCurrentModal({hidden: false, type: 'spinner'});
-    this.props.fetchCity(this.props.cityId)
+    this.props.fetchCity({ id: this.props.cityId, per_page: 5 })
       .then(() => this.props.resetCurrentModal());
   }
 
@@ -29,17 +29,17 @@ class CityShow extends React.Component {
   filterRestaurants() {
     switch (this.state.activeFilter) {
       case 'Top Rated':
-        return this.props.city.restaurants.sort((a, b) => {
+        return this.props.restaurants.sort((a, b) => {
           return b.ratings.rating/b.ratings.total - a.ratings.rating/a.ratings.total;
         });
       case 'Best Value':
-        return this.props.city.restaurants.sort((a,b) => {
+        return this.props.restaurants.sort((a,b) => {
           return b.ratings.value/b.ratings.total - a.ratings.value/a.ratings.total;
         });
       case 'Newest Restaurants':
-        return this.props.city.restaurants.sort((a,b) => b.id - a.id);
+        return this.props.restaurants.sort((a,b) => b.id - a.id);
       default:
-        return this.props.city.restaurants;
+        return this.props.restaurants;
     }
   }
 
@@ -91,8 +91,7 @@ debugger
 const mapStateToProps = (state, ownProps) => {
   return ({
     cityId: ownProps.params.cityId,
-    city: state.cities.city,
-    restaurants: state.cities.city.restaurants,
+    restaurants: state.restaurants.restaurants,
   });
 }
 

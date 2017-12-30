@@ -9,8 +9,9 @@ export const fetchAllCities = () => dispatch => {
     .then((cities) => dispatch(receiveAllCities(cities)));
 }
 
-export const fetchCity = cityId => dispatch => {
-  return CityAPIUtil.fetchCity(cityId)
+export const fetchCity = query => dispatch => {
+  debugger
+  return CityAPIUtil.fetchCity(query)
     .then((restaurants) => dispatch(receiveAllRestaurants(restaurants)));
 }
 // export const fetchCity = cityId => dispatch => {

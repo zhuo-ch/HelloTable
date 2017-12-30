@@ -5,19 +5,19 @@ class Restaurant < ActiveRecord::Base
 
   attr_accessor :pages, :page, :per_page
 
-  def self.find_by_params(params)
+  def self.find_all(params)
     restaurants = Restaurant
       .includes(:photos, :rating, :reviews)
       .where(city_id: params[:id])
     restaurants.per_page = params[:per_page] ? params[:per_page] : 10
-
+    restaurants.pages = params[:pages] ? params[:pages] : nil
     if params[:page]
       restaurants.page = params[:page]
       restaurants.limit(params[:per_page]).offset(params[:per_page] * (params[:page] - 1))
     else
       restaurants.page = 1
     end
-
+debugger
     restaurants
   end
 

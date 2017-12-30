@@ -11,6 +11,7 @@ import { RECEIVE_SEARCH } from '../actions/search_actions';
 import * as ManagerSelector from '../selectors/manager_selectors';
 
 const _nullRestaurants = Object.freeze({
+  restaurants: [],
   restaurant: {
     id: "",
     name: "",
@@ -33,6 +34,7 @@ const RestaurantsReducer = (state = _nullRestaurants, action) => {
   Object.freeze(state);
   switch(action.type) {
     case RECEIVE_ALL_RESTAURANTS:
+    debugger
       return action.restaurants;
     case RECEIVE_RESTAURANT:
       return merge({}, state, { restaurant: action.restaurant });

@@ -1,6 +1,7 @@
 class Api::RestaurantsController < ApplicationController
   def index
-    @restaurants = Restaurants.find_all(params)
+    @restaurants = Restaurant.find_all(params)
+    debugger
     render 'api/restaurants/index'
   end
 
