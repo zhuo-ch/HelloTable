@@ -9,16 +9,16 @@ class Restaurant < ActiveRecord::Base
     restaurants = Restaurant
       .includes(:photos, :rating, :reviews)
       .where(city_id: params[:id])
-    restaurants.per_page = params[:per_page] ? params[:per_page] : 10
-    restaurants.pages = params[:pages] ? params[:pages] : nil
+    params[:per_page] = params[:per_page] ? params[:per_page] : 10
+    params[:pages] = params[:pages] ? params[:pages] : nil
+
     if params[:page]
-      restaurants.page = params[:page]
       restaurants.limit(params[:per_page]).offset(params[:per_page] * (params[:page] - 1))
     else
-      restaurants.page = 1
+      params[:page] = 1
     end
-debugger
-    restaurants
+
+    [restaurants, params]
   end
 
   def self.find_res(id)

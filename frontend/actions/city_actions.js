@@ -10,7 +10,6 @@ export const fetchAllCities = () => dispatch => {
 }
 
 export const fetchCity = query => dispatch => {
-  debugger
   return CityAPIUtil.fetchCity(query)
     .then((restaurants) => dispatch(receiveAllRestaurants(restaurants)));
 }
