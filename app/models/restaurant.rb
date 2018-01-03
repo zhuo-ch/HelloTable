@@ -3,21 +3,19 @@ class Restaurant < ActiveRecord::Base
   before_create :ensure_rating
   before_update :ensure_address
 
-  # attr_accessor :pages, :page, :per_page
-
   def self.find_all(params)
     params[:per_page] = params[:per_page] ? params[:per_page].to_i : 10
     params[:pages] = params[:pages] ? params[:pages].to_i : get_pages(params[:id], params[:per_page])
     params[:page] = params[:page] ? params[:page].to_i : 1
     filter = params[:filter] ? get_filter(params[:filter]) : get_filter("Top Rated")
-debugger
+
     restaurants = Restaurant
       .includes(:photos, :rating, :sample_review)
       .where(city_id: params[:id])
       .order(filter)
-      .limit(params[:per_page])
       .offset(params[:per_page] * (params[:page] - 1))
-debugger
+      .limit(params[:per_page])
+
     [restaurants, params]
   end
 

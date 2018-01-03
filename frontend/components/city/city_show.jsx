@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
-import { merge } from 'lodash';
+import { merge, omit } from 'lodash';
 import FontAwesome from 'react-fontawesome';
 import { fetchCity } from '../../actions/city_actions';
 import RestaurantSnippet from '../restaurant/restaurant_snippet';
@@ -10,10 +10,7 @@ import { setCurrentModal, resetCurrentModal } from '../../actions/modal_actions'
 
 class CityShow extends React.Component {
   constructor(props) {
-    super(props)
-    // this.state = { activeFilter: 'Top Rated' };
-    this.filterRestaurants = this.filterRestaurants.bind(this);
-    this.getClassName = this.getClassName.bind(this);
+    super(props);
     this.handleFilter = this.handleFilter.bind(this);
     this.handlePage = this.handlePage.bind(this);
   }
@@ -26,7 +23,9 @@ class CityShow extends React.Component {
 
   handleFilter(e) {
     e.preventDefault();
-    this.setState({activeFilter: e.currentTarget.innerText});
+    let params = merge({}, this.props.pagination, { filter: e.currentTarget.innerText, page: 1 });
+    params = this.removeProps(params);
+    this.props.fetchCity(params);
   }
 
   handlePage(e) {
@@ -58,31 +57,13 @@ class CityShow extends React.Component {
   }
 
   handleNewPage(page) {
-    const params = {
-      id: this.props.cityId,
-      pages: this.props.pagination.pages,
-      per_page: this.props.pagination.per_page,
-      page,
-    };
-    debugger
+    let params = merge({}, this.props.pagination, { page });
+    params = this.removeProps(params);
     this.props.fetchCity(params);
   }
 
-  filterRestaurants() {
-    switch (this.state.activeFilter) {
-      case 'Top Rated':
-        return this.props.restaurants.sort((a, b) => {
-          return b.ratings.rating/b.ratings.total - a.ratings.rating/a.ratings.total;
-        });
-      case 'Best Value':
-        return this.props.restaurants.sort((a,b) => {
-          return b.ratings.value/b.ratings.total - a.ratings.value/a.ratings.total;
-        });
-      case 'Newest Restaurants':
-        return this.props.restaurants.sort((a,b) => b.id - a.id);
-      default:
-        return this.props.restaurants;
-    }
+  removeProps(obj) {
+    return omit(obj, ['restaurant', 'restaurants', 'errors']);
   }
 
   getClassName(name) {
@@ -162,8 +143,7 @@ class CityShow extends React.Component {
 
   render() {
     const filterBar = this.getFilterBar();
-    const restaurants = this.filterRestaurants();
-    const snippets = this.getSnippets(restaurants);
+    const snippets = this.getSnippets(this.props.restaurants);
 
     return (
       <div className='restaurants-index'>
