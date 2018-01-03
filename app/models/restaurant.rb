@@ -7,7 +7,7 @@ class Restaurant < ActiveRecord::Base
 
   def self.find_all(params)
     restaurants = Restaurant
-      .includes(:photos, :rating, :reviews)
+      .includes(:photos, :rating, :sample_review)
       .where(city_id: params[:id])
     params[:per_page] = params[:per_page] ? params[:per_page] : 10
     params[:pages] = params[:pages] ? params[:pages] : nil
@@ -85,4 +85,6 @@ class Restaurant < ActiveRecord::Base
   has_many :photos, dependent: :destroy, inverse_of: :restaurant
   has_many :seatings
   has_many :hours
+  has_many :sample_review, -> { order("RANDOM()").limit(1) },
+    through: :reservations, source: :review
 end
