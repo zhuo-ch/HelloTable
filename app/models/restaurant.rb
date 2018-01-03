@@ -6,17 +6,15 @@ class Restaurant < ActiveRecord::Base
   attr_accessor :pages, :page, :per_page
 
   def self.find_all(params)
+    params[:per_page] = params[:per_page] ? params[:per_page] : 10
+    params[:pages] = params[:pages] ? params[:pages] : self.get_pages(params[:id], params[:per_page])
+    params[:page] = params[:page] ? params[:page] : 1
+
     restaurants = Restaurant
       .includes(:photos, :rating, :sample_review)
       .where(city_id: params[:id])
-    params[:per_page] = params[:per_page] ? params[:per_page] : 10
-    params[:pages] = params[:pages] ? params[:pages] : nil
-
-    if params[:page]
-      restaurants.limit(params[:per_page]).offset(params[:per_page] * (params[:page] - 1))
-    else
-      params[:page] = 1
-    end
+      .limit(params[:per_page])
+      .offset(params[:per_page] * (params[:page] - 1))
 
     [restaurants, params]
   end
@@ -30,6 +28,10 @@ class Restaurant < ActiveRecord::Base
         :seatings)
       .includes(reviews: [ :user, :reservation ])
       .find(id)
+  end
+
+  def self.get_pages(id, per_page)
+    (Restaurant.where(city_id: id).count / per_page.to_i) + 1
   end
 
   def format_address
