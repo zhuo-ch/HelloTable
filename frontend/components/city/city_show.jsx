@@ -30,29 +30,29 @@ class CityShow extends React.Component {
 
   handlePage(e) {
     e.preventDefault();
-    const currentPage = this.props.pagination.page;
+    const current = this.props.pagination.page;
     const totalPages = this.props.pagination.pages;
-    let newPage;
+    let page;
 
     switch (e.currentTarget.id) {
       case 'double-left':
-        newPage = currentPage - 5;
+        page = current - 5;
         break;
       case 'left':
-        newPage = currentPage - 1;
+        page = current - 1;
         break;
       case 'right':
-        newPage = currentPage + 1;
+        page = current + 1;
         break;
       case 'double-right':
-        newPage = currentPage + 5;
+        page = current + 5;
         break;
       default:
-        newPage = e.currentTarget.id;
+        page = e.currentTarget.id;
     }
 
-    if (newPage > 0 && newPage <= totalPages) {
-      this.handleNewPage(newPage);
+    if (page > 0 && page <= totalPages) {
+      this.handleNewPage(page);
     }
   }
 
@@ -84,14 +84,8 @@ class CityShow extends React.Component {
     )
   }
 
-  getPagesList() {
-    const pages = new Array(this.props.pagination.pages).fill(0).map((el, idx) => idx + 1);
-    const currentPage = this.props.pagination.page;
-    const five = currentPage >= 3
-      ? pages.slice(currentPage - 3, currentPage + 2)
-      : pages.slice(0, 5);
-
-    return five.map(el => {
+  getList(list, currentPage) {
+    return list.map(el => {
       return (
         <li
           key={ el }
@@ -104,6 +98,22 @@ class CityShow extends React.Component {
     });
   }
 
+  getPagesList() {
+    const pages = new Array(this.props.pagination.pages).fill(0).map((el, idx) => idx + 1);
+    const currentPage = this.props.pagination.page;
+    let five;
+
+    if (currentPage >= 3 && currentPage <= pages.length - 2) {
+      five = pages.slice(currentPage - 3, currentPage + 2);
+    } else if (currentPage < 3) {
+      five = pages.slice(0, 5);
+    } else {
+      five = pages.slice(pages.length - 5, pages.length);
+    }
+
+    return this.getList(five, currentPage);
+  }
+
   getArrow(type) {
     return (
       <li key={ type } id={ type } onClick={ this.handlePage }>
@@ -114,8 +124,7 @@ class CityShow extends React.Component {
 
   getPages() {
     const pagesList = this.getPagesList();
-
-    return (
+    const pages = (
       <ul className='page-list'>
         { this.getArrow('double-left') }
         { this.getArrow('left') }
@@ -123,7 +132,10 @@ class CityShow extends React.Component {
         { this.getArrow('right') }
         { this.getArrow('double-right')}
       </ul>
-    )
+    );
+    this.pages = pages;
+
+    return pages;
   }
 
   getFilterBar() {
@@ -153,6 +165,7 @@ class CityShow extends React.Component {
         <section className='restaurant-snippets'>
           { filterBar }
           { snippets }
+          { this.pages }
         </section>
       </div>
     )
