@@ -4,7 +4,7 @@ export const fetchAllRestaurants = (cityId) => {
     url: `api/restaurants`,
     dataType: 'json',
     data: {cityId},
-  })
+  });
 }
 
 export const createRestaurant = (restaurant) => {
@@ -15,14 +15,14 @@ export const createRestaurant = (restaurant) => {
     contentType: false,
     processData: false,
     data: restaurant,
-  })
+  });
 }
 
 export const fetchRestaurant = (id) => {
   return $.ajax({
     method: 'GET',
     url: `api/restaurants/${id}`
-  })
+  });
 }
 
 export const updateRestaurant = (restaurant) => {
@@ -30,12 +30,12 @@ export const updateRestaurant = (restaurant) => {
     method: 'PATCH',
     url: `api/restaurants/${restaurant.id}`,
     data: {restaurant}
-  })
+  });
 }
 
 export const deleteRestaurant = (id) => {
   return $.ajax({
     method: 'DELETE',
     url: `api/restaurants/${id}`
-  })
+  });
 }

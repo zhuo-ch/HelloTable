@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
+import { merge } from 'lodash';
 import FontAwesome from 'react-fontawesome';
 import { fetchCity } from '../../actions/city_actions';
 import RestaurantSnippet from '../restaurant/restaurant_snippet';
@@ -14,6 +15,7 @@ class CityShow extends React.Component {
     this.filterRestaurants = this.filterRestaurants.bind(this);
     this.getClassName = this.getClassName.bind(this);
     this.handleFilter = this.handleFilter.bind(this);
+    this.handlePage = this.handlePage.bind(this);
   }
 
   componentWillMount() {
@@ -25,6 +27,45 @@ class CityShow extends React.Component {
   handleFilter(e) {
     e.preventDefault();
     this.setState({activeFilter: e.currentTarget.innerText});
+  }
+
+  handlePage(e) {
+    e.preventDefault();
+    const currentPage = this.props.pagination.page;
+    const totalPages = this.props.pagination.pages;
+    let newPage;
+
+    switch (e.currentTarget.id) {
+      case 'double-left':
+        newPage = currentPage - 5;
+        break;
+      case 'left':
+        newPage = currentPage - 1;
+        break;
+      case 'right':
+        newPage = currentPage + 1;
+        break;
+      case 'double-right':
+        newPage = currentPage + 5;
+        break;
+      default:
+        newPage = e.currentTarget.id;
+    }
+
+    if (newPage > 0 && newPage <= totalPages) {
+      this.handleNewPage(newPage);
+    }
+  }
+
+  handleNewPage(page) {
+    const params = {
+      id: this.props.cityId,
+      pages: this.props.pagination.pages,
+      per_page: this.props.pagination.per_page,
+      page,
+    };
+    debugger
+    this.props.fetchCity(params);
   }
 
   filterRestaurants() {
@@ -62,14 +103,44 @@ class CityShow extends React.Component {
     )
   }
 
-  getPages() {
+  getPagesList() {
     const pages = new Array(this.props.pagination.pages).fill(0).map((el, idx) => idx + 1);
     const currentPage = this.props.pagination.page;
-    const five = pages.slice(currentPage - 3, currentPage + 2);
+    const five = currentPage >= 3
+      ? pages.slice(currentPage - 3, currentPage + 2)
+      : pages.slice(0, 5);
+
+    return five.map(el => {
+      return (
+        <li
+          key={ el }
+          id={ el }
+          className={ el === currentPage ? 'highlight' : 'filter-item'}
+          onClick={ this.handlePage }>
+          { el }
+        </li>
+      );
+    });
+  }
+
+  getArrow(type) {
+    return (
+      <li key={ type } id={ type } onClick={ this.handlePage }>
+        <FontAwesome name={`angle-${type}`} className={`fa fa-${type} icon clickable`} />
+      </li>
+    );
+  }
+
+  getPages() {
+    const pagesList = this.getPagesList();
 
     return (
-      <ul>
-        { five }
+      <ul className='page-list'>
+        { this.getArrow('double-left') }
+        { this.getArrow('left') }
+        { pagesList }
+        { this.getArrow('right') }
+        { this.getArrow('double-right')}
       </ul>
     )
   }

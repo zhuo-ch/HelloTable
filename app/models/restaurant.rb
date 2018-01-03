@@ -6,16 +6,16 @@ class Restaurant < ActiveRecord::Base
   attr_accessor :pages, :page, :per_page
 
   def self.find_all(params)
-    params[:per_page] = params[:per_page] ? params[:per_page] : 10
-    params[:pages] = params[:pages] ? params[:pages] : self.get_pages(params[:id], params[:per_page])
-    params[:page] = params[:page] ? params[:page] : 1
-
+    params[:per_page] = params[:per_page] ? params[:per_page].to_i : 10
+    params[:pages] = params[:pages] ? params[:pages].to_i : self.get_pages(params[:id], params[:per_page])
+    params[:page] = params[:page] ? params[:page].to_i : 1
+debugger
     restaurants = Restaurant
       .includes(:photos, :rating, :sample_review)
       .where(city_id: params[:id])
       .limit(params[:per_page])
       .offset(params[:per_page] * (params[:page] - 1))
-
+debugger
     [restaurants, params]
   end
 

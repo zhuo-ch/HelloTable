@@ -1,19 +1,18 @@
 .filter {
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
   margin: 10px;
 }
 
 .filter-list {
-  align-self: center;
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-around;
+  align-items: center;
   border-bottom: 1px solid gainsboro;
-  width: 100%;
+  flex: 2;
 }
 
 .filter-item {
-  padding: 20px;
   font-size: 2vw;
   font-weight: 100;
   color: #009080;
@@ -29,4 +28,17 @@
   color: #008080;
   font-weight: bold;
   border-bottom: 1px solid #F13737;
+}
+
+.page-list {
+  display: flex;
+  flex: 1;
+  justify-content: space-around;
+  align-items: center;
+  border-bottom: 1px solid gainsboro;
+}
+
+.clickable:hover {
+  opacity: 0.5;
+  cursor: pointer;
 }
