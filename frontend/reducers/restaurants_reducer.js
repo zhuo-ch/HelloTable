@@ -34,8 +34,7 @@ const RestaurantsReducer = (state = _nullRestaurants, action) => {
   Object.freeze(state);
   switch(action.type) {
     case RECEIVE_ALL_RESTAURANTS:
-    debugger
-      return action.restaurants;
+      return merge({}, state, action.restaurants);
     case RECEIVE_RESTAURANT:
       return merge({}, state, { restaurant: action.restaurant });
     case RECEIVE_RESET_RESTAURANT:
