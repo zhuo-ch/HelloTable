@@ -28,6 +28,7 @@ const _nullRestaurants = Object.freeze({
     errors: [],
   },
   errors: [],
+  filter: 'Top Rated'
 });
 
 const RestaurantsReducer = (state = _nullRestaurants, action) => {

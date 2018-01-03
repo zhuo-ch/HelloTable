@@ -11,7 +11,7 @@ import { setCurrentModal, resetCurrentModal } from '../../actions/modal_actions'
 class CityShow extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {activeFilter: 'Top Rated'};
+    // this.state = { activeFilter: 'Top Rated' };
     this.filterRestaurants = this.filterRestaurants.bind(this);
     this.getClassName = this.getClassName.bind(this);
     this.handleFilter = this.handleFilter.bind(this);
@@ -20,7 +20,7 @@ class CityShow extends React.Component {
 
   componentWillMount() {
     this.props.setCurrentModal({hidden: false, type: 'spinner'});
-    this.props.fetchCity({ id: this.props.cityId, per_page: 5 })
+    this.props.fetchCity({ id: this.props.cityId, per_page: 5, filter: 'Top Rated' })
       .then(() => this.props.resetCurrentModal());
   }
 
@@ -86,7 +86,7 @@ class CityShow extends React.Component {
   }
 
   getClassName(name) {
-    if (this.state.activeFilter === name) {
+    if (this.props.pagination.filter === name) {
       return 'filter-item active-filter';
     } else {
       return 'filter-item';

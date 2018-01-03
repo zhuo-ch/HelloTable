@@ -1,5 +1,6 @@
 class Api::RestaurantsController < ApplicationController
   def index
+    debugger
     data = Restaurant.find_all(params)
     @restaurants = data[0]
     @params = data[1]

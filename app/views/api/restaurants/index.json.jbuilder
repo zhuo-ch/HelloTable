@@ -1,4 +1,4 @@
-json.extract! @params, :pages, :page, :per_page
+json.extract! @params, :pages, :page, :per_page, :filter
 json.restaurants @restaurants.map do |restaurant|
     json.extract! restaurant, :id, :name, :cuisine, :address, :location
     json.ratings do
