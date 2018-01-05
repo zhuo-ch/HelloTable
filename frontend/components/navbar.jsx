@@ -122,7 +122,7 @@ class Navbar extends React.Component {
     const item = this.props.reservations[idx];
     const date = this.props.formatDate(item.date);
     const time = this.props.formatTime(item.time - 1200);
-    const text = `${time} on ${date} at ${item.restaurant.name}`;
+    const text = `${time} on ${date} at ${item.name}`;
     const link = `/users/${this.props.currentUser.id}`;
 
     return (
@@ -135,7 +135,7 @@ class Navbar extends React.Component {
 
   getFavoriteItem() {
     const idx = this.state.favorites[this.state.idx];
-    const item = this.props.favorites[idx].restaurant;
+    const item = this.props.favorites[idx];
     const link = `/restaurant/${item.id}`;
 
     return (
