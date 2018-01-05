@@ -1,11 +1,10 @@
 json.extract! user, :username, :id
 json.manager user.restaurant ? user.restaurant.id : false
-json.favorites do
-  json.array! user.favorites do |favorite|
-    json.partial! 'api/favorites/show.json.jbuilder', favorite: favorite
-  end
+json.favorites user.favorites do |favorite|
+    json.extract! favorite.restaurant, :id, :name
 end
 
 json.reservations user.reservations do |reservation|
-  json.partial! 'api/reservations/show.json.jbuilder', reservation: reservation
+  json.extract! reservation, :time, :date, :seats
+  json.extract! reservation.restaurant, :id, :name
 end
