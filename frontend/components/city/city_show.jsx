@@ -30,26 +30,11 @@ class CityShow extends React.Component {
 
   handlePage(e) {
     e.preventDefault();
+    const pageMapping = { 'double-left': -5, left: -1, right: 1, 'double-right': 5 };
+    const idx = e.currentTarget.id;
     const current = this.props.pagination.page;
     const totalPages = this.props.pagination.pages;
-    let page;
-
-    switch (e.currentTarget.id) {
-      case 'double-left':
-        page = current - 5;
-        break;
-      case 'left':
-        page = current - 1;
-        break;
-      case 'right':
-        page = current + 1;
-        break;
-      case 'double-right':
-        page = current + 5;
-        break;
-      default:
-        page = e.currentTarget.id;
-    }
+    const page = pageMapping[idx] ? current + pageMapping[idx] : idx;
 
     if (page > 0 && page <= totalPages) {
       this.handleNewPage(page);
