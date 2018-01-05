@@ -11,7 +11,7 @@ import { LOGOUT } from '../actions/session_actions';
 import { filterReservation } from '../selectors/reservation_selectors';
 
 const _nullReservations = Object.freeze({
-  userReservations: {},
+  userReservations: [],
   restaurantReservations: [],
   currentReservation: {},
 });
