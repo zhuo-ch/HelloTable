@@ -7,7 +7,7 @@ export const RESET_USER = 'RESET_USER';
 export const RECEIVE_ERRORS = 'RECEIVE_ERRORS';
 
 export const fetchUser = id => dispatch => {
-  return UserAPIUtil.fetchUser(id)
+  return UserAPIUtil.getUser(id)
     .then(user => {
       dispatch(receiveUser(user));
       dispatch(receiveUserReservations(user.reservations));
@@ -27,4 +27,9 @@ const receiveUser = user => ({
 
 const receiveResetUser = () => ({
   type: RESET_USER,
+});
+
+const receiveErrors = errors => ({
+  type: RECEIVE_ERRORS,
+  errors,
 });

@@ -9,7 +9,7 @@ import Scrollchor from 'react-scrollchor';
 import RestaurantSnippet from '../restaurant/restaurant_snippet';
 import { StickyContainer, Sticky } from 'react-sticky';
 import { setCurrentModal, resetCurrentModal } from '../../actions/modal_actions';
-import { fetchManagerRestaurant } from '../../actions/manager_actions';
+import { fetchUser } from '../../actions/user_actions';
 import * as DateSelectors from '../../selectors/date_selectors';
 import * as ManagerUtil from '../../util/manager_util';
 
@@ -25,7 +25,7 @@ class UserShow extends React.Component {
     if (parseInt(this.props.routeParams.userId) !== this.props.currentUser.id) {
       this.props.router.push('/');
     } else {
-      this.props.fetchManagerRestaurant(this.props.currentUser.id)
+      this.props.fetchUser(this.props.currentUser.id)
     }
   }
 
@@ -104,9 +104,10 @@ class UserShow extends React.Component {
   }
 
   render() {
-    const Upcoming = this.getUpcoming();
-    const Previous = this.getPrevious();
-    const Favorites = this.getFavorites();
+    const user = this.props.user.id ? true : false;
+    const Upcoming = user ? this.getUpcoming() : '';
+    const Previous = user ? this.getPrevious() : '';
+    const Favorites = user ? this.getFavorites() : '';
     const manager = this.getManager();
 
     return(
@@ -156,6 +157,7 @@ class UserShow extends React.Component {
 const mapStateToProps = state => {
   return ({
     currentUser: state.session.currentUser,
+    user: state.user,
     favorites: state.favorites,
     reservations: state.reservations.userReservations,
     manager: state.restaurants.restaurant,
@@ -167,7 +169,7 @@ const mapDispatchToProps = dispatch => {
     destroyReservation: id => dispatch(destroyReservation(id)),
     setCurrentModal: modal => dispatch(setCurrentModal(modal)),
     resetCurrentModal: () => dispatch(resetCurrentModal()),
-    fetchManagerRestaurant: id => dispatch(fetchManagerRestaurant(id)),
+    fetchUser: id => dispatch(fetchUser(id)),
     resetRestaurant: () => dispatch(resetRestaurant()),
   });
 }
