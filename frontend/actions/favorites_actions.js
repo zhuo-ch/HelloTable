@@ -19,7 +19,7 @@ export const removeFavorite = favorite => dispatch => {
     .then(dispatch(receiveRemoveFavorite(favorite)));
 }
 
-const receiveFavorites = favorites => ({
+export const receiveFavorites = favorites => ({
   type: RECEIVE_FAVORITES,
   favorites,
 });

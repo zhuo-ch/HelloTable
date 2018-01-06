@@ -35,6 +35,11 @@ export const resetReservation = () => dispatch => {
   return dispatch(clearReservation());
 }
 
+export const receiveUserReservations = reservations => ({
+  type: RECEIVE_USER_RESERVATIONS,
+  reservations,
+});
+
 const receiveRestaurantReservations = reservations => ({
   type: RECEIVE_RESTAURANT_RESERVATIONS,
   reservations,

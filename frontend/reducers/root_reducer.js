@@ -10,9 +10,11 @@ import FavoritesReducer from './favorites_reducer';
 import ManagerReducer from './manager_reducer';
 import SeatingsReducer from './seatings_reducer';
 import HoursReducer from './hours_reducer';
+import UserReducer from './users_reducer';
 
 export default combineReducers({
   session: SessionReducer,
+  user: UserReducer,
   restaurants: RestaurantsReducer,
   cities: CitiesReducer,
   search: SearchReducer,
