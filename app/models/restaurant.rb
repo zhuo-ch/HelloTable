@@ -1,7 +1,7 @@
 class Restaurant < ActiveRecord::Base
   validates :user_id, :name, :description, :address, :location, :phone, presence: true
   before_create :ensure_rating
-  before_update :ensure_address
+  # before_update :ensure_address
 
   def self.find_all(params)
     params[:per_page] = params[:per_page] ? params[:per_page].to_i : 10
@@ -52,7 +52,9 @@ class Restaurant < ActiveRecord::Base
   def ensure_rating
     if self.rating.nil?
       Rating.create(restaurant: self)
+      return true
     end
+    false
   end
 
   def get_reservations(date, time)

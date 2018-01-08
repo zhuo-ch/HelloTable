@@ -22,5 +22,5 @@ class Rating < ActiveRecord::Base
     self.save
   end
 
-  belongs_to :restaurant
+  belongs_to :restaurant, inverse_of: :rating
 end
