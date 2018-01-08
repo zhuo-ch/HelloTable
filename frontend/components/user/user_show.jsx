@@ -49,7 +49,7 @@ class UserShow extends React.Component {
   }
 
   getUpcoming() {
-    const reservations = this.props.reservations.filter(reservation => DateSelectors.setUpcoming(reservation));
+    const reservations = this.props.user.reservations.filter(reservation => DateSelectors.setUpcoming(reservation));
 
     return (
       reservations.map((reservation) => {
@@ -68,7 +68,7 @@ class UserShow extends React.Component {
   }
 
   getPrevious() {
-    const previous = this.props.reservations.filter(reservation => !DateSelectors.setUpcoming(reservation));
+    const previous = this.props.user.reservations.filter(reservation => !DateSelectors.setUpcoming(reservation));
 
     return (
       previous.map((reservation) => {
@@ -91,10 +91,11 @@ class UserShow extends React.Component {
   }
 
   getFavorites() {
-    return Object.keys(this.props.favorites).map(key => {
+
+    return Object.keys(this.props.user.favorites).map(key => {
       return (
         <section className='show-fav' key={key}>
-          <RestaurantSnippet restaurant={this.props.favorites[key].restaurant} />
+          <RestaurantSnippet restaurant={this.props.user.favorites[key].restaurant} />
         </section>
       );
     });
