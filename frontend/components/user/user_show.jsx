@@ -25,7 +25,7 @@ class UserShow extends React.Component {
     if (parseInt(this.props.routeParams.userId) !== this.props.currentUser.id) {
       this.props.router.push('/');
     } else {
-      this.props.fetchUser(this.props.currentUser.id)
+      this.props.fetchUser(this.props.currentUser.id);
     }
   }
 
@@ -100,7 +100,7 @@ class UserShow extends React.Component {
   }
 
   getManager() {
-    return this.props.manager.id ? ManagerUtil.createButton(`Manage ${this.props.manager.name}`, this.handleManager) : '';
+    return this.props.manager ? ManagerUtil.createButton(`Manage my Restaurant`, this.handleManager) : '';
   }
 
   render() {

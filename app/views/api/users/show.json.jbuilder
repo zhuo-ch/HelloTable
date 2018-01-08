@@ -4,6 +4,8 @@ json.favorites do
     json.partial! 'api/favorites/show.json.jbuilder', favorite: favorite
   end
 end
-@user.reservations do |reservation|
-  json.partial! 'api/reservations/show.json.jbuilder', reservation: reservation
+json.reservations do
+  json.array! @user.reservations do |reservation|
+    json.partial! 'api/reservations/show.json.jbuilder', reservation: reservation
+  end
 end
