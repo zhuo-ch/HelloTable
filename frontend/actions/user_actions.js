@@ -1,4 +1,5 @@
 import * as UserAPIUtil from '../util/user_api_util';
+import { resetCurrentModal } from './modal_actions';
 import { RECEIVE_USER_RESERVATIONS, receiveUserReservations } from './reservations_actions';
 import { RECEIVE_FAVORITES, receiveFavorites } from './favorites_actions';
 
@@ -9,7 +10,8 @@ export const RECEIVE_ERRORS = 'RECEIVE_ERRORS';
 export const fetchUser = id => dispatch => {
   return UserAPIUtil.getUser(id)
     .then(user => dispatch(receiveUser(user)),
-      err => dispatch(receiveErrors(err.responseJSON)));
+      err => dispatch(receiveErrors(err.responseJSON)))
+    .then(() => dispatch(resetCurrentModal()));
 }
 
 export const resetUser = () => dispatch => {

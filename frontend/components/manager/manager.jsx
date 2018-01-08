@@ -4,6 +4,7 @@ import { withRouter, hashHistory } from 'react-router';
 import { fetchManagerRestaurant } from '../../actions/manager_actions';
 import { resetRestaurant } from '../../actions/restaurant_actions';
 import { resetReservation } from '../../actions/reservations_actions';
+import { setCurrentModal } from '../../actions/modal_actions';
 import { StickyContainer, Sticky } from 'react-sticky';
 import ManagerSideBar from './manager_side_bar';
 import RestaurantMap from '../restaurant/restaurant_map';
@@ -27,6 +28,7 @@ class Manager extends React.Component {
     if (!this.props.currentUser.id) {
       hashHistory.push('/');
     } else {
+      this.props.setCurrentModal({ hidden: false, type: 'spinner' });
       this.props.fetchManagerRestaurant(this.props.currentUser.id);
     }
   }
@@ -38,7 +40,7 @@ class Manager extends React.Component {
 
   handleSideBar(e) {
     e.preventDefault();
-    const reference = document.getElementById(e.currentTarget.innerText);
+    const reference = document.getElementById(e.currentTarget.textContent);
     reference.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
@@ -87,6 +89,7 @@ const mapDispatchToProps = dispatch => ({
   fetchManagerRestaurant: id => dispatch(fetchManagerRestaurant(id)),
   resetRestaurant: () => dispatch(resetRestaurant()),
   resetReservation: () => dispatch(resetReservation()),
+  setCurrentModal: modal => dispatch(setCurrentModal(modal)),
 });
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Manager));

@@ -18,7 +18,8 @@ export const fetchManagerRestaurant = id => dispatch => {
       dispatch(receiveReviews(restaurant))
       dispatch(receiveHours(restaurant.hours));
       dispatch(receiveSeatings(restaurant.seatings));
-    });
+    })
+    .then(() => dispatch(resetCurrentModal()));
 }
 
 export const updateRestaurant = restaurant => dispatch => {

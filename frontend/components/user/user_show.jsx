@@ -25,6 +25,7 @@ class UserShow extends React.Component {
     if (parseInt(this.props.routeParams.userId) !== this.props.currentUser.id) {
       this.props.router.push('/');
     } else {
+      this.props.setCurrentModal({ hidden: false, type: 'spinner' });
       this.props.fetchUser(this.props.currentUser.id);
     }
   }
