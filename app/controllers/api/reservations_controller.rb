@@ -1,6 +1,5 @@
 class Api::ReservationsController < ApplicationController
   def index
-    debugger
     @reservations = Reservation
       .includes(:user)
       .where(date: params[:query][:date])
