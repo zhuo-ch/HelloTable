@@ -28,7 +28,7 @@ class ManagerReservations extends React.Component {
   handleChange(e) {
     e.preventDefault();
     const newDate = e.currentTarget.value.split('-');
-    const date = newDate[1]+'-'+newDate[2]+'-'+newDate[0];
+    const date = newDate[1].slice(1, newDate[1].length)+'-'+newDate[2]+'-'+newDate[0];
     this.setState({ date });
     this.props.fetchManagerRestaurantReservations({ id: this.props.currentUser.manager, date });
   }
@@ -75,7 +75,7 @@ class ManagerReservations extends React.Component {
 
   render() {
     const reservationsSection = this.getReservationsSections();
-    
+
     return reservationsSection;
   }
 }

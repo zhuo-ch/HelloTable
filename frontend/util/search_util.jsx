@@ -87,8 +87,8 @@ export const formatDate = (date) => {
   let currentDate = `${date.getMonth()+1}-${date.getDate()}-${date.getFullYear()}`;
 
   return (
-    currentDate.split("-").map((num) => {
-      if (parseInt(num) < 10) {
+    currentDate.split("-").map((num, idx) => {
+      if (idx > 0 && parseInt(num) < 10) {
         return "0"+num;
       } else {
         return num;
