@@ -1,11 +1,8 @@
 class Api::ReviewsController < ApplicationController
-
   def index
-    @reviews = Restaurant
-      .find(params[:restaurant_id])
-      .reviews
-      .all
-      .includes(:user, :reservation, :restaurant)
+    data = Review.find_all(params)
+    @reviews = data[0]
+    @params = data[1]
   end
 
   def create
