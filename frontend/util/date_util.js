@@ -1,9 +1,9 @@
-export const getNewDate = () => {
-  return new Date().toDateString();
+export const getNewDate = date => {
+  return date ? new Date(date).toDateString() : new Date().toDateString();
 }
 
 export const getNewTime = () => {
-  return new Date().toTimeString();
+  return toUserTime(timeToString(new Date()));
 }
 
 export const dateToString = date => {
@@ -11,7 +11,7 @@ export const dateToString = date => {
 }
 
 export const timeToString = time => {
-  return isDate(date) ? time.toLocaleTimeString() : new Date(date).toLocaleTimeString();
+  return isDate(time) ? time.toLocaleTimeString() : new Date(time).toLocaleTimeString();
 }
 
 export const toInputDate = date => {
@@ -22,26 +22,26 @@ export const toInputDate = date => {
 }
 
 export const toUserTime = time => {
-  const timeArr = time.split(' ')
-    .reduce((accum, el, idx) => idx > 0
+  const timeArr = timeToArr(time);
+  const hour = time[1] > 30 ? parseInt(time[0]) + 1 : time[0]
+  const minutes = time[1] > 30 ? '00' : '30';
+
+  return `${hour}:${minutes} ${timeArr[timeArr.length - 1]}`;
+}
+
+export const timeToArr = time => {
+  return time.split(' ')
+    .reduce((accum, el, idx) => idx === 0
       ? accum.concat(el.split(':'))
       : accum.concat([el])
       , []
     );
-
-  return `${timeArr[0] > 12 ? timeArr[0] - 12 : timeArr[0]} : ${formatMinutes(timeArr[1])}`;
 }
 
-export const formatTime = (hours, minutes) => {
-  return hours.toString()+":"+formatMinutes(minutes);
-}
+export const formatHoursMinutes = (hours, minutes) => {
+  hours = hours == 0 ? 12 : parseInt(hours)
 
-const formatMinutes = (minute) => {
-  if (minute === 0) {
-    return '00';
-  } else {
-    return '30';
-  }
+  return parseInt(minutes) < 29 ? `${hours}:00` : `${hours}:30`;
 }
 
 const isDate = date => {

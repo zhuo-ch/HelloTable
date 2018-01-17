@@ -1,7 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { setSearchParams } from '../../actions/search_actions';
-import * as SearchUtil from '../../util/search_util.jsx';
+import * as SearchUtil from '../../util/search_util';
+import * as DateUtil from '../../util/date_util';
 
 class TimeBar extends React.Component {
   constructor(props) {
@@ -62,25 +63,36 @@ class TimeBar extends React.Component {
     }
   }
 
+  isCurrentDate() {
+    return this.props.date === DateUtil.getNewDate();
+  }
+
+  getStartTime() {
+    if (!this.isCurrentDate()) {
+      return { start: 13, minutes: 0 };
+    } else {
+      const newTime = DateUtil.timeToArr(DateUtil.getNewTime());
+      const hour = newTime[newTime.length - 1] === 'PM' ? parseInt(newTime[0]) + 12 : parseInt(newTime[0]);
+      if (newTime[1] < 30) {
+        return { start: hour, minutes: 30 };
+      } else {
+        return { start: hour + 1, minutes: 0 };
+      }
+    }
+  }
+
   getSlots() {
-    const time = this.props.time.split(':');
-    let startTime = 1;
-    let endTime = 12;
-    let minutes = time[1] < 30 ? 0 : 30;
+    const time = this.getStartTime();
+    const endTime = 24;
     let slots = new Array();
 
-    if ((this.props.date === SearchUtil.formatDate(new Date())) && (new Date().getHours() > 12)) {
-      startTime = (new Date().getHours() % 12) + 1;
-    }
-
-    while (startTime < endTime) {
-      slots.push(SearchUtil.formatTime(startTime, minutes));
-      minutes += 30;
-
-      if (minutes === 60) {
-        minutes = 0;
-        startTime += 1;
-      }
+    while (time.start < endTime) {
+      const hour = time.start > 11 ? time.start - 12 : time.start
+      const timeSlot = DateUtil.formatHoursMinutes(hour, time.minutes);
+      const pm = time.start > 11 ? ' PM' : ' AM';
+      slots.push(timeSlot + pm);
+      time.minutes = time.minutes === 0 ? 30 : 0;
+      time.start = time.minutes === 0 ? time.start + 1 : time.start;
     }
 
     return slots;
