@@ -10,15 +10,15 @@ import {
   cityFilter,
   restaurantFilter,
 } from '../selectors/search_selector';
-import * as SearchUtil from '../util/search_util';
+import * as DateUtil from '../util/date_util';
 
 const _nullSearch = Object.freeze ({
   cities: [],
   restaurants: [],
   searchParams: {
     seats: 2,
-    date: SearchUtil.formatDate(new Date()),
-    time: SearchUtil.getNewTime(),
+    date: DateUtil.getNewDate(),
+    time: DateUtil.getNewTime(),
     timeSlots: [],
   },
   searchBoxParams: {
@@ -38,6 +38,7 @@ const SearchReducer = (state = _nullSearch, action) => {
   switch (action.type) {
     case RECEIVE_SEARCH_PARAMS:
       const searchParams = action.params;
+      debugger
       return merge({}, state, { searchParams });
     case RECEIVE_SEARCH_BOX_PARAMS:
       const searchBoxParams = action.params;

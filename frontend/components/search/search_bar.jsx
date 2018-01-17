@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, hashHistory, withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import { searchRestaurants, setSearchParams } from '../../actions/search_actions';
-import { getNewDate } from '../../util/search_util';
+import * as DateUtil from '../../util/date_util';
 import FontAwesome from 'react-fontawesome';
 import SearchBox from './search_box';
 import SeatBar from './seat_bar';
@@ -32,15 +32,18 @@ class SearchBar extends React.Component {
 
   handleDateChange(e) {
     e.preventDefault();
-    const newDate = e.currentTarget.value.split('-');
-    const date = newDate[1]+'-'+newDate[2]+'-'+newDate[0];
-    this.props.setSearchParams({ date });
+    const newDate = DateUtil.dateToString(e.currentTarget.value);
+
+    this.props.setSearchParams({ newDate });
   }
 
   getDateBox() {
+    const minDate = DateUtil.toInputDate(new Date());
+    const defaultDate = DateUtil.toInputDate(this.props.searchParams.date);
+
     return (<DateBar
-      minValue={ getNewDate() }
-      defaultDate={ this.props.searchParams.date }
+      minValue={ minDate }
+      defaultDate={ defaultDate }
       handleChange={ this.handleDateChange }
       />);
   }
