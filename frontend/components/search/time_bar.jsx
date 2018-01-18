@@ -104,7 +104,7 @@ class TimeBar extends React.Component {
   getCurrentTime(slots) {
     return (
       <article className='time' id='time' onClick={ this.handleClick }>
-        { slots[0] }
+        { this.state.targeted ? this.state.targeted : slots[0] }
       </article>
     )
   }
