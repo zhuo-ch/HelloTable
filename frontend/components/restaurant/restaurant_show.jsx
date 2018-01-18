@@ -15,7 +15,7 @@ import ReviewSnippet from '../review/review_snippet';
 import ReactStars from 'react-stars';
 import FavoriteBox from '../favorite/favorite_box';
 import * as MapUtil from '../../util/map_util';
-import { formatHoursMinutes } from '../../util/search_util';
+import * as DateUtil from '../../util/date_util';
 
 class RestaurantShow extends React.Component {
   constructor(props) {
@@ -113,8 +113,8 @@ class RestaurantShow extends React.Component {
 
   getRestaurantHours() {
     const hours = this.props.restaurant.hours.map(hour => {
-      const open = formatHoursMinutes(hour.open);
-      const close = formatHoursMinutes(hour.close);
+      const open = DateUtil.format12Hour(hour.open);
+      const close = DateUtil.format12Hour(hour.close);
 
       return (
         <li key={hour.day}>

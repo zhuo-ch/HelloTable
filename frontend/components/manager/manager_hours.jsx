@@ -4,7 +4,7 @@ import { merge } from 'lodash';
 import { updateHour, setError, clearErrors } from '../../actions/hours_actions';
 import { setCurrentModal, resetCurrentModal } from '../../actions/modal_actions';
 import * as ManagerUtil from '../../util/manager_util';
-import * as SearchUtil from '../../util/search_util';
+import * as DateUtil from '../../util/date_util';
 import ManagerField from './field';
 import ManagerLi from './manager_li';
 
@@ -63,7 +63,7 @@ class ManagerHours extends React.Component {
     const openClose = ['open', 'close'].map(el => {
       const listKey = `hours-${hour.day}-${el}-${hour[el]}`;
       const matched = this.state.idx === listKey;
-      const text = SearchUtil.formatHoursMinutes(hour[el]);
+      const text = DateUtil.format12Hour(hour[el]).replace(' ', '');
       targeted = targeted ? targeted : (this.state.selecting && matched);
 
       return this.getField(listKey, text, targeted && matched);
