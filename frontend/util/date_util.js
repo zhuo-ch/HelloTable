@@ -90,15 +90,6 @@ export const genTimeSlots = ({startTime, endTime, minutes}) => {
   return slots;
 }
 
-export const dateToFullString = date => {
-  const newObj = new Date(date);
-
-  const week = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
-  const month = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
-                  'August', 'September','October', 'November', 'December'];
-  return week[newObj.getDay()] + ", " + month[newObj.getMonth()] + " " + newObj.getDate();
-}
-
 export const revertDate = (date, time) => {
   const dateArray = date.split('/');
   const timeString = intToTimeString(time).split(':');
