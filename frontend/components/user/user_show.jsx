@@ -12,6 +12,7 @@ import { setCurrentModal, resetCurrentModal } from '../../actions/modal_actions'
 import { fetchUser } from '../../actions/user_actions';
 import * as DateSelectors from '../../selectors/date_selectors';
 import * as ManagerUtil from '../../util/manager_util';
+import * as DateUtil from '../../util/date_util';
 
 class UserShow extends React.Component {
   constructor(props) {
@@ -48,16 +49,26 @@ class UserShow extends React.Component {
     this.props.router.push(`/manager/${this.props.currentUser.id}`);
   }
 
-  getUpcoming() {
-    const reservations = this.props.user.reservations.filter(reservation => DateSelectors.setUpcoming(reservation));
+  sortReservations(user) {
+    const reservations = { upcoming: [], previous: [] };
 
+    if (user) {
+      this.props.user.reservations.forEach(res => {
+        reservations[DateSelectors.setUpcoming(res) ? 'upcoming' : 'previous'].push(res);
+      });
+    }
+
+    return reservations;
+  }
+
+  getUpcoming({ upcoming }) {
     return (
-      reservations.map((reservation) => {
+      upcoming.map((reservation) => {
         return (
           <section className='show-res' key={ reservation.id }>
             <article className='user-res'>
               <h4>
-                A table for { reservation.seats } will be set at { DateSelectors.formatTime(reservation.time - 1200)} on {DateSelectors.formatDate(reservation.date)}
+                A table for { reservation.seats } will be set at { DateSelectors.dateToFullString(reservation.time - 1200)} on {DateSelectors.formatDate(reservation.date)}
               </h4>
               <button onClick={ this.handleCancel } className='button' value={reservation.id}>Cancel</button>
             </article>
@@ -67,38 +78,37 @@ class UserShow extends React.Component {
       }));
   }
 
-  getPrevious() {
-    const previous = this.props.user.reservations.filter(reservation => !DateSelectors.setUpcoming(reservation));
-
+  getPrevious({ previous }) {
     return (
       previous.map((reservation) => {
         const leaveReviewButton = reservation.reviewed ? '' : (
-          <button className='button' value={ reservation.id } onClick={this.handleAddReview}>Review</button>
+          <button className='button' value={ reservation.id } onClick={ this.handleAddReview }>Review</button>
         );
         return (
-          <section className='show-res' key={reservation.id}>
+          <section className='show-res' key={ reservation.id }>
             <article className='user-res'>
               <h4>
-                We hope you enjoyed your visit on {DateSelectors.formatDate(reservation.date)}
+                We hope you enjoyed your visit on { DateUtil.dateToFullString(reservation.date) }
               </h4>
-              {leaveReviewButton}
+              { leaveReviewButton }
             </article>
-            <RestaurantSnippet restaurant={reservation.restaurant}/>
+            <RestaurantSnippet restaurant={ reservation.restaurant }/>
           </section>
         );
       })
     );
   }
 
-  getFavorites() {
-
-    return Object.keys(this.props.user.favorites).map(key => {
-      return (
-        <section className='show-fav' key={key}>
-          <RestaurantSnippet restaurant={this.props.user.favorites[key].restaurant} />
-        </section>
-      );
-    });
+  getFavorites(user) {
+    if (user) {
+      return Object.keys(this.props.user.favorites).map(key => {
+        return (
+          <section className='show-fav' key={key}>
+            <RestaurantSnippet restaurant={this.props.user.favorites[key].restaurant} />
+          </section>
+        );
+      });
+    }
   }
 
   getManager() {
@@ -107,9 +117,10 @@ class UserShow extends React.Component {
 
   render() {
     const user = this.props.user.id ? true : false;
-    const Upcoming = user ? this.getUpcoming() : '';
-    const Previous = user ? this.getPrevious() : '';
-    const Favorites = user ? this.getFavorites() : '';
+    const reservations = this.sortReservations(user);
+    const Upcoming = this.getUpcoming(reservations);
+    const Previous = this.getPrevious(reservations);
+    const Favorites = this.getFavorites(user);
     const manager = this.getManager();
 
     return(

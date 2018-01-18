@@ -18,13 +18,20 @@ export const intToTimeString = time => {
   const newTime = time.toString();
   const hour = newTime.slice(0, newTime.length - 2);
   const minutes = newTime.slice(newTime.length - 2);
-  const pm = time >= 1200 ? 'PM' : 'AM';
 
-  return `${hour > 11 ? parseInt(hour) - 12 : hour}:${minutes} ${pm}`;
+  return `${hour}:${minutes}`;
+}
+
+export const format12Hour = time => {
+  time = typeof time === 'string' ? time.split(':') : intToTimeString(time).split(':');
+  const hour = time[0] > 11 ? time[0] - 12 : time[0];
+  const pm = time[0] >= 11 ? 'PM' : 'AM';
+
+  return `${hour}:${time[1]} ${pm}`;
 }
 
 export const timeStringToInt = time => {
-  return parseInt(ime.split(':').join(''));
+  return parseInt(time.split(':').join(''));
 }
 
 export const toInputDate = date => {
@@ -83,9 +90,9 @@ export const dateToFullString = date => {
 
 export const revertDate = (date, time) => {
   const dateArray = date.split('/');
-  const timeString = time.toString();
+  const timeString = intToTimeString(time).split(':');
 
-  return new Date(dateArray[2], dateArray[0] - 1, dateArray[1], timeString.slice(0,2) - 1, timeString.slice(2, 4));
+  return new Date(dateArray[2], dateArray[0] - 1, dateArray[1], timeString[0], timeString[1]);
 }
 
 const isDate = date => {
