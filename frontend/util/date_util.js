@@ -46,6 +46,12 @@ export const toInputDate = date => {
   return `${newDate[2]}-${newDate[0]}-${newDate[1]}`;
 }
 
+export const inputDatetoDBDate = date => {
+  const newDate = date.split('-').map(el => parseInt(el));
+
+  return `${newDate[1]}/${newDate[2]}/${newDate[0]}`;
+}
+
 export const toUserTime = time => {
   const timeArr = timeToArr(time);
   const hour = time[1] > 30 ? parseInt(time[0]) + 1 : time[0]

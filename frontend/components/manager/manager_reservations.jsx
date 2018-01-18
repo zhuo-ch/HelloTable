@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import * as ManagerUtil from '../../util/manager_util';
-import { formatHoursMinutes, formatDate } from '../../util/search_util';
+import * as DateUtil from '../../util/date_util';
 import { fetchManagerRestaurantReservations, resetReservation } from '../../actions/reservations_actions';
 import DateBar from '../search/date_bar';
 
@@ -9,15 +9,16 @@ class ManagerReservations extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
+    this.date = new Date();
     this.handleChange = this.handleChange.bind(this);
   }
 
   componentWillMount() {
-    this.props.fetchManagerRestaurantReservations({ id: this.props.currentUser.manager, date: formatDate()});
-  }
-
-  componentDidMount() {
-    const date = formatDate();
+    this.props.fetchManagerRestaurantReservations({
+      id: this.props.currentUser.manager,
+      date: DateUtil.dateToString(this.date),
+    });
+    const date = DateUtil.toInputDate(this.date);
     this.setState({ date });
   }
 
@@ -27,23 +28,28 @@ class ManagerReservations extends React.Component {
 
   handleChange(e) {
     e.preventDefault();
-    const newDate = e.currentTarget.value.split('-');
-    const date = newDate[1].slice(1, newDate[1].length)+'-'+newDate[2]+'-'+newDate[0];
+    const newDate = e.currentTarget.value;
+    const date = DateUtil.toInputDate(new Date(newDate));
     this.setState({ date });
-    this.props.fetchManagerRestaurantReservations({ id: this.props.currentUser.manager, date });
+    this.props.fetchManagerRestaurantReservations({
+      id: this.props.currentUser.manager,
+      date: DateUtil.inputDatetoDBDate(date),
+    });
   }
 
   getDateBox() {
+    const date = this.state.date ? this.state.date : DateUtil.toInputDate(this.date);
+
     return (
       <DateBar
-        defaultDate={ this.state.date ? this.state.date : formatDate() }
+        defaultDate={ date }
         handleChange={ this.handleChange }
         />
     );
   }
 
   getReservationsItem(reservation, idx) {
-    const time = formatHoursMinutes(reservation.time);
+    const time = DateUtil.format12Hour(reservation.time);
 
     return (
       <li className='horizontal' key={ idx }>
