@@ -121,8 +121,8 @@ class Navbar extends React.Component {
     const idx = this.state.reservations[this.state.idx];
     const item = this.props.reservations[idx];
     const date = DateUtil.dateToFullString(item.date);
-    const time = DateUtil.intToTimeString(item.time);
-    const text = `${time} on ${date} at ${item.name}`;
+    const time = DateUtil.format12Hour(item.time);
+    const text = `${time} on ${date} at ${ item.name ? item.name : item.restaurant.name }`;
     const link = `/users/${this.props.currentUser.id}`;
 
     return (
@@ -209,13 +209,11 @@ class Navbar extends React.Component {
   }
 };
 
-const mapStateToProps = state => {
-  return ({
+const mapStateToProps = state => ({
     currentUser: state.session.currentUser,
     reservations: state.reservations.userReservations,
     favorites: state.favorites,
-  });
-};
+});
 
 const mapDispatchToProps = dispatch => ({
   logout: () => dispatch(logout()),
