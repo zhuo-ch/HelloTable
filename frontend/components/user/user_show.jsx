@@ -53,7 +53,7 @@ class UserShow extends React.Component {
     const reservations = { upcoming: [], previous: [] };
 
     if (user) {
-      this.props.user.reservations.forEach(res => {
+      this.props.reservations.forEach(res => {
         reservations[DateSelectors.setUpcoming(res) ? 'upcoming' : 'previous'].push(res);
       });
     }

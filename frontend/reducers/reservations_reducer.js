@@ -9,7 +9,7 @@ import {
 } from '../actions/reservations_actions';
 import { LOGOUT } from '../actions/session_actions';
 import { RECEIVE_USER } from '../actions/user_actions';
-import { filterReservation } from '../selectors/reservation_selectors';
+import * as ReservationsSelectors from '../selectors/reservations_selectors';
 
 const _nullReservations = Object.freeze({
   userReservations: [],
@@ -38,9 +38,8 @@ const ReservationsReducer = (state = _nullReservations, action) => {
       newState.restaurantReservations = [];
       return newState;
     case DESTROY_RESERVATION:
-      let newReservations = merge({}, state);
-      newReservations.userReservations = filterReservation(newReservations.userReservations, action.id);
-      return newReservations;
+      const deleteReservation = ReservationsSelectors.filterReservations(state, action.id);
+      return deleteReservation;
     case LOGOUT:
       return Object.assign({}, state, { userReservations: [] });
     default:
