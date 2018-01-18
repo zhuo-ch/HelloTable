@@ -14,6 +14,19 @@ export const timeToString = time => {
   return isDate(time) ? time.toLocaleTimeString() : new Date(time).toLocaleTimeString();
 }
 
+export const intToTimeString = time => {
+  const newTime = time.toString();
+  const hour = newTime.slice(0, newTime.length - 2);
+  const minutes = newTime.slice(newTime.length - 2);
+  const pm = time >= 1200 ? 'PM' : 'AM';
+
+  return `${hour > 11 ? parseInt(hour) - 12 : hour}:${minutes} ${pm}`;
+}
+
+export const timeStringToInt = time => {
+  return parseInt(ime.split(':').join(''));
+}
+
 export const toInputDate = date => {
   let newDate = dateToString(date).split('/');
   newDate = newDate.map(el => parseInt(el) < 10 ? `0${el}` : el);
@@ -57,6 +70,22 @@ export const genTimeSlots = ({startTime, endTime, minutes}) => {
   }
 
   return slots;
+}
+
+export const dateToFullString = date => {
+  const newObj = new Date(date);
+
+  const week = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+  const month = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
+                  'August', 'September','October', 'November', 'December'];
+  return week[newObj.getDay()] + ", " + month[newObj.getMonth()] + " " + newObj.getDate();
+}
+
+export const revertDate = (date, time) => {
+  const dateArray = date.split('/');
+  const timeString = time.toString();
+
+  return new Date(dateArray[2], dateArray[0] - 1, dateArray[1], timeString.slice(0,2) - 1, timeString.slice(2, 4));
 }
 
 const isDate = date => {

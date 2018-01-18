@@ -5,7 +5,7 @@ import { logout } from '../actions/session_actions';
 import FontAwesome from 'react-fontawesome';
 import Modal from './modal';
 import { setCurrentModal } from '../actions/modal_actions';
-import { formatDate, formatTime, revertDate } from '../selectors/date_selectors';
+import * as DateUtil from '../util/date_util';
 
 class Navbar extends React.Component {
   constructor(props) {
@@ -111,7 +111,7 @@ class Navbar extends React.Component {
     const reservations = this.props.reservations;
 
     return Object.keys(reservations).filter(key => {
-      const resDate = this.props.revertDate(reservations[key].date, reservations[key].time);
+      const resDate = DateUtil.revertDate(reservations[key].date, reservations[key].time);
 
       return new Date() < resDate;
     });
@@ -120,8 +120,8 @@ class Navbar extends React.Component {
   getReservationItem() {
     const idx = this.state.reservations[this.state.idx];
     const item = this.props.reservations[idx];
-    const date = this.props.formatDate(item.date);
-    const time = this.props.formatTime(item.time - 1200);
+    const date = DateUtil.dateToFullString(item.date);
+    const time = DateUtil.intToTimeString(item.time);
     const text = `${time} on ${date} at ${item.name}`;
     const link = `/users/${this.props.currentUser.id}`;
 
@@ -220,9 +220,6 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => ({
   logout: () => dispatch(logout()),
   setCurrentModal: modal => dispatch(setCurrentModal(modal)),
-  formatDate: date => formatDate(date),
-  formatTime: time => formatTime(time),
-  revertDate: (date, time) => revertDate(date, time),
 });
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Navbar));
