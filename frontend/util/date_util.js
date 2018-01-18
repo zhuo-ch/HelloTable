@@ -44,6 +44,21 @@ export const formatHoursMinutes = (hours, minutes) => {
   return parseInt(minutes) < 29 ? `${hours}:00` : `${hours}:30`;
 }
 
+export const genTimeSlots = ({startTime, endTime, minutes}) => {
+  let slots = new Array();
+
+  while (startTime < endTime) {
+    const hour = startTime > 11 ? startTime - 12 : startTime
+    const timeSlot = formatHoursMinutes(hour, minutes);
+    const pm = startTime > 11 ? ' PM' : ' AM';
+    slots.push(timeSlot + pm);
+    minutes = minutes === 0 ? 30 : 0;
+    startTime = minutes === 0 ? startTime + 1 : startTime;
+  }
+
+  return slots;
+}
+
 const isDate = date => {
   return date instanceof Date;
 }

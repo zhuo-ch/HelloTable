@@ -69,41 +69,30 @@ class TimeBar extends React.Component {
 
   getStartTime() {
     if (!this.isCurrentDate()) {
-      return { start: 13, minutes: 0 };
+      return { startTime: 13, minutes: 0, endTime: 24 };
     } else {
       const newTime = DateUtil.timeToArr(DateUtil.getNewTime());
       const hour = newTime[newTime.length - 1] === 'PM' ? parseInt(newTime[0]) + 12 : parseInt(newTime[0]);
       if (newTime[1] < 30) {
-        return { start: hour, minutes: 30 };
+        return { startTime: hour, minutes: 30, endTime: 24 };
       } else {
-        return { start: hour + 1, minutes: 0 };
+        return { startTime: hour + 1, minutes: 0, endTime: 24 };
       }
     }
   }
 
   getSlots() {
     const time = this.getStartTime();
-    const endTime = 24;
-    let slots = new Array();
 
-    while (time.start < endTime) {
-      const hour = time.start > 11 ? time.start - 12 : time.start
-      const timeSlot = DateUtil.formatHoursMinutes(hour, time.minutes);
-      const pm = time.start > 11 ? ' PM' : ' AM';
-      slots.push(timeSlot + pm);
-      time.minutes = time.minutes === 0 ? 30 : 0;
-      time.start = time.minutes === 0 ? time.start + 1 : time.start;
-    }
-
-    return slots;
+    return DateUtil.genTimeSlots(time);
   }
 
-  getTimeList() {
+  getTimeList(slots) {
     const options = {
       selecting: this.state.selecting,
       targetIdx: this.state.targeted,
       handleClick: this.handleClick,
-      items: this.getSlots(),
+      items: slots,
       text: '',
       listName: ['search', 'time'],
       type: 'time-item',
@@ -112,17 +101,18 @@ class TimeBar extends React.Component {
     return SearchUtil.inputSelect(options);
   }
 
-  getCurrentTime() {
+  getCurrentTime(slots) {
     return (
       <article className='time' id='time' onClick={ this.handleClick }>
-        { this.props.time }
+        { slots[0] }
       </article>
     )
   }
 
   render() {
-    const timeSlots = this.getTimeList();
-    const currentTime = this.getCurrentTime();
+    const slots = this.getSlots()
+    const timeSlots = this.getTimeList(slots);
+    const currentTime = this.getCurrentTime(slots);
     const cName = this.props.restaurantId ? 'input bar-time res-present' : 'input bar-time';
     const wrapper = this.state.selecting ? '' : 'hidden';
 
