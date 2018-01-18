@@ -1,30 +1,20 @@
-export const formatDate = date => {
-  const newDate = date.split('-');
-
-  const newObj = new Date(newDate[2], parseInt(newDate[0])-1, newDate[1]);
-  const week = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
-  const month = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
-                  'August', 'September','October', 'November', 'December'];
-  return week[newObj.getDay()] + ", " + month[newObj.getMonth()] + " " + newObj.getDate();
-}
-
-export const formatTime = time => {
-  const newTime = time.toString();
-  return newTime.slice(0, newTime.length-2) + ":" + newTime.slice(newTime.length-2, newTime.length);
-}
-
-export const revertDate = (date, time) => {
-  const dateArray = date.split('-');
-  const timeString = (time + 1200).toString();
-
-  return new Date(dateArray[2], dateArray[0] - 1, dateArray[1], timeString.slice(0,2) - 1, timeString.slice(2, 4));
-}
+import * as DateUtil from '../util/date_util';
 
 export const setUpcoming = reservation => {
   const curDate = new Date();
-  const resDate = reservation.date.split("-").map((str) => parseInt(str));
-  const resTime = formatTime(reservation.time).split(':').map((str) => parseInt(str));
-  const newDate = new Date(resDate[2], resDate[0]-1, resDate[1], resTime[0]+12, resTime[1]);
+  const newDate = new Date(reservation.date + ' ' + timeToString(reservation.time));
 
   return newDate > curDate;
+}
+
+function makeChange(val, coins) {
+    return coins.map((el, idx) => {
+        if (val - el < 0) {
+            return 0;
+        } else if (val - el === 0) {
+            return 1;
+        } else {
+            return makeChange(val - el, coins.slice(idx)).reduce((accum, a) => accum + a, 0);
+        }
+    });
 }

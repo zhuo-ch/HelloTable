@@ -106,6 +106,15 @@ export const revertDate = (date, time) => {
   return new Date(dateArray[2], dateArray[0] - 1, dateArray[1], timeString[0], timeString[1]);
 }
 
+export const dateToFullString = date => {
+  const newObj = new Date(date);
+
+  const week = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+  const month = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
+                  'August', 'September','October', 'November', 'December'];
+  return week[newObj.getDay()] + ", " + month[newObj.getMonth()] + " " + newObj.getDate();
+}
+
 const isDate = date => {
   return date instanceof Date;
 }
