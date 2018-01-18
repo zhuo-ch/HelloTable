@@ -106,7 +106,7 @@ restaurants = Restaurant.all.map { |res| res.id }
   id = restaurants.sample
   seating = Restaurant.find(id).seatings.sample
   Reservation.create(user_id: guest.id, restaurant_id: id,
-    date: "#{rand(3..11)}/#{rand(1..30)}/2017", time: times.sample,
+    date: "#{rand(3..11)}/#{rand(1..30)}/2017", time: times.sample + 1200,
     seating_id: seating.id, seats: seating.seats)
 end
 
