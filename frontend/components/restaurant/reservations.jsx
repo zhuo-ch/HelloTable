@@ -5,8 +5,8 @@ import { fetchRestaurantReservations, createReservation, resetReservation } from
 import FontAwesome from 'react-fontawesome';
 import { merge } from 'lodash';
 import { setCurrentModal } from '../../actions/modal_actions';
-import * as DateSelectors from '../../selectors/date_selectors';
 import * as SearchUtil from '../../util/search_util';
+import * as DateUtil from '../../util/date_util';
 
 class ReservationsSnippet extends React.Component {
   constructor(props) {
@@ -91,16 +91,17 @@ class ReservationsSnippet extends React.Component {
     delete seatings.seating_id;
 
     const availList = Object.keys(seatings).map(key => {
+      key = parseInt(key);
       if (seatings[key]) {
         return (<li
           className='reservable button res-button'
           onClick={ this.handleReserve }
           value={ key }
-          key={ key }>{ DateSelectors.formatTime(key - 1200) }</li>)
+          key={ key }>{ DateUtil.format12Hour(key) }</li>)
       } else {
         return (<li
           className='not-reservable res-button'
-          key={ key }>{ DateSelectors.formatTime(key - 1200) }</li>)
+          key={ key }>{ DateUtil.format12Hour(key) }</li>)
       }
     });
 
@@ -113,20 +114,20 @@ class ReservationsSnippet extends React.Component {
     }
 
     const availList = this.getReservationsList();
-    const date = DateSelectors.formatDate(this.props.searchParams.date);
+    const date = DateUtil.dateToFullString(this.props.searchParams.date);
 
     return (
       <ul className='res-avail-list'>
         <li
-          className='reserve-date'>{date}</li>
+          className='reserve-date'>{ date }</li>
         { availList }
       </ul>
     )
   }
 
   showReservation() {
-    const resDate = DateSelectors.formatDate(this.props.currentReservation.date);
-    const resTime = DateSelectors.formatTime(this.props.currentReservation.time - 1200);
+    const resDate = DateUtil.dateToFullString(this.props.currentReservation.date);
+    const resTime = DateUtil.format12Hour(this.props.currentReservation.time);
 
     return (
       <ul className='new-res'>
