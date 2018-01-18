@@ -12,7 +12,6 @@ class ReservationsSnippet extends React.Component {
   constructor(props) {
     super(props);
     this.handleReserve = this.handleReserve.bind(this);
-    this.getTimeSlots = this.getTimeSlots.bind(this);
     this.handleShow = this.handleShow.bind(this);
   }
 
@@ -36,15 +35,15 @@ class ReservationsSnippet extends React.Component {
     e.preventDefault();
 
     if (this.props.currentUser.id) {
-      const time = parseInt(e.currentTarget.innerText.split(":").join(""));
+      const time = DateUtil.timeStringToInt(e.currentTarget.innerText);
       const seating_id = SearchUtil.getSeatsObj(this.props.searchParams, this.props.restaurant.seatings).id;
       const reservation = {
         user_id: this.props.currentUser.id,
         restaurant_id: this.props.restaurant.id,
-        date: this.props.searchParams.date,
+        date: DateUtil.dateToString(this.props.searchParams.date),
         seats: this.props.searchParams.seats,
         seating_id,
-        time: time + 1200,
+        time: time,
       };
 
       this.props.createReservation(reservation);
@@ -63,27 +62,6 @@ class ReservationsSnippet extends React.Component {
     const seating_id = SearchUtil.getSeatsObj(params, this.props.restaurant.seatings).id;
 
     return merge({}, params, { restaurantId: this.props.restaurant.id, time, seating_id });
-  }
-
-  getTimeSlots() {
-    const seatings = this.props.reservations.seatings;
-    let minutes = parseInt(baseStr.slice(baseStr.length-2, baseStr.length));
-    let slots = {};
-
-    while (timeStart <= timeEnd) {
-      slots[timeStart] = 0;
-      minutes += 30;
-
-      if (minutes >= 60) {
-        minutes = 0;
-        timeStart += 100;
-        timeStart -= 30;
-      } else {
-        timeStart += minutes;
-      }
-    }
-
-    return slots;
   }
 
   getReservationsList() {

@@ -24,14 +24,19 @@ export const intToTimeString = time => {
 
 export const format12Hour = time => {
   time = typeof time === 'string' ? time.split(':') : intToTimeString(time).split(':');
-  const hour = time[0] > 11 ? time[0] - 12 : time[0];
-  const pm = time[0] >= 11 ? 'PM' : 'AM';
+  let hour = time[0];
+  const pm = hour > 11 ? 'PM' : 'AM';
+  hour = hour > 11 ? hour - 12 : hour;
+  hour = hour === 0 ? 12 : hour;
 
   return `${hour}:${time[1]} ${pm}`;
 }
 
 export const timeStringToInt = time => {
-  return parseInt(time.split(':').join(''));
+  time = time.split(' ');
+  let timeInt = parseInt(time[0].split(':').join(''));
+
+  return time[1] === 'PM' ? timeInt + 1200 : timeInt;
 }
 
 export const toInputDate = date => {
