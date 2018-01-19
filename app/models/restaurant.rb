@@ -1,9 +1,21 @@
 class Restaurant < ActiveRecord::Base
   validates :user_id, :name, :description, :address, :location, :phone, presence: true
   before_create :ensure_rating
-  # before_update :ensure_address
+  before_update :ensure_address
 
-  def self.find_all(params)
+  belongs_to :city
+  belongs_to :user
+  has_one :rating, inverse_of: :restaurant
+  has_many :reservations
+  has_many :favorites
+  has_many :reviews, through: :reservations
+  has_many :photos, dependent: :destroy, inverse_of: :restaurant
+  has_many :seatings
+  has_many :hours
+  has_many :sample_review, -> { order("RANDOM()").limit(1) },
+    through: :reservations, source: :review
+
+  def self.find_restaurants_in_city(params)
     params[:per_page] = params[:per_page] ? params[:per_page].to_i : 10
     params[:pages] = params[:pages] ? params[:pages].to_i : get_pages(params[:id], params[:per_page])
     params[:page] = params[:page] ? params[:page].to_i : 1
@@ -19,8 +31,20 @@ class Restaurant < ActiveRecord::Base
     [restaurants, params]
   end
 
-  def self.find_res(id)
-    restaurant = Restaurant
+  def self.find_manager_restaurant(id)
+    Restaurant
+      .includes(:hours, :seatings, :rating, :photos)
+      .includes(reviews: [:user, :reservation])
+      .find_by(user_id: params[:id])
+  end
+
+  def self.search_restaurants(query)
+    Restaurant
+      .where("lower(name) ~ ?", query) || []
+  end
+
+  def self.find_restaurant(id)
+    Restaurant
       .includes(
         :rating,
         :photos,
@@ -90,16 +114,4 @@ class Restaurant < ActiveRecord::Base
       self.city_id = self.city_id ? self.city_id : City.in_bounds(result["geometry"]["location"])
     end
   end
-
-  belongs_to :city
-  belongs_to :user
-  has_one :rating, inverse_of: :restaurant
-  has_many :reservations
-  has_many :favorites
-  has_many :reviews, through: :reservations
-  has_many :photos, dependent: :destroy, inverse_of: :restaurant
-  has_many :seatings
-  has_many :hours
-  has_many :sample_review, -> { order("RANDOM()").limit(1) },
-    through: :reservations, source: :review
 end

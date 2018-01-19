@@ -1,6 +1,6 @@
 class Api::RestaurantsController < ApplicationController
   def index
-    data = Restaurant.find_all(params)
+    data = Restaurant.find_restaurants_in_city(params)
     @restaurants = data[0]
     @params = data[1]
 
@@ -25,21 +25,20 @@ class Api::RestaurantsController < ApplicationController
   end
 
   def show
-    @restaurant = Restaurant.find_res(params[:id])
+    @restaurant = Restaurant.find_restaurant(params[:id])
     render 'api/restaurants/show'
   end
 
   def search
     if params[:query].present?
-      @restaurants = Restaurant.where("lower(name) ~ ?", params[:query].downcase) || []
-      @cities = City.where("lower(name) ~ ?", params[:query].downcase) || []
+      @restaurants = Restaurant.search_restaurants(params[:query].downcase)
+      @cities = City.search_city(params[:query].downcase)
     else
       @restaurants = Restaurant.none
       @cities = Cities.none
     end
 
-    data = {cities: @cities, restaurants: @restaurants}.to_json
-    render search_api_restaurants: data
+    render 'api/restaurants/search'
   end
 
   def update

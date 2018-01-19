@@ -1,9 +1,10 @@
 class Api::ReservationsController < ApplicationController
   def index
-    @reservations = Reservation
-      .includes(:user)
-      .where(date: params[:query][:date])
-      .where(restaurant_id: params[:query][:id])
+    @reservations = Reservation.find_all_reservations(
+      params[:query][:date],
+      params[:query][:id]
+    )
+
     render 'api/reservations/index'
   end
 
@@ -19,20 +20,18 @@ class Api::ReservationsController < ApplicationController
 
   def show
     @reservation = Reservation.find(params[:id])
-      .includes(:restaurants)
-      .includes(:photos)
-      .includes(:ratings)
+    render 'api/reservations/show'
   end
 
   def search
     query = params[:query]
     time = query[:time].to_i
-    @reservations = Reservation.joins(:seating)
-      .where("date = ?", query[:date])
-      .where("time BETWEEN ? AND ?", (time - 200), (time + 200))
-      .where("seating_id = ?", query[:seats_id])
-      .where("seatings.restaurant_id = ?", query[:restaurantId])
-      .references(:seatings)
+    @reservations = Reservation.search_reservations(
+      query[:date],
+      query[:time].to_i,
+      query[:seats_id],
+      query[:restaurant_id]
+    )
 
     render 'api/reservations/search'
   end

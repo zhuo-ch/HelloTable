@@ -16,9 +16,7 @@ class Api::ReviewsController < ApplicationController
   end
 
   def show
-    @review = Review
-    .includes(:rating, :user, :reservation)
-    .find(params[:id])
+    @review = Review.find_review(params[:id])
   end
 
   def destroy
