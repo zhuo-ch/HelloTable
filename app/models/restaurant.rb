@@ -5,6 +5,7 @@ class Restaurant < ActiveRecord::Base
 
   scope :search_restaurants, -> (query) { where("lower(name) ~ ?", query) }
   scope :get_pages, -> (id, per_page) { (where(city_id: id).count / per_page) + 1 }
+  scope :with_associations, -> { includes(:rating, :photos, :hours, :seatings, reviews: [:user, :reservation]) }
 
   belongs_to :city
   belongs_to :user
@@ -35,17 +36,11 @@ class Restaurant < ActiveRecord::Base
   end
 
   def self.find_manager_restaurant(id)
-    Restaurant
-      .includes(:hours, :seatings, :rating, :photos)
-      .includes(reviews: [:user, :reservation])
-      .find_by(user_id: id)
+    Restaurant.with_associations.find_by(user_id: id)
   end
 
   def self.find_restaurant(id)
-    Restaurant
-      .includes(:rating, :photos, :hours, :seatings)
-      .includes(reviews: [:user, :reservation])
-      .find(id)
+    Restaurant.with_associations.find(id)
   end
 
   def self.get_filter(type)

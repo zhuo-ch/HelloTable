@@ -42,7 +42,7 @@ class Seating < ActiveRecord::Base
   end
 
   def ensure_unique
-    entries = self.restaurant.seatings.where(["seats = ?", self.seats])
+    entries = self.restaurant.seatings.where("seats = ?", self.seats)
 
     if entries.length == 0
       return true

@@ -4,6 +4,8 @@ class User < ActiveRecord::Base
   validates :password, length: { minimum: 6, allow_nil: true}
   after_initialize :ensure_session_token
 
+  scope :with_associations, -> { includes(:restaurant, reservations: :restaurant, favorites: :restaurant) }
+
   has_many :reservations
   has_many :reviews, through: :reservations
   has_many :restaurants, through: :reservations
@@ -15,11 +17,7 @@ class User < ActiveRecord::Base
   attr_reader :password
 
   def self.find_by_credentials(email, password)
-    user = User
-      .includes(:restaurant)
-      .includes(reservations: :restaurant)
-      .includes(favorites: :restaurant)
-      .find_by(email: email)
+    user = User.with_associations.find_by(email: email)
 
     return user if user && user.is_password?(password)
     nil
@@ -34,11 +32,7 @@ class User < ActiveRecord::Base
   end
 
   def self.find_session(session_token)
-    user = User
-      .includes(:restaurant)
-      .includes(reservations: :restaurant)
-      .includes(favorites: :restaurant)
-      .find_by(session_token: session_token)
+    user = User.with_associations.find_by(session_token: session_token)
   end
 
   def password=(password)
