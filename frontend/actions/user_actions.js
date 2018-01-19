@@ -9,8 +9,10 @@ export const RECEIVE_ERRORS = 'RECEIVE_ERRORS';
 
 export const fetchUser = id => dispatch => {
   return UserAPIUtil.getUser(id)
-    .then(user => dispatch(receiveUser(user)),
-      err => dispatch(receiveErrors(err.responseJSON)))
+    .then(user => {
+      dispatch(receiveUserReservations(user.reservations));
+      dispatch(receiveUser(user));
+    }, err => dispatch(receiveErrors(err.responseJSON)))
     .then(() => dispatch(resetCurrentModal()));
 }
 

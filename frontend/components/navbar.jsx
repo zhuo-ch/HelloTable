@@ -211,8 +211,8 @@ class Navbar extends React.Component {
 
 const mapStateToProps = state => ({
     currentUser: state.session.currentUser,
-    reservations: state.reservations.userReservations,
-    favorites: state.favorites,
+    reservations: state.session.currentUser.reservations,
+    favorites: state.session.currentUser.favorites,
 });
 
 const mapDispatchToProps = dispatch => ({

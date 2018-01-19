@@ -8,7 +8,6 @@ import {
   CLEAR_RESERVATION
 } from '../actions/reservations_actions';
 import { LOGOUT } from '../actions/session_actions';
-import { RECEIVE_USER } from '../actions/user_actions';
 import * as ReservationsSelectors from '../selectors/reservations_selectors';
 
 const _nullReservations = Object.freeze({
@@ -24,8 +23,6 @@ const ReservationsReducer = (state = _nullReservations, action) => {
       return Object.assign({}, state, { restaurantReservations: action.reservations });
     case RECEIVE_USER_RESERVATIONS:
       return Object.assign({}, state, { userReservations: action.reservations });
-    case RECEIVE_USER:
-      return Object.assign({}, state, { userReservations: action.user.reservations });
     case RECEIVE_RESERVATION:
       return merge({}, state, { currentReservation: action.reservation });
     case RECEIVE_ADD_USER_RESERVATION:

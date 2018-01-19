@@ -6,7 +6,10 @@ import {
 } from '../actions/session_actions';
 
 const _nullUser = Object.freeze({
-  currentUser: {},
+  currentUser: {
+    reservations: [],
+    favorites: [],
+  },
   errors: [],
 });
 

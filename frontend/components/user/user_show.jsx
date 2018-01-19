@@ -118,9 +118,9 @@ class UserShow extends React.Component {
   render() {
     const user = this.props.user.id ? true : false;
     const reservations = this.sortReservations(user);
-    const Upcoming = this.getUpcoming(reservations);
-    const Previous = this.getPrevious(reservations);
-    const Favorites = this.getFavorites(user);
+    const Upcoming = user ? this.getUpcoming(reservations) : '';
+    const Previous = user ? this.getPrevious(reservations) : '';
+    const Favorites = user ? this.getFavorites() : '';
     const manager = this.getManager();
 
     return(
