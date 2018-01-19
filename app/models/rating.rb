@@ -3,6 +3,8 @@ class Rating < ActiveRecord::Base
   validates :restaurant, uniqueness: true
   before_create :set_defaults
 
+  belongs_to :restaurant, inverse_of: :rating
+
   def set_defaults
     self.total = 0
     self.rating = 0
@@ -21,6 +23,4 @@ class Rating < ActiveRecord::Base
     self.value += review.value
     self.save
   end
-
-  belongs_to :restaurant, inverse_of: :rating
 end

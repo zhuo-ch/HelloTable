@@ -2,12 +2,14 @@ class Seating < ActiveRecord::Base
   validates :seats, :max_tables, numericality: { only_integer: true, greater_than: 0 }
   before_save :ensure_unique
 
+  scope :find_by_params, (id, seats) { where("restaurant_id = ? AND seats = ?", id, seats) }
+
   belongs_to :restaurant
   has_many :reservations
 
-  def self.find_by_params(restaurant_id, seats)
-      Seating.where(["restaurant_id = ? and seats = ?", restaurant_id, seats])
-  end
+  # def self.find_by_params(restaurant_id, seats)
+  #     Seating.where(["restaurant_id = ? and seats = ?", restaurant_id, seats])
+  # end
 
   def self.availabilities(query)
     time = query[:time].to_i + 1200

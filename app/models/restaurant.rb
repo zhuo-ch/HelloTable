@@ -3,6 +3,17 @@ class Restaurant < ActiveRecord::Base
   before_create :ensure_rating
   before_update :ensure_address
 
+  scope :search_restaurants, -> (query) { where("lower(name) ~ ?", query) }
+  scope :get_pages, -> (id, per_page) { (where(city_id: id).count / per_page) + 1 }
+    # def self.search_restaurants(query)
+    #   Restaurant
+    #     .where("lower(name) ~ ?", query) || []
+    # end
+    #
+    #   def self.get_pages(id, per_page)
+    #     (Restaurant.where(city_id: id).count / per_page.to_i) + 1
+    #   end
+
   belongs_to :city
   belongs_to :user
   has_one :rating, inverse_of: :restaurant
@@ -35,27 +46,14 @@ class Restaurant < ActiveRecord::Base
     Restaurant
       .includes(:hours, :seatings, :rating, :photos)
       .includes(reviews: [:user, :reservation])
-      .find_by(user_id: params[:id])
-  end
-
-  def self.search_restaurants(query)
-    Restaurant
-      .where("lower(name) ~ ?", query) || []
+      .find_by(user_id: id)
   end
 
   def self.find_restaurant(id)
     Restaurant
-      .includes(
-        :rating,
-        :photos,
-        :hours,
-        :seatings)
-      .includes(reviews: [ :user, :reservation ])
+      .includes(:rating, :photos, :hours, :seatings)
+      .includes(reviews: [:user, :reservation])
       .find(id)
-  end
-
-  def self.get_pages(id, per_page)
-    (Restaurant.where(city_id: id).count / per_page.to_i) + 1
   end
 
   def self.get_filter(type)

@@ -1,6 +1,12 @@
 class City < ActiveRecord::Base
   validates :name, presence: true, uniqueness: true
 
+  scope :search_city, -> (query) { where("lower(name) ~ ?", query) }
+
+  # def self.search_city(query)
+  #   City.where("lower(name) ~ ?", query.downcase) || []
+  # end
+
   has_many :restaurants
   has_many :ratings, through: :restaurants
   has_many :reviews, through: :restaurants
@@ -21,10 +27,6 @@ class City < ActiveRecord::Base
     end
 
     city
-  end
-
-  def self.search_city(query)
-    City.where("lower(name) ~ ?", query.downcase) || []
   end
 
   def self.in_bounds(latLng)
