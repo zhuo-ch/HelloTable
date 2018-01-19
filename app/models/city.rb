@@ -2,10 +2,7 @@ class City < ActiveRecord::Base
   validates :name, presence: true, uniqueness: true
 
   scope :search_city, -> (query) { where("lower(name) ~ ?", query) }
-
-  # def self.search_city(query)
-  #   City.where("lower(name) ~ ?", query.downcase) || []
-  # end
+  scope :get_city, -> (id) { includes(restaurants: [:photos, :ratings, :reviews])}
 
   has_many :restaurants
   has_many :ratings, through: :restaurants
@@ -17,9 +14,7 @@ class City < ActiveRecord::Base
   attr_accessor :pages, :page, :per_page
 
   def self.find_city(params)
-    city = City
-      .includes(restaurants: [:photos, :rating, :reviews])
-      .find(params[:id])
+    city = City.get_city(params[:id])
     city.per_page = params[:per_page] ? params[:per_page] : 10
 
     if params[:page]

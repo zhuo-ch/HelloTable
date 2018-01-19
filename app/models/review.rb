@@ -12,12 +12,6 @@ class Review < ActiveRecord::Base
     (Review.joins(:reservation).where(:reservations => { :restaurant_id => id }).count / per_page.to_i) + 1
   end
 
-  def self.find_review(id)
-    Review
-      .includes(:rating, :user, :reservation)
-      .find(id)
-  end
-
   def add_to_rating
     self.restaurant.rating.add_review(self)
   end

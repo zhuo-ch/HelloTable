@@ -5,14 +5,6 @@ class Restaurant < ActiveRecord::Base
 
   scope :search_restaurants, -> (query) { where("lower(name) ~ ?", query) }
   scope :get_pages, -> (id, per_page) { (where(city_id: id).count / per_page) + 1 }
-    # def self.search_restaurants(query)
-    #   Restaurant
-    #     .where("lower(name) ~ ?", query) || []
-    # end
-    #
-    #   def self.get_pages(id, per_page)
-    #     (Restaurant.where(city_id: id).count / per_page.to_i) + 1
-    #   end
 
   belongs_to :city
   belongs_to :user
@@ -83,7 +75,7 @@ class Restaurant < ActiveRecord::Base
     start_hour = time.to_i - 200
     end_hour = time.to_i + 200
 
-    self.reservations.where(["time > ? and time < ? and date = ?", start_hour, end_hour, date])
+    self.reservations.where("time > ? AND time < ? AND date = ?", start_hour, end_hour, date)
   end
 
   def ensure_address
