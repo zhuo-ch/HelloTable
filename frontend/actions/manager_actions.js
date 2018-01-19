@@ -23,11 +23,11 @@ export const fetchManagerRestaurant = id => dispatch => {
 
 export const updateRestaurant = restaurant => dispatch => {
   return ManagerAPIUtil.updateRestaurant(restaurant)
-    .then(updatedRestaurant => dispatch(receiveRestaurant(updatedRestaurant)),
-    errors => {
-      dispatch(resetCurrentModal());
-      dispatch(receiveErrors(errors));
-    })
+    .then(updatedRestaurant => dispatch(receiveRestaurant(updatedRestaurant))
+      , errors => {
+        dispatch(resetCurrentModal());
+        dispatch(receiveErrors(errors));
+      })
     .then(() => dispatch(resetCurrentModal()));
 }
 

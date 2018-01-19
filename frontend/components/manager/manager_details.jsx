@@ -21,8 +21,9 @@ class ManagerDetails extends React.Component {
       e.preventDefault();
       this.setState({ idx: e.currentTarget.id });
     }
+
     this.setState({ selecting: this.state.selecting ? false : true });
-    this.props.restaurant.errors.length > 0
+    this.props.errors.length > 0
       ? this.props.clearErrors()
       : '';
   }
@@ -105,7 +106,7 @@ class ManagerDetails extends React.Component {
   getDetailsSection() {
     const check = ManagerUtil.checkTarget(this.state);
     const errors = (check && check !== 'hours' && check !== 'seatings')
-      ? this.props.restaurant.errors
+      ? this.props.errors
       : '';
     const details = this.getDetailsList();
 
@@ -127,6 +128,7 @@ class ManagerDetails extends React.Component {
 const mapStateToProps = state => ({
   currentUser: state.session.currentUser,
   restaurant: state.restaurants.restaurant,
+  errors: state.restaurants.errors,
 });
 
 const mapDispatchToProps = dispatch => ({

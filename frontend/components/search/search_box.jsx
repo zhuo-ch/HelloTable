@@ -7,8 +7,11 @@ import * as MapUtil from '../../util/map_util';
 class SearchBox extends React.Component {
   constructor(props) {
     super(props);
+    this.state = { showList: false };
     this.handleClick = this.handleClick.bind(this);
+    this.handleOutsideClick = this.handleOutsideClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.handleKey = this.handleKey.bind(this);
     this.getResults = this.getResults.bind(this);
     this.getSearchBox = this.getSearchBox.bind(this);
     this.setDelay = this.setDelay.bind(this);
@@ -17,16 +20,25 @@ class SearchBox extends React.Component {
 
   handleClick(e) {
     e.preventDefault();
-    this.props.setSearchBoxParams({searching: false,
+    this.setState({ showList: true });
+    this.props.setSearchBoxParams({
+      searching: false,
       searchTerm: e.currentTarget.innerText,
       searchId: e.currentTarget.id,
-      searchType: e.currentTarget.type});
+      searchType: e.currentTarget.type
+    });
+  }
+
+  handleOutsideClick(e) {
+    e.preventDefault();
+    this.setState({ showList: false });
+    document.removeEventListener('keydown', this.handleKey);
   }
 
   handleChange(e) {
     e.preventDefault();
     const searchTerm = e.currentTarget.value;
-
+    this.setState({ showList: true });
     if (searchTerm !== '') {
       if (this.props.searchBoxParams.searchTerm.indexOf(searchTerm) !== -1) {
         this.props.setSearchBoxParams({ searchTerm });
@@ -37,6 +49,32 @@ class SearchBox extends React.Component {
       }
     } else {
       this.props.setSearchBoxParams({ searching: false, searchTerm });
+    }
+  }
+
+  handleKey(e) {
+    e.preventDefault();
+
+    if (this.state.showList) {
+      switch (e.key) {
+        case 'Enter':
+          this.props.setSearchParams({ time: this.getSlots()[this.state.targeted] });
+          this.setState({ selecting: false })
+          document.removeEventListener('keydown', this.handleKey);
+          break;
+        case 'ArrowUp':
+          if (this.state.targeted > 0) {
+            this.setState({ targeted: this.state.targeted - 1 });
+          }
+          break;
+        case 'ArrowDown':
+          if (this.state.targeted < this.getSlots().length - 1) {
+            this.setState({ targeted: this.state.targeted + 1 });
+          }
+          break;
+        default:
+          break;
+      }
     }
   }
 
@@ -89,7 +127,7 @@ class SearchBox extends React.Component {
   }
 
   getSearchBox() {
-    const resultList = this.getResults();
+    const resultList = this.state.showList ? this.getResults() : '';
     let cName;
     let pHolder;
 
@@ -119,9 +157,11 @@ class SearchBox extends React.Component {
 
   render() {
     const searchBox = this.getSearchBox();
+    const wrapper = this.state.showList ? '' : 'hidden';
 
     return (
       <section className='search-field'>
+        <div className='input-wrapper' id={ wrapper } onClick={ this.handleOutsideClick }></div>
         { searchBox }
       </section>
     );

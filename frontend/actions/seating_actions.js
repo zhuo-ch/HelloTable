@@ -10,14 +10,20 @@ export const CLEAR_ERRORS = 'CLEAR_ERRORS';
 export const updateSeating = seating => dispatch => {
   return SeatingsAPIUtil.updateSeating(seating)
     .then(updatedSeating => dispatch(receiveSeating(updatedSeating)),
-      err => dispatch(receiveErrors(err)))
+      err => {
+        dispatch(resetCurrentModal());
+        dispatch(receiveErrors(err));
+      })
     .then(() => dispatch(resetCurrentModal()));
 }
 
 export const createSeating = seating => dispatch => {
   return SeatingsAPIUtil.createSeating(seating)
     .then(newSeating => dispatch(receiveSeating(newSeating)),
-      err => dispatch(receiveErrors(err)))
+      err => {
+        dispatch(resetCurrentModal());
+        dispatch(receiveErrors(err));
+      })
     .then(() => dispatch(resetCurrentModal()));
 }
 

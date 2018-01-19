@@ -25,7 +25,6 @@ const _nullRestaurants = Object.freeze({
     images: [],
     location: "",
     city_id: "",
-    errors: [],
   },
   errors: [],
   filter: 'Top Rated'
@@ -44,11 +43,11 @@ const RestaurantsReducer = (state = _nullRestaurants, action) => {
       return _nullRestaurants;
     case RECEIVE_ERRORS:
       const errorsRes = merge({}, state);
-      errorsRes.restaurant.errors = action.errors.responseJSON;
+      errorsRes.errors = action.errors.responseJSON ? action.errors.responseJSON : [];
       return errorsRes;
     case CLEAR_ERRORS:
       const _nullErrors = merge({}, state);
-      _nullErrors.restaurant.errors = [];
+      _nullErrors.errors = [];
       return _nullErrors;
     default:
       return state;
