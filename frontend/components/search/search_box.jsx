@@ -18,6 +18,10 @@ class SearchBox extends React.Component {
     this.getSearchResults = this.getSearchResults.bind(this);
   }
 
+  componentWillUnmount() {
+    this.props.setSearchBoxParams({ searching: false, searchTerm: '', searchId: '', searchType: '' });
+  }
+
   handleClick(e) {
     e.preventDefault();
     this.setState({ showList: true });

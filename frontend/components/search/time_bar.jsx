@@ -101,10 +101,10 @@ class TimeBar extends React.Component {
     return SearchUtil.inputSelect(options);
   }
 
-  getCurrentTime(slots) {
+  getCurrentTime() {
     return (
       <article className='time' id='time' onClick={ this.handleClick }>
-        { this.state.targeted ? this.state.targeted : slots[0] }
+        { this.props.time ? this.props.time : this.state.targeted }
       </article>
     )
   }
@@ -112,7 +112,7 @@ class TimeBar extends React.Component {
   render() {
     const slots = this.getSlots()
     const timeSlots = this.getTimeList(slots);
-    const currentTime = this.getCurrentTime(slots);
+    const currentTime = this.getCurrentTime();
     const cName = this.props.restaurantId ? 'input bar-time res-present' : 'input bar-time';
     const wrapper = this.state.selecting ? '' : 'hidden';
 
