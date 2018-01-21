@@ -1,4 +1,5 @@
 import { connect } from 'react-redux';
+import { withRouter, hashHistory } from 'react-router';
 import React from 'react';
 import FontAwesome from 'react-fontawesome';
 import { setSearchBoxParams, searchRestaurants, filterResults } from '../../actions/search_actions';
@@ -7,11 +8,13 @@ import * as MapUtil from '../../util/map_util';
 class SearchBox extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { showList: false };
+    this.state = { showList: false, targetIdx: -1 };
     this.handleClick = this.handleClick.bind(this);
     this.handleOutsideClick = this.handleOutsideClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleKey = this.handleKey.bind(this);
+    this.handleEnter = this.handleEnter.bind(this);
+    this.handleRedirect = this.handleRedirect.bind(this);
     this.getResults = this.getResults.bind(this);
     this.getSearchBox = this.getSearchBox.bind(this);
     this.setDelay = this.setDelay.bind(this);
@@ -22,9 +25,28 @@ class SearchBox extends React.Component {
     this.props.setSearchBoxParams({ searching: false, searchTerm: '', searchId: '', searchType: '' });
   }
 
+  handleEnter() {
+    let type = 'restaurants';
+    let idx = this.state.targetIdx - this.props.cities.length;
+
+    if (this.state.targetIdx < this.props.cities.length) {
+      type = 'cities';
+      idx = this.state.targetIdx;
+    }
+
+    this.handleRedirect(type, idx);
+  }
+
+  handleRedirect(type, idx) {
+    const typeHeader = type === 'restaurants' ? 'restaurant' : type;
+    const id = this.props[type][idx].id;
+
+    hashHistory.push(`${typeHeader}/${id}`);
+  }
+
   handleClick(e) {
     e.preventDefault();
-    this.setState({ showList: true });
+    this.setState({ showList: false });
     this.props.setSearchBoxParams({
       searching: false,
       searchTerm: e.currentTarget.innerText,
@@ -34,16 +56,17 @@ class SearchBox extends React.Component {
   }
 
   handleOutsideClick(e) {
-    e.preventDefault();
+    if (e) e.preventDefault();
     this.setState({ showList: false });
     document.removeEventListener('keydown', this.handleKey);
   }
 
   handleChange(e) {
-    e.preventDefault();
+    if (e) e.preventDefault();
     const searchTerm = e.currentTarget.value;
     this.setState({ showList: true });
     if (searchTerm !== '') {
+      document.addEventListener('keydown', this.handleKey);
       if (this.props.searchBoxParams.searchTerm.indexOf(searchTerm) !== -1) {
         this.props.setSearchBoxParams({ searchTerm });
         this.props.filterResults(searchTerm);
@@ -52,28 +75,29 @@ class SearchBox extends React.Component {
         this.setDelay();
       }
     } else {
+      this.handleOutsideClick();
       this.props.setSearchBoxParams({ searching: false, searchTerm });
     }
   }
 
   handleKey(e) {
-    e.preventDefault();
-
     if (this.state.showList) {
+      e.preventDefault();
+
       switch (e.key) {
         case 'Enter':
-          this.props.setSearchParams({ time: this.getSlots()[this.state.targeted] });
-          this.setState({ selecting: false })
-          document.removeEventListener('keydown', this.handleKey);
+          this.setState({ selecting: false });
+          this.handleOutsideClick();
+          this.handleEnter();
           break;
         case 'ArrowUp':
-          if (this.state.targeted > 0) {
-            this.setState({ targeted: this.state.targeted - 1 });
+          if (this.state.targetIdx > 0) {
+            this.setState({ targetIdx: this.state.targetIdx - 1 });
           }
           break;
         case 'ArrowDown':
-          if (this.state.targeted < this.getSlots().length - 1) {
-            this.setState({ targeted: this.state.targeted + 1 });
+          if (this.state.targetIdx < this.props.cities.length + 9) {
+            this.setState({ targetIdx: this.state.targetIdx + 1 });
           }
           break;
         default:
@@ -95,30 +119,44 @@ class SearchBox extends React.Component {
     this.props.setSearchBoxParams({ timer });
   }
 
-  getResults() {
-    const toggle = (this.props.searchBoxParams.searching ? 'search-list' : 'no-search');
-
-    const cities = this.props.cities.map((city) => {
-      return (<li key={city.id * 1000}
-        onClick={ this.handleClick }
-        id={ city.id }
-        type='cities'>
-        { city.name } { city.state }
-      </li>);
+  getCities() {
+    return this.props.cities.map((city, idx) => {
+      return (
+        <li key={city.id * 1000}
+          onClick={ this.handleClick }
+          id={ city.id }
+          className={ this.state.showList && this.state.targetIdx === idx ? 'highlight' : '' }
+          type='cities'>
+          { city.name } { city.state }
+        </li>
+      );
     });
+  }
 
-    const restaurants = this.props.restaurants.map((res) => {
+  getRestaurants() {
+    return this.props.restaurants.slice(0, 10).map((res, idx) => {
       const address = MapUtil.parseAddress(res.address).city.split(', ');
       const city = address[0];
       const state = address[1].split(' ')[0];
+      const targeted = this.state.showList && (this.state.targetIdx === idx + this.props.cities.length);
 
-      return (<li key={ res.id }
-        onClick={ this.handleClick }
-        id={ res.id }
-        type='restaurant'>
-        { res.name }, { city } { state }
-      </li>);
+      return (
+        <li
+          key={ res.id }
+          onClick={ this.handleClick }
+          id={ res.id }
+          className={ targeted ? 'highlight' : '' }
+          type='restaurant'>
+          { res.name }, { city } { state }
+        </li>
+      );
     });
+  }
+
+  getResults() {
+    const toggle = (this.props.searchBoxParams.searching ? 'search-list' : 'no-search');
+    const cities = this.getCities();
+    const restaurants = this.getRestaurants();
 
     return (
       <ul className={ toggle }>
@@ -185,4 +223,4 @@ const mapDispatchToProps = dispatch => ({
   filterResults: searchTerm => dispatch(filterResults(searchTerm)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(SearchBox);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SearchBox));
