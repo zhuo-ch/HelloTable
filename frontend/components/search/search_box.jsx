@@ -111,6 +111,8 @@ class SearchBox extends React.Component {
           this.handleSearchTermChange(e);
           break;
       }
+    } else {
+      this.handleSearchTermChange(e);
     }
   }
 
