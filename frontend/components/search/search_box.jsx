@@ -13,6 +13,7 @@ class SearchBox extends React.Component {
     this.handleOutsideClick = this.handleOutsideClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleKey = this.handleKey.bind(this);
+    this.handleSearchTermChange = this.handleSearchTermChange.bind(this);
     this.handleEnter = this.handleEnter.bind(this);
     this.handleRedirect = this.handleRedirect.bind(this);
     this.getResults = this.getResults.bind(this);
@@ -62,45 +63,52 @@ class SearchBox extends React.Component {
   }
 
   handleChange(e) {
-    if (e) e.preventDefault();
     const searchTerm = e.currentTarget.value;
-    this.setState({ showList: true });
     if (searchTerm !== '') {
+      this.setState({ showList: true });
+      document.removeEventListener('keydown', this.handleKey);
       document.addEventListener('keydown', this.handleKey);
-      if (this.props.searchBoxParams.searchTerm.indexOf(searchTerm) !== -1) {
-        this.props.setSearchBoxParams({ searchTerm });
-        this.props.filterResults(searchTerm);
-      } else {
-        this.props.setSearchBoxParams({ searchTerm });
-        this.setDelay();
-      }
+      this.handleKey(e);
     } else {
-      this.handleOutsideClick();
-      this.props.setSearchBoxParams({ searching: false, searchTerm });
+    this.handleOutsideClick();
+    this.props.setSearchBoxParams({ searching: false, searchTerm });
+    }
+  }
+
+  handleSearchTermChange(e) {
+    const searchTerm = e.currentTarget.value;
+    if (this.props.searchBoxParams.searchTerm.indexOf(searchTerm) !== -1) {
+      this.props.setSearchBoxParams({ searchTerm });
+      this.props.filterResults(searchTerm);
+    } else {
+      this.props.setSearchBoxParams({ searchTerm });
+      this.setDelay();
     }
   }
 
   handleKey(e) {
     if (this.state.showList) {
-      e.preventDefault();
-
       switch (e.key) {
         case 'Enter':
+          e.preventDefault();
           this.setState({ selecting: false });
           this.handleOutsideClick();
           this.handleEnter();
           break;
         case 'ArrowUp':
+          e.preventDefault();
           if (this.state.targetIdx > 0) {
             this.setState({ targetIdx: this.state.targetIdx - 1 });
           }
           break;
         case 'ArrowDown':
+          e.preventDefault();
           if (this.state.targetIdx < this.props.cities.length + 9) {
             this.setState({ targetIdx: this.state.targetIdx + 1 });
           }
           break;
         default:
+          this.handleSearchTermChange(e);
           break;
       }
     }
