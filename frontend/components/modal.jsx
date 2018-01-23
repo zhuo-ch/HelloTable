@@ -12,7 +12,6 @@ class Modal extends React.Component {
   constructor(props) {
     super(props)
     this.hideModal = this.hideModal.bind(this);
-    this.getSpinner = this.getSpinner.bind(this);
   }
 
   hideModal(e) {
@@ -53,11 +52,11 @@ class Modal extends React.Component {
 
   render() {
     const currentModal = this.getCurrentModal();
-    const currentClassName = this.props.modal.hidden ? 'hidden' : '';
+    const currentId = this.props.modal.hidden ? 'hidden' : '';
 
     return (
-      <div className='modal' id={ currentClassName }>
-        <div className='overlay' onClick={this.hideModal}></div>
+      <div className='modal' id={ currentId }>
+        <div className='overlay' onClick={ this.hideModal }></div>
         { currentModal }
       </div>
     )
