@@ -58,10 +58,9 @@ class ReservationsSnippet extends React.Component {
   }
 
   getQuery(params) {
-    const time = parseInt(params.time.split(':').join(''));
     const seating_id = SearchUtil.getSeatsObj(params, this.props.restaurant.seatings).id;
 
-    return merge({}, params, { restaurantId: this.props.restaurant.id, time, seating_id });
+    return merge({}, params, { restaurantId: this.props.restaurant.id, seating_id });
   }
 
   getReservationsList() {

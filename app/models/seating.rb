@@ -8,7 +8,7 @@ class Seating < ActiveRecord::Base
   has_many :reservations
 
   def self.availabilities(query)
-    time = query[:time].to_i + 1200
+    time = query[:time].to_i
     seating = Reservation.joins(:seating)
       .select(:time, "seating_id")
       .where("date = ?", query[:date])
@@ -21,7 +21,7 @@ class Seating < ActiveRecord::Base
     results = { seating_id: query["seating_id"] }
     arr.each { |a| results[a] = true }
     seating.each { |seat| results[seat.time] = false }
-
+debugger
     results
   end
 

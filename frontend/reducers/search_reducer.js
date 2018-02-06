@@ -17,8 +17,8 @@ const _nullSearch = Object.freeze ({
   restaurants: [],
   searchParams: {
     seats: 2,
-    date: DateUtil.getNewDate(),
-    time: DateUtil.getNewTime(),
+    date: DateUtil.dateToString(new Date()),
+    time: DateUtil.timeStringToInt(DateUtil.getNewTime()),
     timeSlots: [],
   },
   searchBoxParams: {

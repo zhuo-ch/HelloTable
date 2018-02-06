@@ -71,7 +71,7 @@ class TimeBar extends React.Component {
     if (!this.isCurrentDate()) {
       return { startTime: 13, minutes: 0, endTime: 24 };
     } else {
-      const newTime = DateUtil.timeToArr(DateUtil.getNewTime());
+      const newTime = DateUtil.format12Hour(DateUtil.timeStringToInt(DateUtil.getNewTime()));
       const hour = newTime[newTime.length - 1] === 'PM' ? parseInt(newTime[0]) + 12 : parseInt(newTime[0]);
       if (newTime[1] < 30) {
         return { startTime: hour, minutes: 30, endTime: 24 };
