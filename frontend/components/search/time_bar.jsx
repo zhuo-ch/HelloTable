@@ -64,7 +64,7 @@ class TimeBar extends React.Component {
   }
 
   isCurrentDate() {
-    return this.props.date === DateUtil.getNewDate();
+    return this.props.date === DateUtil.dateToString(new Date());
   }
 
   getStartTime() {
