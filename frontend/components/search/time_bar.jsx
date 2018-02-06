@@ -58,7 +58,6 @@ class TimeBar extends React.Component {
       document.addEventListener('keydown', this.handleKey);
     } else {
       this.setState({ selecting: false, targeted: e.currentTarget.innerText ? e.currentTarget.innerText : 0 });
-      debugger
       this.props.setSearchParams({ time: DateUtil.timeStringToInt(e.currentTarget.innerText) });
       document.removeEventListener('keydown', this.handleKey);
     }
