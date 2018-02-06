@@ -33,7 +33,7 @@ class SearchBar extends React.Component {
   handleDateChange(e) {
     e.preventDefault();
     const date = DateUtil.dateToString(e.currentTarget.value.replace('-', '/'));
-debugger
+
     this.props.setSearchParams({ date });
   }
 
