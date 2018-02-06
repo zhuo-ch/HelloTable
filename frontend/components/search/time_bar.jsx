@@ -30,7 +30,7 @@ class TimeBar extends React.Component {
       e.preventDefault();
       switch (e.key) {
         case 'Enter':
-          this.props.setSearchParams({ time: this.getSlots()[this.state.targeted] });
+          this.props.setSearchParams({ time: DateUtil.timeStringToInt(this.getSlots()[this.state.targeted]) });
           this.setState({ selecting: false })
           document.removeEventListener('keydown', this.handleKey);
           break;
@@ -58,7 +58,7 @@ class TimeBar extends React.Component {
       document.addEventListener('keydown', this.handleKey);
     } else {
       this.setState({ selecting: false, targeted: e.currentTarget.innerText ? e.currentTarget.innerText : 0 });
-      this.props.setSearchParams({ time: e.currentTarget.innerText });
+      this.props.setSearchParams({ time: DateUtil.timeStringToInt(e.currentTarget.innerText) });
       document.removeEventListener('keydown', this.handleKey);
     }
   }
@@ -104,7 +104,7 @@ class TimeBar extends React.Component {
   getCurrentTime() {
     return (
       <article className='time' id='time' onClick={ this.handleClick }>
-        { this.props.time ? this.props.time : this.state.targeted }
+        { this.props.time ? DateUtil.format12Hour(this.props.time) : this.state.targeted }
       </article>
     )
   }
