@@ -58,6 +58,7 @@ class TimeBar extends React.Component {
       document.addEventListener('keydown', this.handleKey);
     } else {
       this.setState({ selecting: false, targeted: e.currentTarget.innerText ? e.currentTarget.innerText : 0 });
+      debugger
       this.props.setSearchParams({ time: DateUtil.timeStringToInt(e.currentTarget.innerText) });
       document.removeEventListener('keydown', this.handleKey);
     }
@@ -71,8 +72,10 @@ class TimeBar extends React.Component {
     if (!this.isCurrentDate()) {
       return { startTime: 13, minutes: 0, endTime: 24 };
     } else {
-      const newTime = DateUtil.format12Hour(DateUtil.timeStringToInt(DateUtil.getNewTime()));
+      const timeString = DateUtil.format12Hour(DateUtil.timeStringToInt(DateUtil.getNewTime()));
+      const newTime = DateUtil.timeToArr(timeString);
       const hour = newTime[newTime.length - 1] === 'PM' ? parseInt(newTime[0]) + 12 : parseInt(newTime[0]);
+
       if (newTime[1] < 30) {
         return { startTime: hour, minutes: 30, endTime: 24 };
       } else {
