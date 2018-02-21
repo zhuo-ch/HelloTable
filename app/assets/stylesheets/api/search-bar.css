@@ -170,6 +170,7 @@
   border-bottom-left-radius: 0px;
   font-size: 18px;
   background: #F13737;
+  padding-left: 3%;
 }
 
 input[type=date]::-webkit-inner-spin-button {
