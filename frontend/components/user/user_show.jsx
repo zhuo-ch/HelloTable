@@ -99,12 +99,14 @@ class UserShow extends React.Component {
     );
   }
 
-  getFavorites(user) {
-    if (user) {
-      return Object.keys(this.props.user.favorites).map(key => {
+  getFavorites() {
+    if (this.props.user.hasOwnProperty('favorites')) {
+      const favorites = this.props.user.favorites;
+
+      return Object.keys(favorites).map(key => {
         return (
-          <section className='show-fav' key={key}>
-            <RestaurantSnippet restaurant={this.props.user.favorites[key].restaurant} />
+          <section className='show-fav' key={ key }>
+            <RestaurantSnippet restaurant={ favorites[key].restaurant } />
           </section>
         );
       });
