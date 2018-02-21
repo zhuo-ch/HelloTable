@@ -44,7 +44,7 @@ const RestaurantSnippet = ({ restaurant }) => {
         </article>
       </article>
       <article className='snippet-review'>
-        <FavoriteBox restaurantId={restaurant.id.toString()}/>
+        <FavoriteBox restaurantId={ restaurant.id }/>
         <p>{ restaurant.ratings.details }</p>
       </article>
     </section>

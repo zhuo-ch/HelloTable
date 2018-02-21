@@ -22,12 +22,18 @@ class FavoriteBox extends React.Component {
 
   handleRemove() {
     if (this.props.currentUser.id) {
-      this.props.removeFavorite(this.props.favorites[this.props.restaurantId]);
+      const favorites = this.props.favorites;
+      const favId = Object.keys(favorites).find(key => {
+        return favorites[key].restaurant_id === this.props.restaurantId;
+      });
+      this.props.removeFavorite(favorites[favId]);
     }
   }
 
   getFillData() {
-    if (this.props.favorites[this.props.restaurantId]) {
+    const favorites = this.props.favorites;
+
+    if (Object.keys(favorites).find(key => favorites[key].restaurant_id === this.props.restaurantId)) {
       return { fave: 1, text: 'Favorited', toggle: this.handleRemove, cName: 'favorite-box favorited' };
     } else {
       return { fave: 0, text: 'Add to Favorites', toggle: this.handleAdd, cName: 'favorite-box not-favorited' };
