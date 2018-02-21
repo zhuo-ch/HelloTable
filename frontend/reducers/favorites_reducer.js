@@ -10,16 +10,15 @@ const FavoritesReducer = (state = _nullFavorites, action) => {
   Object.freeze(state)
   switch (action.type) {
     case RECEIVE_FAVORITES:
-      const favorites = FavoritesSelector.faves(action.favorites);
-      return favorites;
+      return FavoritesSelector.faves(action.favorites);
     case RECEIVE_USER:
       return FavoritesSelector.faves(action.user.favorites);
     case RECEIVE_FAVORITE:
-    const favorite = FavoritesSelector.fave(action.favorite);
+      const favorite = FavoritesSelector.fave(action.favorite);
       return merge({}, state, favorite);
     case REMOVE_FAVORITE:
       let newState = merge({}, state);
-      delete newState[action.favorite.restaurant_id];
+      delete newState[action.favorite.id];
       return newState;
     case LOGOUT:
       return _nullFavorites

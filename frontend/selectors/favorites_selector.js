@@ -9,6 +9,5 @@ export const faves = favorites => {
 }
 
 export const fave = favorite => {
-  const id = favorite.restaurant_id;
-  return {[id]: favorite};
+  return {[favorite.id]: favorite};
 }
