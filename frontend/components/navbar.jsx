@@ -33,6 +33,12 @@ class Navbar extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
+    if (this.props.currentUser.hasOwnProperty('id')) {
+      this.checkScroll(prevProps, prevState);
+    }
+  }
+
+  checkScroll(prevProps, prevState) {
     const hasScrollItems = (this.props.reservations > 0) || (Object.keys(this.props.favorites).length > 0);
     const x = hasScrollItems && this.state.type === ''
     const y = prevProps.reservations !== this.props.reservations;
