@@ -8,7 +8,7 @@ body, main, div, section, a, input, li {
   text-align: inherit;
   text-decoration: inherit;
   vertical-align: inherit;
-  box-sizing: inherit;
+  box-sizing: border-box;
   background: transparent;
   opacity: inherit;
 }
