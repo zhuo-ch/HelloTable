@@ -33,9 +33,14 @@
 .page-list {
   display: flex;
   flex: 1;
+  height: 3vw;
   justify-content: space-around;
   align-items: center;
   border-bottom: 1px solid gainsboro;
+}
+
+.page-list .highlight {
+  font-size: 1.5vw;
 }
 
 .clickable:hover {
