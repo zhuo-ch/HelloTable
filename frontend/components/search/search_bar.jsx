@@ -48,11 +48,18 @@ class SearchBar extends React.Component {
       />);
   }
 
+  checkPath() {
+    return this.props.location.pathname.includes('restaurant');
+  }
+
   render() {
     const dateBox = this.getDateBox();
     const head = this.props.header ? this.props.header : "";
-    const searchBox = this.props.restaurantId ? '' : <SearchBox nullSearch={ this.state.nullSearch } />;
-    const searchButton = this.props.restaurantId ? '' : <input type='submit' className='bar-submit' value='Search' onClick={ this.handleSubmit }></input>;
+    const inRestaurant = this.checkPath();
+    const searchBox = inRestaurant ? '' : <SearchBox nullSearch={ this.state.nullSearch } />;
+    const searchButton = inRestaurant
+      ? ''
+      : <input type='submit' className='bar-submit' value='Search' onClick={ this.handleSubmit }></input>;
 
     return (
       <div className='search-bar'>
