@@ -114,7 +114,7 @@ class UserShow extends React.Component {
   }
 
   getManager() {
-    return this.props.manager ? ManagerUtil.createButton(`Manage my Restaurant`, this.handleManager) : '';
+    return this.props.manager.id ? ManagerUtil.createButton(`Manage my Restaurant`, this.handleManager) : '';
   }
 
   render() {
