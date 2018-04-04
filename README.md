@@ -40,12 +40,16 @@
 
 ### Users
 
+![HelloTable User Show Page ScreenShot](public/images/user-show.png)
+
 * Users must log in to view the profile page, add restaurants, create and cancel reservations, or edit restaurant.
 * On the user profile page, users can view and cancel upcoming reservations as well as view previous reservations.
 * Logged in users can leave reviews for completed reservations.
 * From the front page, users navigate to a form where they can add restaurants (if logged in).
 
 ### Restaurants
+
+![HelloTable Restaurant Show Page ScreenShot](public/images/restaurant-show.png)
 
 * Restaurants can be added by any user. Once created, restaurants are fairly static items.
 * Each user can manage/edit one restaurant at a time.
