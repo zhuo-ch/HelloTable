@@ -1,5 +1,5 @@
 ## General Description
-![HelloTable ScreenShot](https://github.com/zhuo-ch/HelloTable/tree/master/public/images/hello-table-full.png)
+![HelloTable ScreenShot](public/images/hello-table-full.png)
 [HelloTable](https://hellotable.herokuapp.com/#/) is an HelloTable inspired clone where a user can browse, search, and view restaurants. If a user likes what they see, a reservation can be made.
 
 ## Features
